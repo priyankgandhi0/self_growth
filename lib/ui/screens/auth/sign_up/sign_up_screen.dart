@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -71,6 +72,9 @@ class SignUpScreen extends StatelessWidget {
                           showPrefixIcon: false,
                           showSuffixIcon: false,
                           labelTextSize: 14.sp,
+                          inputFormatter: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           textEditingController: ctrl.phoneNoCon,
                           hintText: enterPhoneNumberText,
                           validator: (value) {},

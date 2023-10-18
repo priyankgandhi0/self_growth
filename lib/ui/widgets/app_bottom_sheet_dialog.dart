@@ -25,10 +25,12 @@ Future<Object?> appCustomBottomSheet({
           ),
           child: Container(
             color: Colors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [child],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [child],
+              ),
             ),
           ),
         ),
