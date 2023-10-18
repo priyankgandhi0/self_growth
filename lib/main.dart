@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:self_growth/core/constants/app_colors.dart';
 
 import 'config/routes/router.dart';
 
@@ -17,6 +18,12 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          scaffoldBackgroundColor: background_EBEBEB,
+          splashColor: grey_969696,
+          useMaterial3: true,
+        ),
         getPages: Routes.pages,
         initialRoute: Routes.onboarding,
       ),

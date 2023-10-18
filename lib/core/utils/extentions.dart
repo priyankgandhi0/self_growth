@@ -66,6 +66,31 @@ extension AddText on String {
   }
 }
 
+TextStyle getTextStyle(
+    {Color fontColor = black_000000,
+    bool? opacity,
+    double? fontSize,
+    TextAlign textAlign = TextAlign.center,
+    FontWeight fontWeight = FontWeight.w500,
+    TextOverflow? textOverflow,
+    int? maxLines,
+    TextDecoration? decoration,
+    double? letterSpacing,
+    String? fontFamily,
+    FontStyle? fontStyle,
+    Color? decorationColor}) {
+  return GoogleFonts.plusJakartaSans(
+    fontSize: fontSize?.sp ?? 16.sp,
+    color: (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
+    fontWeight: fontWeight,
+    fontStyle: fontStyle ?? FontStyle.normal,
+    decoration: decoration ?? TextDecoration.none,
+    letterSpacing: letterSpacing ?? 0,
+    decorationColor:
+        (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
+  );
+}
+
 bool isEmailValid(String email) {
   Pattern pattern =
       r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -100,6 +125,19 @@ class CardNumberFormatter extends TextInputFormatter {
       selection: TextSelection.collapsed(
         offset: string.length,
       ),
+    );
+  }
+}
+
+class PhoneInputFormatter extends TextInputFormatter {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final text = newValue.text.replaceAll(RegExp(r'\D'), '');
+    final offset = text.length + 1;
+
+    return newValue.copyWith(
+      text: text.length >= 1 ? '+$text' : '',
+      selection: TextSelection.collapsed(offset: offset),
     );
   }
 }
