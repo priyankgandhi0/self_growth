@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:self_growth/config/routes/router.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
@@ -84,7 +83,7 @@ class PersonalInfoScreen extends StatelessWidget {
                       validator: (value) {},
                     ),
                   ],
-                ).paddingSymmetric(vertical: 20.w),
+                ).paddingSymmetric(vertical: 20.w, horizontal: 20),
               ).paddingSymmetric(horizontal: 20.w)
             ],
           ),
