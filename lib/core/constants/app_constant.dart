@@ -1,5 +1,3 @@
-
-
 class RequestParam {
   static const service = "Service"; // -> pass method name
   static const showError = "show_error"; // -> bool in String
@@ -19,4 +17,10 @@ class RequestHeaderKey {
 }
 
 const bool isLiveMode = false;
-String userTypeApp = '';//user,mentor
+String userTypeApp = ''; //user,mentor
+
+enum Gender {
+  Male,
+  Female,
+  Other,
+}
