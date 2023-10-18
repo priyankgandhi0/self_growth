@@ -88,12 +88,11 @@ class SignUpScreen extends StatelessWidget {
                           validator: (value) {},
                         ),
                       ],
-                    ).paddingSymmetric(vertical: 20.w),
+                    ).paddingSymmetric(vertical: 20.w, horizontal: 20.w),
                   ).paddingSymmetric(horizontal: 20.w),
                   Positioned(
                       top: -50.w,
-                      left: 0,
-                      right: 0,
+                      left: MediaQuery.sizeOf(context).width / 2.9,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +101,6 @@ class SignUpScreen extends StatelessWidget {
                               height: 100.w, width: 100.w, fit: BoxFit.contain),
                           15.w.spaceH(),
                           BorderButton(
-                            width: 100.w,
                             title: addStickerText,
                             onTap: () {},
                           ),

@@ -36,7 +36,7 @@ class OnboardingScreen extends StatelessWidget {
                               : doteColor,
                         ).paddingSymmetric(horizontal: 1.w)),
               ),
-            ).paddingOnly(bottom: ctrl.initialPage == 0 ? 25.h : 60.h),
+            ).paddingOnly(bottom: ctrl.initialPage == 0 ? 60.w : 90.w),
             Visibility(
               visible: ctrl.initialPage == 0,
               child: RoundAppButton(

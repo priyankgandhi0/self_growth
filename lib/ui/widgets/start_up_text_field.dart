@@ -17,9 +17,10 @@ class AppTextField extends StatefulWidget {
   final double suffixIconWidth;
   final TextStyle? hintTextStyle;
   final TextStyle? textStyle;
-  final String prefixIcon;
+  final String? prefixIcon;
   final bool showPrefixIcon;
-  final String suffixIcon;
+  final String? suffixIcon;
+  final String obscuringCharacter;
   final bool? showSuffixIcon;
 
   final TextEditingController? textEditingController;
@@ -41,8 +42,8 @@ class AppTextField extends StatefulWidget {
       {Key? key,
       this.labelText = '',
       this.textEditingController,
-      required this.prefixIcon,
-      required this.suffixIcon,
+      this.prefixIcon,
+      this.suffixIcon,
       this.hintTextStyle,
       this.textStyle,
       this.maxLines = 1,
@@ -60,7 +61,8 @@ class AppTextField extends StatefulWidget {
       this.suffixIconHeight = 24,
       this.prefixIconWidth = 20,
       this.suffixIconWidth = 24,
-      this.hintText = ''})
+      this.hintText = '',
+      this.obscuringCharacter = '.'})
       : super(key: key);
 
   @override
