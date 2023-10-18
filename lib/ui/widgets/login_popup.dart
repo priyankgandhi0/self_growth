@@ -20,100 +20,97 @@ class LoginPopup extends StatelessWidget {
   TextEditingController phoneNumberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      width: Get.width,
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            12.0.spaceH(),
-            "Login".appTextStyle(fontSize: 32, fontWeight: FontWeight.w600),
-            20.0.spaceH(),
-            AppTextField(
-              textEditingController: emailController,
-              labelText: "E-mail",
-              hintText: "Email",
-              validator: (value) {
-                if (!value.isEmail) {
-                  return "please enter valid email";
-                }
-              },
-              suffixIcon: '',
-              prefixIcon: '',
-            ),
-            20.0.spaceH(),
-            AppTextField(
-              textEditingController: phoneNumberController,
-              labelText: "Phone number",
-              hintText: "Phone number",
-              validator: (value) {
-                if (!value.isPhoneNumber) {
-                  return "please enter valid phone number";
-                }
-              },
-              inputFormatter: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              suffixIcon: '',
-              prefixIcon: '',
-            ),
-            20.0.spaceH(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Align(
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          12.0.spaceH(),
+          "Login".appTextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+          20.0.spaceH(),
+          AppTextField(
+            textEditingController: emailController,
+            labelText: "E-mail",
+            hintText: "Email",
+            validator: (value) {
+              if (!value.isEmail) {
+                return "please enter valid email";
+              }
+            },
+            suffixIcon: '',
+            prefixIcon: '',
+          ),
+          20.0.spaceH(),
+          AppTextField(
+            textEditingController: phoneNumberController,
+            labelText: "Phone number",
+            hintText: "Phone number",
+            validator: (value) {
+              if (!value.isPhoneNumber) {
+                return "please enter valid phone number";
+              }
+            },
+            inputFormatter: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            suffixIcon: '',
+            prefixIcon: '',
+          ),
+          20.0.spaceH(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: "Password".appTextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  onForgotPassword();
+                },
+                child: Align(
                   alignment: Alignment.centerLeft,
-                  child: "Password".appTextStyle(
+                  child: "Forgot password?".appTextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 14.sp,
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    onForgotPassword();
-                  },
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: "Forgot password?".appTextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            (8).spaceH(),
-            AppTextField(
-              textEditingController: passwordController,
-              hintText: "Password",
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "please enter valid password";
-                } else if (value.length < 6) {
-                  return "The password must be 6 (six) character long";
+              ),
+            ],
+          ),
+          (8).spaceH(),
+          AppTextField(
+            textEditingController: passwordController,
+            hintText: "Password",
+            validator: (value) {
+              if (value.isEmpty) {
+                return "please enter valid password";
+              } else if (value.length < 6) {
+                return "The password must be 6 (six) character long";
+              }
+            },
+            suffixIcon: '',
+            prefixIcon: '',
+          ),
+          (20).spaceH(),
+          AppButton(
+              title: "Login",
+              onPress: () {
+                if (_formKey.currentState!.validate()) {
+                  onLogin(LoginReturnType(
+                    email: emailController.text,
+                    phoneNumber: phoneNumberController.text,
+                    password: passwordController.text,
+                  ));
                 }
-              },
-              suffixIcon: '',
-              prefixIcon: '',
-            ),
-            (20).spaceH(),
-            AppButton(
-                title: "Login",
-                onPress: () {
-                  if (_formKey.currentState!.validate()) {
-                    onLogin(LoginReturnType(
-                      email: emailController.text,
-                      phoneNumber: phoneNumberController.text,
-                      password: passwordController.text,
-                    ));
-                  }
-                }),
-            (12).spaceH(),
-          ],
-        ).paddingAll(20),
-      ),
+              }),
+          (12).spaceH(),
+        ],
+      ).paddingAll(20),
     );
   }
 }

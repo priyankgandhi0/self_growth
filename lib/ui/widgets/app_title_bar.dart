@@ -60,8 +60,10 @@ class WithOutTitleAppBar extends StatelessWidget {
       child: Row(
         children: [
           showBackButton
-              ? GestureDetector(
-                  onTap: onTap, child: SvgPicture.asset(Assets.iconsBackArrow))
+              ? InkWell(
+                  splashFactory: NoSplash.splashFactory,
+                  onTap: onTap,
+                  child: SvgPicture.asset(Assets.iconsBackArrow))
               : const SizedBox(),
           const Spacer(),
           suffixWidget,

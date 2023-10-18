@@ -14,7 +14,7 @@ class PageViewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        390.w.spaceH(),
+        // 400.w.spaceH(),
         title
             .appTextStyle(
                 fontColor: black_000000,

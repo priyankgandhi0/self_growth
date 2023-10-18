@@ -57,7 +57,7 @@ class PickFile {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 title: selectImageText.appTextStyle(
-                    fontColor: background_F5F5F5, fontWeight: FontWeight.bold),
+                    fontColor: black_000000, fontWeight: FontWeight.bold),
                 children: [
                   ListTile(
                     title: photoLibraryText.appTextStyle(
