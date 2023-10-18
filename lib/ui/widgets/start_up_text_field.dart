@@ -109,6 +109,7 @@ class _AppTextFieldState extends State<AppTextField> {
         if (widget.labelText.isNotEmpty) (8).spaceH(),
         SizedBox(
           child: TextFormField(
+            obscuringCharacter: widget.obscuringCharacter,
             maxLines: widget.maxLines,
             controller: widget.textEditingController,
             keyboardType: widget.keyboardType ?? TextInputType.text,
@@ -136,7 +137,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 right: 10,
               ),
               prefixIcon: widget.showPrefixIcon
-                  ? SvgGenImage(widget.prefixIcon)
+                  ? SvgGenImage(widget.prefixIcon!)
                       .svg(
                           height: widget.prefixIconHeight,
                           width: widget.prefixIconWidth,
@@ -146,7 +147,7 @@ class _AppTextFieldState extends State<AppTextField> {
                       .paddingAll(16.sp)
                   : null,
               suffixIcon: widget.showSuffixIcon ?? true
-                  ? SvgGenImage(widget.suffixIcon)
+                  ? SvgGenImage(widget.suffixIcon!)
                       .svg(
                           height: widget.suffixIconHeight,
                           width: widget.suffixIconWidth,

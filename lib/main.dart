@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
         theme: ThemeData(
           scaffoldBackgroundColor: background_EBEBEB,
           splashColor: grey_969696,

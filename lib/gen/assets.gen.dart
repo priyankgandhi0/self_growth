@@ -20,8 +20,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/back_arrow.svg
   SvgGenImage get backArrow => const SvgGenImage('assets/icons/back_arrow.svg');
 
+  /// File path: assets/icons/image.svg
+  SvgGenImage get image => const SvgGenImage('assets/icons/image.svg');
+
+  /// File path: assets/icons/profile.svg
+  SvgGenImage get profile => const SvgGenImage('assets/icons/profile.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [addTo, backArrow];
+  List<SvgGenImage> get values => [addTo, backArrow, image, profile];
 }
 
 class Assets {
