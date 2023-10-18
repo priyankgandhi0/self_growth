@@ -17,14 +17,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       child: GetMaterialApp(
-        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+
         theme: ThemeData(
           scaffoldBackgroundColor: background_EBEBEB,
           splashColor: grey_969696,
           useMaterial3: true,
         ),
         getPages: Routes.pages,
-        initialRoute: Routes.test,
+        initialRoute: Routes.onboarding,
       ),
     );
   }
