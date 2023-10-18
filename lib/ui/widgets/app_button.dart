@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
@@ -26,5 +27,66 @@ class AppButton extends StatelessWidget {
             onPressed: () {},
             child: title.appTextStyle(fontColor: fontColor ?? white_FFFFFF))
         .paddingSymmetric(horizontal: 32);
+  }
+}
+
+class RoundAppButton extends StatelessWidget {
+  const RoundAppButton(
+      {Key? key,
+      required this.title,
+      required this.onTap,
+      this.color,
+      this.textColor})
+      : super(key: key);
+  final String title;
+  final Color? color;
+  final Color? textColor;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 48.w,
+        width: Get.width,
+        decoration: BoxDecoration(
+          color: color ?? grey_969696,
+          borderRadius: BorderRadius.circular(30.r),
+        ),
+        child: Center(
+            child: title.appTextStyle(
+                fontColor: textColor ?? white_FFFFFF,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600)),
+      ),
+    );
+  }
+}
+
+class BorderButton extends StatelessWidget {
+  const BorderButton({Key? key, this.onTap, required this.title, this.width})
+      : super(key: key);
+  final void Function()? onTap;
+  final String title;
+  final double? width;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: onTap,
+        child: Container(
+            width: width,
+            height: 38.w,
+            decoration: BoxDecoration(
+                color: white_FFFFFF,
+                borderRadius: BorderRadius.circular(40.r),
+                border: Border.all(color: greyBorderColor)),
+            child: Center(
+              child: title
+                  .appTextStyle(
+                      fontColor: black_000000,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14.sp)
+                  .paddingSymmetric(horizontal: 10.w),
+            )));
   }
 }

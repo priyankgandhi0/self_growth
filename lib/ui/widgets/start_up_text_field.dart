@@ -17,9 +17,9 @@ class AppTextField extends StatefulWidget {
   final double suffixIconWidth;
   final TextStyle? hintTextStyle;
   final TextStyle? textStyle;
-  final String prefixIcon;
+  final String? prefixIcon;
   final bool showPrefixIcon;
-  final String suffixIcon;
+  final String? suffixIcon;
   final bool? showSuffixIcon;
 
   final TextEditingController? textEditingController;
@@ -29,7 +29,7 @@ class AppTextField extends StatefulWidget {
   final EdgeInsets? textFieldPadding;
   final double? labelTextSize;
   final bool obscureText;
-
+  final String obscuringCharacter;
   final bool isError;
 
   final TextInputType? keyboardType;
@@ -41,8 +41,8 @@ class AppTextField extends StatefulWidget {
       {Key? key,
       this.labelText = '',
       this.textEditingController,
-      required this.prefixIcon,
-      required this.suffixIcon,
+      this.prefixIcon,
+      this.suffixIcon,
       this.hintTextStyle,
       this.textStyle,
       this.maxLines = 1,
@@ -60,7 +60,8 @@ class AppTextField extends StatefulWidget {
       this.suffixIconHeight = 24,
       this.prefixIconWidth = 20,
       this.suffixIconWidth = 24,
-      this.hintText = ''})
+      this.hintText = '',
+      this.obscuringCharacter = '•'})
       : super(key: key);
 
   @override
@@ -110,8 +111,9 @@ class _AppTextFieldState extends State<AppTextField> {
             ),
           if (widget.labelText.isNotEmpty) (8).spaceH(),
           SizedBox(
-            height: 48,
+            height: 45.w,
             child: TextFormField(
+              obscuringCharacter: widget.obscuringCharacter,
               maxLines: widget.maxLines,
               controller: widget.textEditingController,
               keyboardType: widget.keyboardType ?? TextInputType.text,
@@ -139,7 +141,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   right: 10,
                 ),
                 prefixIcon: widget.showPrefixIcon
-                    ? SvgGenImage(widget.prefixIcon)
+                    ? SvgGenImage(widget.prefixIcon!)
                         .svg(
                             height: widget.prefixIconHeight,
                             width: widget.prefixIconWidth,
@@ -149,7 +151,7 @@ class _AppTextFieldState extends State<AppTextField> {
                         .paddingAll(16.sp)
                     : null,
                 suffixIcon: widget.showSuffixIcon ?? true
-                    ? SvgGenImage(widget.suffixIcon)
+                    ? SvgGenImage(widget.suffixIcon!)
                         .svg(
                             height: widget.suffixIconHeight,
                             width: widget.suffixIconWidth,
@@ -159,7 +161,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 hintText: widget.hintText,
                 hintStyle: widget.hintTextStyle ??
                     GoogleFonts.plusJakartaSans(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: grey_969696),
                 fillColor: textFieldValue.isNotEmpty

@@ -17,8 +17,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add_to.svg
   SvgGenImage get addTo => const SvgGenImage('assets/icons/add_to.svg');
 
+  /// File path: assets/icons/back_arrow.svg
+  SvgGenImage get backArrow => const SvgGenImage('assets/icons/back_arrow.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [addTo];
+  List<SvgGenImage> get values => [addTo, backArrow];
 }
 
 class Assets {
