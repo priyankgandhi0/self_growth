@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/config/routes/router.dart';
@@ -69,6 +70,9 @@ class PersonalInfoScreen extends StatelessWidget {
                       showPrefixIcon: false,
                       showSuffixIcon: false,
                       labelTextSize: 14.sp,
+                      inputFormatter: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
                       textEditingController: ctrl.ageCon,
                       hintText: enterAgeText,
                       validator: (value) {},

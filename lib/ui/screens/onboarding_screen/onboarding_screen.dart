@@ -91,7 +91,7 @@ class OnboardingScreen extends StatelessWidget {
                   title: englishText,
                   onTap: () {},
                 ),
-              ).paddingOnly(top: 16.w),
+              ).paddingOnly(top: 7.w),
               GestureDetector(
                 onTap: () {
                   PickFile()
