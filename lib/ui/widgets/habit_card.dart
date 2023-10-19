@@ -13,7 +13,10 @@ class HabitCard extends StatelessWidget {
           color: white_FFFFFF, borderRadius: BorderRadius.circular(8)),
       child: Row(
         children: [
-          Container(),
+          Container(
+            height: 64,
+            width: 64,
+          ),
           12.spaceH(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,6 +29,8 @@ class HabitCard extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   fontColor: black_000000.withOpacity(0.5)),
               Wrap(
+                runSpacing: 5.0,
+                spacing: 5.0,
                 children: [
                   Chip(
                     backgroundColor: background_F5F5F5,
