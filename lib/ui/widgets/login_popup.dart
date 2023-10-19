@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
+import '../../core/constants/app_strings.dart';
 import 'app_button.dart';
 
 class LoginPopup extends StatelessWidget {
@@ -27,15 +28,15 @@ class LoginPopup extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           12.0.spaceH(),
-          "Login".appTextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+          loginText.appTextStyle(fontSize: 32, fontWeight: FontWeight.w600),
           20.0.spaceH(),
           AppTextField(
             textEditingController: emailController,
-            labelText: "E-mail",
-            hintText: "Email",
+            labelText: emailText,
+            hintText: enterEmailText,
             validator: (value) {
               if (!value.isEmail) {
-                return "please enter valid email";
+                return pleaseEnterEmailText;
               }
             },
             suffixIcon: '',
@@ -44,11 +45,11 @@ class LoginPopup extends StatelessWidget {
           20.0.spaceH(),
           AppTextField(
             textEditingController: phoneNumberController,
-            labelText: "Phone number",
-            hintText: "Phone number",
+            labelText: phoneNumberText,
+            hintText: enterPhoneNumberText,
             validator: (value) {
               if (!value.isPhoneNumber) {
-                return "please enter valid phone number";
+                return pleaseEnterPhoneText;
               }
             },
             inputFormatter: [
@@ -63,7 +64,7 @@ class LoginPopup extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: "Password".appTextStyle(
+                child: passwordText.appTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 14.sp,
                 ),
@@ -74,7 +75,7 @@ class LoginPopup extends StatelessWidget {
                 },
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: "Forgot password?".appTextStyle(
+                  child: forgotPasswordText.appTextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 14.sp,
                   ),
@@ -85,12 +86,12 @@ class LoginPopup extends StatelessWidget {
           (8).spaceH(),
           AppTextField(
             textEditingController: passwordController,
-            hintText: "Password",
+            hintText: enterPasswordText,
             validator: (value) {
               if (value.isEmpty) {
-                return "please enter valid password";
+                return pleaseEnterPasswordText;
               } else if (value.length < 6) {
-                return "The password must be 6 (six) character long";
+                return passwordMustBeSixDigit;
               }
             },
             suffixIcon: '',
@@ -98,7 +99,7 @@ class LoginPopup extends StatelessWidget {
           ),
           (20).spaceH(),
           AppButton(
-              title: "Login",
+              title: loginText,
               onPress: () {
                 if (_formKey.currentState!.validate()) {
                   onLogin(LoginReturnType(

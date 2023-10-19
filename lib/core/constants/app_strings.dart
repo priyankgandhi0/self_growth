@@ -38,6 +38,7 @@ const enterGenderText = "Enter gender";
 
 const setupYourAccountText = "Setup Your\n Account";
 const emailText = "E-mail";
+
 const phoneNumberText = "Phone number";
 const enterPhoneNumberText = "Enter phone number";
 const enterEmailText = "Enter email";
@@ -45,3 +46,11 @@ const passwordText = "Password";
 const enterPasswordText = "Enter password";
 const completeRegistrationText = "Complete Registration";
 const addStickerText = "Add sticker";
+
+/// login form
+// const emailTextWithoutDash = "Email";
+const pleaseEnterEmailText = "Please enter valid email";
+const pleaseEnterPhoneText = "Please enter valid phone number";
+const forgotPasswordText = "Forgot password?";
+const pleaseEnterPasswordText = "Please enter valid password";
+const passwordMustBeSixDigit = "The password must be 6 (six) character long";
