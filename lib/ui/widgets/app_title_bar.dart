@@ -11,12 +11,22 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leadingWidget;
   final bool isHome;
   final String titleText;
+  Color? backgroundColor;
+  bool? centerTitle;
+  bool endTitle;
+  double? fontSize = 17.sp;
+  FontWeight fontWeight = FontWeight.w700;
 
   final List<Widget>? suffixWidget;
-  const AppTitleBar(
+  AppTitleBar(
       {super.key,
       this.isHome = false,
       this.leadingWidget,
+      this.centerTitle,
+      this.endTitle = false,
+      this.fontSize,
+      this.fontWeight = FontWeight.w700,
+      this.backgroundColor,
       this.suffixWidget,
       required this.titleText});
 
@@ -31,12 +41,26 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
               .onTap(() {
               Get.back();
             }),
-      actions: suffixWidget,
-      title:
-          titleText.appTextStyle(fontWeight: FontWeight.w700, fontSize: 17.sp),
-      backgroundColor: white_FFFFFF,
-      centerTitle: false,
-      elevation: 0.1,
+      actions: endTitle
+          ? [
+              (titleText
+                  .appTextStyle(
+                      // textAlign: TextAlign.end,
+                      fontWeight: fontWeight,
+                      fontSize: fontSize ?? 17.sp)
+                  .paddingOnly(right: 20))
+            ]
+          : suffixWidget,
+      title: endTitle
+          ? null
+          : (titleText.appTextStyle(
+              // textAlign: TextAlign.end,
+              fontWeight: fontWeight,
+              fontSize: fontSize ?? 17.sp)),
+      backgroundColor: backgroundColor ?? white_FFFFFF,
+      centerTitle: centerTitle ?? false,
+      elevation: 0.0,
+      scrolledUnderElevation: 0.0,
     );
   }
 

@@ -54,3 +54,8 @@ const pleaseEnterPhoneText = "Please enter valid phone number";
 const forgotPasswordText = "Forgot password?";
 const pleaseEnterPasswordText = "Please enter valid password";
 const passwordMustBeSixDigit = "The password must be 6 (six) character long";
+
+///Habbit
+const newHabbit = "New Habbit";
+const createNewHabbit = "Create New Habbit";
+const recomended = "Recomended";

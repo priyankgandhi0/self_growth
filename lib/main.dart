@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         getPages: Routes.pages,
-        initialRoute: Routes.test,
+        initialRoute: Routes.createNewHabitScreen,
       ),
     );
   }

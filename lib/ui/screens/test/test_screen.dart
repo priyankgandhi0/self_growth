@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:self_growth/ui/widgets/app_bottom_sheet_dialog.dart';
 import 'package:self_growth/ui/widgets/habit_card.dart';
 import 'package:self_growth/ui/widgets/login_popup.dart';
@@ -19,7 +20,11 @@ class Test extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const HabitCard(),
+          HabitCard(
+            title: 'title',
+            subTitle: 'subTitle',
+            tags: const ['tag1', 'tag2'],
+          ).paddingAll(16),
           TitleBar(
             title: 'asas',
             isCenter: true,
