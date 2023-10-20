@@ -10,7 +10,10 @@ import '../../generated/assets.dart';
 class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leadingWidget;
   final bool isHome;
+  final bool? centerTitle;
   final String titleText;
+  final Color? backGroundColor;
+  final double? titleSize;
 
   final List<Widget>? suffixWidget;
   const AppTitleBar(
@@ -18,7 +21,10 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
       this.isHome = false,
       this.leadingWidget,
       this.suffixWidget,
-      required this.titleText});
+      required this.titleText,
+      this.backGroundColor,
+      this.centerTitle,
+      this.titleSize});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +38,11 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
               Get.back();
             }),
       actions: suffixWidget,
-      title:
-          titleText.appTextStyle(fontWeight: FontWeight.w700, fontSize: 17.sp),
-      backgroundColor: white_FFFFFF,
-      centerTitle: false,
-      elevation: 0.1,
+      title: titleText.appTextStyle(
+          fontWeight: FontWeight.w700, fontSize: titleSize ?? 17.sp),
+      backgroundColor: backGroundColor ?? white_FFFFFF,
+      centerTitle: centerTitle ?? false,
+      elevation: 0.0,
     );
   }
 

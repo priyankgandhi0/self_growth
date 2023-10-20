@@ -54,3 +54,21 @@ const pleaseEnterPhoneText = "Please enter valid phone number";
 const forgotPasswordText = "Forgot password?";
 const pleaseEnterPasswordText = "Please enter valid password";
 const passwordMustBeSixDigit = "The password must be 6 (six) character long";
+
+///profile screen
+const editProfileText = "Edit Profile";
+const changeAvatarText = "Change Avatar";
+const startYourMembershipNowText = "Start Your\n Membership\n Now";
+const noCommitText = "No commiment. Cancel any time";
+
+///reminder screen
+const reminder = 'Reminder';
+const checkInReminder = 'Check In Reminder';
+const enabled = 'Enabled';
+
+///discover screen
+const todayArticle = 'Today Article';
+const seeMore = 'See more';
+const continueText = 'Continue';
+const reviewSuggestedPlan = 'Review Suggested Plan';
+const backHomepage = 'Back Homepage';

@@ -18,4 +18,6 @@ const greyBorderColor = Color(0xFF828282);
 const doteColor = Color(0xFFD9D9D9);
 const lightGrayColor = Color(0xFFE4E0E0);
 const darkGrayColor = Color(0xFF585656);
+const skyColor = Color(0xFFF0F2F9);
+const boxGreyColor = Color(0xFFF2F2F2);
 const appRed = Colors.red;

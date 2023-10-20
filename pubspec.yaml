@@ -50,13 +50,14 @@ dependencies:
   flutter_screenutil: ^5.9.0
   # Used for format the time
   intl: ^0.18.1
-
+  percent_indicator: ^4.2.3
   #flutter google map
   google_maps_flutter: ^2.5.0
   #photo upload
   file_picker: ^5.5.0
   image_picker: ^1.0.4
   permission_handler: ^11.0.0
+  step_progress_indicator: ^1.0.2
 
 dev_dependencies:
   flutter_test:

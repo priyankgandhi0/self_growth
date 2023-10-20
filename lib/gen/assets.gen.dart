@@ -14,11 +14,21 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/Menu.svg
+  SvgGenImage get menu => const SvgGenImage('assets/icons/Menu.svg');
+
+  /// File path: assets/icons/add.svg
+  SvgGenImage get add => const SvgGenImage('assets/icons/add.svg');
+
   /// File path: assets/icons/add_to.svg
   SvgGenImage get addTo => const SvgGenImage('assets/icons/add_to.svg');
 
   /// File path: assets/icons/back_arrow.svg
   SvgGenImage get backArrow => const SvgGenImage('assets/icons/back_arrow.svg');
+
+  /// File path: assets/icons/dropdown_arrow.svg
+  SvgGenImage get dropdownArrow =>
+      const SvgGenImage('assets/icons/dropdown_arrow.svg');
 
   /// File path: assets/icons/image.svg
   SvgGenImage get image => const SvgGenImage('assets/icons/image.svg');
@@ -26,8 +36,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/profile.svg
   SvgGenImage get profile => const SvgGenImage('assets/icons/profile.svg');
 
+  /// File path: assets/icons/reduce.svg
+  SvgGenImage get reduce => const SvgGenImage('assets/icons/reduce.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [addTo, backArrow, image, profile];
+  List<SvgGenImage> get values =>
+      [menu, add, addTo, backArrow, dropdownArrow, image, profile, reduce];
 }
 
 class Assets {

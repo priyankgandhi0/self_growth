@@ -2,8 +2,12 @@
 class Assets {
   Assets._();
 
+  static const String iconsAdd = 'assets/icons/add.svg';
   static const String iconsAddTo = 'assets/icons/add_to.svg';
   static const String iconsBackArrow = 'assets/icons/back_arrow.svg';
+  static const String iconsDropdownArrow = 'assets/icons/dropdown_arrow.svg';
   static const String iconsImage = 'assets/icons/image.svg';
+  static const String iconsMenu = 'assets/icons/Menu.svg';
   static const String iconsProfile = 'assets/icons/profile.svg';
+  static const String iconsReduce = 'assets/icons/reduce.svg';
 }

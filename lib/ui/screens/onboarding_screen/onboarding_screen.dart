@@ -65,7 +65,9 @@ class OnboardingScreen extends StatelessWidget {
                   appCustomBottomSheet(
                       context: context,
                       child: LoginPopup(
-                        onLogin: (login) {},
+                        onLogin: (login) {
+                          Get.toNamed(Routes.bottomNavigationScreen);
+                        },
                         onForgotPassword: () {},
                       ));
                 }
@@ -89,6 +91,7 @@ class OnboardingScreen extends StatelessWidget {
                 showBackButton: ctrl.initialPage != 0,
                 suffixWidget: BorderButton(
                   title: englishText,
+                  width: 80.w,
                   onTap: () {},
                 ),
               ).paddingOnly(top: 7.w),
@@ -146,7 +149,7 @@ class OnboardingScreen extends StatelessWidget {
                                 : doteColor,
                           ).paddingSymmetric(horizontal: 1.w)),
                 ),
-              ).paddingOnly(),
+              ),
             ],
           ),
         ),

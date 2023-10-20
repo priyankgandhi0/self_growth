@@ -30,7 +30,9 @@ class AppButton extends StatelessWidget {
             onPressed: () {
               onPress();
             },
-            child: title.appTextStyle(fontColor: fontColor ?? white_FFFFFF))
+            child: title.appTextStyle(
+                fontColor: fontColor ?? white_FFFFFF,
+                fontWeight: FontWeight.w600))
         .paddingSymmetric(horizontal: 32);
   }
 }
@@ -69,19 +71,28 @@ class RoundAppButton extends StatelessWidget {
 }
 
 class BorderButton extends StatelessWidget {
-  const BorderButton({Key? key, this.onTap, required this.title, this.width})
+  const BorderButton(
+      {Key? key,
+      this.onTap,
+      required this.title,
+      required this.width,
+      this.height,
+      this.buttonColor})
       : super(key: key);
   final void Function()? onTap;
   final String title;
-  final double? width;
+  final double width;
+  final Color? buttonColor;
+  final double? height;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: onTap,
         child: Container(
-            height: 38.w,
+            height: height ?? 38.w,
+            width: width,
             decoration: BoxDecoration(
-                color: white_FFFFFF,
+                color: buttonColor ?? white_FFFFFF,
                 borderRadius: BorderRadius.circular(40.r),
                 border: Border.all(color: greyBorderColor)),
             child: Center(

@@ -12,6 +12,7 @@ import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 import '../../../../core/constants/app_constant.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../widgets/app_button.dart';
+import '../../../widgets/common_widget.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
   PersonalInfoScreen({Key? key}) : super(key: key);
@@ -87,41 +88,12 @@ class PersonalInfoScreen extends StatelessWidget {
                       ),
                     ),
                     8.w.spaceH(),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: background_F5F5F5,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: DropdownButton<Gender>(
-                              style: getTextStyle(),
-                              value: ctrl.gender,
-                              underline: Container(),
-                              hint: 'Gender'
-                                  .appTextStyle(
-                                    fontColor: grey_969696,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  )
-                                  .paddingOnly(left: 8),
-                              borderRadius: BorderRadius.circular(16),
-                              icon: Container(),
-                              dropdownColor: Colors.white,
-                              items: Gender.values
-                                  .map((e) => DropdownMenuItem(
-                                        value: e,
-                                        child: Text(e.name).paddingAll(8),
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                ctrl.gender = value;
-                                ctrl.update();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                    AppDropDown(
+                      value: ctrl.gender ?? Gender.Male,
+                      onChanged: (value) {
+                        ctrl.gender = value;
+                        ctrl.update();
+                      },
                     )
                   ],
                 ).paddingSymmetric(vertical: 20.w, horizontal: 20),
