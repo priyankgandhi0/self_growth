@@ -10,6 +10,7 @@ import '../../gen/assets.gen.dart';
 
 class AppTextField extends StatefulWidget {
   final String labelText;
+  final FontWeight? labelFontWeight;
   final String hintText;
   final double prefixIconHeight;
   final double suffixIconHeight;
@@ -36,9 +37,9 @@ class AppTextField extends StatefulWidget {
   final TextInputType? keyboardType;
 
   final Function(String value)? onChanged;
-  final Function(String value) validator;
+  final Function(String value)? validator;
 
-  const AppTextField(
+  AppTextField(
       {Key? key,
       this.labelText = '',
       this.textEditingController,
@@ -47,10 +48,11 @@ class AppTextField extends StatefulWidget {
       this.hintTextStyle,
       this.textStyle,
       this.maxLines = 1,
-      required this.validator,
+      this.validator,
       this.onChanged,
       this.textFieldPadding,
       this.labelTextSize,
+      this.labelFontWeight,
       this.keyboardType,
       this.isError = false,
       this.obscureText = false,
@@ -103,7 +105,8 @@ class _AppTextFieldState extends State<AppTextField> {
           Align(
             alignment: Alignment.centerLeft,
             child: widget.labelText.appTextStyle(
-              fontWeight: FontWeight.w400,
+              fontWeight: widget.labelFontWeight ?? FontWeight.w500,
+              fontColor: black_000000.withOpacity(0.7),
               fontSize: widget.labelTextSize ?? 14.sp,
               // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
             ),
@@ -118,7 +121,9 @@ class _AppTextFieldState extends State<AppTextField> {
             inputFormatters: widget.inputFormatter,
             focusNode: _focusNode,
             validator: (value) {
-              return widget.validator(value!);
+              if (widget.validator != null) {
+                return widget.validator!(value!);
+              }
             },
             onChanged: (value) {
               textFieldValue = value;

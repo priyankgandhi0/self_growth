@@ -72,3 +72,8 @@ const seeMore = 'See more';
 const continueText = 'Continue';
 const reviewSuggestedPlan = 'Review Suggested Plan';
 const backHomepage = 'Back Homepage';
+
+///Habbit
+const newHabbit = "New Habbit";
+const createNewHabbit = "Create New Habbit";
+const recomended = "Recomended";

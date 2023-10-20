@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
+import 'package:self_growth/ui/screens/habit_module/habit_predefined_screen.dart';
+import 'package:self_growth/ui/screens/habit_module/new_habit_screen.dart';
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_navigation_screen.dart';
 import 'package:self_growth/ui/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.dart';
@@ -22,6 +25,9 @@ class Routes {
   static const String onboarding = "/onboarding";
   static const String signUpScreen = "/signUpScreen";
   static const String personalInfoScreen = "/personalInfoScreen";
+  static const String newHabitScreen = "/newHabitScreen";
+  static const String habitPredefinedScreen = "/habitPredefinedScreen";
+  static const String createNewHabitScreen = "/createNewHabitScreen";
   static const String profileScreen = "/profileScreen";
   static const String editProfileScreen = "/editProfileScreen";
   static const String bottomNavigationScreen = "/bottomNavigationScreen";
@@ -34,6 +40,18 @@ class Routes {
     GetPage(
       name: test,
       page: () => const Test(),
+    ),
+    GetPage(
+      name: createNewHabitScreen,
+      page: () => CreateNewHabitScreen(),
+    ),
+    GetPage(
+      name: habitPredefinedScreen,
+      page: () => const HabitPredefinedScreen(),
+    ),
+    GetPage(
+      name: newHabitScreen,
+      page: () => const NewHabitScreen(),
     ),
     GetPage(
       name: onboarding,
