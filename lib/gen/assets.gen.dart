@@ -39,9 +39,29 @@ class $AssetsIconsGen {
   /// File path: assets/icons/reduce.svg
   SvgGenImage get reduce => const SvgGenImage('assets/icons/reduce.svg');
 
+  /// File path: assets/icons/right.svg
+  SvgGenImage get right => const SvgGenImage('assets/icons/right.svg');
+
+  /// File path: assets/icons/three_dote.svg
+  SvgGenImage get threeDote => const SvgGenImage('assets/icons/three_dote.svg');
+
+  /// File path: assets/icons/yes.svg
+  SvgGenImage get yes => const SvgGenImage('assets/icons/yes.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [menu, add, addTo, backArrow, dropdownArrow, image, profile, reduce];
+  List<SvgGenImage> get values => [
+        menu,
+        add,
+        addTo,
+        backArrow,
+        dropdownArrow,
+        image,
+        profile,
+        reduce,
+        right,
+        threeDote,
+        yes
+      ];
 }
 
 class Assets {

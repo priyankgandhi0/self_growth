@@ -9,6 +9,7 @@ import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../core/utils/app_helper.dart';
 import '../../../gen/assets.gen.dart';
+import '../home_module/home_screen.dart';
 
 class BottomNavigationScreen extends StatelessWidget {
   BottomNavigationScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class BottomNavigationScreen extends StatelessWidget {
           child: ListView(
             shrinkWrap: true,
             children: [
-              ctrl.tab ?? SizedBox(),
+              ctrl.tab ?? HomeScreen(),
               20.w.spaceH(),
             ],
           ),

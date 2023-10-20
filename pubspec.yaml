@@ -50,6 +50,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   # Used for format the time
   intl: ^0.18.1
+  audioplayers: ^5.2.0
   percent_indicator: ^4.2.3
   #flutter google map
   google_maps_flutter: ^2.5.0

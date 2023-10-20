@@ -16,7 +16,12 @@ class NewHabitScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppTitleBar(
         isHome: true,
-        leadingWidget: const Icon(Icons.close),
+        leadingWidget: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            splashFactory: NoSplash.splashFactory,
+            child: const Icon(Icons.close)),
         titleText: newHabbit,
         backgroundColor: Colors.transparent,
         centerTitle: true,

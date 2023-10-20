@@ -114,6 +114,33 @@ class _DialogWithBackdropState extends State<DialogWithBackdrop> {
   }
 }
 
+openBottomDialogBox({required BuildContext context, required Widget child}) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+          insetPadding: EdgeInsets.only(top: Get.height - 240.w),
+          backgroundColor: Colors.transparent,
+          contentPadding: EdgeInsets.zero,
+          elevation: 0.0,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                width: Get.width,
+                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(12.r))),
+                child: child.paddingAll(28.w),
+              ),
+            ],
+          ));
+    },
+  );
+}
+
 class CustomDialog extends StatelessWidget {
   final String? title;
   final String? description;

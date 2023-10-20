@@ -77,3 +77,7 @@ const backHomepage = 'Back Homepage';
 const newHabbit = "New Habbit";
 const createNewHabbit = "Create New Habbit";
 const recomended = "Recomended";
+
+///Home Screem
+const buildHabit = 'Build Habit';
+const quitHabit = 'Quit Habit';

@@ -504,8 +504,8 @@ class IconCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 32,
-      height: 32,
+      width: 32.w,
+      height: 32.w,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(color: black_000000.withOpacity(0.1))),

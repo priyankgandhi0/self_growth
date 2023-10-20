@@ -12,6 +12,7 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isHome;
   final String titleText;
   Color? backgroundColor;
+  Color? fontColor;
   bool? centerTitle;
   bool endTitle;
   double? fontSize = 17.sp;
@@ -27,6 +28,7 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
       this.fontSize,
       this.fontWeight = FontWeight.w700,
       this.backgroundColor,
+      this.fontColor,
       this.suffixWidget,
       required this.titleText});
 
@@ -45,7 +47,7 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
           ? [
               (titleText
                   .appTextStyle(
-                      // textAlign: TextAlign.end,
+                      fontColor: fontColor ?? black_000000,
                       fontWeight: fontWeight,
                       fontSize: fontSize ?? 17.sp)
                   .paddingOnly(right: 20))
@@ -54,7 +56,7 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
       title: endTitle
           ? null
           : (titleText.appTextStyle(
-              // textAlign: TextAlign.end,
+              fontColor: fontColor ?? black_000000,
               fontWeight: fontWeight,
               fontSize: fontSize ?? 17.sp)),
       backgroundColor: backgroundColor ?? white_FFFFFF,

@@ -35,6 +35,8 @@ class DiscoverScreen extends StatelessWidget {
                           onTap: () {
                             if (index == 0) {
                               Get.toNamed(Routes.selfDiscoverScreen);
+                            } else {
+                              Get.toNamed(Routes.newHabitScreen);
                             }
                           },
                           title: index == 0 ? 'Self Discovery' : "New Habit",

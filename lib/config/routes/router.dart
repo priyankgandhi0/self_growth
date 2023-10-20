@@ -11,6 +11,8 @@ import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discove
 
 import '../../ui/screens/auth/personal_info/personal_info_screen.dart';
 import '../../ui/screens/auth/sign_up/sign_up_screen.dart';
+import '../../ui/screens/home_module/home_screen.dart';
+import '../../ui/screens/home_module/note_history/note_history_screen.dart';
 import '../../ui/screens/profile/reminder/reminder_screen.dart';
 import '../../ui/screens/profile/subscription/subscription_screen.dart';
 import '../../ui/screens/self_discovery/self_discover/questions_main.dart';
@@ -20,6 +22,7 @@ class Routes {
   Routes._();
 
   static const String splash = "/splash";
+  static const String homeScreen = "/HomeScreen";
   static const String signIn = "/sign_in";
   static const String test = "/test";
   static const String onboarding = "/onboarding";
@@ -35,6 +38,7 @@ class Routes {
   static const String reminderScreen = "/reminderScreen";
   static const String selfDiscoverScreen = "/selfDiscoverScreen";
   static const String firstQuestionScreen = "/firstQuestionScreen";
+  static const String noteHistoryScreen = "/noteHistoryScreen";
 
   static List<GetPage> pages = [
     GetPage(
@@ -50,9 +54,9 @@ class Routes {
       page: () => const HabitPredefinedScreen(),
     ),
     GetPage(
-      name: newHabitScreen,
-      page: () => const NewHabitScreen(),
-    ),
+        name: newHabitScreen,
+        page: () => const NewHabitScreen(),
+        transition: Transition.downToUp),
     GetPage(
       name: onboarding,
       page: () => OnboardingScreen(),
@@ -92,6 +96,14 @@ class Routes {
     GetPage(
       name: firstQuestionScreen,
       page: () => FirstQuestionScreen(),
+    ),
+    GetPage(
+      name: homeScreen,
+      page: () => HomeScreen(),
+    ),
+    GetPage(
+      name: noteHistoryScreen,
+      page: () => NoteHistoryScreen(),
     ),
   ];
 }

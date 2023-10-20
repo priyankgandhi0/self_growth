@@ -10,6 +10,7 @@ import 'package:self_growth/core/utils/extentions.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constant.dart';
 import '../../gen/assets.gen.dart';
+import '../screens/habit_module/create_new_habit.dart';
 
 class PageViewCard extends StatelessWidget {
   const PageViewCard({Key? key, required this.title, required this.subTitle})
@@ -76,10 +77,13 @@ class ProfileBoxCard extends StatelessWidget {
 }
 
 class ProfileDataCard extends StatelessWidget {
-  const ProfileDataCard({Key? key, required this.title, this.onTap})
+  const ProfileDataCard(
+      {Key? key, required this.title, this.onTap, this.height, this.titleColor})
       : super(key: key);
   final String title;
   final void Function()? onTap;
+  final double? height;
+  final Color? titleColor;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -87,23 +91,152 @@ class ProfileDataCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 32.w,
-            height: 32.w,
+            width: height ?? 32.w,
+            height: height ?? 32.w,
             decoration:
                 const BoxDecoration(shape: BoxShape.circle, color: grey_D9D9D9),
           ),
           10.w.spaceW(),
-          title.appTextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp)
+          title.appTextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 14.sp,
+              fontColor: titleColor ?? black_000000)
         ],
       ),
     );
   }
 }
 
+class HorizontalNotesCard extends StatelessWidget {
+  const HorizontalNotesCard(
+      {Key? key,
+      required this.selected,
+      required this.onTap,
+      required this.title,
+      required this.index})
+      : super(key: key);
+  final bool selected;
+  final String title;
+  final int index;
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        title.appTextStyle(
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w400,
+            fontColor: darkGrayColor.withOpacity(.8)),
+        5.w.spaceH(),
+        GestureDetector(
+            onTap: onTap,
+            child: selected
+                ? Assets.icons.right.svg(
+                    width: 32.w,
+                    height: 32.w,
+                    fit: BoxFit.contain,
+                  )
+                : IconCard(title: '${index + 1}'))
+      ],
+    ).paddingOnly(right: 30.w);
+  }
+}
+
+class NoteCommonCard extends StatelessWidget {
+  NoteCommonCard({
+    Key? key,
+    required this.title,
+    this.notes = '',
+    required this.time,
+    this.showIcon,
+    this.widget,
+  }) : super(key: key);
+  final String title;
+  final String notes;
+  final String time;
+  final bool? showIcon;
+  final Widget? widget;
+
+  final List<String> noteList = ['Work', 'Family', 'Blessed'];
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        16.w.spaceH(),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 48.w,
+              width: 48.w,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: grey_D9D9D9),
+            ),
+            12.w.spaceW(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                title.appTextStyle(
+                    fontWeight: FontWeight.w600, fontSize: 17.sp),
+                time.appTextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w400,
+                    fontColor: darkGrayColor.withOpacity(.8))
+              ],
+            ),
+            const Spacer(),
+            showIcon ?? true ? Assets.icons.threeDote.svg() : SizedBox()
+          ],
+        ).paddingSymmetric(horizontal: 16.w),
+        notes.isNotEmpty
+            ? notes
+                .appTextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w400,
+                    fontColor: darkGrayColor.withOpacity(.8))
+                .paddingSymmetric(vertical: 16.w, horizontal: 16.w)
+            : widget ?? const SizedBox(),
+        SizedBox(
+          height: 36.w,
+          child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.r),
+                      border: Border.all(color: grey_D9D9D9)),
+                  child: ProfileDataCard(
+                    title: noteList[index],
+                    height: 20.w,
+                    titleColor: grey_969696,
+                    onTap: () {},
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return 8.w.spaceW();
+              },
+              itemCount: noteList.length),
+        ).paddingSymmetric(horizontal: 16.w),
+        16.w.spaceH(),
+      ],
+    );
+  }
+}
+
 class SelfDiscoveryCard extends StatelessWidget {
-  const SelfDiscoveryCard({Key? key, required this.title, this.onTap})
+  const SelfDiscoveryCard(
+      {Key? key, required this.title, this.onTap, this.size, this.color})
       : super(key: key);
   final String title;
+  final double? size;
+  final Color? color;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -112,8 +245,8 @@ class SelfDiscoveryCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 20.w,
-            height: 20.w,
+            width: size ?? 20.w,
+            height: size ?? 20.w,
             decoration: BoxDecoration(
                 color: grey_D9D9D9, borderRadius: BorderRadius.circular(4.r)),
           ),
@@ -122,6 +255,7 @@ class SelfDiscoveryCard extends StatelessWidget {
               child: title.appTextStyle(
                   textAlign: TextAlign.start,
                   fontWeight: FontWeight.w400,
+                  fontColor: color ?? black_000000,
                   fontSize: 12.sp))
         ],
       ),
