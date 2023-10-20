@@ -9,6 +9,7 @@ import 'package:self_growth/ui/widgets/app_title_bar.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../widgets/app_switch.dart';
 import '../../../widgets/common_widget.dart';
 
 class ReminderScreen extends StatelessWidget {
@@ -20,9 +21,9 @@ class ReminderScreen extends StatelessWidget {
       return Scaffold(
         body: Column(
           children: [
-            const AppTitleBar(
+            AppTitleBar(
               titleText: reminder,
-              backGroundColor: background_EBEBEB,
+              backgroundColor: background_EBEBEB,
               centerTitle: true,
             ),
             24.w.spaceH(),
@@ -88,15 +89,12 @@ class ReminderScreen extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        CommonSwitch(
-          mainAxisAlignment: ctrl.switchValue
-              ? MainAxisAlignment.start
-              : MainAxisAlignment.end,
-          onTap: () {
-            ctrl.switchValue = !ctrl.switchValue;
-            ctrl.update();
-          },
-        )
+        AppSwitch(
+            value: ctrl.switchValue,
+            onChange: (val) {
+              ctrl.switchValue = val;
+              ctrl.update();
+            }),
       ],
     );
   }
