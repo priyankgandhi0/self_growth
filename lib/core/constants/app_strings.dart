@@ -78,6 +78,9 @@ const newHabbit = "New Habbit";
 const createNewHabbit = "Create New Habbit";
 const recomended = "Recomended";
 
-///Home Screem
+///Home ScreeN
 const buildHabit = 'Build Habit';
 const quitHabit = 'Quit Habit';
+
+///staTIC SCREEN
+const statistic = 'Statistic';

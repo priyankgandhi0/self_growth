@@ -139,19 +139,28 @@ class AudioPlayerState extends State<AudioPlayer> {
 
     return SizedBox(
       width: width,
-      child: Slider(
-        divisions: 29,
-        activeColor: grey_969696,
-        inactiveColor: Colors.transparent,
-        onChanged: (v) {
-          if (duration != null) {
-            final position = v * duration.inMilliseconds;
-            _audioPlayer.seek(Duration(milliseconds: position.round()));
-          }
-        },
-        value: canSetValue && duration != null && position != null
-            ? position.inMilliseconds / duration.inMilliseconds
-            : 0.0,
+      child: SliderTheme(
+        data: SliderThemeData(
+          thumbColor: black_000000,
+          disabledThumbColor: Colors.black,
+          thumbShape:
+              RoundSliderThumbShape(enabledThumbRadius: 6.r, elevation: 0.0),
+          activeTrackColor: Colors.black,
+        ),
+        child: Slider(
+          divisions: 29,
+          activeColor: Colors.black,
+          inactiveColor: grey_C4C4C4,
+          onChanged: (v) {
+            if (duration != null) {
+              final position = v * duration.inMilliseconds;
+              _audioPlayer.seek(Duration(milliseconds: position.round()));
+            }
+          },
+          value: canSetValue && duration != null && position != null
+              ? position.inMilliseconds / duration.inMilliseconds
+              : 0.0,
+        ),
       ),
     );
   }

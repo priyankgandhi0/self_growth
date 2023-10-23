@@ -47,13 +47,15 @@ class MoodCheckingScreen extends StatelessWidget {
                         icon: Assets.icons.dateRange.svg(),
                       ),
                       24.w.spaceH(),
-                      SfRangeSlider(
+                      SfSlider(
+                        trackShape: SfTrackShape(),
                         min: 0.0,
+                        thumbShape: SfThumbShape(),
                         max: 100.0,
                         inactiveColor: grey_969696,
                         activeColor: black_000000,
                         onChanged: (value) {},
-                        values: SfRangeValues(0.0, 20.0),
+                        value: 7.0,
                       ),
                     ],
                   ).paddingSymmetric(horizontal: 24.w, vertical: 24.w),

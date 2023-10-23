@@ -5,6 +5,7 @@ import 'package:self_growth/ui/screens/profile/profile_screen.dart';
 
 import '../../../core/utils/app_helper.dart';
 import '../self_discovery/discover_screen.dart';
+import '../statics/statics_screen.dart';
 
 class BottomBarController extends GetxController {
   int _isSelectedTab = 1;
@@ -27,7 +28,7 @@ class BottomBarController extends GetxController {
         tab = HomeScreen();
         break;
       case BottomNavEnum.insight:
-        tab = const SizedBox();
+        tab = StaticsScreen();
         break;
       case BottomNavEnum.add:
         tab = const SizedBox();
