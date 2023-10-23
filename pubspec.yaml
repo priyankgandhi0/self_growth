@@ -54,6 +54,7 @@ dependencies:
   percent_indicator: ^4.2.3
   #flutter google map
   google_maps_flutter: ^2.5.0
+  syncfusion_flutter_sliders: ^23.1.41
   #photo upload
   file_picker: ^5.5.0
   image_picker: ^1.0.4

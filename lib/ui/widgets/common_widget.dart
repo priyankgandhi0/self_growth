@@ -41,10 +41,12 @@ class PageViewCard extends StatelessWidget {
 }
 
 class ProfileBoxCard extends StatelessWidget {
-  const ProfileBoxCard({Key? key, required this.child, this.isImage})
+  const ProfileBoxCard(
+      {Key? key, required this.child, this.isImage, this.imagePath})
       : super(key: key);
   final Widget child;
   final bool? isImage;
+  final SvgGenImage? imagePath;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -62,7 +64,7 @@ class ProfileBoxCard extends StatelessWidget {
           left: 0,
           right: 0,
           child: isImage ?? true
-              ? Assets.icons.profile
+              ? (imagePath ?? Assets.icons.profile)
                   .svg(height: 100.w, width: 100.w, fit: BoxFit.contain)
               : Container(
                   height: 80.w,

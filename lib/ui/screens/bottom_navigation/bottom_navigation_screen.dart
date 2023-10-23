@@ -7,8 +7,10 @@ import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.d
 import 'package:self_growth/ui/screens/profile/profile_screen.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
+import '../../../config/routes/router.dart';
 import '../../../core/utils/app_helper.dart';
 import '../../../gen/assets.gen.dart';
+import '../../widgets/app_dialogs.dart';
 import '../home_module/home_screen.dart';
 
 class BottomNavigationScreen extends StatelessWidget {
@@ -19,8 +21,9 @@ class BottomNavigationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<BottomBarController>(builder: (ctrl) {
       return Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: background_EBEBEB,
-        bottomNavigationBar: bottomBarWidget(ctrl),
+        bottomNavigationBar: bottomBarWidget(ctrl, context),
         body: SafeArea(
           child: ListView(
             shrinkWrap: true,
@@ -34,7 +37,7 @@ class BottomNavigationScreen extends StatelessWidget {
     });
   }
 
-  Container bottomBarWidget(BottomBarController ctrl) {
+  Container bottomBarWidget(BottomBarController ctrl, BuildContext context) {
     return Container(
       height: 86.w,
       color: white_FFFFFF,
@@ -61,8 +64,27 @@ class BottomNavigationScreen extends StatelessWidget {
           ),
           InkWell(
               onTap: () {
-                ctrl.isSelectedTab = 3;
-                ctrl.changeTab(BottomNavEnum.add);
+                ctrl.isSelectedTab = 1;
+                ctrl.changeTab(BottomNavEnum.home);
+                openBottomDialogBox(
+                    padding: 400.w,
+                    child: Column(
+                      children: [
+                        ProfileDataCard(
+                          height: 24.w,
+                          title: 'Mood Checking',
+                          onTap: () {
+                            Get.back();
+                            Get.toNamed(Routes.moodCheckingScreen);
+                          },
+                        ),
+                        const Divider().paddingSymmetric(vertical: 6.w),
+                        ProfileDataCard(height: 24.w, title: 'Voice Note'),
+                        const Divider().paddingSymmetric(vertical: 6.w),
+                        ProfileDataCard(height: 24.w, title: 'Add Photo')
+                      ],
+                    ),
+                    context: context);
                 ctrl.update();
               },
               splashFactory: NoSplash.splashFactory,

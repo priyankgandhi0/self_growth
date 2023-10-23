@@ -114,12 +114,15 @@ class _DialogWithBackdropState extends State<DialogWithBackdrop> {
   }
 }
 
-openBottomDialogBox({required BuildContext context, required Widget child}) {
+openBottomDialogBox(
+    {required BuildContext context,
+    required Widget child,
+    required double padding}) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-          insetPadding: EdgeInsets.only(top: Get.height - 240.w),
+          insetPadding: EdgeInsets.only(top: Get.height - padding),
           backgroundColor: Colors.transparent,
           contentPadding: EdgeInsets.zero,
           elevation: 0.0,

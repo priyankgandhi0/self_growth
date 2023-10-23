@@ -14,6 +14,9 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/Date_range.svg
+  SvgGenImage get dateRange => const SvgGenImage('assets/icons/Date_range.svg');
+
   /// File path: assets/icons/Menu.svg
   SvgGenImage get menu => const SvgGenImage('assets/icons/Menu.svg');
 
@@ -29,6 +32,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/dropdown_arrow.svg
   SvgGenImage get dropdownArrow =>
       const SvgGenImage('assets/icons/dropdown_arrow.svg');
+
+  /// File path: assets/icons/emogi.svg
+  SvgGenImage get emogi => const SvgGenImage('assets/icons/emogi.svg');
 
   /// File path: assets/icons/image.svg
   SvgGenImage get image => const SvgGenImage('assets/icons/image.svg');
@@ -50,11 +56,13 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+        dateRange,
         menu,
         add,
         addTo,
         backArrow,
         dropdownArrow,
+        emogi,
         image,
         profile,
         reduce,

@@ -140,8 +140,9 @@ class AudioPlayerState extends State<AudioPlayer> {
     return SizedBox(
       width: width,
       child: Slider(
-        activeColor: black_000000,
-        inactiveColor: grey_C4C4C4,
+        divisions: 29,
+        activeColor: grey_969696,
+        inactiveColor: Colors.transparent,
         onChanged: (v) {
           if (duration != null) {
             final position = v * duration.inMilliseconds;

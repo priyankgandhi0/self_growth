@@ -136,6 +136,7 @@ class HomeScreen extends StatelessWidget {
                       return QuitHabitCard(
                         buttonOnTap: () {
                           openBottomDialogBox(
+                              padding: 350.w,
                               child: Column(
                                 children: [
                                   ProfileDataCard(

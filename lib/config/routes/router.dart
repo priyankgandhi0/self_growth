@@ -12,6 +12,7 @@ import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discove
 import '../../ui/screens/auth/personal_info/personal_info_screen.dart';
 import '../../ui/screens/auth/sign_up/sign_up_screen.dart';
 import '../../ui/screens/home_module/home_screen.dart';
+import '../../ui/screens/home_module/mood_cheking/mood_checking_screen.dart';
 import '../../ui/screens/home_module/note_history/note_history_screen.dart';
 import '../../ui/screens/profile/reminder/reminder_screen.dart';
 import '../../ui/screens/profile/subscription/subscription_screen.dart';
@@ -39,6 +40,7 @@ class Routes {
   static const String selfDiscoverScreen = "/selfDiscoverScreen";
   static const String firstQuestionScreen = "/firstQuestionScreen";
   static const String noteHistoryScreen = "/noteHistoryScreen";
+  static const String moodCheckingScreen = "/moodCheckingScreen";
 
   static List<GetPage> pages = [
     GetPage(
@@ -104,6 +106,10 @@ class Routes {
     GetPage(
       name: noteHistoryScreen,
       page: () => NoteHistoryScreen(),
+    ),
+    GetPage(
+      name: moodCheckingScreen,
+      page: () => MoodCheckingScreen(),
     ),
   ];
 }
