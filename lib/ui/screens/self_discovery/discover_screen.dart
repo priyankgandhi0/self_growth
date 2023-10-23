@@ -8,6 +8,7 @@ import 'package:self_growth/ui/widgets/app_title_bar.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../gen/assets.gen.dart';
 import '../../widgets/common_widget.dart';
 import 'discover_con.dart';
 
@@ -32,6 +33,9 @@ class DiscoverScreen extends StatelessWidget {
                           horizontal: 20.w, vertical: 10.w),
                       itemBuilder: (context, index) {
                         return DiscoverCard(
+                          image: index == 0
+                              ? Assets.icons.selfDiscovery.path
+                              : Assets.icons.newHabbit.path,
                           onTap: () {
                             if (index == 0) {
                               Get.toNamed(Routes.selfDiscoverScreen);
@@ -91,13 +95,23 @@ class DiscoverScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w600, fontSize: 14.sp),
                               'This is description'.appTextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontColor: grey_C4C4C4,
+                                  fontColor: doteColor,
                                   fontSize: 13.sp),
                               16.w.spaceH(),
-                              '8 min'.appTextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontColor: grey_C4C4C4,
-                                  fontSize: 13.sp)
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: textFiledColor,
+                                    borderRadius: BorderRadius.circular(50.r)),
+                                child: Center(
+                                  child: '8 min'
+                                      .appTextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontColor: doteColor,
+                                          fontSize: 13.sp)
+                                      .paddingSymmetric(
+                                          horizontal: 6.w, vertical: 2.w),
+                                ),
+                              )
                             ],
                           ),
                           const Spacer(),
@@ -106,7 +120,7 @@ class DiscoverScreen extends StatelessWidget {
                             width: 64.w,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(7.r),
-                                color: grey_C4C4C4.withOpacity(.5)),
+                                color: doteColor),
                           )
                         ],
                       ).paddingSymmetric(horizontal: 22.w, vertical: 17.w),

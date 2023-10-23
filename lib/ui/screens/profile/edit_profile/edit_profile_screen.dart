@@ -65,6 +65,7 @@ class EditProfileScreen extends StatelessWidget {
                   showPrefixIcon: false,
                   showSuffixIcon: false,
                   labelTextSize: 14.sp,
+                  keyboardType: TextInputType.emailAddress,
                   textEditingController: ctrl.emailCon,
                   hintText: enterEmailText,
                   validator: (value) {},
@@ -75,6 +76,8 @@ class EditProfileScreen extends StatelessWidget {
                   showPrefixIcon: false,
                   showSuffixIcon: false,
                   labelTextSize: 14.sp,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(signed: true),
                   inputFormatter: [
                     FilteringTextInputFormatter.digitsOnly,
                   ],
@@ -104,9 +107,12 @@ class EditProfileScreen extends StatelessWidget {
           ),
           16.w.spaceH(),
           Container(
+            height: 56.w,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.w), color: white_FFFFFF),
-            child: const ProfileDataCard(
+            child: ProfileDataCard(
+              image: Assets.icons.resetPass.path,
+              height: 32.w,
               title: 'Reset password',
             ).paddingSymmetric(vertical: 8.w, horizontal: 20.w),
           ).paddingSymmetric(

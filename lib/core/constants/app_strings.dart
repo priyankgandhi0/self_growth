@@ -36,7 +36,7 @@ const enterGenderText = "Enter gender";
 
 ///signUp screen
 
-const setupYourAccountText = "Setup Your\n Account";
+const setupYourAccountText = "Setup Your Account";
 const emailText = "E-mail";
 
 const phoneNumberText = "Phone number";
@@ -58,7 +58,7 @@ const passwordMustBeSixDigit = "The password must be 6 (six) character long";
 ///profile screen
 const editProfileText = "Edit Profile";
 const changeAvatarText = "Change Avatar";
-const startYourMembershipNowText = "Start Your\n Membership\n Now";
+const startYourMembershipNowText = "Start Your\n Membership\n Now!";
 const noCommitText = "No commiment. Cancel any time";
 
 ///reminder screen

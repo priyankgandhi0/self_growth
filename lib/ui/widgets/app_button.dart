@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+
+import '../../generated/assets.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton(
@@ -47,6 +50,7 @@ class RoundAppButton extends StatelessWidget {
       : super(key: key);
   final String title;
   final Color? color;
+
   final Color? textColor;
   final Function() onTap;
   @override
@@ -57,12 +61,46 @@ class RoundAppButton extends StatelessWidget {
         height: 48.w,
         width: Get.width,
         decoration: BoxDecoration(
-          color: color ?? grey_969696,
+          color: color ?? borderPurpleColor,
+          borderRadius: BorderRadius.circular(30.r),
+        ),
+        child: Center(
+            child: title.appGradientTextStyle(
+                fontSize: 14.sp, fontWeight: FontWeight.w600)),
+      ),
+    );
+  }
+}
+
+class RoundGradientAppButton extends StatelessWidget {
+  const RoundGradientAppButton(
+      {Key? key,
+      required this.title,
+      required this.onTap,
+      this.isGradient = false,
+      this.color,
+      this.textColor})
+      : super(key: key);
+  final String title;
+  final Color? color;
+  final bool isGradient;
+  final Color? textColor;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 48.w,
+        width: Get.width,
+        decoration: BoxDecoration(
+          image: const DecorationImage(
+              image: AssetImage(Assets.imagesButtonImg), fit: BoxFit.fill),
           borderRadius: BorderRadius.circular(30.r),
         ),
         child: Center(
             child: title.appTextStyle(
-                fontColor: textColor ?? white_FFFFFF,
+                fontColor: textColor ?? borderPurpleColor,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600)),
       ),
@@ -92,9 +130,18 @@ class BorderButton extends StatelessWidget {
             height: height ?? 38.w,
             width: width,
             decoration: BoxDecoration(
-                color: buttonColor ?? white_FFFFFF,
-                borderRadius: BorderRadius.circular(40.r),
-                border: Border.all(color: greyBorderColor)),
+              color: buttonColor ?? white_FAFAFA,
+              borderRadius: BorderRadius.circular(40.r),
+              border: const GradientBoxBorder(
+                  gradient: LinearGradient(colors: [
+                    borderPinkColor,
+                    borderPurpleColor,
+                    borderPurpleColor,
+                    borderPurpleColor,
+                    borderPinkColor
+                  ]),
+                  width: 2),
+            ),
             child: Center(
               child: title
                   .appTextStyle(

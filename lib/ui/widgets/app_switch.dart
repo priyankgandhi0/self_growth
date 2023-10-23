@@ -20,10 +20,10 @@ class AppSwitch extends StatelessWidget {
           height: 16,
           padding: const EdgeInsets.symmetric(horizontal: 0.5),
           decoration: BoxDecoration(
-              color: black_000000.withOpacity(value ? 0.5 : 0.0),
+              color: textPinkColor.withOpacity(value ? 0.5 : 0.0),
               borderRadius: BorderRadius.circular(40),
-              border:
-                  Border.all(width: 1, color: black_000000.withOpacity(0.1))),
+              border: Border.all(
+                  width: 1, color: borderPurpleColor.withOpacity(0.5))),
           child: AnimatedAlign(
             duration: const Duration(milliseconds: 300),
             alignment: value ? Alignment.centerRight : Alignment.centerLeft,
@@ -31,7 +31,7 @@ class AppSwitch extends StatelessWidget {
               height: 12,
               width: 12,
               decoration: BoxDecoration(
-                color: value ? Colors.white : black_000000.withOpacity(0.1),
+                color: value ? borderPurpleColor : activeColor,
                 shape: BoxShape.circle,
                 border: Border.all(color: black_000000.withOpacity(0.2)),
               ),

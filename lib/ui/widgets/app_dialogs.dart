@@ -136,7 +136,7 @@ openBottomDialogBox(
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(12.r))),
-                child: child.paddingAll(28.w),
+                child: child.paddingAll(20.w),
               ),
             ],
           ));

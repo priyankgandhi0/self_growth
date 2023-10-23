@@ -1,7 +1,15 @@
 import 'package:get/get.dart';
+import 'package:self_growth/generated/assets.dart';
 
 class SelfDiscoveryCon extends GetxController {
   List<String> firstQueList = ['Great', 'Happy', 'Neutral', 'Sad', 'Awfully'];
+  List<String> firstQueIconList = [
+    Assets.iconsGreat,
+    Assets.iconsHappy,
+    Assets.iconsNatural,
+    Assets.iconsSad,
+    Assets.iconsAwfull,
+  ];
   List<String> thirdQueList = [
     'You do have tendencies to repeat some destructive behaviors',
     'You may also have sleeping problems',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_utils/get_utils.dart';
@@ -19,12 +20,18 @@ class MoodCheckingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Container(
+        height: Get.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Assets.images.backGroundImage.path),
+                fit: BoxFit.fill)),
         child: SingleChildScrollView(
           child: GetBuilder<MoodCheckingCon>(builder: (ctrl) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                20.w.spaceH(),
                 InkWell(
                         onTap: () {
                           Get.back();
@@ -33,8 +40,7 @@ class MoodCheckingScreen extends StatelessWidget {
                         child: const Icon(Icons.close))
                     .paddingSymmetric(horizontal: 20.w),
                 ProfileBoxCard(
-                  isImage: true,
-                  imagePath: Assets.icons.emogi,
+                  widget: Assets.icons.emoji.svg(),
                   child: Column(
                     children: [
                       40.w.spaceH(),
@@ -47,16 +53,72 @@ class MoodCheckingScreen extends StatelessWidget {
                         icon: Assets.icons.dateRange.svg(),
                       ),
                       24.w.spaceH(),
-                      SfSlider(
-                        trackShape: SfTrackShape(),
-                        min: 0.0,
-                        thumbShape: SfThumbShape(),
-                        max: 100.0,
-                        inactiveColor: grey_969696,
-                        activeColor: black_000000,
-                        onChanged: (value) {},
-                        value: 7.0,
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List.generate(
+                              5,
+                              (index) => CircleAvatar(
+                                backgroundColor:
+                                    (ctrl.sliderValue >= 0 && index == 0) ||
+                                            (ctrl.sliderValue >= 25 &&
+                                                (index == 1 || index == 0)) ||
+                                            (ctrl.sliderValue >= 50 &&
+                                                (index == 1 ||
+                                                    index == 0 ||
+                                                    index == 2)) ||
+                                            (ctrl.sliderValue >= 75 &&
+                                                (index == 1 ||
+                                                    index == 0 ||
+                                                    index == 2 ||
+                                                    index == 3))
+                                        ? borderPurpleColor
+                                        : grey_D9D9D9,
+                                radius: 6.r,
+                              ),
+                            ),
+                          ).paddingSymmetric(horizontal: 20.w),
+                          SizedBox(
+                            height: 20,
+                            child: SliderTheme(
+                              data: SliderThemeData(
+                                thumbShape: RoundSliderThumbShape(
+                                    enabledThumbRadius: 9.r, elevation: 0.0),
+                              ),
+                              child: Slider(
+                                min: 0.0,
+                                max: 100.0,
+                                inactiveColor: grey_D9D9D9,
+                                activeColor: black_000000,
+                                onChanged: (value) {
+                                  ctrl.sliderValue = value;
+                                  ctrl.update();
+                                },
+                                value: ctrl.sliderValue,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          'Unhappy'.appTextStyle(
+                            fontColor: doteColor,
+                            fontSize: 13.sp,
+                          ),
+                          'Happy'.appTextStyle(
+                            fontColor: doteColor,
+                            fontSize: 13.sp,
+                          ),
+                          'Normal'.appTextStyle(
+                            fontColor: doteColor,
+                            fontSize: 13.sp,
+                          ),
+                        ],
+                      ).paddingSymmetric(horizontal: 20.w)
                     ],
                   ).paddingSymmetric(horizontal: 24.w, vertical: 24.w),
                 ),
@@ -67,6 +129,8 @@ class MoodCheckingScreen extends StatelessWidget {
                   widget: List.generate(
                     12,
                     (index) => FamilyCard(
+                      title: 'Family',
+                      widget: Assets.icons.familyImg.svg(),
                       isSelected: ctrl.isSelect == index,
                       onTap: () {
                         ctrl.isSelect = index;
@@ -81,6 +145,9 @@ class MoodCheckingScreen extends StatelessWidget {
                   widget: List.generate(
                     12,
                     (index) => FamilyCard(
+                      title: ctrl.moodList[index],
+                      widget: SvgPicture.asset(ctrl.moodImageList[index],
+                          width: 24.w, fit: BoxFit.fill, height: 24.w),
                       isSelected: ctrl.isSelect1 == index,
                       onTap: () {
                         ctrl.isSelect1 = index;
@@ -127,9 +194,16 @@ class MoodCheckingScreen extends StatelessWidget {
 }
 
 class FamilyCard extends StatelessWidget {
-  const FamilyCard({Key? key, required this.isSelected, this.onTap})
+  const FamilyCard(
+      {Key? key,
+      required this.isSelected,
+      this.onTap,
+      required this.widget,
+      required this.title})
       : super(key: key);
   final bool isSelected;
+  final String title;
+  final Widget widget;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -146,17 +220,11 @@ class FamilyCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                height: 32.w,
-                width: 32.w,
-                decoration: BoxDecoration(
-                    color: background_EBEBEB,
-                    borderRadius: BorderRadius.circular(8.r)),
-              ),
-              'Family'.appTextStyle(
+              widget,
+              title.appTextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 11.w,
-                  fontColor: grey_969696),
+                  fontColor: doteColor),
             ],
           ),
         ));

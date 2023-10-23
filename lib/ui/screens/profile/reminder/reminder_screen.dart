@@ -19,65 +19,82 @@ class ReminderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ReminderController>(builder: (ctrl) {
       return Scaffold(
-        body: Column(
-          children: [
-            AppTitleBar(
-              titleText: reminder,
-              backgroundColor: background_EBEBEB,
-              centerTitle: true,
-            ),
-            24.w.spaceH(),
-            Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.w),
-                        color: white_FFFFFF),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        reminderCard(ctrl),
-                        12.w.spaceH(),
-                        '8:25 PM'.appTextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.w600)
-                      ],
-                    ).paddingSymmetric(horizontal: 16.w, vertical: 12.w))
-                .paddingSymmetric(horizontal: 20.w),
-            16.w.spaceH(),
-            Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.w),
-                        color: white_FFFFFF),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        reminderCard(ctrl),
-                        12.w.spaceH(),
-                        '8:00 AM - 5:00 PM'.appTextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.w600),
-                        20.w.spaceH(),
-                        Row(
-                          children: [
-                            Assets.icons.reduce.svg(),
-                            const Spacer(),
-                            '5x '.appTextStyle(
-                                fontSize: 14.sp, fontWeight: FontWeight.w500),
-                            reminder.appTextStyle(
-                                fontSize: 14.sp,
-                                fontColor: grey_D9D9D9,
-                                fontWeight: FontWeight.w500),
-                            const Spacer(),
-                            Assets.icons.add.svg(),
-                          ],
-                        ),
-                      ],
-                    ).paddingSymmetric(horizontal: 16.w, vertical: 12.w))
-                .paddingSymmetric(horizontal: 20.w),
-          ],
+        body: Container(
+          height: Get.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Assets.images.backGroundImage.path),
+                  fit: BoxFit.fill)),
+          child: Column(
+            children: [
+              40.w.spaceH(),
+              CommonAppBar(
+                title: reminder,
+                onTap: () {
+                  Get.back();
+                },
+              ),
+              24.w.spaceH(),
+              Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.w),
+                          color: white_FFFFFF),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          reminderCard(ctrl, value: ctrl.switchValue,
+                              onChange: (val) {
+                            ctrl.switchValue = val;
+                            ctrl.update();
+                          }),
+                          12.w.spaceH(),
+                          '8:25 PM'.appTextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.w600)
+                        ],
+                      ).paddingSymmetric(horizontal: 16.w, vertical: 12.w))
+                  .paddingSymmetric(horizontal: 20.w),
+              16.w.spaceH(),
+              Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.w),
+                          color: white_FFFFFF),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          reminderCard(ctrl, onChange: (val) {
+                            ctrl.switchValue1 = val;
+                            ctrl.update();
+                          }, value: ctrl.switchValue1),
+                          12.w.spaceH(),
+                          '8:00 AM - 5:00 PM'.appTextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.w600),
+                          20.w.spaceH(),
+                          Row(
+                            children: [
+                              Assets.icons.reduce.svg(),
+                              const Spacer(),
+                              '5x '.appTextStyle(
+                                  fontSize: 14.sp, fontWeight: FontWeight.w500),
+                              reminder.appTextStyle(
+                                  fontSize: 14.sp,
+                                  fontColor: grey_D9D9D9,
+                                  fontWeight: FontWeight.w500),
+                              const Spacer(),
+                              Assets.icons.add.svg(),
+                            ],
+                          ),
+                        ],
+                      ).paddingSymmetric(horizontal: 16.w, vertical: 12.w))
+                  .paddingSymmetric(horizontal: 20.w),
+            ],
+          ),
         ),
       );
     });
   }
 
-  Row reminderCard(ReminderController ctrl) {
+  Row reminderCard(ReminderController ctrl,
+      {required dynamic Function(bool) onChange, required bool value}) {
     return Row(
       children: [
         Column(
@@ -89,12 +106,7 @@ class ReminderScreen extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        AppSwitch(
-            value: ctrl.switchValue,
-            onChange: (val) {
-              ctrl.switchValue = val;
-              ctrl.update();
-            }),
+        AppSwitch(value: value, onChange: onChange),
       ],
     );
   }

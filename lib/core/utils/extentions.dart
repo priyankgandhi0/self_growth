@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 extension AddSpace on num {
   SizedBox spaceH() {
@@ -35,7 +36,7 @@ extension WidgetExt on Widget {
 
 extension AddText on String {
   Widget appTextStyle(
-      {Color fontColor = black_000000,
+      {Color fontColor = borderPurpleColor,
       bool? opacity,
       double? fontSize,
       TextAlign textAlign = TextAlign.center,
@@ -46,6 +47,7 @@ extension AddText on String {
       double? letterSpacing,
       String? fontFamily,
       FontStyle? fontStyle,
+      List<Color>? gradientColors,
       Color? decorationColor}) {
     return Text(
       maxLines: maxLines,
@@ -62,6 +64,42 @@ extension AddText on String {
             (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
       ),
       textAlign: textAlign,
+    );
+  }
+}
+
+extension AddGradientText on String {
+  Widget appGradientTextStyle(
+      {Color fontColor = black_000000,
+      bool? opacity,
+      double? fontSize,
+      TextAlign textAlign = TextAlign.center,
+      FontWeight fontWeight = FontWeight.w500,
+      TextOverflow? textOverflow,
+      int? maxLines,
+      TextDecoration? decoration,
+      double? letterSpacing,
+      String? fontFamily,
+      FontStyle? fontStyle,
+      List<Color>? gradientColors,
+      Color? decorationColor}) {
+    return GradientText(
+      maxLines: maxLines,
+      this,
+      overflow: textOverflow,
+      style: GoogleFonts.plusJakartaSans(
+        fontSize: fontSize?.sp ?? 16.sp,
+        color: (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
+        fontWeight: fontWeight,
+        fontStyle: fontStyle ?? FontStyle.normal,
+        decoration: decoration ?? TextDecoration.none,
+        letterSpacing: letterSpacing ?? 0,
+        decorationColor:
+            (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
+      ),
+      textAlign: textAlign,
+      colors: gradientColors ??
+          [Color(0xffD4E0DF), Color(0xffE0CECD), Color(0xffEDE3FF)],
     );
   }
 }

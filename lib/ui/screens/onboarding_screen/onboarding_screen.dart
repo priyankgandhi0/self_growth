@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/utils/extentions.dart';
-import 'package:self_growth/generated/assets.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/login_popup.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../gen/assets.gen.dart';
 import '../../widgets/app_bottom_sheet_dialog.dart';
 import '../../widgets/app_title_bar.dart';
 import '../../widgets/common_widget.dart';
-import '../../widgets/file_picker_utils.dart';
 import 'onboarding_controller.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -44,35 +42,38 @@ class OnboardingScreen extends StatelessWidget {
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 16.w),
             ),
-            RoundAppButton(
-              title: ctrl.initialPage == ctrl.pageController.initialPage
-                  ? loginText
-                  : nextText,
-              color: ctrl.initialPage == 0 ? lightGrayColor : grey_969696,
-              textColor: ctrl.initialPage == 0 ? darkGrayColor : white_FFFFFF,
-              onTap: () {
-                if (ctrl.initialPage != 0) {
-                  if (ctrl.initialPage == 2) {
-                    Get.toNamed(Routes.personalInfoScreen);
-                  } else {
-                    ctrl.pageController.animateToPage(
-                      ctrl.initialPage + 1,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.linear,
-                    );
-                  }
-                } else {
-                  appCustomBottomSheet(
-                      context: context,
-                      child: LoginPopup(
-                        onLogin: (login) {
-                          Get.toNamed(Routes.bottomNavigationScreen);
-                        },
-                        onForgotPassword: () {},
-                      ));
-                }
-              },
-            ).paddingSymmetric(horizontal: 46.w),
+            ctrl.initialPage == 0
+                ? RoundGradientAppButton(
+                    title: loginText,
+                    textColor: borderPurpleColor,
+                    onTap: () {
+                      appCustomBottomSheet(
+                          context: context,
+                          child: LoginPopup(
+                            onLogin: (login) {
+                              Get.toNamed(Routes.bottomNavigationScreen);
+                            },
+                            onForgotPassword: () {},
+                          ));
+                    },
+                  ).paddingSymmetric(horizontal: 46.w)
+                : RoundAppButton(
+                    title: nextText,
+                    textColor: borderPurpleColor,
+                    onTap: () {
+                      if (ctrl.initialPage != 0) {
+                        if (ctrl.initialPage == 2) {
+                          Get.toNamed(Routes.personalInfoScreen);
+                        } else {
+                          ctrl.pageController.animateToPage(
+                            ctrl.initialPage + 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.linear,
+                          );
+                        }
+                      }
+                    },
+                  ).paddingSymmetric(horizontal: 46.w),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -95,32 +96,10 @@ class OnboardingScreen extends StatelessWidget {
                   onTap: () {},
                 ),
               ).paddingOnly(top: 7.w),
-              GestureDetector(
-                onTap: () {
-                  PickFile()
-                      .openImageChooser(context: context, onImageChose: () {});
-                },
-                child: Container(
-                  height: 250.w,
-                  width: Get.width,
-                  margin: EdgeInsets.only(top: 50.w),
-                  decoration: BoxDecoration(
-                      color: background_F5F5F5,
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: grey_969696.withOpacity(0.2))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(Assets.iconsImage),
-                    ],
-                  ),
-                ).paddingSymmetric(horizontal: 47.w),
-              ),
-              20.w.spaceH(),
+              50.w.spaceH(),
               AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
-                height: ctrl.initialPage == 0 ? 120.h : 140.h,
+                duration: const Duration(milliseconds: 400),
+                height: ctrl.initialPage == 0 ? 390.w : 420.w,
                 child: PageView(
                   physics: const BouncingScrollPhysics(),
                   onPageChanged: (value) {
@@ -128,11 +107,19 @@ class OnboardingScreen extends StatelessWidget {
                     ctrl.initialPage = value;
                   },
                   controller: ctrl.pageController,
-                  children: const <Widget>[
-                    PageViewCard(title: firstScreenTextText, subTitle: ''),
-                    PageViewCard(title: whyUsText, subTitle: secondScreenText),
+                  children: <Widget>[
                     PageViewCard(
-                        title: andHowIsThatText, subTitle: thirdScreenText)
+                        image: Assets.images.onBording1.image(),
+                        title: firstScreenTextText,
+                        subTitle: ''),
+                    PageViewCard(
+                        image: Assets.images.onBording2.image(),
+                        title: whyUsText,
+                        subTitle: secondScreenText),
+                    PageViewCard(
+                        image: Assets.images.onBording3.image(),
+                        title: andHowIsThatText,
+                        subTitle: thirdScreenText)
                   ],
                 ),
               ),
@@ -143,9 +130,9 @@ class OnboardingScreen extends StatelessWidget {
                   children: List.generate(
                       3,
                       (index) => CircleAvatar(
-                            radius: 3.r,
+                            radius: 4.r,
                             backgroundColor: ctrl.initialPage == index
-                                ? grey_969696
+                                ? borderPurpleColor
                                 : doteColor,
                           ).paddingSymmetric(horizontal: 1.w)),
                 ),

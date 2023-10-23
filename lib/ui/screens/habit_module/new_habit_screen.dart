@@ -6,7 +6,9 @@ import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/habit_card.dart';
 
+import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../gen/assets.gen.dart';
 
 class NewHabitScreen extends StatelessWidget {
   const NewHabitScreen({Key? key}) : super(key: key);
@@ -14,80 +16,86 @@ class NewHabitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppTitleBar(
-        isHome: true,
-        leadingWidget: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            splashFactory: NoSplash.splashFactory,
-            child: const Icon(Icons.close)),
-        titleText: newHabbit,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        fontSize: 20.h,
-      ),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 56.h,
-              width: Get.width,
-              decoration: BoxDecoration(
-                  color: white_FFFFFF,
-                  borderRadius: BorderRadius.circular(8.r)),
-              child: Material(
-                borderRadius: BorderRadius.circular(8.r),
-                child: InkWell(
-                  customBorder: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r)),
-                  onTap: () {
-                    print('Create New Habbit');
-                  },
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.add),
-                        createNewHabbit.appTextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ],
+      body: Container(
+        height: Get.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Assets.images.backGroundImage.path),
+                fit: BoxFit.fill)),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              40.w.spaceH(),
+              CommonAppBar(
+                icon: const Icon(Icons.close, color: borderPurpleColor),
+                title: newHabbit,
+                padding: 0,
+                onTap: () {
+                  Get.back();
+                },
+              ),
+              Container(
+                height: 56.h,
+                width: Get.width,
+                decoration: BoxDecoration(
+                    color: white_FFFFFF,
+                    borderRadius: BorderRadius.circular(8.r)),
+                child: Material(
+                  borderRadius: BorderRadius.circular(8.r),
+                  child: InkWell(
+                    customBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r)),
+                    onTap: () {
+                      Get.toNamed(Routes.createNewHabitScreen);
+                    },
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.add),
+                          createNewHabbit.appTextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+              ).paddingSymmetric(vertical: 18.h),
+              6.h.spaceH(),
+              recomended
+                  .appTextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      textAlign: TextAlign.start)
+                  .paddingSymmetric(),
+              20.h.spaceH(),
+              ListView.separated(
+                padding: EdgeInsets.zero,
+                separatorBuilder: (context, index) => 16.h.spaceH(),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return HabitCard(
+                    onTap: () {
+                      Get.toNamed(Routes.habitPredefinedScreen);
+                    },
+                    title: 'Drinking Water',
+                    subTitle: 'This is description',
+                    tags: const [
+                      'Build Habit',
+                      'Daily',
+                      'Popular',
+                    ],
+                  );
+                },
               ),
-            ).paddingSymmetric(vertical: 18.h),
-            6.h.spaceH(),
-            recomended
-                .appTextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    textAlign: TextAlign.start)
-                .paddingSymmetric(),
-            20.h.spaceH(),
-            ListView.separated(
-              separatorBuilder: (context, index) => 16.h.spaceH(),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return HabitCard(
-                  title: 'Drinking Water',
-                  subTitle: 'This is description',
-                  tags: const [
-                    'Build Habit',
-                    'Daily',
-                    'Popular',
-                  ],
-                );
-              },
-            ),
-            20.h.spaceH()
-          ],
-        ).paddingSymmetric(horizontal: 16.w),
-      )),
+              20.h.spaceH()
+            ],
+          ).paddingSymmetric(horizontal: 16.w),
+        ),
+      ),
     );
   }
 }

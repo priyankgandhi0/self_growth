@@ -16,16 +16,16 @@ class AppChip extends StatelessWidget {
     return Chip(
       backgroundColor: background_F5F5F5,
       visualDensity: VisualDensity.compact,
-      labelPadding: const EdgeInsets.symmetric(
-        horizontal: 8,
+      labelPadding: EdgeInsets.symmetric(
+        horizontal: 8.w,
       ),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 0.w),
       side: BorderSide.none,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.r),
       ),
-      label: title.appTextStyle(fontSize: 12.h, fontWeight: FontWeight.w400),
+      label: title.appTextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
       // color: MaterialStatePropertyAll<Color>(background_F5F5F5),
     );
   }

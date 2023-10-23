@@ -45,12 +45,10 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
             }),
       actions: endTitle
           ? [
-              (titleText
-                  .appTextStyle(
-                      fontColor: fontColor ?? black_000000,
-                      fontWeight: fontWeight,
-                      fontSize: fontSize ?? 17.sp)
-                  .paddingOnly(right: 20))
+              (titleText.appTextStyle(
+                  fontColor: fontColor ?? black_000000,
+                  fontWeight: fontWeight,
+                  fontSize: fontSize ?? 17.sp))
             ]
           : suffixWidget,
       title: endTitle
@@ -75,26 +73,62 @@ class WithOutTitleAppBar extends StatelessWidget {
       {Key? key,
       required this.suffixWidget,
       required this.showBackButton,
-      required this.onTap})
+      this.onTap,
+      this.padding,
+      this.widget})
       : super(key: key);
   final Widget suffixWidget;
   final bool showBackButton;
-  final Function() onTap;
+  final double? padding;
+  final Widget? widget;
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Row(
         children: [
           showBackButton
-              ? InkWell(
-                  splashFactory: NoSplash.splashFactory,
-                  onTap: onTap,
-                  child: SvgPicture.asset(Assets.iconsBackArrow))
+              ? widget ??
+                  InkWell(
+                      splashFactory: NoSplash.splashFactory,
+                      onTap: onTap,
+                      child: SvgPicture.asset(Assets.iconsBackArrow))
               : const SizedBox(),
           const Spacer(),
           suffixWidget,
         ],
       ),
-    ).paddingSymmetric(horizontal: 16.w);
+    ).paddingSymmetric(horizontal: padding ?? 16.w);
+  }
+}
+
+class CommonAppBar extends StatelessWidget {
+  const CommonAppBar(
+      {Key? key,
+      required this.title,
+      required this.onTap,
+      this.padding,
+      this.icon})
+      : super(key: key);
+  final String title;
+  final Widget? icon;
+  final double? padding;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        InkWell(
+            onTap: onTap,
+            splashFactory: NoSplash.splashFactory,
+            child: icon ?? SvgPicture.asset(Assets.iconsBackArrow)),
+        title.appTextStyle(fontWeight: FontWeight.w700, fontSize: 20.w),
+        SvgPicture.asset(
+          Assets.iconsBackArrow,
+          color: Colors.transparent,
+        )
+      ],
+    ).paddingSymmetric(horizontal: padding ?? 18.w);
   }
 }

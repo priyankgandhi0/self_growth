@@ -6,6 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
+import 'package:self_growth/core/utils/extentions.dart';
+
+import '../../gen/assets.gen.dart';
 
 class AudioPlayer extends StatefulWidget {
   /// Path from where to play recorded audio
@@ -71,22 +74,9 @@ class AudioPlayerState extends State<AudioPlayer> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             _buildControl(),
             _buildSlider(constraints.maxWidth),
-            // IconButton(
-            //   icon: const Icon(Icons.delete,
-            //       color: Color(0xFF73748D), size: _deleteBtnSize),
-            //   onPressed: () {
-            //     if (_audioPlayer.state == ap.PlayerState.playing) {
-            //       stop().then((value) => widget.onDelete());
-            //     } else {
-            //       widget.onDelete();
-            //     }
-            //   },
-            // ),
           ],
         );
       },
@@ -101,7 +91,6 @@ class AudioPlayerState extends State<AudioPlayer> {
       icon = Icon(Icons.pause, color: black_000000, size: 20.w);
       color = grey_C4C4C4;
     } else {
-      final theme = Theme.of(context);
       icon = Icon(Icons.play_arrow, color: black_000000, size: 20.w);
       color = grey_C4C4C4;
     }
@@ -110,8 +99,10 @@ class AudioPlayerState extends State<AudioPlayer> {
       child: Material(
         color: color,
         child: InkWell(
-          child:
-              SizedBox(width: _controlSize, height: _controlSize, child: icon),
+          child: SizedBox(
+              width: _controlSize,
+              height: _controlSize,
+              child: Assets.icons.player.svg()),
           onTap: () {
             if (_audioPlayer.state == ap.PlayerState.playing) {
               pause();
@@ -139,28 +130,34 @@ class AudioPlayerState extends State<AudioPlayer> {
 
     return SizedBox(
       width: width,
-      child: SliderTheme(
-        data: SliderThemeData(
-          thumbColor: black_000000,
-          disabledThumbColor: Colors.black,
-          thumbShape:
-              RoundSliderThumbShape(enabledThumbRadius: 6.r, elevation: 0.0),
-          activeTrackColor: Colors.black,
-        ),
-        child: Slider(
-          divisions: 29,
-          activeColor: Colors.black,
-          inactiveColor: grey_C4C4C4,
-          onChanged: (v) {
-            if (duration != null) {
-              final position = v * duration.inMilliseconds;
-              _audioPlayer.seek(Duration(milliseconds: position.round()));
-            }
-          },
-          value: canSetValue && duration != null && position != null
-              ? position.inMilliseconds / duration.inMilliseconds
-              : 0.0,
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SliderTheme(
+            data: SliderThemeData(
+              thumbShape: RoundSliderThumbShape(
+                  enabledThumbRadius: 6.r, elevation: 0.0),
+            ),
+            child: Slider(
+              divisions: 24,
+              activeColor: Colors.black,
+              inactiveColor: Colors.transparent,
+              onChanged: (v) {
+                if (duration != null) {
+                  final position = v * duration.inMilliseconds;
+                  _audioPlayer.seek(Duration(milliseconds: position.round()));
+                }
+              },
+              value: canSetValue && duration != null && position != null
+                  ? position.inMilliseconds / duration.inMilliseconds
+                  : 0.0,
+            ),
+          ),
+          '      0.01'.appTextStyle(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w500,
+              fontColor: doteColor)
+        ],
       ),
     );
   }

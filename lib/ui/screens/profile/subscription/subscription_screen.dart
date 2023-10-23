@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/profile/subscription/subscription_con.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
@@ -22,30 +23,19 @@ class SubscriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<SubscriptionCon>(builder: (ctrl) {
       return Scaffold(
-        bottomNavigationBar: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppButton(title: 'Start 7 days free trial', onPress: () {})
-                  .paddingSymmetric(horizontal: 16.w),
-              16.w.spaceH(),
-              noCommitText.appTextStyle(
-                  fontWeight: FontWeight.w400, fontSize: 14.sp),
-              20.w.spaceH(),
-            ],
-          ),
-        ),
-        body: SafeArea(
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Column(
+        body: Stack(
+          children: [
+            Container(
+              height: Get.height,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(Assets.images.backGroundImage.path),
+                      fit: BoxFit.fill)),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  10.w.spaceH(),
+                  30.w.spaceH(),
                   InkWell(
                     splashFactory: NoSplash.splashFactory,
                     onTap: () {
@@ -79,29 +69,43 @@ class SubscriptionScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  20.w.spaceH(),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                          3,
+                          (index) => CircleAvatar(
+                                radius: 3.r,
+                                backgroundColor: ctrl.initialPage == index
+                                    ? borderPurpleColor
+                                    : doteColor,
+                              ).paddingSymmetric(horizontal: 2.w)),
+                    ),
+                  ),
                 ],
               ),
-              Positioned(
-                left: 0,
-                bottom: -40.w,
-                right: 0,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                        3,
-                        (index) => CircleAvatar(
-                              radius: 3.r,
-                              backgroundColor: ctrl.initialPage == index
-                                  ? grey_969696
-                                  : doteColor,
-                            ).paddingSymmetric(horizontal: 2.w)),
-                  ),
-                ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RoundAppButton(title: 'Start 7 days free trial', onTap: () {})
+                      .paddingSymmetric(horizontal: 46.w),
+                  16.w.spaceH(),
+                  noCommitText.appTextStyle(
+                      fontWeight: FontWeight.w400, fontSize: 14.sp),
+                  20.w.spaceH(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     });
@@ -112,6 +116,7 @@ class SubscriptionScreen extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
+            padding: EdgeInsets.zero,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.w), color: white_FFFFFF),
             child: Column(
@@ -131,7 +136,10 @@ class SubscriptionScreen extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
                     itemBuilder: (context, index) {
                       return ProfileDataCard(
-                              onTap: () {}, title: ctrl.subscriptionList[index])
+                              image: ctrl.subscriptionImageList[index],
+                              height: 32.w,
+                              onTap: () {},
+                              title: ctrl.subscriptionList[index])
                           .paddingSymmetric(vertical: 8.w);
                     },
                     separatorBuilder: (context, index) {
@@ -141,7 +149,6 @@ class SubscriptionScreen extends StatelessWidget {
                       );
                     },
                     itemCount: ctrl.subscriptionList.length),
-                5.w.spaceH(),
               ],
             )).paddingSymmetric(horizontal: 20.w),
         Positioned(
@@ -151,7 +158,18 @@ class SubscriptionScreen extends StatelessWidget {
               height: 34.w,
               width: 87.w,
               decoration: BoxDecoration(
-                  border: Border.all(color: grey_969696.withOpacity(.2)),
+                  image: DecorationImage(
+                      image: AssetImage(Assets.images.buttonImg.path),
+                      fit: BoxFit.fill),
+                  border: const GradientBoxBorder(
+                      gradient: LinearGradient(colors: [
+                        borderPinkColor,
+                        borderPurpleColor,
+                        borderPurpleColor,
+                        borderPurpleColor,
+                        borderPinkColor
+                      ]),
+                      width: 2),
                   borderRadius: BorderRadius.circular(8.w),
                   color: skyColor),
               child: Center(

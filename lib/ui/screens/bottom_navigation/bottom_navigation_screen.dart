@@ -24,10 +24,16 @@ class BottomNavigationScreen extends StatelessWidget {
         resizeToAvoidBottomInset: true,
         backgroundColor: background_EBEBEB,
         bottomNavigationBar: bottomBarWidget(ctrl, context),
-        body: SafeArea(
+        body: Container(
+          height: Get.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Assets.images.backGroundImage.path),
+                  fit: BoxFit.fill)),
           child: ListView(
             shrinkWrap: true,
             children: [
+              10.w.spaceH(),
               ctrl.tab ?? HomeScreen(),
               20.w.spaceH(),
             ],
@@ -46,7 +52,9 @@ class BottomNavigationScreen extends StatelessWidget {
         children: [
           BottomBarWidget(
             title: 'Home',
-            color: ctrl.isSelectedTab == 1 ? black_000000 : grey_969696,
+            icon: Assets.icons.home.path,
+            color: ctrl.isSelectedTab == 1 ? borderPurpleColor : doteColor,
+            iconColor: ctrl.isSelectedTab == 1 ? borderPurpleColor : doteColor,
             onTap: () {
               ctrl.isSelectedTab = 1;
               ctrl.changeTab(BottomNavEnum.home);
@@ -54,44 +62,58 @@ class BottomNavigationScreen extends StatelessWidget {
             },
           ),
           BottomBarWidget(
+            icon: Assets.icons.chart.path,
             title: 'Insight',
-            color: ctrl.isSelectedTab == 2 ? black_000000 : grey_969696,
+            color: ctrl.isSelectedTab == 2 ? borderPurpleColor : doteColor,
+            iconColor: ctrl.isSelectedTab == 2 ? borderPurpleColor : doteColor,
             onTap: () {
               ctrl.isSelectedTab = 2;
               ctrl.changeTab(BottomNavEnum.insight);
               ctrl.update();
             },
           ),
-          InkWell(
-              onTap: () {
-                ctrl.isSelectedTab = 1;
-                ctrl.changeTab(BottomNavEnum.home);
-                openBottomDialogBox(
-                    padding: 400.w,
-                    child: Column(
-                      children: [
-                        ProfileDataCard(
-                          height: 24.w,
-                          title: 'Mood Checking',
-                          onTap: () {
-                            Get.back();
-                            Get.toNamed(Routes.moodCheckingScreen);
-                          },
-                        ),
-                        const Divider().paddingSymmetric(vertical: 6.w),
-                        ProfileDataCard(height: 24.w, title: 'Voice Note'),
-                        const Divider().paddingSymmetric(vertical: 6.w),
-                        ProfileDataCard(height: 24.w, title: 'Add Photo')
-                      ],
-                    ),
-                    context: context);
-                ctrl.update();
-              },
-              splashFactory: NoSplash.splashFactory,
-              child: Assets.icons.menu.svg()),
           BottomBarWidget(
+            title: '',
+            widget: Assets.icons.menu.svg(),
+            color: ctrl.isSelectedTab == 2 ? borderPurpleColor : doteColor,
+            onTap: () {
+              ctrl.isSelectedTab = 1;
+              ctrl.changeTab(BottomNavEnum.home);
+              openBottomDialogBox(
+                  padding: 400.w,
+                  child: Column(
+                    children: [
+                      ProfileDataCard(
+                        image: Assets.icons.moodCheck.path,
+                        height: 32.w,
+                        title: 'Mood Checking',
+                        onTap: () {
+                          Get.back();
+                          Get.toNamed(Routes.moodCheckingScreen);
+                        },
+                      ),
+                      const Divider().paddingSymmetric(vertical: 6.w),
+                      ProfileDataCard(
+                          image: Assets.icons.voiceNote.path,
+                          height: 32.w,
+                          title: 'Voice Note'),
+                      const Divider().paddingSymmetric(vertical: 6.w),
+                      ProfileDataCard(
+                          image: Assets.icons.addPhoto.path,
+                          height: 32.w,
+                          title: 'Add Photo')
+                    ],
+                  ),
+                  context: context);
+              ctrl.update();
+            },
+            icon: '',
+          ),
+          BottomBarWidget(
+            icon: Assets.icons.discovery.path,
             title: 'Discovery',
-            color: ctrl.isSelectedTab == 4 ? black_000000 : grey_969696,
+            iconColor: ctrl.isSelectedTab == 4 ? borderPurpleColor : doteColor,
+            color: ctrl.isSelectedTab == 4 ? borderPurpleColor : doteColor,
             onTap: () {
               ctrl.isSelectedTab = 4;
               ctrl.changeTab(BottomNavEnum.discovery);
@@ -99,8 +121,10 @@ class BottomNavigationScreen extends StatelessWidget {
             },
           ),
           BottomBarWidget(
+            icon: Assets.icons.user.path,
             title: 'Profile',
-            color: ctrl.isSelectedTab == 5 ? black_000000 : grey_969696,
+            color: ctrl.isSelectedTab == 5 ? borderPurpleColor : doteColor,
+            iconColor: ctrl.isSelectedTab == 5 ? borderPurpleColor : doteColor,
             onTap: () {
               ctrl.isSelectedTab = 5;
               ctrl.changeTab(BottomNavEnum.profile);

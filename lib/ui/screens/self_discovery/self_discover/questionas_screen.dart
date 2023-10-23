@@ -26,6 +26,7 @@ class QuestionTwoScreen extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
+          20.w.spaceH(),
           Container(
             width: Get.width,
             decoration: BoxDecoration(
@@ -102,6 +103,7 @@ class QuestionThirdScreen extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
+          20.w.spaceH(),
           Container(
             width: Get.width,
             decoration: BoxDecoration(
@@ -112,7 +114,8 @@ class QuestionThirdScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 'Congratulations you have completed this test'
-                    .appTextStyle(fontWeight: FontWeight.w600, fontSize: 17.sp),
+                    .appTextStyle(fontWeight: FontWeight.w700, fontSize: 17.sp)
+                    .paddingSymmetric(horizontal: 20.w),
                 Container(
                   height: 150.w,
                   width: Get.width,
@@ -132,7 +135,7 @@ class QuestionThirdScreen extends StatelessWidget {
                         center: "78".appTextStyle(
                             fontSize: 28.sp, fontWeight: FontWeight.w500),
                         circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: grey_969696,
+                        progressColor: borderPurpleColor,
                       ),
                     ),
                   ),
@@ -150,8 +153,11 @@ class QuestionThirdScreen extends StatelessWidget {
                   child: ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
+                          padding: EdgeInsets.zero,
                           itemBuilder: (context, index) {
                             return SelfDiscoveryCard(
+                              widget: CircleAvatar(
+                                  radius: 9.r, backgroundColor: orangeColor),
                               title: ctrl.thirdQueList[index],
                               onTap: () {},
                             );
@@ -171,6 +177,7 @@ class QuestionThirdScreen extends StatelessWidget {
                 ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
+                    padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
                       return ThirdQueCard(
                         title: ctrl.thirdQueModelList[index].title,
@@ -205,7 +212,7 @@ class QuestionThirdScreen extends StatelessWidget {
             },
             width: Get.width,
             height: 48.w,
-            buttonColor: background_EBEBEB,
+            buttonColor: Colors.transparent,
           ).paddingOnly(bottom: 20.w, right: 32.w, left: 32.w)
         ],
       ),
@@ -229,12 +236,13 @@ class QuestionOneScreen extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 textAlign: TextAlign.center),
           ),
-          48.w.spaceH(),
+          5.w.spaceH(),
           ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return FirstQueCard(
+                  icon: ctrl.firstQueIconList[index],
                   title: ctrl.firstQueList[index],
                 ).paddingSymmetric(horizontal: 20.w);
               },

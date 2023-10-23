@@ -106,9 +106,9 @@ class _AppTextFieldState extends State<AppTextField> {
             alignment: Alignment.centerLeft,
             child: widget.labelText.appTextStyle(
               fontWeight: widget.labelFontWeight ?? FontWeight.w500,
-              fontColor: black_000000.withOpacity(0.7),
+              fontColor: borderPurpleColor.withOpacity(0.7),
               fontSize: widget.labelTextSize ?? 14.sp,
-              // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
+              // fontColor: _focusNode.hasFocus ? grey_969696 : borderPurpleColor,
             ),
           ),
         if (widget.labelText.isNotEmpty) (8).spaceH(),
@@ -124,6 +124,7 @@ class _AppTextFieldState extends State<AppTextField> {
               if (widget.validator != null) {
                 return widget.validator!(value!);
               }
+              return null;
             },
             onChanged: (value) {
               textFieldValue = value;
@@ -131,12 +132,12 @@ class _AppTextFieldState extends State<AppTextField> {
                 widget.onChanged!(value);
               }
             },
-            cursorColor: black_000000,
+            cursorColor: borderPurpleColor,
             style: widget.textStyle ??
                 GoogleFonts.plusJakartaSans(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: black_000000),
+                    color: borderPurpleColor),
             obscureText: widget.obscureText,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(
@@ -149,7 +150,7 @@ class _AppTextFieldState extends State<AppTextField> {
                           height: widget.prefixIconHeight,
                           width: widget.prefixIconWidth,
                           // ignore: deprecated_member_use_from_same_package
-                          color: isFocus ? black_000000 : grey_969696,
+                          color: isFocus ? borderPurpleColor : grey_969696,
                           fit: BoxFit.contain)
                       .paddingAll(16.sp)
                   : null,
@@ -167,7 +168,7 @@ class _AppTextFieldState extends State<AppTextField> {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                       color: grey_969696),
-              fillColor: background_F5F5F5,
+              fillColor: textFiledColor,
               filled: true,
               errorStyle: const TextStyle(height: 0),
               enabledBorder: OutlineInputBorder(
@@ -177,7 +178,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   )),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.sp),
-                  borderSide: const BorderSide(color: grey_969696)),
+                  borderSide: const BorderSide(color: borderPurpleColor)),
               errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.sp),
                   borderSide: BorderSide(color: appRed.withOpacity(0.5))),

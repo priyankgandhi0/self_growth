@@ -9,4 +9,13 @@ class ReminderController extends GetxController {
     _switchValue = value;
     update();
   }
+
+  bool _switchValue1 = true;
+
+  bool get switchValue1 => _switchValue1;
+
+  set switchValue1(bool value) {
+    _switchValue1 = value;
+    update();
+  }
 }

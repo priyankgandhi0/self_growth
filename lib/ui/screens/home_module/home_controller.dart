@@ -11,4 +11,7 @@ class HomeController extends GetxController {
     _isSelectedDay = value;
     update();
   }
+
+  int isSelectedHabit = 0;
+  int isSelectedDayTick = 0;
 }

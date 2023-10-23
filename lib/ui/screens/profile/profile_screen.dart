@@ -57,19 +57,20 @@ class ProfileScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 10.w),
+                          horizontal: 20.w, vertical: 11.w),
                       itemBuilder: (context, index) {
                         return ProfileDataCard(
-                                onTap: () {
-                                  if (index == 0) {
-                                    Get.toNamed(Routes.subscriptionScreen);
-                                  }
-                                  if (index == 1) {
-                                    Get.toNamed(Routes.reminderScreen);
-                                  }
-                                },
-                                title: ctrl.profileList[index])
-                            .paddingSymmetric(vertical: 8.w);
+                          onTap: () {
+                            if (index == 0) {
+                              Get.toNamed(Routes.subscriptionScreen);
+                            }
+                            if (index == 1) {
+                              Get.toNamed(Routes.reminderScreen);
+                            }
+                          },
+                          title: ctrl.profileList[index],
+                          image: ctrl.imagePath[index],
+                        ).paddingSymmetric(vertical: 11.w);
                       },
                       separatorBuilder: (context, index) {
                         return Container(
@@ -80,9 +81,11 @@ class ProfileScreen extends StatelessWidget {
                       itemCount: ctrl.profileList.length))
               .paddingSymmetric(horizontal: 20.w, vertical: 16.w),
           Container(
+            height: 40.w,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.w), color: white_FFFFFF),
-            child: const ProfileDataCard(
+            child: ProfileDataCard(
+              image: Assets.icons.logOut.path,
               title: 'Logout',
             ).paddingSymmetric(vertical: 8.w, horizontal: 20.w),
           ).paddingSymmetric(

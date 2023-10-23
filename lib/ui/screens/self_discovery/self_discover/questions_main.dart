@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -43,7 +45,12 @@ class FirstQuestionScreen extends StatelessWidget {
               ).paddingOnly(right: 20.w)
             : const SizedBox(),
         backgroundColor: background_EBEBEB,
-        body: SafeArea(
+        body: Container(
+          height: Get.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Assets.images.backGroundImage.path),
+                  fit: BoxFit.fill)),
           child: Stack(
             clipBehavior: Clip.none,
             // crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,67 +66,87 @@ class FirstQuestionScreen extends StatelessWidget {
                       : QuestionThirdScreen(
                           ctrl: ctrl,
                         ),
-              Container(
-                height: 70.w,
-                color: background_EBEBEB,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            if (ctrl.isQueAns == 0) {
-                              Get.back();
-                            } else if (ctrl.isQueAns == 1) {
-                              ctrl.isQueAns = 0;
-                            } else {
-                              ctrl.isQueAns = 1;
-                            }
-                          },
-                          child: Assets.icons.backArrow.svg().paddingSymmetric(
-                              horizontal: 16.w, vertical: 10.w),
-                        ),
-                        SizedBox(
-                          width: Get.width - 110.w,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.r),
-                            child: StepProgressIndicator(
-                              totalSteps: 4,
-                              currentStep: ctrl.isQueAns == 0
-                                  ? 1
-                                  : ctrl.isQueAns == 1
-                                      ? 2
-                                      : 4,
-                              size: 8.h,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              padding: 0,
-                              selectedColor: grey_969696,
-                              unselectedColor: grey_D9D9D9,
-                              roundedEdges: Radius.circular(10.r),
-                            ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      InkWell(
+                        splashFactory: NoSplash.splashFactory,
+                        onTap: () {
+                          if (ctrl.isQueAns == 0) {
+                            Get.back();
+                          } else if (ctrl.isQueAns == 1) {
+                            ctrl.isQueAns = 0;
+                          } else {
+                            ctrl.isQueAns = 1;
+                          }
+                        },
+                        child: Assets.icons.backArrow
+                            .svg()
+                            .paddingSymmetric(horizontal: 16.w, vertical: 2.w),
+                      ),
+                      SizedBox(
+                        width: Get.width - 110.w,
+                        height: 20,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.r),
+                          child: StepProgressIndicator(
+                            totalSteps: 15,
+                            currentStep: ctrl.isQueAns == 0
+                                ? 1
+                                : ctrl.isQueAns == 1
+                                    ? 6
+                                    : 15,
+                            customStep: (index, color, size) {
+                              return Container(
+                                color: doteColor,
+                                child: Container(
+                                  width: size,
+                                  decoration: BoxDecoration(
+                                      color: color,
+                                      borderRadius: BorderRadius.horizontal(
+                                          right: Radius.circular((index == 5 &&
+                                                      ctrl.isQueAns == 1) ||
+                                                  (index == 0 &&
+                                                      ctrl.isQueAns == 0) ||
+                                                  (index == 14 &&
+                                                      ctrl.isQueAns == 2)
+                                              ? 10.r
+                                              : 0))),
+                                ),
+                              );
+                            },
+                            size: 8.h,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            padding: 0,
+                            selectedColor: borderPurpleColor,
+                            unselectedColor: doteColor,
+                            roundedEdges: Radius.circular(10.r),
                           ),
                         ),
-                        10.w.spaceW(),
-                        '6/15'.appTextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 14.sp)
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: (ctrl.isQueAns == 0
-                              ? 'Screening'
-                              : ctrl.isQueAns == 1
-                                  ? 'Understanding'
-                                  : 'Taking Over')
-                          .appTextStyle(
-                              textAlign: TextAlign.end,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.sp),
-                    ).paddingSymmetric(horizontal: 20.w),
-                  ],
-                ),
-              ),
+                      ),
+                      10.w.spaceW(),
+                      '${ctrl.isQueAns == 0 ? "1" : '6'}/15'.appTextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          fontColor: borderPurpleColor),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: (ctrl.isQueAns == 0
+                            ? 'Screening'
+                            : ctrl.isQueAns == 1
+                                ? 'Understanding'
+                                : 'Taking Over')
+                        .appTextStyle(
+                            textAlign: TextAlign.end,
+                            fontColor: borderPurpleColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp),
+                  ).paddingSymmetric(horizontal: 20.w),
+                ],
+              ).paddingOnly(top: 26.w),
             ],
           ),
         ),

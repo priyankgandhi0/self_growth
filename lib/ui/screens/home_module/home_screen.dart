@@ -56,6 +56,7 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 NoteCommonCard(
+                  image: Assets.icons.edit.path,
                   title: 'Note title',
                   time: '7:00 AM ·',
                   notes: 'This is some text',
@@ -67,19 +68,23 @@ class HomeScreen extends StatelessWidget {
                   child: Container(
                     height: 40.w,
                     decoration: BoxDecoration(
-                        color: background_F8F8F8,
+                        gradient: LinearGradient(colors: [
+                          const Color(0XFFD4E0DF).withOpacity(.5),
+                          const Color(0XFFE0CECD).withOpacity(.5),
+                          const Color(0XFFEDE3FF).withOpacity(.5),
+                        ]),
                         borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(12.w))),
+                            bottom: Radius.circular(12.r))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        'View history'.appTextStyle(
-                            fontColor: darkGrayColor, fontSize: 14.w),
+                        'View history'
+                            .appTextStyle(fontColor: doteColor, fontSize: 14.w),
                         5.w.spaceW(),
                         Icon(
                           Icons.arrow_forward_ios,
-                          color: darkGrayColor,
+                          color: doteColor,
                           size: 12.w,
                         )
                       ],
@@ -105,7 +110,16 @@ class HomeScreen extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return BuildHabitCard(
-                        onTap: () {},
+                        selected: ctrl.isSelectedHabit == index,
+                        selectedDay: ctrl.isSelectedDayTick == index,
+                        dayOnTap: () {
+                          ctrl.isSelectedDayTick = index;
+                          ctrl.update();
+                        },
+                        onTap: () {
+                          ctrl.isSelectedHabit = index;
+                          ctrl.update();
+                        },
                         title: 'Reading Book',
                         subTitle: 'EVERY DAY',
                         day: '8',
@@ -140,10 +154,14 @@ class HomeScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   ProfileDataCard(
-                                      height: 24.w, title: 'Reset habit'),
+                                      image: Assets.icons.resetHabit.path,
+                                      height: 24.w,
+                                      title: 'Reset habit'),
                                   24.w.spaceH(),
                                   ProfileDataCard(
-                                      height: 24.w, title: 'Delete habit')
+                                      image: Assets.icons.delete.path,
+                                      height: 24.w,
+                                      title: 'Delete habit')
                                 ],
                               ),
                               context: context);
@@ -173,12 +191,18 @@ class BuildHabitCard extends StatelessWidget {
       required this.title,
       required this.subTitle,
       required this.day,
-      this.onTap})
+      this.onTap,
+      required this.selected,
+      this.dayOnTap,
+      required this.selectedDay})
       : super(key: key);
   final String title;
   final void Function()? onTap;
+  final void Function()? dayOnTap;
   final String subTitle;
   final String day;
+  final bool selected;
+  final bool selectedDay;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -193,7 +217,11 @@ class BuildHabitCard extends StatelessWidget {
                 color: white_FFFFFF),
             child: Row(
               children: [
-                Assets.icons.right.svg(),
+                !selected
+                    ? Assets.icons.right
+                        .svg(width: 24.w, fit: BoxFit.fill, height: 24.w)
+                    : Assets.icons.selectedRight
+                        .svg(width: 24.w, fit: BoxFit.fill, height: 24.w),
                 10.w.spaceW(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,12 +243,12 @@ class BuildHabitCard extends StatelessWidget {
             bottom: 10.w,
             child: Row(
               children: [
-                Container(
-                  width: 16.w,
-                  height: 16.w,
-                  decoration: BoxDecoration(
-                      color: grey_D9D9D9,
-                      borderRadius: BorderRadius.circular(4.r)),
+                InkWell(
+                  onTap: dayOnTap,
+                  child: (selectedDay
+                          ? Assets.icons.selected
+                          : Assets.icons.minimize)
+                      .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
                 ),
                 10.w.spaceW(),
                 '$day day streak'.appTextStyle(
@@ -264,7 +292,7 @@ class QuitHabitCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              IconCard(title: '☕️'),
+              const IconCard(title: '☕️'),
               10.w.spaceW(),
               title.appTextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
               const Spacer(),

@@ -54,6 +54,7 @@ class LoginPopup extends StatelessWidget {
                   return "please enter valid phone number";
                 }
               },
+              keyboardType: const TextInputType.numberWithOptions(signed: true),
               inputFormatter: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
@@ -89,6 +90,8 @@ class LoginPopup extends StatelessWidget {
             AppTextField(
               textEditingController: passwordController,
               hintText: "Password",
+              obscureText: true,
+              obscuringCharacter: '*',
               validator: (value) {
                 if (value.isEmpty) {
                   return "please enter valid password";
@@ -100,9 +103,9 @@ class LoginPopup extends StatelessWidget {
               prefixIcon: '',
             ),
             (20).spaceH(),
-            AppButton(
+            RoundAppButton(
                 title: "Login",
-                onPress: () {
+                onTap: () {
                   if (_formKey.currentState!.validate()) {
                     onLogin(LoginReturnType(
                       email: emailController.text,
