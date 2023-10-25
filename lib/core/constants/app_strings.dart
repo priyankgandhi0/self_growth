@@ -21,12 +21,12 @@ const nextText = "Next";
 const getStartedText = "Get started";
 const andHowIsThatText = "And how is that?";
 const thirdScreenText =
-    "By gathering certain answers provided by you. We would be able to give you insights about what you feel";
+    "Seral helps you Overcome thinking traps with positive ones and helps keep track of your progress. ";
 const secondScreenText =
-    "We provide self-discovery and what is that ? it's a way to get to know yourself on a deeper level";
+    "Once we understand how our thinking is affecting our mental well-being, we can begin to make changes that will lead to lasting improvements by providing you with a personalized plan.";
 
 ///personal info screen
-const personalInformationText = "Personal\n Information";
+const personalInformationText = "Personal\nInformation";
 const enterNameText = "Enter name";
 const nameText = "Name";
 const ageText = "Age";
@@ -58,7 +58,7 @@ const passwordMustBeSixDigit = "The password must be 6 (six) character long";
 ///profile screen
 const editProfileText = "Edit Profile";
 const changeAvatarText = "Change Avatar";
-const startYourMembershipNowText = "Start Your\n Membership\n Now!";
+const startYourMembershipNowText = "Start Your\nMembership\nNow!";
 const noCommitText = "No commiment. Cancel any time";
 
 ///reminder screen
@@ -82,5 +82,10 @@ const recomended = "Recomended";
 const buildHabit = 'Build Habit';
 const quitHabit = 'Quit Habit';
 
-///staTIC SCREEN
+///static SCREEN
 const statistic = 'Statistic';
+const moodSummary = 'Mood Summary';
+const whatImproveYourMood = 'What Improve your mood';
+
+///Add image
+const captureYourActivity = 'Capture your activity';

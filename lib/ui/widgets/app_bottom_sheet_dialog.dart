@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../gen/assets.gen.dart';
+
 Future<Object?> appCustomBottomSheet({
   required BuildContext context,
   required Widget child,
@@ -24,7 +26,10 @@ Future<Object?> appCustomBottomSheet({
             topRight: Radius.circular(16.sp),
           ),
           child: Container(
-            color: Colors.white,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(Assets.images.backGroundImage.path),
+                    fit: BoxFit.fill)),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

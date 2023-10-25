@@ -143,12 +143,10 @@ class BorderButton extends StatelessWidget {
                   width: 2),
             ),
             child: Center(
-              child: title
-                  .appTextStyle(
-                      fontColor: black_000000,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp)
-                  .paddingSymmetric(horizontal: 10.w),
+              child: title.appTextStyle(
+                  fontColor: black_000000,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14.sp),
             )));
   }
 }

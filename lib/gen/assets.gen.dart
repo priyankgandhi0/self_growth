@@ -11,6 +11,26 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/Switzer-Bold.otf
+  String get switzerBold => 'assets/fonts/Switzer-Bold.otf';
+
+  /// File path: assets/fonts/Switzer-Light.otf
+  String get switzerLight => 'assets/fonts/Switzer-Light.otf';
+
+  /// File path: assets/fonts/Switzer-Medium.otf
+  String get switzerMedium => 'assets/fonts/Switzer-Medium.otf';
+
+  /// File path: assets/fonts/Switzer-Regular.otf
+  String get switzerRegular => 'assets/fonts/Switzer-Regular.otf';
+
+  /// List of all assets
+  List<String> get values =>
+      [switzerBold, switzerLight, switzerMedium, switzerRegular];
+}
+
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -23,6 +43,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add_photo.svg
   SvgGenImage get addPhoto => const SvgGenImage('assets/icons/add_photo.svg');
 
+  /// File path: assets/icons/add_photo_img.svg
+  SvgGenImage get addPhotoImg =>
+      const SvgGenImage('assets/icons/add_photo_img.svg');
+
   /// File path: assets/icons/add_to.svg
   SvgGenImage get addTo => const SvgGenImage('assets/icons/add_to.svg');
 
@@ -34,6 +58,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/bell.svg
   SvgGenImage get bell => const SvgGenImage('assets/icons/bell.svg');
+
+  /// File path: assets/icons/blaming.svg
+  SvgGenImage get blaming => const SvgGenImage('assets/icons/blaming.svg');
 
   /// File path: assets/icons/blessd.svg
   SvgGenImage get blessd => const SvgGenImage('assets/icons/blessd.svg');
@@ -72,6 +99,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/family_img.svg
   SvgGenImage get familyImg => const SvgGenImage('assets/icons/family_img.svg');
 
+  /// File path: assets/icons/floatButton.svg
+  SvgGenImage get floatButton =>
+      const SvgGenImage('assets/icons/floatButton.svg');
+
   /// File path: assets/icons/great.svg
   SvgGenImage get great => const SvgGenImage('assets/icons/great.svg');
 
@@ -97,6 +128,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/lang.svg
   SvgGenImage get lang => const SvgGenImage('assets/icons/lang.svg');
 
+  /// File path: assets/icons/learning.svg
+  SvgGenImage get learning => const SvgGenImage('assets/icons/learning.svg');
+
+  /// File path: assets/icons/left_arrow.svg
+  SvgGenImage get leftArrow => const SvgGenImage('assets/icons/left_arrow.svg');
+
   /// File path: assets/icons/log_out.svg
   SvgGenImage get logOut => const SvgGenImage('assets/icons/log_out.svg');
 
@@ -118,6 +155,13 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/new_habbit.svg
   SvgGenImage get newHabbit => const SvgGenImage('assets/icons/new_habbit.svg');
+
+  /// File path: assets/icons/no_thinking.svg
+  SvgGenImage get noThinking =>
+      const SvgGenImage('assets/icons/no_thinking.svg');
+
+  /// File path: assets/icons/not_accept.svg
+  SvgGenImage get notAccept => const SvgGenImage('assets/icons/not_accept.svg');
 
   /// File path: assets/icons/player.svg
   SvgGenImage get player => const SvgGenImage('assets/icons/player.svg');
@@ -144,6 +188,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/right.svg
   SvgGenImage get right => const SvgGenImage('assets/icons/right.svg');
 
+  /// File path: assets/icons/right_arrow.svg
+  SvgGenImage get rightArrow =>
+      const SvgGenImage('assets/icons/right_arrow.svg');
+
   /// File path: assets/icons/sad.svg
   SvgGenImage get sad => const SvgGenImage('assets/icons/sad.svg');
 
@@ -168,6 +216,16 @@ class $AssetsIconsGen {
   SvgGenImage get selfDiscoveryImg =>
       const SvgGenImage('assets/icons/self_discovery_img.svg');
 
+  /// File path: assets/icons/slidablr_icon.svg
+  SvgGenImage get slidablrIcon =>
+      const SvgGenImage('assets/icons/slidablr_icon.svg');
+
+  /// File path: assets/icons/sliders.svg
+  SvgGenImage get sliders => const SvgGenImage('assets/icons/sliders.svg');
+
+  /// File path: assets/icons/statment.svg
+  SvgGenImage get statment => const SvgGenImage('assets/icons/statment.svg');
+
   /// File path: assets/icons/three_dote.svg
   SvgGenImage get threeDote => const SvgGenImage('assets/icons/three_dote.svg');
 
@@ -191,10 +249,12 @@ class $AssetsIconsGen {
         dateRange,
         add,
         addPhoto,
+        addPhotoImg,
         addTo,
         awfull,
         backArrow,
         bell,
+        blaming,
         blessd,
         chart,
         checkTrue,
@@ -207,6 +267,7 @@ class $AssetsIconsGen {
         emoji,
         family,
         familyImg,
+        floatButton,
         great,
         habitTool,
         happy,
@@ -215,6 +276,8 @@ class $AssetsIconsGen {
         imageCapture,
         impNumber,
         lang,
+        learning,
+        leftArrow,
         logOut,
         menu,
         minimize,
@@ -222,6 +285,8 @@ class $AssetsIconsGen {
         mySubscription,
         natural,
         newHabbit,
+        noThinking,
+        notAccept,
         player,
         privacy,
         profile,
@@ -230,6 +295,7 @@ class $AssetsIconsGen {
         resetPass,
         review,
         right,
+        rightArrow,
         sad,
         selected,
         selectedRight,
@@ -237,6 +303,9 @@ class $AssetsIconsGen {
         selfDisc,
         selfDiscovery,
         selfDiscoveryImg,
+        slidablrIcon,
+        sliders,
+        statment,
         threeDote,
         user,
         voice,
@@ -253,9 +322,15 @@ class $AssetsImagesGen {
   AssetGenImage get backGroundImage =>
       const AssetGenImage('assets/images/backGround_image.png');
 
+  /// File path: assets/images/but_con.png
+  AssetGenImage get butCon => const AssetGenImage('assets/images/but_con.png');
+
   /// File path: assets/images/button_img.png
   AssetGenImage get buttonImg =>
       const AssetGenImage('assets/images/button_img.png');
+
+  /// File path: assets/images/circle.png
+  AssetGenImage get circle => const AssetGenImage('assets/images/circle.png');
 
   /// File path: assets/images/con.png
   AssetGenImage get con => const AssetGenImage('assets/images/con.png');
@@ -279,7 +354,9 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         backGroundImage,
+        butCon,
         buttonImg,
+        circle,
         con,
         container,
         onBording1,
@@ -291,6 +368,7 @@ class $AssetsImagesGen {
 class Assets {
   Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }

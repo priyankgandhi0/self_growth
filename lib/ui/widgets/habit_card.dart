@@ -43,10 +43,11 @@ class HabitCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                title.appTextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                title.appTextStyle(
+                    fontSize: 14.sp, fontWeight: FontWeight.w700),
                 8.h.spaceH(),
                 subTitle.appTextStyle(
-                    fontSize: 13,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w400,
                     fontColor: borderPurpleColor.withOpacity(0.9)),
                 8.h.spaceH(),

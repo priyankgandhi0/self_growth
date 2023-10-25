@@ -1,4 +1,15 @@
-<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3334 10L12.0001 17.3333L8.66675 14" stroke="#352E40" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="0.5" y="0.5" width="27" height="27" rx="13.5" stroke="#A69FB0"/>
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.3332 8.5L9.99984 15.8333L6.6665 12.5" stroke="#A69FB0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="0.5" y="1" width="23" height="23" rx="11.5" stroke="url(#paint0_radial_27_3390)"/>
+<defs>
+<radialGradient id="paint0_radial_27_3390" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.0002 12.5003) scale(15.8058 9.50638)">
+<stop stop-color="#F6BEB2"/>
+<stop offset="0.1308" stop-color="#F1BAB0"/>
+<stop offset="0.2912" stop-color="#E2AFAA"/>
+<stop offset="0.4671" stop-color="#C99CA0"/>
+<stop offset="0.6541" stop-color="#A68193"/>
+<stop offset="0.8478" stop-color="#7A6082"/>
+<stop offset="1" stop-color="#524172"/>
+</radialGradient>
+</defs>
 </svg>

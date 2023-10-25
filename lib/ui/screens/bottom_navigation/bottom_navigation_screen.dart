@@ -23,6 +23,10 @@ class BottomNavigationScreen extends StatelessWidget {
       return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: background_EBEBEB,
+        floatingActionButton: Visibility(
+            visible: ctrl.isSelectedTab == 4 && bottomBarController.isOpen,
+            child: Assets.icons.floatButton.svg()),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         bottomNavigationBar: bottomBarWidget(ctrl, context),
         body: Container(
           height: Get.height,
@@ -101,6 +105,10 @@ class BottomNavigationScreen extends StatelessWidget {
                       ProfileDataCard(
                           image: Assets.icons.addPhoto.path,
                           height: 32.w,
+                          onTap: () {
+                            Get.back();
+                            Get.toNamed(Routes.addPhotoScreen);
+                          },
                           title: 'Add Photo')
                     ],
                   ),
@@ -115,6 +123,7 @@ class BottomNavigationScreen extends StatelessWidget {
             iconColor: ctrl.isSelectedTab == 4 ? borderPurpleColor : doteColor,
             color: ctrl.isSelectedTab == 4 ? borderPurpleColor : doteColor,
             onTap: () {
+              ctrl.isOpen = false;
               ctrl.isSelectedTab = 4;
               ctrl.changeTab(BottomNavEnum.discovery);
               ctrl.update();

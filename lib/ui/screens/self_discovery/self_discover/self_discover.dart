@@ -30,7 +30,7 @@ class SelfDiscoverScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  36.w.spaceH(),
+                  46.w.spaceH(),
                   InkWell(
                     onTap: () {
                       Get.back();
@@ -79,6 +79,7 @@ class SelfDiscoverScreen extends StatelessWidget {
                         ListView.separated(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
+                            padding: EdgeInsets.zero,
                             itemBuilder: (context, index) {
                               return SelfDiscoveryCard(
                                 title: 'Benefit drinking water for your body',

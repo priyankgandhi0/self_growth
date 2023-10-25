@@ -14,6 +14,7 @@ import 'package:self_growth/ui/screens/self_discovery/discover_screen.dart';
 import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discovery_con.dart';
 
 import '../../../../core/constants/app_strings.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/common_widget.dart';
 
@@ -123,20 +124,18 @@ class QuestionThirdScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.r),
                       color: grey_D9D9D9),
                   child: Center(
-                    child: CircleAvatar(
-                      radius: 45.r,
-                      backgroundColor: Colors.white,
-                      child: CircularPercentIndicator(
-                        radius: 44.r,
-                        lineWidth: 8.w,
-                        animation: true,
-                        percent: 0.7,
-                        backgroundColor: background_EBEBEB,
-                        center: "78".appTextStyle(
-                            fontSize: 28.sp, fontWeight: FontWeight.w500),
-                        circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: borderPurpleColor,
-                      ),
+                    child: CircularPercentIndicator(
+                      radius: 40.r,
+                      lineWidth: 7.w,
+                      animation: true,
+                      percent: 0.7,
+                      backgroundColor: background_EBEBEB,
+                      center: "78".appTextStyle(
+                          fontFamily: Assets.fonts.switzerBold,
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w500),
+                      circularStrokeCap: CircularStrokeCap.round,
+                      progressColor: borderPurpleColor,
                     ),
                   ),
                 ).paddingOnly(top: 20.w),
@@ -236,7 +235,7 @@ class QuestionOneScreen extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 textAlign: TextAlign.center),
           ),
-          5.w.spaceH(),
+          10.w.spaceH(),
           ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

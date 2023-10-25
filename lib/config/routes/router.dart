@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:self_growth/ui/screens/add_photo/add_photo_screen.dart';
 import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
 import 'package:self_growth/ui/screens/habit_module/habit_predefined_screen.dart';
 import 'package:self_growth/ui/screens/habit_module/new_habit_screen.dart';
@@ -41,6 +42,7 @@ class Routes {
   static const String firstQuestionScreen = "/firstQuestionScreen";
   static const String noteHistoryScreen = "/noteHistoryScreen";
   static const String moodCheckingScreen = "/moodCheckingScreen";
+  static const String addPhotoScreen = "/addPhotoScreen";
 
   static List<GetPage> pages = [
     GetPage(
@@ -94,6 +96,10 @@ class Routes {
     GetPage(
         name: selfDiscoverScreen,
         page: () => const SelfDiscoverScreen(),
+        transition: Transition.downToUp),
+    GetPage(
+        name: addPhotoScreen,
+        page: () => const AddPhotoScreen(),
         transition: Transition.downToUp),
     GetPage(
       name: firstQuestionScreen,

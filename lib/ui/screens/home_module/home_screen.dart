@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
@@ -13,6 +14,7 @@ import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
 import '../../widgets/app_dialogs.dart';
+import '../self_discovery/discover_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -24,7 +26,8 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           'Today, 2 Feb 2023'
-              .appTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
+              .appTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600)
+              .paddingSymmetric(horizontal: 20.w),
           24.w.spaceH(),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -46,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                     selected: ctrl.isSelectedDay.contains(index)),
               ),
             ),
-          ),
+          ).paddingSymmetric(horizontal: 20.w),
           20.w.spaceH(),
           Container(
             width: Get.width,
@@ -68,19 +71,24 @@ class HomeScreen extends StatelessWidget {
                   child: Container(
                     height: 40.w,
                     decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [
-                          const Color(0XFFD4E0DF).withOpacity(.5),
-                          const Color(0XFFE0CECD).withOpacity(.5),
-                          const Color(0XFFEDE3FF).withOpacity(.5),
-                        ]),
+                        // gradient: LinearGradient(colors: [
+                        //   const Color(0XFFD4E0DF).withOpacity(.5),
+                        //   const Color(0XFFE0CECD).withOpacity(.5),
+                        //   const Color(0XFFEDE3FF).withOpacity(.5),
+                        // ]),
+                        image: DecorationImage(
+                            image: AssetImage(Assets.images.butCon.path),
+                            fit: BoxFit.fill),
                         borderRadius: BorderRadius.vertical(
                             bottom: Radius.circular(12.r))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        'View history'
-                            .appTextStyle(fontColor: doteColor, fontSize: 14.w),
+                        'View history'.appTextStyle(
+                            fontColor: doteColor,
+                            fontSize: 14.w,
+                            fontWeight: FontWeight.w600),
                         5.w.spaceW(),
                         Icon(
                           Icons.arrow_forward_ios,
@@ -93,7 +101,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          ).paddingSymmetric(horizontal: 20.w),
           16.w.spaceH(),
           Container(
             width: Get.width,
@@ -102,8 +110,9 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildHabit.appTextStyle(
-                    fontSize: 17.sp, fontWeight: FontWeight.w600),
+                buildHabit
+                    .appTextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600)
+                    .paddingSymmetric(horizontal: 20.w),
                 16.w.spaceH(),
                 ListView.separated(
                     shrinkWrap: true,
@@ -131,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                     itemCount: 2)
               ],
             ).paddingAll(16.w),
-          ),
+          ).paddingSymmetric(horizontal: 20.w),
           16.w.spaceH(),
           Container(
             width: Get.width,
@@ -148,6 +157,11 @@ class HomeScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return QuitHabitCard(
+                        selectedDay: ctrl.isSelectedDayTick1 == index,
+                        dayOnTap: () {
+                          ctrl.isSelectedDayTick1 = index;
+                          ctrl.update();
+                        },
                         buttonOnTap: () {
                           openBottomDialogBox(
                               padding: 350.w,
@@ -157,7 +171,8 @@ class HomeScreen extends StatelessWidget {
                                       image: Assets.icons.resetHabit.path,
                                       height: 24.w,
                                       title: 'Reset habit'),
-                                  24.w.spaceH(),
+                                  const Divider()
+                                      .paddingSymmetric(vertical: 6.w),
                                   ProfileDataCard(
                                       image: Assets.icons.delete.path,
                                       height: 24.w,
@@ -178,9 +193,66 @@ class HomeScreen extends StatelessWidget {
                     itemCount: 2)
               ],
             ).paddingAll(16.w),
-          ),
+          ).paddingSymmetric(horizontal: 20.w),
+          16.w.spaceH(),
+          Container(
+            width: Get.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r), color: white_FFFFFF),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    'Recomended for you'.appTextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 17.sp),
+                    const Spacer(),
+                    Assets.icons.sliders.svg()
+                  ],
+                ),
+                20.w.spaceH(),
+                ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Slidable(
+                        key: const ValueKey(0),
+                        endActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          dismissible: DismissiblePane(onDismissed: () {}),
+                          children: [
+                            SlidableAction(
+                              // An action can be bigger than the others.
+
+                              onPressed: (context) {},
+
+                              backgroundColor: Colors.transparent,
+                              foregroundColor: Colors.red,
+                              autoClose: false,
+
+                              icon: Icons.do_disturb,
+                            ),
+                          ],
+                        ),
+                        child: DiscoverCommonCard(
+                          color: greyLightColor,
+                          buttonColor: white_FFFFFF,
+                          onTap: () {
+                            // bottomBarController.changeTab(BottomNavEnum.other);
+
+                            // bottomBarController.tab = AllDisCoverDataScreen();
+                          },
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return 16.w.spaceH();
+                    },
+                    itemCount: 3)
+              ],
+            ).paddingAll(16.w),
+          )
         ],
-      ).paddingSymmetric(horizontal: 20.w, vertical: 24.w);
+      ).paddingSymmetric(vertical: 24.w);
     });
   }
 }
@@ -272,13 +344,18 @@ class QuitHabitCard extends StatelessWidget {
       required this.subTitle,
       required this.day,
       required this.time,
-      this.buttonOnTap})
+      this.buttonOnTap,
+      required this.selectedDay,
+      this.dayOnTap})
       : super(key: key);
   final String title;
   final String subTitle;
   final String day;
   final String time;
   final Function()? buttonOnTap;
+  final Function()? dayOnTap;
+
+  final bool selectedDay;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -316,12 +393,12 @@ class QuitHabitCard extends StatelessWidget {
                 fontSize: 14.sp,
               ),
               const Spacer(),
-              Container(
-                width: 16.w,
-                height: 16.w,
-                decoration: BoxDecoration(
-                    color: grey_D9D9D9,
-                    borderRadius: BorderRadius.circular(4.r)),
+              InkWell(
+                onTap: dayOnTap,
+                child: (selectedDay
+                        ? Assets.icons.selected
+                        : Assets.icons.minimize)
+                    .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
               ),
               10.w.spaceW(),
               '$day day streak'.appTextStyle(

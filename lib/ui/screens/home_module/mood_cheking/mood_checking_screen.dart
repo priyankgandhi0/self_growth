@@ -31,7 +31,7 @@ class MoodCheckingScreen extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                20.w.spaceH(),
+                35.w.spaceH(),
                 InkWell(
                         onTap: () {
                           Get.back();
@@ -252,7 +252,7 @@ class ButtonCard extends StatelessWidget {
           children: [
             icon,
             '  $title'
-                .appTextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+                .appTextStyle(fontSize: 12.sp, fontWeight: FontWeight.w700),
           ],
         ).paddingSymmetric(horizontal: 10.w),
       ),

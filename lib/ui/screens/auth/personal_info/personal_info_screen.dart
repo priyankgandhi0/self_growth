@@ -22,6 +22,7 @@ class PersonalInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PersonalInfoCon>(builder: (ctrl) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Container(

@@ -28,7 +28,7 @@ class CreateNewHabitScreen extends StatelessWidget {
           return SingleChildScrollView(
             child: Column(
               children: [
-                40.w.spaceH(),
+                50.w.spaceH(),
                 CommonAppBar(
                   icon: const Icon(Icons.close, color: borderPurpleColor),
                   title: newHabbit,
@@ -143,7 +143,9 @@ class CreateNewHabitScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       "Goals".appTextStyle(
-                          fontSize: 17, fontWeight: FontWeight.w600),
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                      ),
                       16.h.spaceH(),
                       Container(
                         decoration: BoxDecoration(
@@ -156,7 +158,9 @@ class CreateNewHabitScreen extends StatelessWidget {
                             Column(
                               children: [
                                 "1 times".appTextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: Assets.fonts.switzerRegular),
                                 "per day".appTextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -167,7 +171,11 @@ class CreateNewHabitScreen extends StatelessWidget {
                               children: [
                                 const AppChip(title: 'Daily'),
                                 12.w.spaceW(),
-                                const Icon(Icons.arrow_forward_ios_outlined)
+                                Icon(
+                                  Icons.arrow_forward_ios_outlined,
+                                  color: borderPurpleColor,
+                                  size: 17.sp,
+                                )
                               ],
                             )
                           ],
@@ -264,13 +272,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                                             black_000000.withOpacity(0.5)),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    const AppChip(title: 'Add Group'),
-                                    12.w.spaceW(),
-                                    const Icon(Icons.arrow_forward_ios_outlined)
-                                  ],
-                                )
+                                const AppChip(title: 'Add Group'),
                               ],
                             ).paddingAll(12),
                           ),
@@ -361,32 +363,38 @@ class CreateNewHabitScreen extends StatelessWidget {
                           16.h.spaceH(),
                           SwitchBoxLisTile(
                             title: 'Show badge if no activity today',
-                            value: false,
-                            onChange: (value) {},
+                            value: ctrl.isShowBadge,
+                            onChange: (value) {
+                              ctrl.isShowBadge = value;
+                              ctrl.update();
+                            },
                           ),
                           16.h.spaceH(),
                           SwitchBoxLisTile(
                             title: 'Show goal in line chart',
-                            value: false,
-                            onChange: (value) {},
+                            value: ctrl.isShowGoal,
+                            onChange: (value) {
+                              ctrl.isShowGoal = value;
+                              ctrl.update();
+                            },
                           ),
                           16.h.spaceH(),
-                          "Add to Group".appTextStyle(
+                          "Apple health integration".appTextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
                           8.h.spaceH(),
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
-                                    color: black_000000.withOpacity(0.1))),
+                                    color: doteColor.withOpacity(0.3))),
                             child: Row(
                               children: [
                                 Expanded(
                                   child: "Sleep hours"
                                       .appTextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500)
-                                      .paddingSymmetric(vertical: 12),
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w700)
+                                      .paddingSymmetric(vertical: 12.w),
                                 ),
                               ],
                             ),

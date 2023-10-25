@@ -25,7 +25,7 @@ class AppChip extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.r),
       ),
-      label: title.appTextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+      label: title.appTextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
       // color: MaterialStatePropertyAll<Color>(background_F5F5F5),
     );
   }

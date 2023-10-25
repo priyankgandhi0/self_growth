@@ -29,5 +29,6 @@ const borderPinkColor = Color(0xFF7A6082);
 const textPinkColor = Color(0xFFF6BEB2);
 const activeColor = Color(0xFF00CB51);
 const orangeColor = Color(0xFFFF9900);
+const greyLightColor = Color(0xFFF4F3F3);
 
 const appRed = Colors.red;

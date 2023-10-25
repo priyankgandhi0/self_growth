@@ -17,6 +17,7 @@ class BottomBarController extends GetxController {
     update();
   }
 
+  bool isOpen = false;
   BottomNavEnum bottomNavEnum = BottomNavEnum.home;
   Widget? tab;
 

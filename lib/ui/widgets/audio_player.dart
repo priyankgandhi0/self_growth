@@ -5,6 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 
@@ -132,31 +133,39 @@ class AudioPlayerState extends State<AudioPlayer> {
       width: width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SliderTheme(
-            data: SliderThemeData(
-              thumbShape: RoundSliderThumbShape(
-                  enabledThumbRadius: 6.r, elevation: 0.0),
-            ),
-            child: Slider(
-              divisions: 24,
-              activeColor: Colors.black,
-              inactiveColor: Colors.transparent,
-              onChanged: (v) {
-                if (duration != null) {
-                  final position = v * duration.inMilliseconds;
-                  _audioPlayer.seek(Duration(milliseconds: position.round()));
-                }
-              },
-              value: canSetValue && duration != null && position != null
-                  ? position.inMilliseconds / duration.inMilliseconds
-                  : 0.0,
+          SizedBox(
+            height: 20.w,
+            width: Get.width,
+            child: SliderTheme(
+              data: SliderThemeData(
+                thumbShape: RoundSliderThumbShape(
+                    enabledThumbRadius: 6.r, elevation: 0.0),
+              ),
+              child: Slider(
+                divisions: 24,
+                activeColor: borderPurpleColor,
+                thumbColor: borderPurpleColor,
+                inactiveColor: Colors.transparent,
+                onChanged: (v) {
+                  if (duration != null) {
+                    final position = v * duration.inMilliseconds;
+                    _audioPlayer.seek(Duration(milliseconds: position.round()));
+                  }
+                },
+                value: canSetValue && duration != null && position != null
+                    ? position.inMilliseconds / duration.inMilliseconds
+                    : 0.0,
+              ),
             ),
           ),
-          '      0.01'.appTextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w500,
-              fontColor: doteColor)
+          '0.01'
+              .appTextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500,
+                  fontColor: doteColor)
+              .paddingOnly(left: 20.w)
         ],
       ),
     );

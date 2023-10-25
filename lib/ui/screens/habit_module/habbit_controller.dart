@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 class HabitController extends GetxController
     with GetSingleTickerProviderStateMixin {
   bool isRemind = false;
+  bool isShowBadge = false;
+  bool isShowGoal = false;
   int isHabitTypeBuild = 0;
   int isLogActivity = 0;
   AnimationController? animationController;

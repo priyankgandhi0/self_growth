@@ -24,7 +24,7 @@ class HabitPredefinedScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              20.w.spaceH(),
+              8.w.spaceH(),
               WithOutTitleAppBar(
                 suffixWidget: 'Customize'.appTextStyle(
                     fontColor: borderPurpleColor,
@@ -59,6 +59,7 @@ class HabitPredefinedScreen extends StatelessWidget {
                       ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
+                              padding: EdgeInsets.zero,
                               itemBuilder: (context, index) =>
                                   const SelfDiscoveryCard(
                                       title:

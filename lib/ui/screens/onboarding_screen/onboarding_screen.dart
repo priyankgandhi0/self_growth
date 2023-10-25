@@ -25,39 +25,37 @@ class OnboardingScreen extends StatelessWidget {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Visibility(
-              visible: ctrl.initialPage == 0,
-              child: RoundAppButton(
-                title: getStartedText,
-                onTap: () {
-                  if (ctrl.initialPage == 2) {
-                    Get.toNamed(Routes.personalInfoScreen);
-                  } else {
-                    ctrl.pageController.animateToPage(
-                      ctrl.initialPage + 1,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.linear,
-                    );
-                  }
-                },
-              ).paddingOnly(left: 46.w, right: 46.w, bottom: 16.w),
-            ),
-            ctrl.initialPage == 0
-                ? RoundGradientAppButton(
-                    title: loginText,
-                    textColor: borderPurpleColor,
-                    onTap: () {
-                      appCustomBottomSheet(
-                          context: context,
-                          child: LoginPopup(
-                            onLogin: (login) {
-                              Get.toNamed(Routes.bottomNavigationScreen);
-                            },
-                            onForgotPassword: () {},
-                          ));
-                    },
-                  ).paddingSymmetric(horizontal: 46.w)
-                : RoundAppButton(
+            RoundAppButton(
+              title: getStartedText,
+              onTap: () {
+                if (ctrl.initialPage == 2) {
+                  Get.toNamed(Routes.personalInfoScreen);
+                } else {
+                  ctrl.pageController.animateToPage(
+                    ctrl.initialPage + 1,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.linear,
+                  );
+                }
+              },
+            ).paddingOnly(left: 24.w, right: 24.w, bottom: 16.w),
+            /*ctrl.initialPage == 0
+                ? */
+            RoundGradientAppButton(
+              title: loginText,
+              textColor: borderPurpleColor,
+              onTap: () {
+                appCustomBottomSheet(
+                    context: context,
+                    child: LoginPopup(
+                      onLogin: (login) {
+                        Get.toNamed(Routes.bottomNavigationScreen);
+                      },
+                      onForgotPassword: () {},
+                    ));
+              },
+            ).paddingSymmetric(horizontal: 24.w)
+            /*: RoundAppButton(
                     title: nextText,
                     textColor: borderPurpleColor,
                     onTap: () {
@@ -73,7 +71,7 @@ class OnboardingScreen extends StatelessWidget {
                         }
                       }
                     },
-                  ).paddingSymmetric(horizontal: 46.w),
+                  ).paddingSymmetric(horizontal: 46.w),*/
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -92,16 +90,15 @@ class OnboardingScreen extends StatelessWidget {
                 showBackButton: ctrl.initialPage != 0,
                 suffixWidget: BorderButton(
                   title: englishText,
+                  buttonColor: Colors.transparent,
                   width: 80.w,
                   onTap: () {},
                 ),
               ).paddingOnly(top: 7.w),
-              50.w.spaceH(),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 400),
-                height: ctrl.initialPage == 0 ? 390.w : 420.w,
+              60.w.spaceH(),
+              SizedBox(
+                height: Get.height,
                 child: PageView(
-                  physics: const BouncingScrollPhysics(),
                   onPageChanged: (value) {
                     FocusManager.instance.primaryFocus?.unfocus();
                     ctrl.initialPage = value;
@@ -109,32 +106,30 @@ class OnboardingScreen extends StatelessWidget {
                   controller: ctrl.pageController,
                   children: <Widget>[
                     PageViewCard(
-                        image: Assets.images.onBording1.image(),
-                        title: firstScreenTextText,
-                        subTitle: ''),
+                        ctrl: ctrl,
+                        image: Assets.images.onBording1.image(
+                            fit: BoxFit.contain, height: 200.w, width: 200.w),
+                        title: 'Learn',
+                        subTitle:
+                            'Working on thinking traps is the first step of the mental well-being journey.',
+                        subTitle1:
+                            'Seral offers you a Personalized education for your mind to understand your thinking-frame.'),
                     PageViewCard(
-                        image: Assets.images.onBording2.image(),
-                        title: whyUsText,
-                        subTitle: secondScreenText),
+                        ctrl: ctrl,
+                        image: Assets.images.onBording2.image(
+                            fit: BoxFit.contain, height: 200.w, width: 200.w),
+                        title: 'Control',
+                        subTitle: secondScreenText,
+                        subTitle1:
+                            'Seral Challenge and change your thinking patterns by providing you with advanced tools.'),
                     PageViewCard(
-                        image: Assets.images.onBording3.image(),
-                        title: andHowIsThatText,
+                        ctrl: ctrl,
+                        image: Assets.images.onBording3.image(
+                            fit: BoxFit.contain, height: 200.w, width: 200.w),
+                        title: 'Track',
+                        subTitle1: '',
                         subTitle: thirdScreenText)
                   ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                      3,
-                      (index) => CircleAvatar(
-                            radius: 4.r,
-                            backgroundColor: ctrl.initialPage == index
-                                ? borderPurpleColor
-                                : doteColor,
-                          ).paddingSymmetric(horizontal: 1.w)),
                 ),
               ),
             ],

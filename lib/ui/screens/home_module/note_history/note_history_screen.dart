@@ -37,6 +37,20 @@ class NoteHistoryScreen extends StatelessWidget {
                   onTap: () {
                     Get.back();
                   },
+                  titleWidget: Row(
+                    children: [
+                      'Feb 2023'.appTextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 20.w),
+                      5.w.spaceW(),
+                      SvgPicture.asset(
+                        Assets.iconsDropdownArrow,
+                        width: 7.w,
+                        height: 7.w,
+                        fit: BoxFit.cover,
+                        color: borderPurpleColor,
+                      )
+                    ],
+                  ),
                   title: 'Feb 2023',
                 ),
                 24.w.spaceH(),
@@ -80,7 +94,7 @@ class NoteHistoryScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r),
                           color: background_F5F5F5),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        padding: EdgeInsets.only(left: 20.w),
                         child: AudioPlayer(
                           source:
                               'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
@@ -137,27 +151,13 @@ class NoteHistoryScreen extends StatelessWidget {
                     image: Assets.iconsImageCapture,
                     title: 'Image Capture',
                     time: '7:00 AM ·',
-                    widget: GestureDetector(
+                    isImage: true,
+                    widget: AddImageCard(
                       onTap: () {
                         PickFile().openImageChooser(
                             context: context, onImageChose: () {});
                       },
-                      child: Container(
-                        height: 140.w,
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          color: background_F5F5F5,
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(Assets.iconsImage),
-                          ],
-                        ),
-                      ),
-                    ).paddingAll(16.w),
+                    ),
                   ),
                 ),
               ],

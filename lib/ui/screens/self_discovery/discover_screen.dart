@@ -4,17 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/ui/screens/self_discovery/all_discover_screen.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../core/utils/app_helper.dart';
 import '../../../gen/assets.gen.dart';
 import '../../widgets/common_widget.dart';
+import '../bottom_navigation/bottom_bar_controller.dart';
 import 'discover_con.dart';
 
 class DiscoverScreen extends StatelessWidget {
   DiscoverScreen({Key? key}) : super(key: key);
   final DiscoverController discoverController = Get.put(DiscoverController());
+  final BottomBarController bottomBarController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DiscoverController>(builder: (ctrl) {
@@ -29,8 +34,7 @@ class DiscoverScreen extends StatelessWidget {
                   child: ListView.separated(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 10.w),
+                      padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         return DiscoverCard(
                           image: index == 0
@@ -45,13 +49,13 @@ class DiscoverScreen extends StatelessWidget {
                           },
                           title: index == 0 ? 'Self Discovery' : "New Habit",
                           subTitle: 'This is description',
-                        ).paddingSymmetric(vertical: 8.w);
+                        ).paddingSymmetric(horizontal: 20.w, vertical: 12.w);
                       },
                       separatorBuilder: (context, index) {
                         return Container(
                           height: 0.4.w,
                           color: grey_969696.withOpacity(.7),
-                        );
+                        ).paddingSymmetric(horizontal: 20.w);
                       },
                       itemCount: 2))
               .paddingSymmetric(horizontal: 20.w, vertical: 16.w),
@@ -82,48 +86,14 @@ class DiscoverScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: white_FFFFFF,
-                          borderRadius: BorderRadius.circular(8.r)),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              'Heading'.appTextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 14.sp),
-                              'This is description'.appTextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontColor: doteColor,
-                                  fontSize: 13.sp),
-                              16.w.spaceH(),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: textFiledColor,
-                                    borderRadius: BorderRadius.circular(50.r)),
-                                child: Center(
-                                  child: '8 min'
-                                      .appTextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontColor: doteColor,
-                                          fontSize: 13.sp)
-                                      .paddingSymmetric(
-                                          horizontal: 6.w, vertical: 2.w),
-                                ),
-                              )
-                            ],
-                          ),
-                          const Spacer(),
-                          Container(
-                            height: 64.w,
-                            width: 64.w,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7.r),
-                                color: doteColor),
-                          )
-                        ],
-                      ).paddingSymmetric(horizontal: 22.w, vertical: 17.w),
+                    return DiscoverCommonCard(
+                      onTap: () {
+                        bottomBarController.isOpen = true;
+                        bottomBarController.changeTab(BottomNavEnum.other);
+                        bottomBarController.isSelectedTab = 4;
+                        bottomBarController.tab = const AllDisCoverDataScreen();
+                        bottomBarController.update();
+                      },
                     );
                   },
                   separatorBuilder: (context, index) {
@@ -134,5 +104,60 @@ class DiscoverScreen extends StatelessWidget {
         ],
       );
     });
+  }
+}
+
+class DiscoverCommonCard extends StatelessWidget {
+  const DiscoverCommonCard({Key? key, this.onTap, this.color, this.buttonColor})
+      : super(key: key);
+  final void Function()? onTap;
+  final Color? color;
+  final Color? buttonColor;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+            color: color ?? white_FFFFFF,
+            borderRadius: BorderRadius.circular(8.r)),
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                'Heading'
+                    .appTextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
+                'This is description'.appTextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontColor: doteColor,
+                    fontSize: 13.sp),
+                16.w.spaceH(),
+                Container(
+                  decoration: BoxDecoration(
+                      color: buttonColor ?? textFiledColor,
+                      borderRadius: BorderRadius.circular(50.r)),
+                  child: Center(
+                    child: '8 min'
+                        .appTextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontColor: doteColor,
+                            fontSize: 13.sp)
+                        .paddingSymmetric(horizontal: 6.w, vertical: 2.w),
+                  ),
+                )
+              ],
+            ),
+            const Spacer(),
+            Container(
+              height: 64.w,
+              width: 64.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7.r), color: doteColor),
+            )
+          ],
+        ).paddingSymmetric(horizontal: 22.w, vertical: 17.w),
+      ),
+    );
   }
 }

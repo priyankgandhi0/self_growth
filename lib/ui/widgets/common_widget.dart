@@ -7,29 +7,50 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/ui/screens/onboarding_screen/onboarding_controller.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constant.dart';
 import '../../gen/assets.gen.dart';
 import '../screens/habit_module/create_new_habit.dart';
+import 'file_picker_utils.dart';
 
 class PageViewCard extends StatelessWidget {
   const PageViewCard(
       {Key? key,
       required this.title,
       required this.subTitle,
-      required this.image})
+      required this.image,
+      required this.ctrl,
+      required this.subTitle1})
       : super(key: key);
   final String title;
   final String subTitle;
+  final String subTitle1;
   final Widget image;
+  final OnBoardingController ctrl;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // 400.w.spaceH(),
-        image.paddingSymmetric(horizontal: 47.w),
+        image,
         20.w.spaceH(),
+        Align(
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+                3,
+                (index) => CircleAvatar(
+                      radius: 4.r,
+                      backgroundColor: ctrl.initialPage == index
+                          ? borderPurpleColor
+                          : doteColor,
+                    ).paddingSymmetric(horizontal: 2.w)),
+          ),
+        ),
+        10.w.spaceH(),
         title
             .appTextStyle(
                 fontColor: borderPurpleColor,
@@ -41,8 +62,17 @@ class PageViewCard extends StatelessWidget {
             .appTextStyle(
                 fontColor: borderPurpleColor,
                 fontWeight: FontWeight.w400,
+                textAlign: TextAlign.center,
                 fontSize: 14.sp)
-            .paddingSymmetric(horizontal: 46.w),
+            .paddingSymmetric(horizontal: 24.w),
+        20.w.spaceH(),
+        subTitle1
+            .appTextStyle(
+                fontColor: borderPurpleColor,
+                fontWeight: FontWeight.w400,
+                textAlign: TextAlign.center,
+                fontSize: 14.sp)
+            .paddingSymmetric(horizontal: 24.w),
       ],
     );
   }
@@ -80,22 +110,24 @@ class ProfileBoxCard extends StatelessWidget {
 }
 
 class ProfileDataCard extends StatelessWidget {
-  const ProfileDataCard(
-      {Key? key,
-      required this.title,
-      this.onTap,
-      this.height,
-      this.titleColor,
-      required this.image})
-      : super(key: key);
+  const ProfileDataCard({
+    Key? key,
+    required this.title,
+    this.onTap,
+    this.height,
+    this.titleColor,
+    required this.image,
+  }) : super(key: key);
   final String title;
   final void Function()? onTap;
   final double? height;
+
   final Color? titleColor;
   final String image;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      splashFactory: NoSplash.splashFactory,
       onTap: onTap,
       child: Row(
         children: [
@@ -160,6 +192,35 @@ class HorizontalNotesCard extends StatelessWidget {
                     : IconCard(title: '${index + 1}'))
       ],
     ).paddingOnly(right: 30.w);
+  }
+}
+
+class AddImageCard extends StatelessWidget {
+  const AddImageCard({Key? key, this.onTap, this.height, this.padding})
+      : super(key: key);
+  final void Function()? onTap;
+  final double? height;
+  final double? padding;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: height ?? 140.w,
+        width: Get.width,
+        decoration: BoxDecoration(
+          color: background_F5F5F5,
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(Assets.icons.image.path),
+          ],
+        ),
+      ),
+    ).paddingAll(padding ?? 16.w);
   }
 }
 
@@ -263,6 +324,33 @@ class NoteCommonCard extends StatelessWidget {
               itemCount: noteList.length),
         ).paddingSymmetric(horizontal: 16.w),
         16.w.spaceH(),
+        isImage ?? false
+            ? Container(
+                height: 40.w,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                      const Color(0XFFD4E0DF).withOpacity(.5),
+                      const Color(0XFFE0CECD).withOpacity(.5),
+                      const Color(0XFFEDE3FF).withOpacity(.5),
+                    ]),
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(12.r))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    'View history'
+                        .appTextStyle(fontColor: doteColor, fontSize: 14.w),
+                    5.w.spaceW(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: doteColor,
+                      size: 12.w,
+                    )
+                  ],
+                ),
+              )
+            : SizedBox()
       ],
     );
   }

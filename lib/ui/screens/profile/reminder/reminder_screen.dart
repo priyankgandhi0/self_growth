@@ -27,7 +27,7 @@ class ReminderScreen extends StatelessWidget {
                   fit: BoxFit.fill)),
           child: Column(
             children: [
-              40.w.spaceH(),
+              45.w.spaceH(),
               CommonAppBar(
                 title: reminder,
                 onTap: () {
@@ -49,7 +49,9 @@ class ReminderScreen extends StatelessWidget {
                           }),
                           12.w.spaceH(),
                           '8:25 PM'.appTextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.w600)
+                              fontFamily: Assets.fonts.switzerRegular,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w700)
                         ],
                       ).paddingSymmetric(horizontal: 16.w, vertical: 12.w))
                   .paddingSymmetric(horizontal: 20.w),
@@ -67,7 +69,9 @@ class ReminderScreen extends StatelessWidget {
                           }, value: ctrl.switchValue1),
                           12.w.spaceH(),
                           '8:00 AM - 5:00 PM'.appTextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.w600),
+                              fontFamily: Assets.fonts.switzerRegular,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w700),
                           20.w.spaceH(),
                           Row(
                             children: [
@@ -101,8 +105,15 @@ class ReminderScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             checkInReminder.appTextStyle(
-                fontWeight: FontWeight.w600, fontSize: 14.sp),
-            enabled.appTextStyle(fontWeight: FontWeight.w400, fontSize: 13.sp)
+              fontWeight: FontWeight.w600,
+              fontSize: 14.sp,
+              fontFamily: Assets.fonts.switzerRegular,
+            ),
+            enabled.appTextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 13.sp,
+                fontFamily: Assets.fonts.switzerRegular,
+                fontColor: doteColor)
           ],
         ),
         const Spacer(),

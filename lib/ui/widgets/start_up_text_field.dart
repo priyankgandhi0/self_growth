@@ -136,7 +136,7 @@ class _AppTextFieldState extends State<AppTextField> {
             style: widget.textStyle ??
                 GoogleFonts.plusJakartaSans(
                     fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w700,
                     color: borderPurpleColor),
             obscureText: widget.obscureText,
             decoration: InputDecoration(
@@ -165,9 +165,9 @@ class _AppTextFieldState extends State<AppTextField> {
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??
                   GoogleFonts.plusJakartaSans(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      color: grey_969696),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: doteColor),
               fillColor: textFiledColor,
               filled: true,
               errorStyle: const TextStyle(height: 0),

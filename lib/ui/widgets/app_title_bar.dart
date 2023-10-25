@@ -108,10 +108,12 @@ class CommonAppBar extends StatelessWidget {
       required this.title,
       required this.onTap,
       this.padding,
-      this.icon})
+      this.icon,
+      this.titleWidget})
       : super(key: key);
   final String title;
   final Widget? icon;
+  final Widget? titleWidget;
   final double? padding;
   final Function() onTap;
   @override
@@ -123,7 +125,8 @@ class CommonAppBar extends StatelessWidget {
             onTap: onTap,
             splashFactory: NoSplash.splashFactory,
             child: icon ?? SvgPicture.asset(Assets.iconsBackArrow)),
-        title.appTextStyle(fontWeight: FontWeight.w700, fontSize: 20.w),
+        titleWidget ??
+            title.appTextStyle(fontWeight: FontWeight.w700, fontSize: 20.w),
         SvgPicture.asset(
           Assets.iconsBackArrow,
           color: Colors.transparent,

@@ -26,7 +26,7 @@ class NewHabitScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              40.w.spaceH(),
+              50.w.spaceH(),
               CommonAppBar(
                 icon: const Icon(Icons.close, color: borderPurpleColor),
                 title: newHabbit,

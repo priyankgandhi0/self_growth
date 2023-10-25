@@ -78,6 +78,8 @@ class SignUpScreen extends StatelessWidget {
                             showPrefixIcon: false,
                             showSuffixIcon: false,
                             labelTextSize: 14.sp,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                signed: true),
                             inputFormatter: [
                               FilteringTextInputFormatter.digitsOnly,
                             ],

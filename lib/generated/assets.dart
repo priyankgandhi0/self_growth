@@ -2,12 +2,18 @@
 class Assets {
   Assets._();
 
+  static const String fontsSwitzerBold = 'assets/fonts/Switzer-Bold.otf';
+  static const String fontsSwitzerLight = 'assets/fonts/Switzer-Light.otf';
+  static const String fontsSwitzerMedium = 'assets/fonts/Switzer-Medium.otf';
+  static const String fontsSwitzerRegular = 'assets/fonts/Switzer-Regular.otf';
   static const String iconsAdd = 'assets/icons/add.svg';
   static const String iconsAddPhoto = 'assets/icons/add_photo.svg';
+  static const String iconsAddPhotoImg = 'assets/icons/add_photo_img.svg';
   static const String iconsAddTo = 'assets/icons/add_to.svg';
   static const String iconsAwfull = 'assets/icons/awfull.svg';
   static const String iconsBackArrow = 'assets/icons/back_arrow.svg';
   static const String iconsBell = 'assets/icons/bell.svg';
+  static const String iconsBlaming = 'assets/icons/blaming.svg';
   static const String iconsBlessd = 'assets/icons/blessd.svg';
   static const String iconsChart = 'assets/icons/chart.svg';
   static const String iconsCheckTrue = 'assets/icons/check_true.svg';
@@ -21,6 +27,7 @@ class Assets {
   static const String iconsEmoji = 'assets/icons/emoji.svg';
   static const String iconsFamily = 'assets/icons/family.svg';
   static const String iconsFamilyImg = 'assets/icons/family_img.svg';
+  static const String iconsFloatButton = 'assets/icons/floatButton.svg';
   static const String iconsGreat = 'assets/icons/great.svg';
   static const String iconsHabitTool = 'assets/icons/habit_tool.svg';
   static const String iconsHappy = 'assets/icons/happy.svg';
@@ -29,6 +36,8 @@ class Assets {
   static const String iconsImageCapture = 'assets/icons/image_capture.svg';
   static const String iconsImpNumber = 'assets/icons/imp_number.svg';
   static const String iconsLang = 'assets/icons/lang.svg';
+  static const String iconsLearning = 'assets/icons/learning.svg';
+  static const String iconsLeftArrow = 'assets/icons/left_arrow.svg';
   static const String iconsLogOut = 'assets/icons/log_out.svg';
   static const String iconsMenu = 'assets/icons/menu.svg';
   static const String iconsMinimize = 'assets/icons/minimize.svg';
@@ -36,6 +45,8 @@ class Assets {
   static const String iconsMySubscription = 'assets/icons/my_subscription.svg';
   static const String iconsNatural = 'assets/icons/natural.svg';
   static const String iconsNewHabbit = 'assets/icons/new_habbit.svg';
+  static const String iconsNoThinking = 'assets/icons/no_thinking.svg';
+  static const String iconsNotAccept = 'assets/icons/not_accept.svg';
   static const String iconsPlayer = 'assets/icons/player.svg';
   static const String iconsPrivacy = 'assets/icons/privacy.svg';
   static const String iconsProfile = 'assets/icons/profile.svg';
@@ -44,6 +55,7 @@ class Assets {
   static const String iconsResetPass = 'assets/icons/reset_pass.svg';
   static const String iconsReview = 'assets/icons/review.svg';
   static const String iconsRight = 'assets/icons/right.svg';
+  static const String iconsRightArrow = 'assets/icons/right_arrow.svg';
   static const String iconsSad = 'assets/icons/sad.svg';
   static const String iconsSelected = 'assets/icons/selected.svg';
   static const String iconsSelectedRight = 'assets/icons/selected_right.svg';
@@ -52,6 +64,9 @@ class Assets {
   static const String iconsSelfDiscovery = 'assets/icons/self_discovery.svg';
   static const String iconsSelfDiscoveryImg =
       'assets/icons/self_discovery_img.svg';
+  static const String iconsSlidablrIcon = 'assets/icons/slidablr_icon.svg';
+  static const String iconsSliders = 'assets/icons/sliders.svg';
+  static const String iconsStatment = 'assets/icons/statment.svg';
   static const String iconsThreeDote = 'assets/icons/three_dote.svg';
   static const String iconsUser = 'assets/icons/user.svg';
   static const String iconsVoice = 'assets/icons/voice.svg';
@@ -60,7 +75,9 @@ class Assets {
   static const String iconsYes = 'assets/icons/yes.svg';
   static const String imagesBackGroundImage =
       'assets/images/backGround_image.png';
+  static const String imagesButCon = 'assets/images/but_con.png';
   static const String imagesButtonImg = 'assets/images/button_img.png';
+  static const String imagesCircle = 'assets/images/circle.png';
   static const String imagesCon = 'assets/images/con.png';
   static const String imagesContainer = 'assets/images/container.png';
   static const String imagesOnBording1 = 'assets/images/on_bording_1.png';

@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
+import '../../generated/assets.dart';
+
 extension AddSpace on num {
   SizedBox spaceH() {
     return SizedBox(height: toDouble());

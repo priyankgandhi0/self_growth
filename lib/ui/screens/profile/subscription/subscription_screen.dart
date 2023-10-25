@@ -35,7 +35,7 @@ class SubscriptionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  30.w.spaceH(),
+                  40.w.spaceH(),
                   InkWell(
                     splashFactory: NoSplash.splashFactory,
                     onTap: () {
@@ -54,7 +54,7 @@ class SubscriptionScreen extends StatelessWidget {
                       .paddingSymmetric(horizontal: 20.w),
                   30.w.spaceH(),
                   SizedBox(
-                    height: 278.w,
+                    height: 280.w,
                     child: PageView(
                       physics: const BouncingScrollPhysics(),
                       onPageChanged: (value) {
@@ -98,10 +98,10 @@ class SubscriptionScreen extends StatelessWidget {
                 children: [
                   RoundAppButton(title: 'Start 7 days free trial', onTap: () {})
                       .paddingSymmetric(horizontal: 46.w),
-                  16.w.spaceH(),
+                  10.w.spaceH(),
                   noCommitText.appTextStyle(
                       fontWeight: FontWeight.w400, fontSize: 14.sp),
-                  20.w.spaceH(),
+                  10.w.spaceH(),
                 ],
               ),
             ),
@@ -127,7 +127,11 @@ class SubscriptionScreen extends StatelessWidget {
                     .appTextStyle(fontWeight: FontWeight.w600, fontSize: 32.sp)
                     .paddingSymmetric(horizontal: 20.w),
                 '49 SAR/month'
-                    .appTextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp)
+                    .appTextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20.sp,
+                        fontColor: borderPurpleColor.withOpacity(.8),
+                        fontFamily: Assets.fonts.switzerRegular)
                     .paddingSymmetric(horizontal: 20.w),
                 ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
@@ -135,18 +139,20 @@ class SubscriptionScreen extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
                     itemBuilder: (context, index) {
-                      return ProfileDataCard(
-                              image: ctrl.subscriptionImageList[index],
-                              height: 32.w,
-                              onTap: () {},
-                              title: ctrl.subscriptionList[index])
-                          .paddingSymmetric(vertical: 8.w);
+                      return SizedBox(
+                        height: 48.w,
+                        child: ProfileDataCard(
+                            image: ctrl.subscriptionImageList[index],
+                            height: 32.w,
+                            onTap: () {},
+                            title: ctrl.subscriptionList[index]),
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return Container(
                         height: 0.4.w,
                         color: grey_969696.withOpacity(.5),
-                      );
+                      ).paddingSymmetric(vertical: 3.w);
                     },
                     itemCount: ctrl.subscriptionList.length),
               ],

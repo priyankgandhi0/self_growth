@@ -68,6 +68,7 @@ class FirstQuestionScreen extends StatelessWidget {
                         ),
               Column(
                 children: [
+                  20.w.spaceH(),
                   Row(
                     children: [
                       InkWell(
