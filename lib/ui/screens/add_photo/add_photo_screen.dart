@@ -50,10 +50,8 @@ class AddPhotoScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           55.w.spaceH(),
-                          captureYourActivity.appTextStyle(
-                              fontFamily: Assets.fonts.switzerRegular,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600),
+                          captureYourActivity.appSwitzerTextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.w600),
                           16.w.spaceH(),
                           ButtonCard(
                             onTap: () {},

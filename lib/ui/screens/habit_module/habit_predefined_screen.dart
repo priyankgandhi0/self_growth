@@ -26,7 +26,7 @@ class HabitPredefinedScreen extends StatelessWidget {
             children: [
               8.w.spaceH(),
               WithOutTitleAppBar(
-                suffixWidget: 'Customize'.appTextStyle(
+                suffixWidget: 'Customize'.appSwitzerTextStyle(
                     fontColor: borderPurpleColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500),
@@ -47,15 +47,15 @@ class HabitPredefinedScreen extends StatelessWidget {
                         top: 40.w,
                       ),
                       "Drinking Water"
-                          .appTextStyle(
+                          .appSwitzerTextStyle(
                               fontSize: 20.sp, fontWeight: FontWeight.w600)
-                          .paddingSymmetric(vertical: 8.h),
+                          .paddingOnly(top: 8.w),
                       "Daily"
-                          .appTextStyle(
+                          .appSwitzerTextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w400,
-                              fontColor: black_000000.withOpacity(0.5))
-                          .paddingSymmetric(vertical: 8.h),
+                              fontColor: doteColor)
+                          .paddingSymmetric(vertical: 8.w),
                       ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -80,15 +80,15 @@ class HabitPredefinedScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    "What you will do".appTextStyle(
+                    "What you will do".appSwitzerTextStyle(
                         fontSize: 17.sp, fontWeight: FontWeight.w600),
                     20.h.spaceH(),
                     "Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis."
-                        .appTextStyle(
+                        .appSwitzerTextStyle(
                             fontSize: 14.sp,
                             textAlign: TextAlign.start,
                             fontWeight: FontWeight.w400,
-                            fontColor: black_000000.withOpacity(0.7)),
+                            fontColor: doteColor),
                   ],
                 ).paddingAll(20.w),
               ).paddingSymmetric(horizontal: 20.w),
@@ -101,15 +101,15 @@ class HabitPredefinedScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    "Why am doing this?".appTextStyle(
+                    "Why am doing this?".appSwitzerTextStyle(
                         fontSize: 17.sp, fontWeight: FontWeight.w600),
                     20.h.spaceH(),
                     "Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis."
-                        .appTextStyle(
+                        .appSwitzerTextStyle(
                             fontSize: 14.sp,
                             textAlign: TextAlign.start,
                             fontWeight: FontWeight.w400,
-                            fontColor: black_000000.withOpacity(0.7)),
+                            fontColor: doteColor),
                   ],
                 ).paddingAll(20.w),
               ).paddingSymmetric(horizontal: 20.w),

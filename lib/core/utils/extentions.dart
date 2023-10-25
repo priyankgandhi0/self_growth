@@ -89,11 +89,12 @@ extension AddGradientText on String {
       maxLines: maxLines,
       this,
       overflow: textOverflow,
-      style: GoogleFonts.plusJakartaSans(
+      style: TextStyle(
         fontSize: fontSize?.sp ?? 16.sp,
         color: (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
         fontWeight: fontWeight,
         fontStyle: fontStyle ?? FontStyle.normal,
+        fontFamily: 'Switzer',
         decoration: decoration ?? TextDecoration.none,
         letterSpacing: letterSpacing ?? 0,
         decorationColor:
@@ -102,6 +103,40 @@ extension AddGradientText on String {
       textAlign: textAlign,
       colors: gradientColors ??
           [Color(0xffD4E0DF), Color(0xffE0CECD), Color(0xffEDE3FF)],
+    );
+  }
+}
+
+extension AddSwitzerText on String {
+  Widget appSwitzerTextStyle(
+      {Color fontColor = black_000000,
+      bool? opacity,
+      double? fontSize,
+      TextAlign textAlign = TextAlign.center,
+      FontWeight fontWeight = FontWeight.w500,
+      TextOverflow? textOverflow,
+      int? maxLines,
+      TextDecoration? decoration,
+      double? letterSpacing,
+      String? fontFamily,
+      FontStyle? fontStyle,
+      Color? decorationColor}) {
+    return Text(
+      maxLines: maxLines,
+      this,
+      overflow: textOverflow,
+      style: TextStyle(
+        fontSize: fontSize?.sp ?? 16.sp,
+        color: (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
+        fontWeight: fontWeight,
+        fontFamily: 'Switzer',
+        fontStyle: fontStyle ?? FontStyle.normal,
+        decoration: decoration ?? TextDecoration.none,
+        letterSpacing: letterSpacing ?? 0,
+        decorationColor:
+            (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
+      ),
+      textAlign: textAlign,
     );
   }
 }
@@ -119,13 +154,14 @@ TextStyle getTextStyle(
     String? fontFamily,
     FontStyle? fontStyle,
     Color? decorationColor}) {
-  return GoogleFonts.plusJakartaSans(
+  return TextStyle(
     fontSize: fontSize?.sp ?? 16.sp,
     color: (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
     fontWeight: fontWeight,
     fontStyle: fontStyle ?? FontStyle.normal,
     decoration: decoration ?? TextDecoration.none,
     letterSpacing: letterSpacing ?? 0,
+    fontFamily: 'Switzer',
     decorationColor:
         (opacity ?? false) ? fontColor.withOpacity(0.5) : fontColor,
   );

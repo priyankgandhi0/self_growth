@@ -45,7 +45,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     24.w.spaceH(),
                     setupYourAccountText
-                        .appTextStyle(
+                        .appSwitzerTextStyle(
                             fontSize: 32.w,
                             fontWeight: FontWeight.w600,
                             textAlign: TextAlign.start)
@@ -58,7 +58,7 @@ class SignUpScreen extends StatelessWidget {
                         children: [
                           50.w.spaceH(),
                           BorderButton(
-                            width: 120.w,
+                            width: 110.w,
                             title: addStickerText,
                             onTap: () {},
                           ),

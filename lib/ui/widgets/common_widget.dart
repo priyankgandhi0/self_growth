@@ -35,7 +35,7 @@ class PageViewCard extends StatelessWidget {
       children: [
         // 400.w.spaceH(),
         image,
-        20.w.spaceH(),
+        32.w.spaceH(),
         Align(
           alignment: Alignment.center,
           child: Row(
@@ -50,28 +50,28 @@ class PageViewCard extends StatelessWidget {
                     ).paddingSymmetric(horizontal: 2.w)),
           ),
         ),
-        10.w.spaceH(),
+        32.w.spaceH(),
         title
-            .appTextStyle(
+            .appSwitzerTextStyle(
                 fontColor: borderPurpleColor,
                 fontWeight: FontWeight.w600,
-                fontSize: 24.sp)
+                fontSize: 22.sp)
             .paddingSymmetric(horizontal: 46.w)
             .paddingOnly(bottom: 5.w),
+        /*   subTitle
+            .appSwitzerTextStyle(
+                fontColor: borderPurpleColor,
+                fontWeight: FontWeight.w400,
+                textAlign: TextAlign.center,
+                fontSize: 12.sp)
+            .paddingSymmetric(horizontal: 24.w),*/
+        22.w.spaceH(),
         subTitle
-            .appTextStyle(
+            .appSwitzerTextStyle(
                 fontColor: borderPurpleColor,
                 fontWeight: FontWeight.w400,
                 textAlign: TextAlign.center,
-                fontSize: 14.sp)
-            .paddingSymmetric(horizontal: 24.w),
-        20.w.spaceH(),
-        subTitle1
-            .appTextStyle(
-                fontColor: borderPurpleColor,
-                fontWeight: FontWeight.w400,
-                textAlign: TextAlign.center,
-                fontSize: 14.sp)
+                fontSize: 12.sp)
             .paddingSymmetric(horizontal: 24.w),
       ],
     );
@@ -117,11 +117,12 @@ class ProfileDataCard extends StatelessWidget {
     this.height,
     this.titleColor,
     required this.image,
+    this.fontWeight,
   }) : super(key: key);
   final String title;
   final void Function()? onTap;
   final double? height;
-
+  final FontWeight? fontWeight;
   final Color? titleColor;
   final String image;
   @override
@@ -138,8 +139,8 @@ class ProfileDataCard extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           10.w.spaceW(),
-          title.appTextStyle(
-              fontWeight: FontWeight.w600,
+          title.appSwitzerTextStyle(
+              fontWeight: fontWeight ?? FontWeight.w600,
               fontSize: 14.sp,
               fontColor: titleColor ?? borderPurpleColor)
         ],
@@ -165,7 +166,7 @@ class HorizontalNotesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        title.appTextStyle(
+        title.appSwitzerTextStyle(
             fontSize: 13.sp,
             fontWeight: FontWeight.w400,
             fontColor: borderPurpleColor.withOpacity(.8)),
@@ -185,11 +186,14 @@ class HorizontalNotesCard extends StatelessWidget {
                         decoration: const BoxDecoration(
                             shape: BoxShape.circle, color: borderPurpleColor),
                         child: Center(
-                            child: '${index + 1}'.appTextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                            child: '${index + 1}'.appGradientTextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
                                 fontColor: white_FFFFFF)))
-                    : IconCard(title: '${index + 1}'))
+                    : IconCard(
+                        title: '${index + 1}',
+                        isHome: true,
+                      ))
       ],
     ).paddingOnly(right: 30.w);
   }
@@ -235,6 +239,7 @@ class NoteCommonCard extends StatelessWidget {
     this.isImage,
     this.widget,
     required this.image,
+    this.chipTitleColor,
   }) : super(key: key);
   final String title;
   final String notes;
@@ -244,6 +249,7 @@ class NoteCommonCard extends StatelessWidget {
   final bool? isImage;
   final String image;
   final Widget? widget;
+  final Color? chipTitleColor;
 
   final List<String> noteList = ['Work', 'Family', 'Blessed'];
   final List<String> noteImageList = [
@@ -265,9 +271,9 @@ class NoteCommonCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                title.appTextStyle(
+                title.appSwitzerTextStyle(
                     fontWeight: FontWeight.w600, fontSize: 17.sp),
-                time.appTextStyle(
+                time.appSwitzerTextStyle(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w400,
                     fontColor: borderPurpleColor.withOpacity(.8))
@@ -281,10 +287,10 @@ class NoteCommonCard extends StatelessWidget {
         ).paddingSymmetric(horizontal: 16.w),
         notes.isNotEmpty
             ? notes
-                .appTextStyle(
+                .appSwitzerTextStyle(
                     fontSize: 13.sp,
-                    fontWeight: FontWeight.w400,
-                    fontColor: borderPurpleColor.withOpacity(.8))
+                    fontWeight: FontWeight.w500,
+                    fontColor: doteColor)
                 .paddingSymmetric(vertical: 16.w, horizontal: 16.w)
             : widget ?? const SizedBox(),
         SizedBox(
@@ -312,8 +318,9 @@ class NoteCommonCard extends StatelessWidget {
                   child: ProfileDataCard(
                     title: noteList[index],
                     height: 20.w,
+                    fontWeight: FontWeight.w500,
                     image: noteImageList[index],
-                    titleColor: borderPurpleColor,
+                    titleColor: chipTitleColor ?? borderPurpleColor,
                     onTap: () {},
                   ),
                 );
@@ -328,19 +335,23 @@ class NoteCommonCard extends StatelessWidget {
             ? Container(
                 height: 40.w,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                      const Color(0XFFD4E0DF).withOpacity(.5),
-                      const Color(0XFFE0CECD).withOpacity(.5),
-                      const Color(0XFFEDE3FF).withOpacity(.5),
-                    ]),
+                    // gradient: LinearGradient(colors: [
+                    //   const Color(0XFFD4E0DF).withOpacity(.5),
+                    //   const Color(0XFFE0CECD).withOpacity(.5),
+                    //   const Color(0XFFEDE3FF).withOpacity(.5),
+                    // ]),
+                    image: DecorationImage(
+                        image: AssetImage(Assets.images.butCon.path)),
                     borderRadius:
                         BorderRadius.vertical(bottom: Radius.circular(12.r))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    'View history'
-                        .appTextStyle(fontColor: doteColor, fontSize: 14.w),
+                    'View history'.appSwitzerTextStyle(
+                        fontColor: doteColor,
+                        fontSize: 14.w,
+                        fontWeight: FontWeight.w600),
                     5.w.spaceW(),
                     Icon(
                       Icons.arrow_forward_ios,
@@ -386,7 +397,7 @@ class SelfDiscoveryCard extends StatelessWidget {
               ),
           10.w.spaceW(),
           Expanded(
-              child: title.appTextStyle(
+              child: title.appSwitzerTextStyle(
                   textAlign: TextAlign.start,
                   fontWeight: FontWeight.w400,
                   fontColor: color ?? borderPurpleColor,
@@ -419,15 +430,16 @@ class ThirdQueCard extends StatelessWidget {
                     fit: BoxFit.fill),
                 borderRadius: BorderRadius.circular(5.r)),
             child: Center(
-              child: value.appTextStyle(
+              child: value.appSwitzerTextStyle(
                   fontWeight: FontWeight.w600, fontSize: 12.sp),
             ),
           ),
           10.w.spaceW(),
           Expanded(
-              child: title.appTextStyle(
+              child: title.appSwitzerTextStyle(
                   textAlign: TextAlign.start,
                   fontWeight: FontWeight.w400,
+                  fontColor: borderPurpleColor.withOpacity(.7),
                   fontSize: 12.sp))
         ],
       ),
@@ -458,7 +470,8 @@ class FirstQueCard extends StatelessWidget {
               fit: BoxFit.fill,
             ),
             10.w.spaceW(),
-            title.appTextStyle(fontWeight: FontWeight.w400, fontSize: 12.sp)
+            title.appSwitzerTextStyle(
+                fontWeight: FontWeight.w400, fontSize: 12.sp)
           ],
         ).paddingSymmetric(horizontal: 16.w, vertical: 12.w),
       ),
@@ -494,11 +507,12 @@ class DiscoverCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              title.appTextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
-              subTitle.appTextStyle(
+              title.appSwitzerTextStyle(
+                  fontWeight: FontWeight.w600, fontSize: 14.sp),
+              subTitle.appSwitzerTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12.sp,
-                  fontColor: grey_969696)
+                  fontColor: doteColor)
             ],
           ),
         ],
@@ -525,7 +539,7 @@ class CommonTabBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           title
-              .appTextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)
+              .appSwitzerTextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)
               .paddingSymmetric(horizontal: 8.w),
           index == 0 ? Assets.icons.dropdownArrow.svg() : const SizedBox()
         ],
@@ -570,7 +584,7 @@ class BottomBarWidget extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
               4.w.spaceH(),
-              title.appTextStyle(
+              title.appSwitzerTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 10.sp,
                   fontColor: color)
@@ -598,8 +612,8 @@ class AppDropDown extends StatelessWidget {
                 value: value,
                 underline: Container(),
                 hint: 'Gender'
-                    .appTextStyle(
-                      fontColor: grey_969696,
+                    .appSwitzerTextStyle(
+                      fontColor: doteColor.withOpacity(.6),
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     )
@@ -610,7 +624,13 @@ class AppDropDown extends StatelessWidget {
                 items: Gender.values
                     .map((e) => DropdownMenuItem(
                           value: e,
-                          child: Text(e.name).paddingAll(8),
+                          child: Text(
+                            e.name,
+                            style: const TextStyle(
+                                fontFamily: 'Switzer',
+                                fontWeight: FontWeight.w500,
+                                color: borderPurpleColor),
+                          ).paddingAll(8),
                         ))
                     .toList(),
                 onChanged: onChanged),

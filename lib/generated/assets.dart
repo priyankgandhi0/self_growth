@@ -77,6 +77,8 @@ class Assets {
       'assets/images/backGround_image.png';
   static const String imagesButCon = 'assets/images/but_con.png';
   static const String imagesButtonImg = 'assets/images/button_img.png';
+  static const String imagesCirBorder = 'assets/images/cir_border.png';
+  static const String imagesCirFill = 'assets/images/cir_fill.png';
   static const String imagesCircle = 'assets/images/circle.png';
   static const String imagesCon = 'assets/images/con.png';
   static const String imagesContainer = 'assets/images/container.png';

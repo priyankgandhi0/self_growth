@@ -46,7 +46,7 @@ class PersonalInfoScreen extends StatelessWidget {
                     ),
                     24.w.spaceH(),
                     personalInformationText
-                        .appTextStyle(
+                        .appSwitzerTextStyle(
                             fontSize: 32.w,
                             fontWeight: FontWeight.w600,
                             textAlign: TextAlign.start)
@@ -87,8 +87,9 @@ class PersonalInfoScreen extends StatelessWidget {
                           10.w.spaceH(),
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: genderText.appTextStyle(
-                              fontWeight: FontWeight.w400,
+                            child: genderText.appSwitzerTextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontColor: borderPurpleColor.withOpacity(.6),
                               fontSize: 14.sp,
                               // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
                             ),

@@ -47,90 +47,72 @@ class CreateNewHabitScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      8.h.spaceH(),
+                      8.w.spaceH(),
                       AppTextField(
                         labelText: 'Habit name',
                         hintText: "Enter Habit Name",
                         validator: (value) {},
                       ),
-                      16.h.spaceH(),
-                      "Icon".appTextStyle(
+                      16.w.spaceH(),
+                      "Icon".appSwitzerTextStyle(
                         fontWeight: FontWeight.w500,
                         fontColor: black_000000.withOpacity(0.7),
                         fontSize: 14.sp,
                         // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
                       ),
-                      12.h.spaceH(),
+                      12.w.spaceH(),
                       Wrap(
                         spacing: 10,
-                        children: [
-                          const IconCard(
-                            title: "💼",
-                          ),
-                          const IconCard(
-                            title: "🔥",
-                          ),
-                          const IconCard(
-                            title: "⚽️",
-                          ),
-                          const IconCard(
-                            title: "🪁",
-                          ),
-                          const IconCard(
-                            title: "🏂",
-                          ),
-                          const IconCard(
-                            title: "🥇",
-                          ),
-                          Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: black_000000.withOpacity(0.1))),
-                            child: const Center(
-                                child: Icon(
-                              Icons.add,
-                              size: 17,
-                            )),
-                          ),
-                        ],
+                        children: List.generate(
+                            ctrl.iconList.length + 1,
+                            (index) => ctrl.iconList.length == index
+                                ? IconCard(
+                                    icon: Icon(Icons.add,
+                                        size: 17.sp, color: borderPurpleColor),
+                                    selected: false,
+                                    title: '',
+                                  )
+                                : IconCard(
+                                    onTap: () {
+                                      if (ctrl.iconSelectedList
+                                          .contains(index)) {
+                                        ctrl.iconSelectedList.remove(index);
+                                      } else {
+                                        ctrl.iconSelectedList.add(index);
+                                      }
+
+                                      ctrl.update();
+                                    },
+                                    title: ctrl.iconList[index],
+                                    selected:
+                                        ctrl.iconSelectedList.contains(index),
+                                  )),
                       ),
                       12.h.spaceH(),
-                      "Icon".appTextStyle(
+                      "Icon Color".appSwitzerTextStyle(
                         fontWeight: FontWeight.w500,
                         fontColor: black_000000.withOpacity(0.7),
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
                       ),
-                      12.h.spaceH(),
+                      12.w.spaceH(),
                       Wrap(
                         spacing: 10,
-                        children: [
-                          const IconColorCard(color: Color(0xff296BCF)),
-                          const IconColorCard(color: Color(0xff3EBCD8)),
-                          const IconColorCard(color: Color(0xff57A9D7)),
-                          const IconColorCard(color: Color(0xffF67E7E)),
-                          const IconColorCard(color: Color(0xffC36F6F)),
-                          const IconColorCard(color: Color(0xff6AE09A)),
-                          Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: black_000000.withOpacity(0.1))),
-                            child: const Center(
-                                child: Icon(
-                              Icons.add,
-                              size: 17,
-                            )),
-                          ),
-                        ],
+                        children: List.generate(
+                            ctrl.colorList.length + 1,
+                            (index) => ctrl.colorList.length == index
+                                ? IconCard(
+                                    icon: Icon(Icons.add,
+                                        size: 17.sp, color: borderPurpleColor),
+                                    selected: false,
+                                    title: '',
+                                  )
+                                : IconColorCard(
+                                    color: ctrl.colorList[index],
+                                  )),
                       ),
                     ],
-                  ).paddingAll(20),
+                  ).paddingAll(20.w),
                 ),
                 20.h.spaceH(),
                 Container(
@@ -142,7 +124,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      "Goals".appTextStyle(
+                      "Goals".appSwitzerTextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
                       ),
@@ -157,14 +139,14 @@ class CreateNewHabitScreen extends StatelessWidget {
                           children: [
                             Column(
                               children: [
-                                "1 times".appTextStyle(
+                                "1 times".appSwitzerTextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    fontFamily: Assets.fonts.switzerRegular),
-                                "per day".appTextStyle(
+                                    fontFamily: 'Switzer'),
+                                "per day".appSwitzerTextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    fontColor: black_000000.withOpacity(0.5)),
+                                    fontColor: doteColor),
                               ],
                             ),
                             Row(
@@ -196,7 +178,8 @@ class CreateNewHabitScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          "Reminder".appTextStyle(),
+                          "Reminder".appSwitzerTextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 17.sp),
                           AppSwitch(
                             value: ctrl.isRemind,
                             onChange: (value) {
@@ -233,7 +216,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          "Advance Settings".appTextStyle(
+                          "Advance Settings".appSwitzerTextStyle(
                               fontSize: 17, fontWeight: FontWeight.w600),
                           // Transform.rotate(
                           // angle: math.pi / 0,
@@ -248,7 +231,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           16.h.spaceH(),
-                          "Add to Group".appTextStyle(
+                          "Add to Group".appSwitzerTextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
                           8.h.spaceH(),
                           Container(
@@ -262,14 +245,13 @@ class CreateNewHabitScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    "No Group".appTextStyle(
+                                    "No Group".appSwitzerTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500),
-                                    "Habit group".appTextStyle(
+                                    "Habit group".appSwitzerTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
-                                        fontColor:
-                                            black_000000.withOpacity(0.5)),
+                                        fontColor: doteColor),
                                   ],
                                 ),
                                 const AppChip(title: 'Add Group'),
@@ -277,9 +259,9 @@ class CreateNewHabitScreen extends StatelessWidget {
                             ).paddingAll(12),
                           ),
                           16.h.spaceH(),
-                          "Habit Type".appTextStyle(
+                          "Habit Type".appSwitzerTextStyle(
                             fontWeight: FontWeight.w500,
-                            fontColor: black_000000.withOpacity(0.7),
+
                             fontSize: 14.sp,
                             // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
                           ),
@@ -306,7 +288,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                             ],
                           ),
                           16.h.spaceH(),
-                          "Log Activity Using".appTextStyle(
+                          "Log Activity Using".appSwitzerTextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
                           12.h.spaceH(),
                           Row(
@@ -342,12 +324,12 @@ class CreateNewHabitScreen extends StatelessWidget {
                                   title: '-'),
                               Row(
                                 children: [
-                                  "+1".appTextStyle(
-                                      fontColor: black_000000,
+                                  "+1".appSwitzerTextStyle(
+                                      fontColor: borderPurpleColor,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500),
-                                  " per tap".appTextStyle(
-                                      fontColor: black_000000.withOpacity(0.5),
+                                  " per tap".appSwitzerTextStyle(
+                                      fontColor: doteColor,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400),
                                 ],
@@ -379,7 +361,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                             },
                           ),
                           16.h.spaceH(),
-                          "Apple health integration".appTextStyle(
+                          "Apple health integration".appSwitzerTextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
                           8.h.spaceH(),
                           Container(
@@ -391,7 +373,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: "Sleep hours"
-                                      .appTextStyle(
+                                      .appSwitzerTextStyle(
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w700)
                                       .paddingSymmetric(vertical: 12.w),
@@ -445,7 +427,7 @@ class ButtonCommon extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
           child: Center(
-              child: title.appTextStyle(
+              child: title.appSwitzerTextStyle(
                   fontColor: isSelected ? borderPurpleColor : doteColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 14.sp)),
@@ -460,20 +442,36 @@ class IconCard extends StatelessWidget {
     super.key,
     required this.title,
     this.icon,
+    this.selected,
+    this.onTap,
+    this.isHome,
   });
   final String title;
   final Widget? icon;
+  final bool? isHome;
+  final bool? selected;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 32.w,
-      height: 32.w,
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: borderPurpleColor.withOpacity(0.1))),
-      child: Center(
-          child: icon ??
-              title.appTextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 32.w,
+        height: 32.w,
+        decoration: isHome ?? false
+            ? BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: borderPurpleColor))
+            : BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(selected ?? false
+                        ? Assets.images.cirFill.path
+                        : Assets.images.cirBorder.path))),
+        child: Center(
+            child: icon ??
+                title.appSwitzerTextStyle(
+                    fontSize: 14.sp, fontWeight: FontWeight.w500)),
+      ),
     );
   }
 }
@@ -490,9 +488,10 @@ class IconColorCard extends StatelessWidget {
       width: 32,
       height: 32,
       decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-          border: Border.all(color: color.withOpacity(0.1))),
+        color: color,
+        shape: BoxShape.circle,
+        image: DecorationImage(image: AssetImage(Assets.images.cirBorder.path)),
+      ),
     );
   }
 }
@@ -512,11 +511,11 @@ class SwitchBoxLisTile extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: title.appTextStyle(
+          child: title.appSwitzerTextStyle(
               fontSize: 14,
               textAlign: TextAlign.start,
               fontWeight: FontWeight.w500,
-              fontColor: black_000000.withOpacity(0.7)),
+              fontColor: borderPurpleColor.withOpacity(0.7)),
         ),
         AppSwitch(value: value, onChange: onChange)
       ],

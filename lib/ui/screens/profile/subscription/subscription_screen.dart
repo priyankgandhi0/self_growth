@@ -47,7 +47,7 @@ class SubscriptionScreen extends StatelessWidget {
                   ),
                   24.w.spaceH(),
                   startYourMembershipNowText
-                      .appTextStyle(
+                      .appSwitzerTextStyle(
                           fontSize: 32.w,
                           fontWeight: FontWeight.w600,
                           textAlign: TextAlign.start)
@@ -99,9 +99,9 @@ class SubscriptionScreen extends StatelessWidget {
                   RoundAppButton(title: 'Start 7 days free trial', onTap: () {})
                       .paddingSymmetric(horizontal: 46.w),
                   10.w.spaceH(),
-                  noCommitText.appTextStyle(
+                  noCommitText.appSwitzerTextStyle(
                       fontWeight: FontWeight.w400, fontSize: 14.sp),
-                  10.w.spaceH(),
+                  20.w.spaceH(),
                 ],
               ),
             ),
@@ -124,14 +124,15 @@ class SubscriptionScreen extends StatelessWidget {
               children: [
                 24.w.spaceH(),
                 'Premium'
-                    .appTextStyle(fontWeight: FontWeight.w600, fontSize: 32.sp)
+                    .appSwitzerTextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 32.sp)
                     .paddingSymmetric(horizontal: 20.w),
                 '49 SAR/month'
-                    .appTextStyle(
-                        fontWeight: FontWeight.w600,
+                    .appSwitzerTextStyle(
+                        fontWeight: FontWeight.w500,
                         fontSize: 20.sp,
                         fontColor: borderPurpleColor.withOpacity(.8),
-                        fontFamily: Assets.fonts.switzerRegular)
+                        fontFamily: 'Switzer')
                     .paddingSymmetric(horizontal: 20.w),
                 ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
@@ -179,8 +180,8 @@ class SubscriptionScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.w),
                   color: skyColor),
               child: Center(
-                child: 'Best Value'
-                    .appTextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
+                child: 'Best Value'.appSwitzerTextStyle(
+                    fontWeight: FontWeight.w500, fontSize: 13.sp),
               )).paddingOnly(right: 20.w),
         ),
       ],

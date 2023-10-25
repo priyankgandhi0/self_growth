@@ -126,7 +126,8 @@ class CommonAppBar extends StatelessWidget {
             splashFactory: NoSplash.splashFactory,
             child: icon ?? SvgPicture.asset(Assets.iconsBackArrow)),
         titleWidget ??
-            title.appTextStyle(fontWeight: FontWeight.w700, fontSize: 20.w),
+            title.appSwitzerTextStyle(
+                fontWeight: FontWeight.w700, fontSize: 20.w),
         SvgPicture.asset(
           Assets.iconsBackArrow,
           color: Colors.transparent,

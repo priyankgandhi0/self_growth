@@ -104,9 +104,9 @@ class _AppTextFieldState extends State<AppTextField> {
         if (widget.labelText.isNotEmpty)
           Align(
             alignment: Alignment.centerLeft,
-            child: widget.labelText.appTextStyle(
+            child: widget.labelText.appSwitzerTextStyle(
               fontWeight: widget.labelFontWeight ?? FontWeight.w500,
-              fontColor: borderPurpleColor.withOpacity(0.7),
+              fontColor: borderPurpleColor.withOpacity(0.6),
               fontSize: widget.labelTextSize ?? 14.sp,
               // fontColor: _focusNode.hasFocus ? grey_969696 : borderPurpleColor,
             ),
@@ -134,9 +134,10 @@ class _AppTextFieldState extends State<AppTextField> {
             },
             cursorColor: borderPurpleColor,
             style: widget.textStyle ??
-                GoogleFonts.plusJakartaSans(
+                TextStyle(
+                    fontFamily: 'Switzer',
                     fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: borderPurpleColor),
             obscureText: widget.obscureText,
             decoration: InputDecoration(
@@ -164,9 +165,10 @@ class _AppTextFieldState extends State<AppTextField> {
                   : null,
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??
-                  GoogleFonts.plusJakartaSans(
+                  TextStyle(
+                      fontFamily: 'Switzer',
                       fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       color: doteColor),
               fillColor: textFiledColor,
               filled: true,

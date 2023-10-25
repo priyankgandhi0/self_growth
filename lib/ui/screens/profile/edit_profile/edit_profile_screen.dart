@@ -88,8 +88,9 @@ class EditProfileScreen extends StatelessWidget {
                 10.w.spaceH(),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: genderText.appTextStyle(
+                  child: genderText.appSwitzerTextStyle(
                     fontWeight: FontWeight.w400,
+                    fontColor: borderPurpleColor.withOpacity(.6),
                     fontSize: 14.sp,
                     // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
                   ),

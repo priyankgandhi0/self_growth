@@ -39,7 +39,7 @@ class NoteHistoryScreen extends StatelessWidget {
                   },
                   titleWidget: Row(
                     children: [
-                      'Feb 2023'.appTextStyle(
+                      'Feb 2023'.appSwitzerTextStyle(
                           fontWeight: FontWeight.w700, fontSize: 20.w),
                       5.w.spaceW(),
                       SvgPicture.asset(
@@ -54,7 +54,7 @@ class NoteHistoryScreen extends StatelessWidget {
                   title: 'Feb 2023',
                 ),
                 24.w.spaceH(),
-                'Mon, 14'.appTextStyle(
+                'Mon, 14'.appSwitzerTextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                 ),
@@ -73,7 +73,7 @@ class NoteHistoryScreen extends StatelessWidget {
                   ),
                 ),
                 16.w.spaceH(),
-                'Sun, 13'.appTextStyle(
+                'Sun, 13'.appSwitzerTextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                 ),
@@ -122,7 +122,7 @@ class NoteHistoryScreen extends StatelessWidget {
                   ),
                 ),
                 16.w.spaceH(),
-                'Sun, 13'.appTextStyle(
+                'Sun, 13'.appSwitzerTextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                 ),

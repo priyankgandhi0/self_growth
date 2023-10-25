@@ -12,7 +12,8 @@ class AllDisCoverDataScreen extends StatelessWidget {
     return Column(
       children: [
         16.w.spaceH(),
-        'Discover'.appTextStyle(fontWeight: FontWeight.w700, fontSize: 20.sp),
+        'Discover'
+            .appSwitzerTextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp),
         16.w.spaceH(),
         ListView.separated(
                 shrinkWrap: true,

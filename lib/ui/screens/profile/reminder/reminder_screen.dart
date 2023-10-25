@@ -48,10 +48,8 @@ class ReminderScreen extends StatelessWidget {
                             ctrl.update();
                           }),
                           12.w.spaceH(),
-                          '8:25 PM'.appTextStyle(
-                              fontFamily: Assets.fonts.switzerRegular,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w700)
+                          '8:25 PM'.appSwitzerTextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.w600)
                         ],
                       ).paddingSymmetric(horizontal: 16.w, vertical: 12.w))
                   .paddingSymmetric(horizontal: 20.w),
@@ -68,18 +66,16 @@ class ReminderScreen extends StatelessWidget {
                             ctrl.update();
                           }, value: ctrl.switchValue1),
                           12.w.spaceH(),
-                          '8:00 AM - 5:00 PM'.appTextStyle(
-                              fontFamily: Assets.fonts.switzerRegular,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w700),
+                          '8:00 AM - 5:00 PM'.appSwitzerTextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.w600),
                           20.w.spaceH(),
                           Row(
                             children: [
                               Assets.icons.reduce.svg(),
                               const Spacer(),
-                              '5x '.appTextStyle(
+                              '5x '.appSwitzerTextStyle(
                                   fontSize: 14.sp, fontWeight: FontWeight.w500),
-                              reminder.appTextStyle(
+                              reminder.appSwitzerTextStyle(
                                   fontSize: 14.sp,
                                   fontColor: grey_D9D9D9,
                                   fontWeight: FontWeight.w500),
@@ -104,15 +100,15 @@ class ReminderScreen extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            checkInReminder.appTextStyle(
+            checkInReminder.appSwitzerTextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 14.sp,
-              fontFamily: Assets.fonts.switzerRegular,
+              fontFamily: 'Switzer',
             ),
-            enabled.appTextStyle(
+            enabled.appSwitzerTextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 13.sp,
-                fontFamily: Assets.fonts.switzerRegular,
+                fontFamily: 'Switzer',
                 fontColor: doteColor)
           ],
         ),

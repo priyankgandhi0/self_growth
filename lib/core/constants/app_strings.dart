@@ -23,7 +23,7 @@ const andHowIsThatText = "And how is that?";
 const thirdScreenText =
     "Seral helps you Overcome thinking traps with positive ones and helps keep track of your progress. ";
 const secondScreenText =
-    "Once we understand how our thinking is affecting our mental well-being, we can begin to make changes that will lead to lasting improvements by providing you with a personalized plan.";
+    "Seral offers you a Personalized education for your mind to understand your thinking-frame.";
 
 ///personal info screen
 const personalInformationText = "Personal\nInformation";
@@ -79,7 +79,7 @@ const createNewHabbit = "Create New Habbit";
 const recomended = "Recomended";
 
 ///Home ScreeN
-const buildHabit = 'Build Habit';
+const buildHabit = 'Habbits';
 const quitHabit = 'Quit Habit';
 
 ///static SCREEN

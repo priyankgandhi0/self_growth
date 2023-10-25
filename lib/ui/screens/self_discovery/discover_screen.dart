@@ -26,7 +26,8 @@ class DiscoverScreen extends StatelessWidget {
       return Column(
         children: [
           16.w.spaceH(),
-          'Discover'.appTextStyle(fontWeight: FontWeight.w700, fontSize: 28.sp),
+          'Discover'.appSwitzerTextStyle(
+              fontWeight: FontWeight.w700, fontSize: 28.sp),
           Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.w),
@@ -61,11 +62,21 @@ class DiscoverScreen extends StatelessWidget {
               .paddingSymmetric(horizontal: 20.w, vertical: 16.w),
           Row(
             children: [
-              todayArticle.appTextStyle(
+              todayArticle.appSwitzerTextStyle(
                   fontWeight: FontWeight.w600, fontSize: 18.sp),
               const Spacer(),
-              seeMore.appTextStyle(
-                  fontWeight: FontWeight.w500, fontSize: 14.sp),
+              InkWell(
+                splashFactory: NoSplash.splashFactory,
+                onTap: () {
+                  bottomBarController.isOpen = true;
+                  bottomBarController.changeTab(BottomNavEnum.other);
+                  bottomBarController.isSelectedTab = 4;
+                  bottomBarController.tab = const AllDisCoverDataScreen();
+                  bottomBarController.update();
+                },
+                child: seeMore.appSwitzerTextStyle(
+                    fontWeight: FontWeight.w500, fontSize: 14.sp),
+              ),
             ],
           ).paddingSymmetric(horizontal: 20.w),
           16.w.spaceH(),
@@ -87,13 +98,7 @@ class DiscoverScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return DiscoverCommonCard(
-                      onTap: () {
-                        bottomBarController.isOpen = true;
-                        bottomBarController.changeTab(BottomNavEnum.other);
-                        bottomBarController.isSelectedTab = 4;
-                        bottomBarController.tab = const AllDisCoverDataScreen();
-                        bottomBarController.update();
-                      },
+                      onTap: () {},
                     );
                   },
                   separatorBuilder: (context, index) {
@@ -126,20 +131,20 @@ class DiscoverCommonCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                'Heading'
-                    .appTextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
-                'This is description'.appTextStyle(
+                'Heading'.appSwitzerTextStyle(
+                    fontWeight: FontWeight.w600, fontSize: 14.sp),
+                'This is description'.appSwitzerTextStyle(
                     fontWeight: FontWeight.w400,
                     fontColor: doteColor,
                     fontSize: 13.sp),
-                16.w.spaceH(),
+                14.w.spaceH(),
                 Container(
                   decoration: BoxDecoration(
                       color: buttonColor ?? textFiledColor,
                       borderRadius: BorderRadius.circular(50.r)),
                   child: Center(
                     child: '8 min'
-                        .appTextStyle(
+                        .appSwitzerTextStyle(
                             fontWeight: FontWeight.w400,
                             fontColor: doteColor,
                             fontSize: 13.sp)
@@ -156,7 +161,7 @@ class DiscoverCommonCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(7.r), color: doteColor),
             )
           ],
-        ).paddingSymmetric(horizontal: 22.w, vertical: 17.w),
+        ).paddingSymmetric(horizontal: 16.w, vertical: 11.w),
       ),
     );
   }

@@ -32,10 +32,10 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 40.w.spaceH(),
-                'John Doe'
-                    .appTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
-                'john@email.com · 29y'
-                    .appTextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
+                'John Doe'.appSwitzerTextStyle(
+                    fontSize: 20.sp, fontWeight: FontWeight.w600),
+                'john@email.com · 29y'.appSwitzerTextStyle(
+                    fontSize: 14.sp, fontWeight: FontWeight.w400),
                 16.w.spaceH(),
                 BorderButton(
                   width: 100.w,

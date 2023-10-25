@@ -161,7 +161,7 @@ class AudioPlayerState extends State<AudioPlayer> {
             ),
           ),
           '0.01'
-              .appTextStyle(
+              .appSwitzerTextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
                   fontColor: doteColor)

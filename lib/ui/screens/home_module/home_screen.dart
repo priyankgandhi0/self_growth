@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           'Today, 2 Feb 2023'
-              .appTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600)
+              .appSwitzerTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600)
               .paddingSymmetric(horizontal: 20.w),
           24.w.spaceH(),
           SingleChildScrollView(
@@ -62,6 +62,7 @@ class HomeScreen extends StatelessWidget {
                   image: Assets.icons.edit.path,
                   title: 'Note title',
                   time: '7:00 AM ·',
+                  chipTitleColor: doteColor,
                   notes: 'This is some text',
                 ),
                 GestureDetector(
@@ -71,11 +72,6 @@ class HomeScreen extends StatelessWidget {
                   child: Container(
                     height: 40.w,
                     decoration: BoxDecoration(
-                        // gradient: LinearGradient(colors: [
-                        //   const Color(0XFFD4E0DF).withOpacity(.5),
-                        //   const Color(0XFFE0CECD).withOpacity(.5),
-                        //   const Color(0XFFEDE3FF).withOpacity(.5),
-                        // ]),
                         image: DecorationImage(
                             image: AssetImage(Assets.images.butCon.path),
                             fit: BoxFit.fill),
@@ -85,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        'View history'.appTextStyle(
+                        'View history'.appSwitzerTextStyle(
                             fontColor: doteColor,
                             fontSize: 14.w,
                             fontWeight: FontWeight.w600),
@@ -110,9 +106,8 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildHabit
-                    .appTextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600)
-                    .paddingSymmetric(horizontal: 20.w),
+                buildHabit.appSwitzerTextStyle(
+                    fontSize: 17.sp, fontWeight: FontWeight.w600),
                 16.w.spaceH(),
                 ListView.separated(
                     shrinkWrap: true,
@@ -149,7 +144,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                quitHabit.appTextStyle(
+                quitHabit.appSwitzerTextStyle(
                     fontSize: 17.sp, fontWeight: FontWeight.w600),
                 16.w.spaceH(),
                 ListView.separated(
@@ -203,7 +198,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    'Recomended for you'.appTextStyle(
+                    'Recomended for you'.appSwitzerTextStyle(
                         fontWeight: FontWeight.w700, fontSize: 17.sp),
                     const Spacer(),
                     Assets.icons.sliders.svg()
@@ -298,10 +293,10 @@ class BuildHabitCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    title.appTextStyle(
+                    title.appSwitzerTextStyle(
                         fontWeight: FontWeight.w600, fontSize: 14.sp),
                     5.w.spaceH(),
-                    subTitle.appTextStyle(
+                    subTitle.appSwitzerTextStyle(
                         fontSize: 11.sp,
                         fontWeight: FontWeight.w700,
                         fontColor: grey_969696.withOpacity(.8))
@@ -322,11 +317,11 @@ class BuildHabitCard extends StatelessWidget {
                           : Assets.icons.minimize)
                       .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
                 ),
-                10.w.spaceW(),
-                '$day day streak'.appTextStyle(
+                5.w.spaceW(),
+                '$day day streak'.appSwitzerTextStyle(
                     textAlign: TextAlign.start,
                     fontWeight: FontWeight.w400,
-                    fontColor: grey_969696,
+                    fontColor: doteColor,
                     fontSize: 12.sp)
               ],
             ),
@@ -371,7 +366,8 @@ class QuitHabitCard extends StatelessWidget {
             children: [
               const IconCard(title: '☕️'),
               10.w.spaceW(),
-              title.appTextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
+              title.appSwitzerTextStyle(
+                  fontWeight: FontWeight.w600, fontSize: 14.sp),
               const Spacer(),
               InkWell(
                   onTap: buttonOnTap,
@@ -381,14 +377,14 @@ class QuitHabitCard extends StatelessWidget {
           ),
           8.w.spaceH(),
           subTitle
-              .appTextStyle(
+              .appSwitzerTextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 11.sp,
+                  fontSize: 12.sp,
                   fontColor: grey_969696)
               .paddingOnly(bottom: 4.w),
           Row(
             children: [
-              time.appTextStyle(
+              time.appSwitzerTextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14.sp,
               ),
@@ -400,11 +396,11 @@ class QuitHabitCard extends StatelessWidget {
                         : Assets.icons.minimize)
                     .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
               ),
-              10.w.spaceW(),
-              '$day day streak'.appTextStyle(
+              5.w.spaceW(),
+              '$day day streak'.appSwitzerTextStyle(
                   textAlign: TextAlign.start,
                   fontWeight: FontWeight.w400,
-                  fontColor: grey_969696,
+                  fontColor: doteColor,
                   fontSize: 12.sp)
             ],
           ),

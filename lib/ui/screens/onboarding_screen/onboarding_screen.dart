@@ -108,7 +108,7 @@ class OnboardingScreen extends StatelessWidget {
                     PageViewCard(
                         ctrl: ctrl,
                         image: Assets.images.onBording1.image(
-                            fit: BoxFit.contain, height: 200.w, width: 200.w),
+                            fit: BoxFit.contain, height: 240.w, width: 240.w),
                         title: 'Learn',
                         subTitle:
                             'Working on thinking traps is the first step of the mental well-being journey.',
@@ -117,7 +117,7 @@ class OnboardingScreen extends StatelessWidget {
                     PageViewCard(
                         ctrl: ctrl,
                         image: Assets.images.onBording2.image(
-                            fit: BoxFit.contain, height: 200.w, width: 200.w),
+                            fit: BoxFit.contain, height: 240.w, width: 240.w),
                         title: 'Control',
                         subTitle: secondScreenText,
                         subTitle1:
@@ -125,7 +125,7 @@ class OnboardingScreen extends StatelessWidget {
                     PageViewCard(
                         ctrl: ctrl,
                         image: Assets.images.onBording3.image(
-                            fit: BoxFit.contain, height: 200.w, width: 200.w),
+                            fit: BoxFit.contain, height: 240.w, width: 240.w),
                         title: 'Track',
                         subTitle1: '',
                         subTitle: thirdScreenText)

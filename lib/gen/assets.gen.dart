@@ -329,6 +329,14 @@ class $AssetsImagesGen {
   AssetGenImage get buttonImg =>
       const AssetGenImage('assets/images/button_img.png');
 
+  /// File path: assets/images/cir_border.png
+  AssetGenImage get cirBorder =>
+      const AssetGenImage('assets/images/cir_border.png');
+
+  /// File path: assets/images/cir_fill.png
+  AssetGenImage get cirFill =>
+      const AssetGenImage('assets/images/cir_fill.png');
+
   /// File path: assets/images/circle.png
   AssetGenImage get circle => const AssetGenImage('assets/images/circle.png');
 
@@ -356,6 +364,8 @@ class $AssetsImagesGen {
         backGroundImage,
         butCon,
         buttonImg,
+        cirBorder,
+        cirFill,
         circle,
         con,
         container,

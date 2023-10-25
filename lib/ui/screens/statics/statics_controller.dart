@@ -5,6 +5,7 @@ import '../../../gen/assets.gen.dart';
 
 class StaticsController extends GetxController {
   List<String> dayList = ['Week', 'Month', 'Year'];
+
   int isSelectedTab = 0;
   final List<String> noteList = [
     'Work',

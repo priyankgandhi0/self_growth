@@ -42,7 +42,7 @@ class SelfDiscoverScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         20.w.spaceH(),
-                        'Self Discovery'.appTextStyle(
+                        'Self Discovery'.appSwitzerTextStyle(
                             fontWeight: FontWeight.w600, fontSize: 20.sp),
                         12.w.spaceH(),
                         Container(
@@ -52,15 +52,16 @@ class SelfDiscoverScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(40.r),
                               color: background_F5F5F5),
                           child: Center(
-                            child: '5 min'.appTextStyle(
+                            child: '5 min'.appSwitzerTextStyle(
                                 fontSize: 12.sp, fontWeight: FontWeight.w400),
                           ),
                         ),
                         24.w.spaceH(),
                         'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis.'
-                            .appTextStyle(
+                            .appSwitzerTextStyle(
                                 textAlign: TextAlign.start,
                                 fontWeight: FontWeight.w400,
+                                fontColor: doteColor,
                                 fontSize: 14.sp),
                       ],
                     ).paddingSymmetric(horizontal: 24.w, vertical: 24.w),
@@ -73,7 +74,7 @@ class SelfDiscoverScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        'What you will get'.appTextStyle(
+                        'What you will get'.appSwitzerTextStyle(
                             fontWeight: FontWeight.w700, fontSize: 17.sp),
                         10.w.spaceH(),
                         ListView.separated(

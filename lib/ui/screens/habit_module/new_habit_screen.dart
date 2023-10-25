@@ -54,7 +54,7 @@ class NewHabitScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(Icons.add),
-                          createNewHabbit.appTextStyle(
+                          createNewHabbit.appSwitzerTextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ],
                       ),
@@ -64,7 +64,7 @@ class NewHabitScreen extends StatelessWidget {
               ).paddingSymmetric(vertical: 18.h),
               6.h.spaceH(),
               recomended
-                  .appTextStyle(
+                  .appSwitzerTextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       textAlign: TextAlign.start)

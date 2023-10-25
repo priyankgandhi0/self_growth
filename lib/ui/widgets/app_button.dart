@@ -66,7 +66,7 @@ class RoundAppButton extends StatelessWidget {
         ),
         child: Center(
             child: title.appGradientTextStyle(
-                fontSize: 14.sp, fontWeight: FontWeight.w600)),
+                fontSize: 14.sp, fontWeight: FontWeight.w500)),
       ),
     );
   }
@@ -99,7 +99,7 @@ class RoundGradientAppButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.r),
         ),
         child: Center(
-            child: title.appTextStyle(
+            child: title.appSwitzerTextStyle(
                 fontColor: textColor ?? borderPurpleColor,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600)),
@@ -143,7 +143,7 @@ class BorderButton extends StatelessWidget {
                   width: 2),
             ),
             child: Center(
-              child: title.appTextStyle(
+              child: title.appSwitzerTextStyle(
                   fontColor: black_000000,
                   fontWeight: FontWeight.w500,
                   fontSize: 14.sp),

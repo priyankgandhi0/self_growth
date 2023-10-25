@@ -1,17 +1,18 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:intl/intl.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/gen/assets.gen.dart';
 import 'package:self_growth/ui/screens/statics/statics_controller.dart';
-import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../core/constants/app_strings.dart';
-import '../../widgets/common_widget.dart';
 
 class StaticsScreen extends StatefulWidget {
   StaticsScreen({Key? key}) : super(key: key);
@@ -27,11 +28,6 @@ class _StaticsScreenState extends State<StaticsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    tooltipBehavior = TooltipBehavior(
-        enable: true,
-        borderColor: Colors.red,
-        borderWidth: 5,
-        color: Colors.lightBlue);
   }
 
   @override
@@ -39,7 +35,7 @@ class _StaticsScreenState extends State<StaticsScreen> {
     return GetBuilder<StaticsController>(builder: (ctrl) {
       return Column(
         children: [
-          statistic.appTextStyle(
+          statistic.appSwitzerTextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 18.sp,
               textAlign: TextAlign.center),
@@ -65,12 +61,14 @@ class _StaticsScreenState extends State<StaticsScreen> {
                                   : Colors.transparent,
                               borderRadius: BorderRadius.circular(40.r)),
                           child: Center(
-                            child: ctrl.dayList[index].appTextStyle(
-                                fontColor: ctrl.isSelectedTab == index
-                                    ? white_FFFFFF
-                                    : borderPurpleColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp),
+                            child: ctrl.isSelectedTab == index
+                                ? ctrl.dayList[index].appGradientTextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp)
+                                : ctrl.dayList[index].appSwitzerTextStyle(
+                                    fontColor: borderPurpleColor,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp),
                           ),
                         ).paddingAll(4.w),
                       ))),
@@ -163,46 +161,59 @@ class _StaticsScreenState extends State<StaticsScreen> {
                 ),
                 16.w.spaceH(),
                 SizedBox(
-                  height: 225.w,
-                  child: SfCartesianChart(
-                      primaryYAxis: CategoryAxis(
-                          minimum: 0,
-                          maximum: 150,
-                          interval: 50,
-                          borderWidth: 0,
-                          borderColor: Colors.transparent,
-                          majorTickLines: const MajorTickLines(
-                            size: 0,
-                          )),
-                      // tooltipBehavior: tooltipBehavior,
-
-                      primaryXAxis: CategoryAxis(
-                          majorGridLines:
-                              const MajorGridLines(width: 0, dashArray: [0]),
-                          minimum: 0,
-                          majorTickLines: MajorTickLines(width: 0)),
-                      series: <ChartSeries<MoodTrends, String>>[
-                        LineSeries<MoodTrends, String>(
-                            onPointTap: (pointInteractionDetails) {},
-                            dataSource: [
-                              MoodTrends(0, 'M'),
-                              MoodTrends(25, 'T'),
-                              MoodTrends(50, 'W'),
-                              MoodTrends(60, 'T '),
-                              MoodTrends(70, 'F'),
-                              MoodTrends(80, 'S'),
-                              MoodTrends(100, 'S '),
-                            ],
-                            xValueMapper: (MoodTrends sales, _) => sales.day,
-                            yValueMapper: (MoodTrends sales, _) => sales.value,
-                            color: borderPurpleColor,
-                            enableTooltip: true,
-                            markerSettings: const MarkerSettings(
-                                isVisible: true,
-                                color: borderPurpleColor,
-                                borderColor: borderPurpleColor))
-                      ]),
-                ),
+                    height: 225.w,
+                    child: SfCartesianChart(
+                        primaryYAxis: NumericAxis(
+                            numberFormat: NumberFormat.compact(),
+                            minimum: 0,
+                            labelStyle: getTextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                                fontColor: doteColor),
+                            maximum: 150,
+                            // axisLabelFormatter: '{value}M',
+                            interval: 50,
+                            borderWidth: 0,
+                            borderColor: Colors.transparent,
+                            axisLine:
+                                const AxisLine(width: 0, color: Colors.red),
+                            majorTickLines: const MajorTickLines(
+                              size: 0,
+                            )),
+                        tooltipBehavior: buildTooltipBehavior(
+                            title: 'Today, Feb 7', subTitle: 'Happy'),
+                        plotAreaBorderColor: Colors.transparent,
+                        primaryXAxis: CategoryAxis(
+                            labelStyle: getTextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                                fontColor: doteColor),
+                            edgeLabelPlacement: EdgeLabelPlacement.shift,
+                            majorGridLines:
+                                const MajorGridLines(width: 0, dashArray: [0]),
+                            minimum: 0,
+                            axisLine: const AxisLine(width: 0),
+                            majorTickLines: const MajorTickLines(width: 0)),
+                        series: <ChartSeries<MoodTrends, String>>[
+                          LineSeries<MoodTrends, String>(
+                              dataSource: [
+                                MoodTrends(0, 'M'),
+                                MoodTrends(25, 'T'),
+                                MoodTrends(50, 'W'),
+                                MoodTrends(60, 'T '),
+                                MoodTrends(70, 'F'),
+                                MoodTrends(80, 'S'),
+                                MoodTrends(100, 'S '),
+                              ],
+                              xValueMapper: (MoodTrends sales, _) => sales.day,
+                              yValueMapper: (MoodTrends sales, _) =>
+                                  sales.value,
+                              color: borderPurpleColor,
+                              markerSettings: const MarkerSettings(
+                                  isVisible: true,
+                                  color: borderPurpleColor,
+                                  borderColor: borderPurpleColor))
+                        ])),
                 16.w.spaceH(),
               ],
             ),
@@ -259,6 +270,38 @@ class _StaticsScreenState extends State<StaticsScreen> {
       );
     });
   }
+
+  TooltipBehavior buildTooltipBehavior(
+      {String title = '', String subTitle = ''}) {
+    return TooltipBehavior(
+      color: Colors.white.withOpacity(.5),
+      builder: (data, point, series, pointIndex, seriesIndex) {
+        return Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: borderPinkColor.withOpacity(.3)),
+              borderRadius: BorderRadius.circular(5.r),
+              color: background_EBEBEB.withOpacity(.1)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              title.appSwitzerTextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Switzer',
+                  fontColor: doteColor,
+                  fontSize: 16.sp),
+              subTitle.appSwitzerTextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Switzer',
+                  fontSize: 16.sp)
+            ],
+          ).paddingSymmetric(vertical: 6.w, horizontal: 8.w),
+        );
+      },
+      activationMode: ActivationMode.singleTap,
+      enable: true,
+    );
+  }
 }
 
 class ProfileDataCard extends StatelessWidget {
@@ -289,8 +332,8 @@ class ProfileDataCard extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           10.w.spaceW(),
-          title.appTextStyle(
-              fontWeight: FontWeight.w600,
+          title.appSwitzerTextStyle(
+              fontWeight: FontWeight.w500,
               fontSize: 14.sp,
               fontColor: titleColor ?? borderPurpleColor)
         ],
@@ -332,11 +375,11 @@ class MoodSummaryCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(icon),
-          value.appTextStyle(
+          value.appSwitzerTextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 22.sp,
           ),
-          title.appTextStyle(
+          title.appSwitzerTextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 10.sp,
           )
@@ -356,14 +399,12 @@ class HeaderCard extends StatelessWidget {
       children: [
         20.w.spaceH(),
         title
-            .appTextStyle(fontWeight: FontWeight.w700, fontSize: 20.sp)
+            .appSwitzerTextStyle(fontWeight: FontWeight.w700, fontSize: 20.sp)
             .paddingSymmetric(horizontal: 20.w),
-        8.w.spaceH(),
         Row(
           children: [
-            'Feb 17 - Feb 24'.appTextStyle(
+            'Feb 17 - Feb 24'.appSwitzerTextStyle(
                 fontSize: 14.sp,
-                fontFamily: Assets.fonts.switzerMedium,
                 fontWeight: FontWeight.w600,
                 fontColor: doteColor),
             const Spacer(),
@@ -397,7 +438,7 @@ class MoodCheckCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         title
-            .appTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700)
+            .appSwitzerTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700)
             .paddingAll(20.w),
         Wrap(
             alignment: WrapAlignment.start,

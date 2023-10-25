@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
@@ -30,7 +31,8 @@ class LoginPopup extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             12.0.spaceH(),
-            "Login".appTextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+            "Login"
+                .appSwitzerTextStyle(fontSize: 32, fontWeight: FontWeight.w500),
             20.0.spaceH(),
             AppTextField(
               textEditingController: emailController,
@@ -67,8 +69,9 @@ class LoginPopup extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: "Password".appTextStyle(
-                    fontWeight: FontWeight.w400,
+                  child: "Password".appSwitzerTextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontColor: borderPurpleColor.withOpacity(.6),
                     fontSize: 14.sp,
                   ),
                 ),
@@ -78,8 +81,9 @@ class LoginPopup extends StatelessWidget {
                   },
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: "Forgot password?".appTextStyle(
-                      fontWeight: FontWeight.w400,
+                    child: "Forgot password?".appSwitzerTextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontColor: borderPurpleColor.withOpacity(.6),
                       fontSize: 14.sp,
                     ),
                   ),

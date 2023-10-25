@@ -44,7 +44,7 @@ class MoodCheckingScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       40.w.spaceH(),
-                      'How do you feel?'.appTextStyle(
+                      'How do you feel?'.appSwitzerTextStyle(
                           fontWeight: FontWeight.w600, fontSize: 20.sp),
                       12.w.spaceH(),
                       ButtonCard(
@@ -91,7 +91,7 @@ class MoodCheckingScreen extends StatelessWidget {
                                 min: 0.0,
                                 max: 100.0,
                                 inactiveColor: grey_D9D9D9,
-                                activeColor: black_000000,
+                                activeColor: borderPurpleColor,
                                 onChanged: (value) {
                                   ctrl.sliderValue = value;
                                   ctrl.update();
@@ -105,15 +105,15 @@ class MoodCheckingScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          'Unhappy'.appTextStyle(
+                          'Unhappy'.appSwitzerTextStyle(
                             fontColor: doteColor,
                             fontSize: 13.sp,
                           ),
-                          'Happy'.appTextStyle(
+                          'Happy'.appSwitzerTextStyle(
                             fontColor: doteColor,
                             fontSize: 13.sp,
                           ),
-                          'Normal'.appTextStyle(
+                          'Normal'.appSwitzerTextStyle(
                             fontColor: doteColor,
                             fontSize: 13.sp,
                           ),
@@ -164,7 +164,7 @@ class MoodCheckingScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            'Add notes'.appTextStyle(
+                            'Add notes'.appSwitzerTextStyle(
                                 fontSize: 20.sp, fontWeight: FontWeight.w600),
                             16.w.spaceH(),
                             AppTextField(
@@ -221,7 +221,7 @@ class FamilyCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               widget,
-              title.appTextStyle(
+              title.appSwitzerTextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 11.w,
                   fontColor: doteColor),
@@ -251,8 +251,10 @@ class ButtonCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             icon,
-            '  $title'
-                .appTextStyle(fontSize: 12.sp, fontWeight: FontWeight.w700),
+            '  $title'.appSwitzerTextStyle(
+                fontColor: borderPurpleColor.withOpacity(.7),
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600),
           ],
         ).paddingSymmetric(horizontal: 10.w),
       ),
@@ -282,7 +284,7 @@ class FeelingCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                title.appTextStyle(
+                title.appSwitzerTextStyle(
                     textAlign: TextAlign.start,
                     fontWeight: FontWeight.w600,
                     fontSize: 20.sp),

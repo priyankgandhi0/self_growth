@@ -23,73 +23,74 @@ class QuestionTwoScreen extends StatelessWidget {
   final SelfDiscoveryCon ctrl;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          20.w.spaceH(),
-          Container(
-            width: Get.width,
-            decoration: BoxDecoration(
-              color: white_FFFFFF,
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                'Heading'
-                    .appTextStyle(fontWeight: FontWeight.w600, fontSize: 17.sp),
-                'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis.'
-                    .appTextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        textAlign: TextAlign.start)
-                    .paddingOnly(top: 20.w),
-                'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing '
-                    .appTextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        textAlign: TextAlign.start)
-                    .paddingOnly(top: 20.w),
-                Container(
-                  height: 150.w,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      color: grey_D9D9D9),
-                ).paddingOnly(top: 20.w),
-                'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing '
-                    .appTextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        textAlign: TextAlign.start)
-                    .paddingOnly(top: 20.w),
-                'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis.'
-                    .appTextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        textAlign: TextAlign.start)
-                    .paddingOnly(top: 20.w),
-                'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing '
-                    .appTextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        textAlign: TextAlign.start)
-                    .paddingOnly(top: 20.w),
-              ],
-            ).paddingAll(20.w),
-          ).paddingOnly(
-            left: 20.w,
-            right: 20.w,
-            top: 85.w,
+    return Column(
+      children: [
+        Container(
+          width: Get.width,
+          decoration: BoxDecoration(
+            color: white_FFFFFF,
+            borderRadius: BorderRadius.circular(16.r),
           ),
-          RoundAppButton(
-              title: continueText,
-              onTap: () {
-                ctrl.isQueAns = 2;
-              }).paddingSymmetric(horizontal: 32.w, vertical: 20.w)
-        ],
-      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              'Heading'.appSwitzerTextStyle(
+                  fontWeight: FontWeight.w600, fontSize: 17.sp),
+              'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis.'
+                  .appSwitzerTextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      fontColor: borderPurpleColor.withOpacity(.8),
+                      textAlign: TextAlign.start)
+                  .paddingOnly(top: 20.w),
+              'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing '
+                  .appSwitzerTextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      fontColor: borderPurpleColor.withOpacity(.8),
+                      textAlign: TextAlign.start)
+                  .paddingOnly(top: 20.w),
+              Container(
+                height: 150.w,
+                width: Get.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
+                    color: grey_D9D9D9),
+              ).paddingOnly(top: 20.w),
+              'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing '
+                  .appSwitzerTextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      fontColor: borderPurpleColor.withOpacity(.8),
+                      textAlign: TextAlign.start)
+                  .paddingOnly(top: 20.w),
+              'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis.'
+                  .appSwitzerTextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      fontColor: borderPurpleColor.withOpacity(.8),
+                      textAlign: TextAlign.start)
+                  .paddingOnly(top: 20.w),
+              'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing '
+                  .appSwitzerTextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      fontColor: borderPurpleColor.withOpacity(.8),
+                      textAlign: TextAlign.start)
+                  .paddingOnly(top: 20.w),
+            ],
+          ).paddingAll(20.w),
+        ).paddingOnly(
+          left: 20.w,
+          right: 20.w,
+          top: 32.w,
+        ),
+        RoundAppButton(
+            title: continueText,
+            onTap: () {
+              ctrl.isQueAns = 2;
+            }).paddingSymmetric(horizontal: 32.w, vertical: 20.w)
+      ],
     );
   }
 }
@@ -104,7 +105,6 @@ class QuestionThirdScreen extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
-          20.w.spaceH(),
           Container(
             width: Get.width,
             decoration: BoxDecoration(
@@ -115,7 +115,8 @@ class QuestionThirdScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 'Congratulations you have completed this test'
-                    .appTextStyle(fontWeight: FontWeight.w700, fontSize: 17.sp)
+                    .appSwitzerTextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 17.sp)
                     .paddingSymmetric(horizontal: 20.w),
                 Container(
                   height: 150.w,
@@ -129,9 +130,9 @@ class QuestionThirdScreen extends StatelessWidget {
                       lineWidth: 7.w,
                       animation: true,
                       percent: 0.7,
-                      backgroundColor: background_EBEBEB,
+                      backgroundColor: doteColor.withOpacity(.5),
                       center: "78".appTextStyle(
-                          fontFamily: Assets.fonts.switzerBold,
+                          fontFamily: 'Switzer',
                           fontSize: 24.sp,
                           fontWeight: FontWeight.w500),
                       circularStrokeCap: CircularStrokeCap.round,
@@ -140,9 +141,10 @@ class QuestionThirdScreen extends StatelessWidget {
                   ),
                 ).paddingOnly(top: 20.w),
                 'Your score is quite good, and your answers indicate that you might be suffering from:'
-                    .appTextStyle(
+                    .appSwitzerTextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14.sp,
+                        fontColor: borderPurpleColor.withOpacity(.8),
                         textAlign: TextAlign.start)
                     .paddingSymmetric(vertical: 20.w),
                 Container(
@@ -168,9 +170,10 @@ class QuestionThirdScreen extends StatelessWidget {
                       .paddingSymmetric(horizontal: 12.w, vertical: 14.w),
                 ),
                 "But it's okay we all can lean towards bad habits, we will work together to overcome these challneges together"
-                    .appTextStyle(
+                    .appSwitzerTextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
+                        fontColor: borderPurpleColor.withOpacity(.8),
                         textAlign: TextAlign.start)
                     .paddingSymmetric(vertical: 20.w),
                 ListView.separated(
@@ -193,7 +196,7 @@ class QuestionThirdScreen extends StatelessWidget {
           ).paddingOnly(
             left: 20.w,
             right: 20.w,
-            top: 85.w,
+            top: 32.w,
           ),
           RoundAppButton(title: reviewSuggestedPlan, onTap: () {})
               .paddingSymmetric(horizontal: 32.w, vertical: 20.w),
@@ -224,33 +227,31 @@ class QuestionOneScreen extends StatelessWidget {
   final SelfDiscoveryCon ctrl;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          140.w.spaceH(),
-          Align(
-            alignment: Alignment.center,
-            child: 'How have you been lately?'.appTextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w700,
-                textAlign: TextAlign.center),
-          ),
-          10.w.spaceH(),
-          ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return FirstQueCard(
-                  icon: ctrl.firstQueIconList[index],
-                  title: ctrl.firstQueList[index],
-                ).paddingSymmetric(horizontal: 20.w);
-              },
-              separatorBuilder: (context, index) {
-                return 12.w.spaceH();
-              },
-              itemCount: ctrl.firstQueList.length)
-        ],
-      ),
+    return Column(
+      children: [
+        80.w.spaceH(),
+        Align(
+          alignment: Alignment.center,
+          child: 'How have you been lately?'.appSwitzerTextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
+              textAlign: TextAlign.center),
+        ),
+        10.w.spaceH(),
+        ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return FirstQueCard(
+                icon: ctrl.firstQueIconList[index],
+                title: ctrl.firstQueList[index],
+              ).paddingSymmetric(horizontal: 20.w);
+            },
+            separatorBuilder: (context, index) {
+              return 12.w.spaceH();
+            },
+            itemCount: ctrl.firstQueList.length)
+      ],
     );
   }
 }
