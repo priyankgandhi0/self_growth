@@ -40,11 +40,12 @@ class HabitPredefinedScreen extends StatelessWidget {
                 padding: 20.w,
               ),
               ProfileBoxCard(
+                  margin: 40.w,
                   widget: Assets.icons.selfDiscoveryImg.svg(),
                   child: Column(
                     children: [
                       const AppChip(title: 'Build Habit').paddingOnly(
-                        top: 40.w,
+                        top: 50.w,
                       ),
                       "Drinking Water"
                           .appSwitzerTextStyle(

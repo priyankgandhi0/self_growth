@@ -13,12 +13,19 @@ class SharedPreference {
     _preferences ??= await SharedPreferences.getInstance();
   }
 
+  // ignore: constant_identifier_names
   static const APP_DEVICE_TYPE = "App-Device-Type";
+  // ignore: constant_identifier_names
   static const APP_STORE_VERSION = "App-Store-Version";
+  // ignore: constant_identifier_names
   static const APP_DEVICE_MODEL = "App-Device-Model";
+  // ignore: constant_identifier_names
   static const APP_OS_VERSION = "App-Os-Version";
+  // ignore: constant_identifier_names
   static const APP_STORE_BUILD_NUMBER = "App-Store-Build-Number";
+  // ignore: constant_identifier_names
   static const AUTH_TOKEN = "Auth-Token";
+  // ignore: constant_identifier_names
   static const IS_LOG_IN = "is-login";
 
   void clearUserInfo() async {}

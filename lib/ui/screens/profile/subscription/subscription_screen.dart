@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,11 +10,9 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../widgets/common_widget.dart';
-import '../../bottom_navigation/bottom_bar_controller.dart';
 
 class SubscriptionScreen extends StatelessWidget {
   SubscriptionScreen({Key? key}) : super(key: key);
-  final BottomBarController bottomBarController = Get.find();
   final SubscriptionCon subscriptionCon = Get.put(SubscriptionCon());
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,7 @@ class SubscriptionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  30.w.spaceH(),
+                  40.w.spaceH(),
                   InkWell(
                     splashFactory: NoSplash.splashFactory,
                     onTap: () {
@@ -43,7 +40,7 @@ class SubscriptionScreen extends StatelessWidget {
                         .svg()
                         .paddingSymmetric(horizontal: 16.w, vertical: 10.w),
                   ),
-                  24.w.spaceH(),
+                  15.w.spaceH(),
                   startYourMembershipNowText
                       .appSwitzerTextStyle(
                           fontSize: 32.w,
@@ -117,42 +114,44 @@ class SubscriptionScreen extends StatelessWidget {
             padding: EdgeInsets.zero,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.w), color: white_FFFFFF),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                24.w.spaceH(),
-                'Premium'
-                    .appSwitzerTextStyle(
-                        fontWeight: FontWeight.w600, fontSize: 32.sp)
-                    .paddingSymmetric(horizontal: 20.w),
-                '49 SAR/month'
-                    .appSwitzerTextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20.sp,
-                        fontColor: borderPurpleColor.withOpacity(.8),
-                        fontFamily: 'Switzer')
-                    .paddingSymmetric(horizontal: 20.w),
-                ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        height: 48.w,
-                        child: ProfileDataCard(
-                            image: ctrl.subscriptionImageList[index],
-                            height: 32.w,
-                            onTap: () {},
-                            title: ctrl.subscriptionList[index]),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const CommonDivider()
-                          .paddingSymmetric(vertical: 2.w);
-                    },
-                    itemCount: ctrl.subscriptionList.length),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  24.w.spaceH(),
+                  'Premium'
+                      .appSwitzerTextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 32.sp)
+                      .paddingSymmetric(horizontal: 20.w),
+                  '49 SAR/month'
+                      .appSwitzerTextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20.sp,
+                          fontColor: borderPurpleColor.withOpacity(.8),
+                          fontFamily: 'Switzer')
+                      .paddingSymmetric(horizontal: 20.w),
+                  ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w, vertical: 10.w),
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          height: 48.w,
+                          child: ProfileDataCard(
+                              image: ctrl.subscriptionImageList[index],
+                              height: 32.w,
+                              onTap: () {},
+                              title: ctrl.subscriptionList[index]),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const CommonDivider()
+                            .paddingSymmetric(vertical: 2.w);
+                      },
+                      itemCount: ctrl.subscriptionList.length),
+                ],
+              ),
             )).paddingSymmetric(horizontal: 20.w),
         Positioned(
           right: 20.w,

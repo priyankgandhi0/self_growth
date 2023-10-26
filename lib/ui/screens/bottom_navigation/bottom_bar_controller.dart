@@ -18,6 +18,8 @@ class BottomBarController extends GetxController {
   }
 
   bool isOpen = false;
+  bool isOpenDialog = false;
+  int isOpenHomeDialog = -1;
   BottomNavEnum bottomNavEnum = BottomNavEnum.home;
   Widget? tab;
 
@@ -29,7 +31,7 @@ class BottomBarController extends GetxController {
         tab = HomeScreen();
         break;
       case BottomNavEnum.insight:
-        tab = StaticsScreen();
+        tab = const StaticsScreen();
         break;
       case BottomNavEnum.add:
         tab = const SizedBox();

@@ -47,6 +47,7 @@ class NoteHistoryScreen extends StatelessWidget {
                         width: 7.w,
                         height: 7.w,
                         fit: BoxFit.cover,
+                        // ignore: deprecated_member_use
                         color: borderPurpleColor,
                       )
                     ],

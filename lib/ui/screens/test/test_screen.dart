@@ -16,7 +16,7 @@ class Test extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text("login"),
+        title: const Text("login"),
       ),
       body: Column(
         children: [

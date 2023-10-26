@@ -7,6 +7,7 @@ import 'package:self_growth/core/utils/extentions.dart';
 
 import '../../generated/assets.dart';
 
+// ignore: constant_identifier_names, must_be_immutable
 class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leadingWidget;
   final bool isHome;
@@ -130,6 +131,7 @@ class CommonAppBar extends StatelessWidget {
                 fontWeight: FontWeight.w700, fontSize: 20.w),
         SvgPicture.asset(
           Assets.iconsBackArrow,
+          // ignore: deprecated_member_use
           color: Colors.transparent,
         )
       ],

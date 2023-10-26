@@ -3,52 +3,75 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:self_growth/core/constants/app_colors.dart';
-import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../core/constants/app_strings.dart';
+import '../../gen/assets.gen.dart';
+import 'app_dialogs.dart';
 
 class PickFile {
   void openImageChooser(
       {required BuildContext context, required Function onImageChose}) {
-    Platform.isIOS
-        ? showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return SafeArea(
-                child: Wrap(
-                  children: [
-                    ListTile(
-                      title: photoLibraryText.appTextStyle(
-                          fontColor: black_000000, textAlign: TextAlign.start),
-                      horizontalTitleGap: 0,
-                      leading:
-                          const Icon(Icons.photo_library, color: black_000000),
-                      onTap: () {
-                        _imageFormGallery(
-                            context: context, onImageChose: onImageChose);
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      horizontalTitleGap: 0,
-                      title: cameraText.appTextStyle(
-                          fontColor: black_000000, textAlign: TextAlign.start),
-                      leading:
-                          const Icon(Icons.photo_camera, color: black_000000),
-                      onTap: () {
-                        _imageFromCamera(
-                            context: context, onImageChose: onImageChose);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-              );
+    openBottomDialogBox(
+      context: context,
+      padding: 240.w,
+      child: Column(
+        children: [
+          ProfileDataCard(
+            image: Assets.icons.camera.path,
+            height: 32.w,
+            title: 'Take Photo',
+            onTap: () {
+              _imageFromCamera(context: context, onImageChose: onImageChose);
+              Navigator.pop(context);
             },
+          ),
+          const CommonDivider().paddingSymmetric(vertical: 8.w),
+          ProfileDataCard(
+            image: Assets.icons.addPhoto.path,
+            height: 32.w,
+            title: 'Open Gallery',
+            onTap: () {
+              _imageFormGallery(context: context, onImageChose: onImageChose);
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+    /*  Platform.isIOS
+        ? openBottomDialogBox(
+            context: context,
+            padding: 240.w,
+            child: Column(
+              children: [
+                ProfileDataCard(
+                  image: Assets.icons.camera.path,
+                  height: 32.w,
+                  title: 'Take Photo',
+                  onTap: () {
+                    _imageFromCamera(
+                        context: context, onImageChose: onImageChose);
+                    Navigator.pop(context);
+                  },
+                ),
+                const CommonDivider().paddingSymmetric(vertical: 8.w),
+                ProfileDataCard(
+                  image: Assets.icons.addPhoto.path,
+                  height: 32.w,
+                  title: 'Open Gallery',
+                  onTap: () {
+                    _imageFormGallery(
+                        context: context, onImageChose: onImageChose);
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           )
         : showDialog(
             context: context,
@@ -86,7 +109,7 @@ class PickFile {
                 ],
               );
             },
-          );
+          );*/
   }
 
   void _imageFormGallery(

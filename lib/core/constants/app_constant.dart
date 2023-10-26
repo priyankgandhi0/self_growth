@@ -20,7 +20,10 @@ const bool isLiveMode = false;
 String userTypeApp = ''; //user,mentor
 
 enum Gender {
+  // ignore: constant_identifier_names
   Male,
+  // ignore: constant_identifier_names
   Female,
+  // ignore: constant_identifier_names
   Other,
 }

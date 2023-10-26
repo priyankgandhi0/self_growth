@@ -9,7 +9,10 @@ class TitleBar extends StatelessWidget {
       this.fontSize = 16,
       this.fontWeight = FontWeight.w500,
       this.isCenter = false})
-      : super(key: key);
+      : super(key: key) {
+    // TODO: implement TitleBar
+    throw UnimplementedError();
+  }
   final String title;
   final double fontSize;
   final FontWeight fontWeight;

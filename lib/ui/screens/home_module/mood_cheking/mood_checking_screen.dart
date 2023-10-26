@@ -164,12 +164,12 @@ class MoodCheckingScreen extends StatelessWidget {
                             'Add notes'.appSwitzerTextStyle(
                                 fontSize: 20.sp, fontWeight: FontWeight.w600),
                             16.w.spaceH(),
-                            AppTextField(
+                            const AppTextField(
                               labelText: 'Time',
                               hintText: '9:00 AM',
                             ),
                             16.w.spaceH(),
-                            AppTextField(
+                            const AppTextField(
                               labelText: 'Notes',
                               hintText: 'Add note',
                             )

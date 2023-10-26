@@ -5,6 +5,7 @@ import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/widgets/app_chip.dart';
 
+// ignore: must_be_immutable
 class HabitCard extends StatelessWidget {
   HabitCard(
       {Key? key,

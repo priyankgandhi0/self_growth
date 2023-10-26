@@ -14,7 +14,7 @@ import '../../../core/constants/app_strings.dart';
 import '../../widgets/common_widget.dart';
 
 class StaticsScreen extends StatefulWidget {
-  StaticsScreen({Key? key}) : super(key: key);
+  const StaticsScreen({Key? key}) : super(key: key);
 
   @override
   State<StaticsScreen> createState() => _StaticsScreenState();

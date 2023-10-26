@@ -65,6 +65,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/blessd.svg
   SvgGenImage get blessd => const SvgGenImage('assets/icons/blessd.svg');
 
+  /// File path: assets/icons/camera.svg
+  SvgGenImage get camera => const SvgGenImage('assets/icons/camera.svg');
+
   /// File path: assets/icons/chart.svg
   SvgGenImage get chart => const SvgGenImage('assets/icons/chart.svg');
 
@@ -259,6 +262,7 @@ class $AssetsIconsGen {
         bell,
         blaming,
         blessd,
+        camera,
         chart,
         checkTrue,
         container,

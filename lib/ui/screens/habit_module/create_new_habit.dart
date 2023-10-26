@@ -191,12 +191,12 @@ class CreateNewHabitScreen extends StatelessWidget {
                         ],
                       ).paddingOnly(bottom: 12),
                       16.h.spaceH(),
-                      AppTextField(
+                      const AppTextField(
                         labelText: 'Time',
                         hintText: 'Select Time',
                       ),
                       16.h.spaceH(),
-                      AppTextField(
+                      const AppTextField(
                         labelText: 'Note',
                         hintText: 'Add note',
                       ),
@@ -385,7 +385,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                             ),
                           ),
                           16.h.spaceH(),
-                          AppTextField(
+                          const AppTextField(
                             labelText: "Add Note",
                             hintText: "Add note",
                           )

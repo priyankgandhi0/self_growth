@@ -5,19 +5,23 @@ var appDarkBgColor = MaterialColor(bgColor.value, const <int, Color>{});
 
 const bgColor = Color(0xFFFFFFFF);
 // const primaryColor = Color(0xFFEBEBEB);
-
+// ignore: constant_identifier_names
 const background_EBEBEB = Color(0xFFEBEBEB);
+// ignore: constant_identifier_names
 const background_E6E6E6 = Color(0xFFE6E6E6);
+// ignore: constant_identifier_names
 const background_F8F8F8 = Color(0xFFF8F8F8);
+// ignore: constant_identifier_names
 const background_F5F5F5 = Color(0xFFF5F5F5);
-const background_F0F2F9 = Color(0xFFF0F2F9);
+
 const textFiledColor = Color(0xFFEFEFEF);
+// ignore: constant_identifier_names
 const grey_D9D9D9 = Color(0xFFD9D9D9);
-const grey_969696 = Color(0xFF969696);
-const grey_C4C4C4 = Color(0xFFC4C4C4);
+const grey_969696 = Color(0xFF969696); // ignore: constant_identifier_names
+const grey_C4C4C4 = Color(0xFFC4C4C4); // ignore: constant_identifier_names
 const black_000000 = Color(0xFF000000);
-const white_FFFFFF = Color(0xFFFFFFFF);
-const white_FAFAFA = Color(0xFFFAFAFA);
+const white_FFFFFF = Color(0xFFFFFFFF); // ignore: constant_identifier_names
+const white_FAFAFA = Color(0xFFFAFAFA); // ignore: constant_identifier_names
 const greyBorderColor = Color(0xFF828282);
 const doteColor = Color(0xFFA69FB0);
 const lightGrayColor = Color(0xFFE4E0E0);

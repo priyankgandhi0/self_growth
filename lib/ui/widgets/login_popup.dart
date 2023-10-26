@@ -10,6 +10,7 @@ import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
 import 'app_button.dart';
 
+// ignore: must_be_immutable
 class LoginPopup extends StatelessWidget {
   LoginPopup({Key? key, required this.onLogin, required this.onForgotPassword})
       : super(key: key);

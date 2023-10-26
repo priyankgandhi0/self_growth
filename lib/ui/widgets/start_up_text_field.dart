@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 
 import '../../core/constants/app_colors.dart';
@@ -39,7 +38,7 @@ class AppTextField extends StatefulWidget {
   final Function(String value)? onChanged;
   final Function(String value)? validator;
 
-  AppTextField(
+  const AppTextField(
       {Key? key,
       this.labelText = '',
       this.textEditingController,

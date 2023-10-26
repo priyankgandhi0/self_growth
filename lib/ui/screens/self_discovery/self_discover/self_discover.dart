@@ -37,6 +37,7 @@ class SelfDiscoverScreen extends StatelessWidget {
                     child: const Icon(Icons.close),
                   ).paddingSymmetric(horizontal: 20.w),
                   ProfileBoxCard(
+                    margin: 40.w,
                     widget: Assets.icons.selfDisc.svg(),
                     child: Column(
                       children: [

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
 import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
@@ -13,12 +13,13 @@ import 'package:self_growth/ui/widgets/common_widget.dart';
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
-import '../../widgets/app_dialogs.dart';
 import '../self_discovery/discover_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   final HomeController homeController = Get.put(HomeController());
+  final BottomBarController bottomBarController =
+      Get.put(BottomBarController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (ctrl) {
@@ -197,23 +198,9 @@ class HomeScreen extends StatelessWidget {
                           ctrl.update();
                         },
                         buttonOnTap: () {
-                          openBottomDialogBox(
-                              padding: 350.w,
-                              child: Column(
-                                children: [
-                                  ProfileDataCard(
-                                      image: Assets.icons.resetHabit.path,
-                                      height: 24.w,
-                                      title: 'Reset habit'),
-                                  const CommonDivider()
-                                      .paddingSymmetric(vertical: 10.w),
-                                  ProfileDataCard(
-                                      image: Assets.icons.delete.path,
-                                      height: 24.w,
-                                      title: 'Delete habit')
-                                ],
-                              ),
-                              context: context);
+                          bottomBarController.isOpenDialog = true;
+                          bottomBarController.isOpenHomeDialog = 1;
+                          bottomBarController.update();
                         },
                         title: 'I have been cafeein free for',
                         subTitle: 'Abstinence time',
@@ -499,6 +486,7 @@ class QuitHabitCard extends StatelessWidget {
               InkWell(
                   onTap: buttonOnTap,
                   splashFactory: NoSplash.splashFactory,
+                  // ignore: deprecated_member_use_from_same_package
                   child: Assets.icons.threeDote.svg(color: borderPurpleColor))
             ],
           ),

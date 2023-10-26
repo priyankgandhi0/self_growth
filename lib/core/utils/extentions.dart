@@ -215,7 +215,7 @@ class PhoneInputFormatter extends TextInputFormatter {
     final offset = text.length + 1;
 
     return newValue.copyWith(
-      text: text.length >= 1 ? '+$text' : '',
+      text: text.isNotEmpty ? '+$text' : '',
       selection: TextSelection.collapsed(offset: offset),
     );
   }

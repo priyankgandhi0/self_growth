@@ -61,10 +61,12 @@ class PageViewCard extends StatelessWidget {
 }
 
 class ProfileBoxCard extends StatelessWidget {
-  const ProfileBoxCard({Key? key, required this.child, this.widget})
+  const ProfileBoxCard(
+      {Key? key, required this.child, this.widget, this.margin})
       : super(key: key);
   final Widget child;
   final Widget? widget;
+  final double? margin;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class ProfileBoxCard extends StatelessWidget {
       children: [
         Container(
                 width: Get.width,
-                margin: EdgeInsets.only(top: 50.w),
+                margin: EdgeInsets.only(top: margin ?? 50.w),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.w),
                     color: white_FFFFFF),
@@ -263,6 +265,7 @@ class NoteCommonCard extends StatelessWidget {
             ),
             const Spacer(),
             showIcon ?? true
+                // ignore: deprecated_member_use_from_same_package
                 ? Assets.icons.threeDote.svg(color: borderPurpleColor)
                 : const SizedBox()
           ],
@@ -343,7 +346,7 @@ class NoteCommonCard extends StatelessWidget {
                   ],
                 ),
               )
-            : SizedBox()
+            : const SizedBox()
       ],
     );
   }
@@ -577,6 +580,7 @@ class BottomBarWidget extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 icon,
+                // ignore: deprecated_member_use
                 color: iconColor,
                 height: 20.w,
                 width: 20.w,

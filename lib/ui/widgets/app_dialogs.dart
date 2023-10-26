@@ -114,6 +114,44 @@ class _DialogWithBackdropState extends State<DialogWithBackdrop> {
   }
 }
 
+class OpenBottomDialog extends StatelessWidget {
+  const OpenBottomDialog({
+    Key? key,
+    required this.context,
+    required this.child,
+    this.onTap,
+  }) : super(key: key);
+  final BuildContext context;
+  final Widget child;
+  final void Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        color: doteColor.withOpacity(.4),
+        height: Get.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              // height: Get.height - padding,
+              margin: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(12.r))),
+              child: child.paddingAll(20.w),
+            ),
+            100.w.spaceH(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 openBottomDialogBox(
     {required BuildContext context,
     required Widget child,
