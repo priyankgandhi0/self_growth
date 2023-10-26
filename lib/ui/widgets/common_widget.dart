@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,7 +10,6 @@ import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constant.dart';
 import '../../gen/assets.gen.dart';
 import '../screens/habit_module/create_new_habit.dart';
-import 'file_picker_utils.dart';
 
 class PageViewCard extends StatelessWidget {
   const PageViewCard(
@@ -35,22 +31,8 @@ class PageViewCard extends StatelessWidget {
       children: [
         // 400.w.spaceH(),
         image,
-        32.w.spaceH(),
-        Align(
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-                3,
-                (index) => CircleAvatar(
-                      radius: 4.r,
-                      backgroundColor: ctrl.initialPage == index
-                          ? borderPurpleColor
-                          : doteColor,
-                    ).paddingSymmetric(horizontal: 2.w)),
-          ),
-        ),
-        32.w.spaceH(),
+
+        64.w.spaceH(),
         title
             .appSwitzerTextStyle(
                 fontColor: borderPurpleColor,
@@ -367,6 +349,15 @@ class NoteCommonCard extends StatelessWidget {
   }
 }
 
+class CommonDivider extends StatelessWidget {
+  const CommonDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Assets.icons.divider.svg(width: Get.width);
+  }
+}
+
 class SelfDiscoveryCard extends StatelessWidget {
   const SelfDiscoveryCard(
       {Key? key,
@@ -531,9 +522,17 @@ class CommonTabBar extends StatelessWidget {
     return Container(
       // height: 24.w,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: borderPurpleColor),
-          color: Colors.transparent),
+        borderRadius: BorderRadius.circular(30.r),
+        border: const GradientBoxBorder(
+            gradient: LinearGradient(colors: [
+              borderPinkColor,
+              borderPurpleColor,
+              borderPurpleColor,
+              borderPurpleColor,
+              borderPinkColor
+            ]),
+            width: 1),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

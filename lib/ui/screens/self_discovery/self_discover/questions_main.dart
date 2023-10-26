@@ -1,19 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/self_discovery/self_discover/questionas_screen.dart';
 import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discovery_con.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-
-import '../../../../core/constants/app_strings.dart';
 import '../../../../gen/assets.gen.dart';
-import '../../../widgets/app_button.dart';
-import '../../../widgets/common_widget.dart';
 
 class FirstQuestionScreen extends StatelessWidget {
   FirstQuestionScreen({Key? key}) : super(key: key);

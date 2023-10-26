@@ -78,6 +78,7 @@ class OnboardingScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              10.w.spaceH(),
               WithOutTitleAppBar(
                 onTap: () {
                   ctrl.pageController.animateToPage(
@@ -96,41 +97,70 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ).paddingOnly(top: 7.w),
               60.w.spaceH(),
-              SizedBox(
-                height: Get.height,
-                child: PageView(
-                  onPageChanged: (value) {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                    ctrl.initialPage = value;
-                  },
-                  controller: ctrl.pageController,
-                  children: <Widget>[
-                    PageViewCard(
-                        ctrl: ctrl,
-                        image: Assets.images.onBording1.image(
-                            fit: BoxFit.contain, height: 240.w, width: 240.w),
-                        title: 'Learn',
-                        subTitle:
-                            'Working on thinking traps is the first step of the mental well-being journey.',
-                        subTitle1:
-                            'Seral offers you a Personalized education for your mind to understand your thinking-frame.'),
-                    PageViewCard(
-                        ctrl: ctrl,
-                        image: Assets.images.onBording2.image(
-                            fit: BoxFit.contain, height: 240.w, width: 240.w),
-                        title: 'Control',
-                        subTitle: secondScreenText,
-                        subTitle1:
-                            'Seral Challenge and change your thinking patterns by providing you with advanced tools.'),
-                    PageViewCard(
-                        ctrl: ctrl,
-                        image: Assets.images.onBording3.image(
-                            fit: BoxFit.contain, height: 240.w, width: 240.w),
-                        title: 'Track',
-                        subTitle1: '',
-                        subTitle: thirdScreenText)
-                  ],
-                ),
+              Stack(
+                children: [
+                  SizedBox(
+                    height: Get.height,
+                    child: PageView(
+                      onPageChanged: (value) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        ctrl.initialPage = value;
+                      },
+                      controller: ctrl.pageController,
+                      children: <Widget>[
+                        PageViewCard(
+                            ctrl: ctrl,
+                            image: Assets.images.onBording1.image(
+                                fit: BoxFit.contain,
+                                height: 240.w,
+                                width: 240.w),
+                            title: 'Learn',
+                            subTitle:
+                                'Working on thinking traps is the first step of the mental well-being journey.',
+                            subTitle1:
+                                'Seral offers you a Personalized education for your mind to understand your thinking-frame.'),
+                        PageViewCard(
+                            ctrl: ctrl,
+                            image: Assets.images.onBording2.image(
+                                fit: BoxFit.contain,
+                                height: 240.w,
+                                width: 240.w),
+                            title: 'Control',
+                            subTitle: secondScreenText,
+                            subTitle1:
+                                'Seral Challenge and change your thinking patterns by providing you with advanced tools.'),
+                        PageViewCard(
+                            ctrl: ctrl,
+                            image: Assets.images.onBording3.image(
+                                fit: BoxFit.contain,
+                                height: 240.w,
+                                width: 240.w),
+                            title: 'Track',
+                            subTitle1: '',
+                            subTitle: thirdScreenText)
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: 270.w,
+                    left: 0,
+                    right: 0,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                            3,
+                            (index) => CircleAvatar(
+                                  radius: 4.r,
+                                  backgroundColor: ctrl.initialPage == index
+                                      ? borderPurpleColor
+                                      : doteColor,
+                                ).paddingSymmetric(horizontal: 2.w)),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

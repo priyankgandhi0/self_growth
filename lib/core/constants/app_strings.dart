@@ -79,7 +79,7 @@ const createNewHabbit = "Create New Habbit";
 const recomended = "Recomended";
 
 ///Home ScreeN
-const buildHabit = 'Habbits';
+const buildHabit = 'Build Habit';
 const quitHabit = 'Quit Habit';
 
 ///static SCREEN

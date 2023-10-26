@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/config/routes/router.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
@@ -8,7 +7,6 @@ import 'package:self_growth/core/utils/app_helper.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/gen/assets.gen.dart';
 import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.dart';
-import 'package:self_growth/ui/screens/profile/subscription/subscription_screen.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
 
 import '../../../core/constants/app_strings.dart';
@@ -73,10 +71,7 @@ class ProfileScreen extends StatelessWidget {
                         ).paddingSymmetric(vertical: 11.w);
                       },
                       separatorBuilder: (context, index) {
-                        return Container(
-                          height: 0.4.w,
-                          color: grey_969696.withOpacity(.5),
-                        );
+                        return const CommonDivider();
                       },
                       itemCount: ctrl.profileList.length))
               .paddingSymmetric(horizontal: 20.w, vertical: 16.w),
@@ -85,6 +80,9 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.w), color: white_FFFFFF),
             child: ProfileDataCard(
+              onTap: () {
+                Get.offAllNamed(Routes.onboarding);
+              },
               image: Assets.icons.logOut.path,
               title: 'Logout',
             ).paddingSymmetric(vertical: 8.w, horizontal: 20.w),

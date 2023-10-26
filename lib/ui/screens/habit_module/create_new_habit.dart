@@ -14,7 +14,7 @@ import '../../../gen/assets.gen.dart';
 
 class CreateNewHabitScreen extends StatelessWidget {
   CreateNewHabitScreen({Key? key}) : super(key: key);
-  HabitController habitController = Get.put(HabitController());
+  final HabitController habitController = Get.put(HabitController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,9 +131,10 @@ class CreateNewHabitScreen extends StatelessWidget {
                       16.h.spaceH(),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                                color: black_000000.withOpacity(0.1))),
+                          image: DecorationImage(
+                              image: AssetImage(Assets.images.card.path),
+                              fit: BoxFit.fill),
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -236,9 +237,10 @@ class CreateNewHabitScreen extends StatelessWidget {
                           8.h.spaceH(),
                           Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                    color: black_000000.withOpacity(0.1))),
+                              image: DecorationImage(
+                                  image: AssetImage(Assets.images.card.path),
+                                  fit: BoxFit.fill),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -366,9 +368,10 @@ class CreateNewHabitScreen extends StatelessWidget {
                           8.h.spaceH(),
                           Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                    color: doteColor.withOpacity(0.3))),
+                              image: DecorationImage(
+                                  image: AssetImage(Assets.images.card.path),
+                                  fit: BoxFit.fill),
+                            ),
                             child: Row(
                               children: [
                                 Expanded(
@@ -423,8 +426,9 @@ class ButtonCommon extends StatelessWidget {
                       image: AssetImage(Assets.images.con.path),
                       fit: BoxFit.fill))
               : BoxDecoration(
-                  border: Border.all(color: grey_C4C4C4.withOpacity(.5)),
-                  borderRadius: BorderRadius.circular(8.r),
+                  image: DecorationImage(
+                      image: AssetImage(Assets.images.card.path),
+                      fit: BoxFit.fill),
                 ),
           child: Center(
               child: title.appSwitzerTextStyle(

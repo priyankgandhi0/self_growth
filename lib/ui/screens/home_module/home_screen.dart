@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/get_utils.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
@@ -106,6 +106,44 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                'Habbits'.appSwitzerTextStyle(
+                    fontSize: 17.sp, fontWeight: FontWeight.w600),
+                16.w.spaceH(),
+                ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return HabitCard(
+                        value: index == 0 ? '1/2' : '2/3',
+                        dayOnTap: () {
+                          ctrl.isSelectedDayTick = index;
+                          ctrl.update();
+                        },
+                        onTap: () {
+                          ctrl.isSelectedHabit = index;
+                          ctrl.update();
+                        },
+                        title: 'Reading Book',
+                        subTitle: 'EVERY DAY',
+                        day: '8',
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const CommonDivider()
+                          .paddingSymmetric(horizontal: 4.w);
+                    },
+                    itemCount: 2)
+              ],
+            ).paddingAll(16.w),
+          ).paddingSymmetric(horizontal: 20.w),
+          16.w.spaceH(),
+          Container(
+            width: Get.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r), color: white_FFFFFF),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 buildHabit.appSwitzerTextStyle(
                     fontSize: 17.sp, fontWeight: FontWeight.w600),
                 16.w.spaceH(),
@@ -130,7 +168,8 @@ class HomeScreen extends StatelessWidget {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return 16.w.spaceH();
+                      return const CommonDivider()
+                          .paddingSymmetric(horizontal: 4.w);
                     },
                     itemCount: 2)
               ],
@@ -166,8 +205,8 @@ class HomeScreen extends StatelessWidget {
                                       image: Assets.icons.resetHabit.path,
                                       height: 24.w,
                                       title: 'Reset habit'),
-                                  const Divider()
-                                      .paddingSymmetric(vertical: 6.w),
+                                  const CommonDivider()
+                                      .paddingSymmetric(vertical: 10.w),
                                   ProfileDataCard(
                                       image: Assets.icons.delete.path,
                                       height: 24.w,
@@ -280,7 +319,7 @@ class BuildHabitCard extends StatelessWidget {
             width: Get.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: grey_969696.withOpacity(.2)),
+                border: Border.all(color: Colors.transparent),
                 color: white_FFFFFF),
             child: Row(
               children: [
@@ -332,6 +371,95 @@ class BuildHabitCard extends StatelessWidget {
   }
 }
 
+class HabitCard extends StatelessWidget {
+  const HabitCard({
+    Key? key,
+    required this.title,
+    required this.subTitle,
+    required this.day,
+    this.onTap,
+    this.dayOnTap,
+    required this.value,
+  }) : super(key: key);
+  final String title;
+  final void Function()? onTap;
+  final void Function()? dayOnTap;
+  final String subTitle;
+  final String day;
+  final String value;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        children: [
+          Container(
+            width: Get.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(color: Colors.transparent),
+                color: white_FFFFFF),
+            child: Row(
+              children: [
+                Assets.icons.right
+                    .svg(width: 24.w, fit: BoxFit.fill, height: 24.w),
+                10.w.spaceW(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    title.appSwitzerTextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 14.sp),
+                    5.w.spaceH(),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: dayOnTap,
+                          child: (Assets.icons.minimize).svg(
+                              width: 16.w, height: 16.w, fit: BoxFit.cover),
+                        ),
+                        5.w.spaceW(),
+                        '$day day streak'.appSwitzerTextStyle(
+                            textAlign: TextAlign.start,
+                            fontWeight: FontWeight.w400,
+                            fontColor: doteColor,
+                            fontSize: 12.sp)
+                      ],
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Stack(
+                  children: [
+                    // Container(
+                    //   width: 48.w,
+                    //   height: 48.w,
+                    //   decoration: BoxDecoration(
+                    //       image: DecorationImage(
+                    //           image: AssetImage(Assets.images.ring.path),
+                    //           fit: BoxFit.fill)),
+                    // ),
+                    CircularPercentIndicator(
+                      radius: 25.r,
+                      lineWidth: 3.w,
+                      animation: true,
+                      percent: .2,
+                      backgroundColor: doteColor.withOpacity(.4),
+                      center: value.appSwitzerTextStyle(
+                          fontSize: 14.sp, fontWeight: FontWeight.w500),
+                      circularStrokeCap: CircularStrokeCap.round,
+                      progressColor: borderPurpleColor,
+                    ),
+                  ],
+                )
+              ],
+            ).paddingSymmetric(horizontal: 10.w, vertical: 10.w),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class QuitHabitCard extends StatelessWidget {
   const QuitHabitCard(
       {Key? key,
@@ -356,9 +484,8 @@ class QuitHabitCard extends StatelessWidget {
     return Container(
       width: Get.width,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: grey_969696.withOpacity(.2)),
-          color: white_FFFFFF),
+          image: DecorationImage(
+              image: AssetImage(Assets.images.card.path), fit: BoxFit.fill)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -372,7 +499,7 @@ class QuitHabitCard extends StatelessWidget {
               InkWell(
                   onTap: buttonOnTap,
                   splashFactory: NoSplash.splashFactory,
-                  child: Assets.icons.threeDote.svg())
+                  child: Assets.icons.threeDote.svg(color: borderPurpleColor))
             ],
           ),
           8.w.spaceH(),
@@ -380,7 +507,7 @@ class QuitHabitCard extends StatelessWidget {
               .appSwitzerTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12.sp,
-                  fontColor: grey_969696)
+                  fontColor: doteColor)
               .paddingOnly(bottom: 4.w),
           Row(
             children: [

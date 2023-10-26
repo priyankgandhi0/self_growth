@@ -80,6 +80,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/discovery.svg
   SvgGenImage get discovery => const SvgGenImage('assets/icons/discovery.svg');
 
+  /// File path: assets/icons/divider.svg
+  SvgGenImage get divider => const SvgGenImage('assets/icons/divider.svg');
+
   /// File path: assets/icons/dropdown_arrow.svg
   SvgGenImage get dropdownArrow =>
       const SvgGenImage('assets/icons/dropdown_arrow.svg');
@@ -261,6 +264,7 @@ class $AssetsIconsGen {
         container,
         delete,
         discovery,
+        divider,
         dropdownArrow,
         edit,
         emogi,
@@ -318,9 +322,16 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Card.png
+  AssetGenImage get card => const AssetGenImage('assets/images/Card.png');
+
   /// File path: assets/images/backGround_image.png
   AssetGenImage get backGroundImage =>
       const AssetGenImage('assets/images/backGround_image.png');
+
+  /// File path: assets/images/box_border.png
+  AssetGenImage get boxBorder =>
+      const AssetGenImage('assets/images/box_border.png');
 
   /// File path: assets/images/but_con.png
   AssetGenImage get butCon => const AssetGenImage('assets/images/but_con.png');
@@ -359,9 +370,14 @@ class $AssetsImagesGen {
   AssetGenImage get onBording3 =>
       const AssetGenImage('assets/images/on_bording_3.png');
 
+  /// File path: assets/images/ring.png
+  AssetGenImage get ring => const AssetGenImage('assets/images/ring.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
+        card,
         backGroundImage,
+        boxBorder,
         butCon,
         buttonImg,
         cirBorder,
@@ -371,7 +387,8 @@ class $AssetsImagesGen {
         container,
         onBording1,
         onBording2,
-        onBording3
+        onBording3,
+        ring
       ];
 }
 

@@ -7,7 +7,6 @@ import 'package:self_growth/ui/screens/bottom_navigation/bottom_navigation_scree
 import 'package:self_growth/ui/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:self_growth/ui/screens/profile/profile_screen.dart';
-import 'package:self_growth/ui/screens/self_discovery/self_discover/questionas_screen.dart';
 import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discover.dart';
 
 import '../../ui/screens/auth/personal_info/personal_info_screen.dart';

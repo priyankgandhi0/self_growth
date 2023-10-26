@@ -1,9 +1,7 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:intl/intl.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
@@ -13,6 +11,7 @@ import 'package:self_growth/ui/screens/statics/statics_controller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../core/constants/app_strings.dart';
+import '../../widgets/common_widget.dart';
 
 class StaticsScreen extends StatefulWidget {
   StaticsScreen({Key? key}) : super(key: key);
@@ -232,8 +231,8 @@ class _StaticsScreenState extends State<StaticsScreen> {
                   imgList: ctrl.noteImageList,
                   titleList: ctrl.noteList,
                 ),
-                Divider(color: borderPurpleColor.withOpacity(.2))
-                    .paddingSymmetric(horizontal: 20.w),
+                const CommonDivider()
+                    .paddingSymmetric(horizontal: 20.w, vertical: 5.w),
                 MoodCheckCard(
                   title: 'that’s why you feel...',
                   imgList: ctrl.noteImageList,
@@ -256,8 +255,8 @@ class _StaticsScreenState extends State<StaticsScreen> {
                   imgList: ctrl.noteImageList,
                   titleList: ctrl.noteList,
                 ),
-                Divider(color: borderPurpleColor.withOpacity(.2))
-                    .paddingSymmetric(horizontal: 20.w),
+                const CommonDivider()
+                    .paddingSymmetric(horizontal: 20.w, vertical: 5.w),
                 MoodCheckCard(
                   title: 'that’s why you feel...',
                   imgList: ctrl.noteImageList,
@@ -414,9 +413,7 @@ class HeaderCard extends StatelessWidget {
           ],
         ).paddingSymmetric(horizontal: 20.w),
         10.w.spaceH(),
-        Divider(
-          color: textPinkColor.withOpacity(.3),
-        ),
+        const CommonDivider().paddingSymmetric(vertical: 8.w),
       ],
     );
   }

@@ -21,6 +21,7 @@ class Assets {
   static const String iconsDateRange = 'assets/icons/Date_range.svg';
   static const String iconsDelete = 'assets/icons/delete.svg';
   static const String iconsDiscovery = 'assets/icons/discovery.svg';
+  static const String iconsDivider = 'assets/icons/divider.svg';
   static const String iconsDropdownArrow = 'assets/icons/dropdown_arrow.svg';
   static const String iconsEdit = 'assets/icons/edit.svg';
   static const String iconsEmogi = 'assets/icons/emogi.svg';
@@ -75,8 +76,10 @@ class Assets {
   static const String iconsYes = 'assets/icons/yes.svg';
   static const String imagesBackGroundImage =
       'assets/images/backGround_image.png';
+  static const String imagesBoxBorder = 'assets/images/box_border.png';
   static const String imagesButCon = 'assets/images/but_con.png';
   static const String imagesButtonImg = 'assets/images/button_img.png';
+  static const String imagesCard = 'assets/images/Card.png';
   static const String imagesCirBorder = 'assets/images/cir_border.png';
   static const String imagesCirFill = 'assets/images/cir_fill.png';
   static const String imagesCircle = 'assets/images/circle.png';
@@ -85,4 +88,5 @@ class Assets {
   static const String imagesOnBording1 = 'assets/images/on_bording_1.png';
   static const String imagesOnBording2 = 'assets/images/on_bording_2.png';
   static const String imagesOnBording3 = 'assets/images/on_bording_3.png';
+  static const String imagesRing = 'assets/images/ring.png';
 }

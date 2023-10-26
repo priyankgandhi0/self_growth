@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
-import 'package:self_growth/ui/screens/profile/profile_screen.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../config/routes/router.dart';
@@ -22,12 +21,13 @@ class BottomNavigationScreen extends StatelessWidget {
     return GetBuilder<BottomBarController>(builder: (ctrl) {
       return Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: background_EBEBEB,
+        // backgroundColor: background_EBEBEB,
         floatingActionButton: Visibility(
             visible: ctrl.isSelectedTab == 4 && bottomBarController.isOpen,
             child: Assets.icons.floatButton.svg()),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         bottomNavigationBar: bottomBarWidget(ctrl, context),
+
         body: Container(
           height: Get.height,
           decoration: BoxDecoration(
@@ -96,12 +96,12 @@ class BottomNavigationScreen extends StatelessWidget {
                           Get.toNamed(Routes.moodCheckingScreen);
                         },
                       ),
-                      const Divider().paddingSymmetric(vertical: 6.w),
+                      const CommonDivider().paddingSymmetric(vertical: 8.w),
                       ProfileDataCard(
                           image: Assets.icons.voiceNote.path,
                           height: 32.w,
                           title: 'Voice Note'),
-                      const Divider().paddingSymmetric(vertical: 6.w),
+                      const CommonDivider().paddingSymmetric(vertical: 8.w),
                       ProfileDataCard(
                           image: Assets.icons.addPhoto.path,
                           height: 32.w,

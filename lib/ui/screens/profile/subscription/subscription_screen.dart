@@ -9,11 +9,9 @@ import 'package:self_growth/ui/widgets/app_button.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/utils/app_helper.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../widgets/common_widget.dart';
 import '../../bottom_navigation/bottom_bar_controller.dart';
-import '../profile_screen.dart';
 
 class SubscriptionScreen extends StatelessWidget {
   SubscriptionScreen({Key? key}) : super(key: key);
@@ -35,7 +33,7 @@ class SubscriptionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  40.w.spaceH(),
+                  30.w.spaceH(),
                   InkWell(
                     splashFactory: NoSplash.splashFactory,
                     onTap: () {
@@ -52,7 +50,7 @@ class SubscriptionScreen extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           textAlign: TextAlign.start)
                       .paddingSymmetric(horizontal: 20.w),
-                  30.w.spaceH(),
+                  25.w.spaceH(),
                   SizedBox(
                     height: 280.w,
                     child: PageView(
@@ -69,7 +67,7 @@ class SubscriptionScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  20.w.spaceH(),
+                  15.w.spaceH(),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Row(
@@ -150,10 +148,8 @@ class SubscriptionScreen extends StatelessWidget {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return Container(
-                        height: 0.4.w,
-                        color: grey_969696.withOpacity(.5),
-                      ).paddingSymmetric(vertical: 3.w);
+                      return const CommonDivider()
+                          .paddingSymmetric(vertical: 2.w);
                     },
                     itemCount: ctrl.subscriptionList.length),
               ],

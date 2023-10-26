@@ -120,6 +120,7 @@ openBottomDialogBox(
     required double padding}) {
   return showDialog(
     context: context,
+    barrierColor: borderPurpleColor.withOpacity(.5),
     builder: (BuildContext context) {
       return AlertDialog(
           insetPadding: EdgeInsets.only(top: Get.height - padding),

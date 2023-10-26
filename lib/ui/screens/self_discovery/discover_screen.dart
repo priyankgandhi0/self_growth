@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/self_discovery/all_discover_screen.dart';
-import 'package:self_growth/ui/widgets/app_title_bar.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
@@ -53,10 +52,8 @@ class DiscoverScreen extends StatelessWidget {
                         ).paddingSymmetric(horizontal: 20.w, vertical: 12.w);
                       },
                       separatorBuilder: (context, index) {
-                        return Container(
-                          height: 0.4.w,
-                          color: grey_969696.withOpacity(.7),
-                        ).paddingSymmetric(horizontal: 20.w);
+                        return const CommonDivider()
+                            .paddingSymmetric(horizontal: 20.w);
                       },
                       itemCount: 2))
               .paddingSymmetric(horizontal: 20.w, vertical: 16.w),

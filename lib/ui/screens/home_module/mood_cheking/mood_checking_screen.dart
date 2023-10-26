@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../gen/assets.gen.dart';
@@ -210,10 +207,11 @@ class FamilyCard extends StatelessWidget {
     return Container(
         height: 67.w,
         width: 67.w,
-        decoration: BoxDecoration(
-            border: Border.all(
-                color: isSelected ? grey_969696 : Colors.transparent),
-            borderRadius: BorderRadius.circular(8.r)),
+        decoration: !isSelected
+            ? const BoxDecoration()
+            : BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(Assets.images.boxBorder.path))),
         child: GestureDetector(
           onTap: onTap,
           child: Column(

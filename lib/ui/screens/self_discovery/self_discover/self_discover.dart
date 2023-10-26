@@ -9,7 +9,6 @@ import 'package:self_growth/ui/widgets/common_widget.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../widgets/app_button.dart';
-import '../../../widgets/app_title_bar.dart';
 
 class SelfDiscoverScreen extends StatelessWidget {
   const SelfDiscoverScreen({Key? key}) : super(key: key);

@@ -5,8 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-import '../../generated/assets.dart';
-
 extension AddSpace on num {
   SizedBox spaceH() {
     return SizedBox(height: toDouble());
@@ -102,7 +100,11 @@ extension AddGradientText on String {
       ),
       textAlign: textAlign,
       colors: gradientColors ??
-          [Color(0xffD4E0DF), Color(0xffE0CECD), Color(0xffEDE3FF)],
+          [
+            const Color(0xffD4E0DF),
+            const Color(0xffE0CECD),
+            const Color(0xffEDE3FF)
+          ],
     );
   }
 }
@@ -206,6 +208,7 @@ class CardNumberFormatter extends TextInputFormatter {
 }
 
 class PhoneInputFormatter extends TextInputFormatter {
+  @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     final text = newValue.text.replaceAll(RegExp(r'\D'), '');

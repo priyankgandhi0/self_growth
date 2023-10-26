@@ -10,7 +10,6 @@ import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../widgets/app_switch.dart';
-import '../../../widgets/common_widget.dart';
 
 class ReminderScreen extends StatelessWidget {
   ReminderScreen({Key? key}) : super(key: key);

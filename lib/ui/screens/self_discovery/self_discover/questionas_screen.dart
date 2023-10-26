@@ -4,17 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
-import 'package:self_growth/core/utils/app_helper.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
-import 'package:self_growth/ui/screens/self_discovery/discover_con.dart';
-import 'package:self_growth/ui/screens/self_discovery/discover_screen.dart';
 import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discovery_con.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../gen/assets.gen.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/common_widget.dart';
 
@@ -131,10 +126,8 @@ class QuestionThirdScreen extends StatelessWidget {
                       animation: true,
                       percent: 0.7,
                       backgroundColor: doteColor.withOpacity(.5),
-                      center: "78".appTextStyle(
-                          fontFamily: 'Switzer',
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w500),
+                      center: "78".appSwitzerTextStyle(
+                          fontSize: 24.sp, fontWeight: FontWeight.w500),
                       circularStrokeCap: CircularStrokeCap.round,
                       progressColor: borderPurpleColor,
                     ),
