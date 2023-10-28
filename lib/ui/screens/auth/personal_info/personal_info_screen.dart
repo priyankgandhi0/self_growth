@@ -51,7 +51,7 @@ class PersonalInfoScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             textAlign: TextAlign.start)
                         .paddingSymmetric(horizontal: 20.w),
-                    24.w.spaceH(),
+                    34.w.spaceH(),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.w),
@@ -119,7 +119,7 @@ class PersonalInfoScreen extends StatelessWidget {
                 onTap: () {
                   Get.toNamed(Routes.signUpScreen);
                 },
-              ).paddingOnly(left: 46.w, right: 46.w, bottom: 16.w),
+              ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),
           ],
         ),

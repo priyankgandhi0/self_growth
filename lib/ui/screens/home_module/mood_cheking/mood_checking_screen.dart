@@ -180,7 +180,8 @@ class MoodCheckingScreen extends StatelessWidget {
                 RoundAppButton(
                   onTap: () {},
                   title: 'Continue',
-                ).paddingSymmetric(horizontal: 40.w)
+                ).paddingSymmetric(horizontal: 40.w),
+                24.w.spaceH(),
               ],
             ).paddingSymmetric(vertical: 16.w);
           }),

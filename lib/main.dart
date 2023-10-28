@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MediaQuery(
-        data: const MediaQueryData(textScaleFactor: 1),
+        data: const MediaQueryData(textScaleFactor: .9),
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

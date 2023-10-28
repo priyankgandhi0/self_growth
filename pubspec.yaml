@@ -111,11 +111,11 @@ flutter:
   fonts:
     - family: Switzer
       fonts:
-        - asset: assets/fonts/Switzer-Bold.otf
         - asset: assets/fonts/Switzer-Light.otf
         - asset: assets/fonts/Switzer-Medium.otf
         - asset: assets/fonts/Switzer-Regular.otf
-          weight: 400
+        - asset: assets/fonts/Switzer-Semibold.otf
+
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

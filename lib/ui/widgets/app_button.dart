@@ -104,7 +104,7 @@ class RoundGradientAppButton extends StatelessWidget {
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600)),
       ),
-    );
+    ).paddingOnly(bottom: 24.w);
   }
 }
 

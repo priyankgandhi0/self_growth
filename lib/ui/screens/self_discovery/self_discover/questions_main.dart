@@ -36,7 +36,7 @@ class FirstQuestionScreen extends StatelessWidget {
                 )
               ],
             ),
-          ).paddingOnly(right: 20.w),
+          ).paddingOnly(right: 20.w, bottom: 24.w),
         ),
         backgroundColor: background_EBEBEB,
         body: Container(

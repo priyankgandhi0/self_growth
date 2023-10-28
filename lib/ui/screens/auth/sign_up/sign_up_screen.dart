@@ -114,7 +114,7 @@ class SignUpScreen extends StatelessWidget {
                 onTap: () {
                   Get.toNamed(Routes.bottomNavigationScreen);
                 },
-              ).paddingOnly(left: 46.w, right: 46.w, bottom: 16.w),
+              ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),
           ],
         ),

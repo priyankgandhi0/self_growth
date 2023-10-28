@@ -84,7 +84,11 @@ class QuestionTwoScreen extends StatelessWidget {
             title: continueText,
             onTap: () {
               ctrl.isQueAns = 2;
-            }).paddingSymmetric(horizontal: 32.w, vertical: 20.w)
+            }).paddingSymmetric(
+          horizontal: 32.w,
+          vertical: 20.w,
+        ),
+        24.w.spaceH(),
       ],
     );
   }
@@ -208,7 +212,7 @@ class QuestionThirdScreen extends StatelessWidget {
             width: Get.width,
             height: 48.w,
             buttonColor: Colors.transparent,
-          ).paddingOnly(bottom: 20.w, right: 32.w, left: 32.w)
+          ).paddingOnly(bottom: 30.w, right: 32.w, left: 32.w)
         ],
       ),
     );

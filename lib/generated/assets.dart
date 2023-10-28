@@ -2,10 +2,11 @@
 class Assets {
   Assets._();
 
-  static const String fontsSwitzerBold = 'assets/fonts/Switzer-Bold.otf';
   static const String fontsSwitzerLight = 'assets/fonts/Switzer-Light.otf';
   static const String fontsSwitzerMedium = 'assets/fonts/Switzer-Medium.otf';
   static const String fontsSwitzerRegular = 'assets/fonts/Switzer-Regular.otf';
+  static const String fontsSwitzerSemibold =
+      'assets/fonts/Switzer-Semibold.otf';
   static const String iconsAdd = 'assets/icons/add.svg';
   static const String iconsAddPhoto = 'assets/icons/add_photo.svg';
   static const String iconsAddPhotoImg = 'assets/icons/add_photo_img.svg';
