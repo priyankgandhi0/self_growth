@@ -43,7 +43,7 @@ class BottomNavigationScreen extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      10.w.spaceH(),
+                      40.w.spaceH(),
                       ctrl.tab ?? HomeScreen(),
                       86.w.spaceH(),
                     ],

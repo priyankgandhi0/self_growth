@@ -78,7 +78,7 @@ class OnboardingScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              10.w.spaceH(),
+              40.w.spaceH(),
               WithOutTitleAppBar(
                 onTap: () {
                   ctrl.pageController.animateToPage(

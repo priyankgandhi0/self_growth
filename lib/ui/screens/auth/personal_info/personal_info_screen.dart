@@ -36,7 +36,7 @@ class PersonalInfoScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    10.w.spaceH(),
+                    50.w.spaceH(),
                     WithOutTitleAppBar(
                       suffixWidget: const SizedBox(),
                       showBackButton: true,

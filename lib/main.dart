@@ -19,15 +19,18 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 843),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: background_EBEBEB,
-          splashColor: grey_969696,
-          useMaterial3: true,
+      child: MediaQuery(
+        data: const MediaQueryData(textScaleFactor: 1),
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: background_EBEBEB,
+            splashColor: grey_969696,
+            useMaterial3: true,
+          ),
+          getPages: Routes.pages,
+          initialRoute: Routes.onboarding,
         ),
-        getPages: Routes.pages,
-        initialRoute: Routes.onboarding,
       ),
     );
   }

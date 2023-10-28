@@ -24,7 +24,7 @@ class HabitPredefinedScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              8.w.spaceH(),
+              50.w.spaceH(),
               WithOutTitleAppBar(
                 suffixWidget: 'Customize'.appSwitzerTextStyle(
                     fontColor: borderPurpleColor,
