@@ -18,33 +18,36 @@ class AuthController extends GetxController {
   TextEditingController passwordCon = TextEditingController();
   TextEditingController phoneNoCon = TextEditingController();
   RxBool isLoading = false.obs;
+  bool _isShowPass = true;
 
+  bool get isShowPass => _isShowPass;
+
+  set isShowPass(bool value) {
+    _isShowPass = value;
+    update();
+  }
 
   /// LOGIN CONTROLLER
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
-
-  userLogin() async {
-
-  }
-
+  userLogin() async {}
 
   userRegistration() async {
     if (emailCon.text.isEmpty) {
       showAppSnackBar(emailNotEmpty);
     } else if (!emailCon.text.isEmail) {
       showAppSnackBar(emailNotValid);
-    }else if(phoneNoCon.text.isEmpty){
+    } else if (phoneNoCon.text.isEmpty) {
       showAppSnackBar(phoneNumberNotEmpty);
-    } else if(passwordCon.text.isEmpty){
+    } else if (passwordCon.text.isEmpty) {
       showAppSnackBar(passwordNotEmpty);
-    }else {
+    } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
       ResponseItem result =
-      ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message: errorText, status: false);
       result = await AuthRepo.userRegistration(
           userName: nameCon.text.trim(),
           email: emailCon.text.trim(),

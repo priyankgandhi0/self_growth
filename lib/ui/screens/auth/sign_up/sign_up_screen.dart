@@ -6,6 +6,7 @@ import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/auth/auth_controller.dart';
 
 import '../../../../config/routes/router.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
 import '../../../widgets/app_button.dart';
@@ -91,11 +92,22 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           10.w.spaceH(),
                           AppTextField(
-                            obscureText: true,
+                            obscureText: ctrl.isShowPass,
                             obscuringCharacter: "*",
                             labelText: passwordText,
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                ctrl.isShowPass = !ctrl.isShowPass;
+                              },
+                              child: Icon(
+                                  ctrl.isShowPass
+                                      ? Icons.visibility_off_rounded
+                                      : Icons.visibility,
+                                  color: borderPurpleColor,
+                                  size: 20.w),
+                            ),
                             showPrefixIcon: false,
-                            showSuffixIcon: false,
+                            showSuffixIcon: true,
                             labelTextSize: 14.sp,
                             textEditingController: ctrl.passwordCon,
                             hintText: enterPasswordText,

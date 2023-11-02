@@ -97,3 +97,15 @@ const emailNotEmpty = "Email can't be empty.";
 const emailNotValid = "Email isn't valid.";
 const phoneNumberNotEmpty = "Phone number can't be empty.";
 const passwordNotEmpty = "Password can't be empty.";
+
+///change pass
+const String oldPassword = 'Old Password';
+const String enterOldPassword = 'Enter Old Password';
+const String newPassword = 'New Password';
+const String enterNewPassword = 'Enter New Password';
+const String confPassword = 'Confirm Password';
+const String enterConfPassword = 'Re-enter Password';
+const String change = 'Change';
+const String confirmPassword = 'Confirm Password';
+const logOutDialogText = 'Are you sure you want to logout?';
+const logOutText = 'Logout';

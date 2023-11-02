@@ -145,6 +145,8 @@ class AudioPlayerState extends State<AudioPlayer> {
               ),
               child: Slider(
                 divisions: 24,
+                min: 0.0,
+                max: 100.0,
                 activeColor: borderPurpleColor,
                 thumbColor: borderPurpleColor,
                 inactiveColor: Colors.transparent,

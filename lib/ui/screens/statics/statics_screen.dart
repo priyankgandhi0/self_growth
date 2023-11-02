@@ -264,7 +264,8 @@ class _StaticsScreenState extends State<StaticsScreen> {
                 ),
               ],
             ),
-          ).paddingSymmetric(horizontal: 20.w)
+          ).paddingSymmetric(horizontal: 20.w),
+          86.w.spaceH(),
         ],
       );
     });

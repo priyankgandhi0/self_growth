@@ -19,7 +19,7 @@ class AppTextField extends StatefulWidget {
   final TextStyle? textStyle;
   final String? prefixIcon;
   final bool showPrefixIcon;
-  final String? suffixIcon;
+  final Widget? suffixIcon;
   final String obscuringCharacter;
   final bool? showSuffixIcon;
 
@@ -33,6 +33,7 @@ class AppTextField extends StatefulWidget {
   final int? maxLength;
 
   final bool isError;
+  final bool? readOnly;
 
   final TextInputType? keyboardType;
 
@@ -65,7 +66,8 @@ class AppTextField extends StatefulWidget {
       this.prefixIconWidth = 20,
       this.suffixIconWidth = 24,
       this.hintText = '',
-      this.obscuringCharacter = '.'})
+      this.obscuringCharacter = '.',
+      this.readOnly})
       : super(key: key);
 
   @override
@@ -114,6 +116,7 @@ class _AppTextFieldState extends State<AppTextField> {
           ),
         if (widget.labelText.isNotEmpty) (8).spaceH(),
         SizedBox(
+          height: 47.w,
           child: TextFormField(
             maxLength: widget.maxLength,
             scrollPadding: EdgeInsets.symmetric(
@@ -124,6 +127,7 @@ class _AppTextFieldState extends State<AppTextField> {
             keyboardType: widget.keyboardType ?? TextInputType.text,
             inputFormatters: widget.inputFormatter,
             focusNode: _focusNode,
+            readOnly: widget.readOnly ?? false,
             validator: (value) {
               if (widget.validator != null) {
                 return widget.validator!(value!);
@@ -145,10 +149,7 @@ class _AppTextFieldState extends State<AppTextField> {
                     color: borderPurpleColor),
             obscureText: widget.obscureText,
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.only(
-                left: 10,
-                right: 10,
-              ),
+              contentPadding: EdgeInsets.only(left: 10.w, top: 20.w),
               prefixIcon: widget.showPrefixIcon
                   ? SvgGenImage(widget.prefixIcon!)
                       .svg(
@@ -159,14 +160,8 @@ class _AppTextFieldState extends State<AppTextField> {
                           fit: BoxFit.contain)
                       .paddingAll(16.sp)
                   : null,
-              suffixIcon: widget.showSuffixIcon ?? true
-                  ? SvgGenImage(widget.suffixIcon!)
-                      .svg(
-                          height: widget.suffixIconHeight,
-                          width: widget.suffixIconWidth,
-                          fit: BoxFit.contain)
-                      .paddingAll(16.sp)
-                  : null,
+              suffixIcon:
+                  widget.showSuffixIcon ?? true ? widget.suffixIcon : null,
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??
                   TextStyle(

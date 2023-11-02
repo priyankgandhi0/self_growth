@@ -6,17 +6,23 @@ import 'package:self_growth/core/utils/extentions.dart';
 showAppSnackBar(String tittle, {bool status = false}) {
   if (tittle.isEmpty) return;
   return Get.showSnackbar(GetSnackBar(
-    messageText: tittle.appTextStyle(
-        fontSize: 18, fontColor: Colors.black, textAlign: TextAlign.start),
+    messageText: tittle.appSwitzerTextStyle(
+        fontSize: 18,
+        fontColor: white_FFFFFF,
+        fontWeight: FontWeight.w600,
+        textAlign: TextAlign.start),
     borderRadius: 15,
     snackPosition: SnackPosition.BOTTOM,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     shouldIconPulse: false,
     icon: Icon(
       status ? Icons.check_circle_outline_rounded : Icons.error_outline,
-      color: Colors.black,
+      color: white_FFFFFF,
     ),
-    backgroundColor: background_EBEBEB,
+
+    backgroundGradient: const LinearGradient(
+        colors: [borderPinkColor, borderPinkColor, borderPurpleColor]),
+    // backgroundColor: borderPurpleColor,
     duration: const Duration(seconds: 3),
   ));
 }

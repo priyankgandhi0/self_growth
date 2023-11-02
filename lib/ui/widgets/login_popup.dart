@@ -37,7 +37,6 @@ class LoginPopup extends StatelessWidget {
             textEditingController: authController.emailController,
             labelText: "E-mail",
             hintText: "Email",
-            suffixIcon: '',
             prefixIcon: '',
           ),
           20.0.spaceH(),
@@ -49,7 +48,6 @@ class LoginPopup extends StatelessWidget {
             inputFormatter: [
               FilteringTextInputFormatter.digitsOnly,
             ],
-            suffixIcon: '',
             prefixIcon: '',
           ),
           20.0.spaceH(),
@@ -85,16 +83,22 @@ class LoginPopup extends StatelessWidget {
             hintText: "Password",
             obscureText: true,
             obscuringCharacter: '*',
-            suffixIcon: '',
+            suffixIcon: GestureDetector(
+              onTap: () {
+                authController.isShowPass = !authController.isShowPass;
+              },
+              child: Icon(
+                  authController.isShowPass
+                      ? Icons.visibility_off_rounded
+                      : Icons.visibility,
+                  color: borderPurpleColor,
+                  size: 20.w),
+            ),
             prefixIcon: '',
+            showSuffixIcon: true,
           ),
           (20).spaceH(),
-          RoundAppButton(
-              title: "Login",
-              onTap: () {
-
-
-              }),
+          RoundAppButton(title: "Login", onTap: () {}),
           (12).spaceH(),
         ],
       ).paddingAll(20),

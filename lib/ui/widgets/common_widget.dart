@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/onboarding_screen/onboarding_controller.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constant.dart';
@@ -642,4 +644,59 @@ class AppDropDown extends StatelessWidget {
       ),
     );
   }
+}
+
+SizedBox commonCachedNetworkImage(
+    {required String imageUrl,
+    required double height,
+    required double width,
+    ColorFilter? colorFilter}) {
+  return SizedBox(
+    height: height,
+    width: width,
+    child: ClipRRect(
+        borderRadius: BorderRadius.circular(1000),
+        child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            imageBuilder: (context, imageProvider) => Container(
+                  height: height,
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: grey_C4C4C4,
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+            placeholder: (context, url) => Shimmer.fromColors(
+                  baseColor: grey_D9D9D9,
+                  highlightColor: grey_C4C4C4,
+                  enabled: true,
+                  child: Container(
+                    height: 100.w,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: grey_D9D9D9,
+                      border: Border.all(
+                          color: Theme.of(context).secondaryHeaderColor),
+                    ),
+                  ),
+                ),
+            errorWidget: (context, url, error) => ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Container(
+                    height: 100.w,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: grey_D9D9D9,
+                      border: Border.all(
+                          color: Theme.of(context).secondaryHeaderColor),
+                    ),
+                  ),
+                ))),
+  );
 }

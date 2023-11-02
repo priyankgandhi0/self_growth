@@ -5,11 +5,14 @@ import 'package:self_growth/config/routes/router.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/app_helper.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/core/utils/preferences.dart';
 import 'package:self_growth/gen/assets.gen.dart';
 import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
 
 import '../../../core/constants/app_strings.dart';
+import '../../../core/constants/request_const.dart';
+import '../../widgets/app_dialogs.dart';
 import '../../widgets/common_widget.dart';
 import '../bottom_navigation/bottom_bar_controller.dart';
 import 'profile_controller.dart';
@@ -27,13 +30,25 @@ class ProfileScreen extends StatelessWidget {
         children: [
           30.spaceH(),
           ProfileBoxCard(
+            widget: preferences.getString(SharedPreference.USER_NAME) != null
+                ? commonCachedNetworkImage(
+                    imageUrl:
+                        '${ImageBaseUrl.PROFILEIMAGEURL}${preferences.getString(SharedPreference.USER_PROFILE)}' ??
+                            "",
+                    height: 100.w,
+                    width: 100.w,
+                  )
+                : (Assets.icons.profile)
+                    .svg(height: 100.w, width: 100.w, fit: BoxFit.contain),
             child: Column(
               children: [
                 40.w.spaceH(),
-                'John Doe'.appSwitzerTextStyle(
-                    fontSize: 20.sp, fontWeight: FontWeight.w600),
-                'john@email.com · 29y'.appSwitzerTextStyle(
-                    fontSize: 14.sp, fontWeight: FontWeight.w400),
+                '${preferences.getString(SharedPreference.USER_NAME)}'
+                    .appSwitzerTextStyle(
+                        fontSize: 20.sp, fontWeight: FontWeight.w600),
+                '${preferences.getString(SharedPreference.USER_EMAIL)}'
+                    .appSwitzerTextStyle(
+                        fontSize: 14.sp, fontWeight: FontWeight.w400),
                 16.w.spaceH(),
                 BorderButton(
                   width: 100.w,
@@ -81,14 +96,31 @@ class ProfileScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.w), color: white_FFFFFF),
             child: ProfileDataCard(
               onTap: () {
-                Get.offAllNamed(Routes.onboarding);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return CustomDialog(
+                      description: logOutDialogText,
+                      title: logOutText,
+                      onConfirm: () {
+                        Get.offAllNamed(Routes.onboarding);
+                      },
+                      textCancel: 'No',
+                      textConfirm: 'Yes',
+                      onCancel: () {
+                        Get.back();
+                      },
+                    );
+                  },
+                );
               },
               image: Assets.icons.logOut.path,
               title: 'Logout',
             ).paddingSymmetric(vertical: 8.w, horizontal: 20.w),
           ).paddingSymmetric(
             horizontal: 20.w,
-          )
+          ),
+          89.w.spaceH(),
         ],
       );
     });

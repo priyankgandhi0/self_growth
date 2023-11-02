@@ -16,22 +16,16 @@ class SharedPreference {
     _preferences ??= await SharedPreferences.getInstance();
   }
 
-  // ignore: constant_identifier_names
   static const APP_DEVICE_TYPE = "App-Device-Type";
-  // ignore: constant_identifier_names
   static const APP_STORE_VERSION = "App-Store-Version";
-  // ignore: constant_identifier_names
   static const APP_DEVICE_MODEL = "App-Device-Model";
-  // ignore: constant_identifier_names
   static const APP_OS_VERSION = "App-Os-Version";
-  // ignore: constant_identifier_names
   static const APP_STORE_BUILD_NUMBER = "App-Store-Build-Number";
-  // ignore: constant_identifier_names
   static const AUTH_TOKEN = "Auth-Token";
-  // ignore: constant_identifier_names
   static const IS_LOG_IN = "IS_LOG_IN";
   static const USER_EMAIL = "USER_EMAIL";
   static const USER_NAME = "USER_NAME";
+  static const USER_PROFILE = "USER_PROFILE";
   static const PHONE_NUMBER = "PHONE_NUMBER";
   static const GENDER = "GENDER";
 
@@ -56,19 +50,15 @@ class SharedPreference {
     putString(APP_STORE_BUILD_NUMBER, packageInfo.buildNumber);
   }
 
-
-
-
-  saveUserItem(UserData userData){
+  saveUserItem(UserData userData) {
     putBool(IS_LOG_IN, true);
     putString(AUTH_TOKEN, userData.authToken);
     putString(USER_EMAIL, userData.email);
     putString(USER_NAME, userData.userName);
     putString(PHONE_NUMBER, userData.phoneNumber);
+    putString(USER_PROFILE, userData.userProfilePhoto);
     putString(GENDER, userData.gender);
-
   }
-
 
   Future<dynamic> appDeviceInfo() async {
     return Platform.isIOS

@@ -121,8 +121,7 @@ class PersonalInfoScreen extends StatelessWidget {
                 onTap: () {
                   if (ctrl.nameCon.text.isEmpty) {
                     showAppSnackBar(nameNotEmpty);
-                  }
-                  if (ctrl.ageCon.text.isEmpty) {
+                  } else if (ctrl.ageCon.text.isEmpty) {
                     showAppSnackBar(ageNotEmpty);
                   } else {
                     Get.toNamed(Routes.signUpScreen);

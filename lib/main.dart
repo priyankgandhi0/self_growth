@@ -36,7 +36,9 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           getPages: Routes.pages,
-          initialRoute: Routes.onboarding,
+          initialRoute: preferences.getBool(SharedPreference.IS_LOG_IN) == true
+              ? Routes.bottomNavigationScreen
+              : Routes.onboarding,
         ),
       ),
     );

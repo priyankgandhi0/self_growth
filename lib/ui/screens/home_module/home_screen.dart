@@ -271,7 +271,8 @@ class HomeScreen extends StatelessWidget {
                     itemCount: 3)
               ],
             ).paddingAll(16.w),
-          )
+          ),
+          86.w.spaceH(),
         ],
       ).paddingSymmetric(vertical: 24.w);
     });

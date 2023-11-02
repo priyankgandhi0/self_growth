@@ -17,7 +17,6 @@ import '../../ui/screens/home_module/note_history/note_history_screen.dart';
 import '../../ui/screens/profile/reminder/reminder_screen.dart';
 import '../../ui/screens/profile/subscription/subscription_screen.dart';
 import '../../ui/screens/self_discovery/self_discover/questions_main.dart';
-import '../../ui/screens/test/test_screen.dart';
 
 class Routes {
   Routes._();
@@ -44,10 +43,6 @@ class Routes {
   static const String addPhotoScreen = "/addPhotoScreen";
 
   static List<GetPage> pages = [
-    GetPage(
-      name: test,
-      page: () => const Test(),
-    ),
     GetPage(
       name: createNewHabitScreen,
       page: () => CreateNewHabitScreen(),

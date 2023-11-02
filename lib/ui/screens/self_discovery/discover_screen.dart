@@ -101,7 +101,8 @@ class DiscoverScreen extends StatelessWidget {
                     return 16.w.spaceH();
                   },
                   itemCount: 7)
-              .paddingSymmetric(horizontal: 20.w)
+              .paddingSymmetric(horizontal: 20.w),
+          86.w.spaceH(),
         ],
       );
     });

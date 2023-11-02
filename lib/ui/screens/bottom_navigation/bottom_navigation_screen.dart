@@ -20,7 +20,7 @@ class BottomNavigationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<BottomBarController>(builder: (ctrl) {
       return Scaffold(
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         // backgroundColor: background_EBEBEB,
         floatingActionButton: Visibility(
             visible: ctrl.isSelectedTab == 4 && bottomBarController.isOpen,
@@ -45,7 +45,6 @@ class BottomNavigationScreen extends StatelessWidget {
                     children: [
                       40.w.spaceH(),
                       ctrl.tab ?? HomeScreen(),
-                      86.w.spaceH(),
                     ],
                   ),
                 ),
