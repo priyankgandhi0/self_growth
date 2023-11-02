@@ -117,13 +117,12 @@ class SignUpScreen extends StatelessWidget {
                 title: completeRegistrationText,
                 onTap: () {
                   ctrl.userRegistration();
-
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),
-
-            Obx(() => ctrl.isLoading.value ? const AppProgress() : const SizedBox.shrink())
-
+            Obx(() => ctrl.isLoading.value
+                ? const AppProgress()
+                : const SizedBox.shrink())
           ],
         ),
       );
