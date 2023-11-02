@@ -89,3 +89,5 @@ const whatImproveYourMood = 'What Improve your mood';
 
 ///Add image
 const captureYourActivity = 'Capture your activity';
+
+const errorText = "Something went wrong";

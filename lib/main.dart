@@ -4,8 +4,12 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 
 import 'config/routes/router.dart';
+import 'core/utils/preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await preferences.init();
+  await preferences.putAppDeviceInfo();
   runApp(const MyApp());
 }
 
@@ -29,7 +33,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           getPages: Routes.pages,
-          initialRoute: Routes.onboarding,
+          initialRoute: Routes.personalInfoScreen,
         ),
       ),
     );

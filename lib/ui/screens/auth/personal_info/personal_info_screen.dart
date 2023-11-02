@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:self_growth/config/routes/router.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
-import 'package:self_growth/ui/screens/auth/personal_info/personal_info_con.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
@@ -14,13 +13,14 @@ import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/common_widget.dart';
+import '../sign_up/signUp_controller.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
   PersonalInfoScreen({Key? key}) : super(key: key);
-  final PersonalInfoCon personalInfoCon = Get.put(PersonalInfoCon());
+  final SignUpController signUpCon = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PersonalInfoCon>(builder: (ctrl) {
+    return GetBuilder<SignUpController>(builder: (ctrl) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Stack(

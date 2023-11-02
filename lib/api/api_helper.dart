@@ -1,124 +1,166 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:self_growth/api/response_item.dart';
-import 'package:self_growth/core/constants/app_constant.dart';
-import 'package:self_growth/core/constants/request_const.dart';
-import 'package:self_growth/core/utils/preferences.dart';
 
+import '../core/constants/request_const.dart';
 import 'api_exceptions.dart';
 
 class BaseApiHelper {
-  static Future<ResponseItem> postRequest(
-      String endPoint, Map<String, dynamic>? requestData,
-      {bool passAuth = false}) async {
-    var queryParameters = {RequestParam.service: endPoint};
-    String queryString = Uri(queryParameters: queryParameters).query;
-    String requestUrl = BaseUrl.URL + queryString;
+  static Future<ResponseItem> postRequest(String requestUrl,
+      Map<String, dynamic> requestData, bool passAuthToken) async {
+    printData(tittle: "request", val: requestUrl);
+    printData(
+        tittle: "headers:",
+        val: requestHeader(passAuth: passAuthToken).toString());
+    printData(tittle: "body:", val: json.encode(requestData));
 
     return await http
         .post(Uri.parse(requestUrl),
             body: json.encode(requestData),
-            headers: requestHeader(passAuth: passAuth))
+            headers: requestHeader(passAuth: passAuthToken))
         .then((response) => onValue(response))
-        .onError((error, stackTrace) => onError(error));
+        .onError((error, stackTrace) => onError(error, requestUrl));
   }
 
-  static Future<ResponseItem> getRequest(String requestUrl) async {
-    debugPrint("request:$requestUrl");
-
+  static Future<ResponseItem> getRequest(
+      String requestUrl, Map<String, String> headers) async {
+    printData(tittle: "request", val: requestUrl);
     return await http
-        .get(Uri.parse(requestUrl))
+        .get(Uri.parse(requestUrl), headers: headers)
         .then((response) => baseOnValue(response))
-        .onError((error, stackTrace) => onError(error));
+        .onError((error, stackTrace) => onError(error, requestUrl));
   }
 
-  static Future<ResponseItem> uploadFile(String endPoint,
-      http.MultipartFile? profileImage, Map<String, String> requestData,
-      {bool passAuth = false}) async {
-    var queryParameters = {RequestParam.service: endPoint};
-    String queryString = Uri(queryParameters: queryParameters).query;
-    String requestUrl = BaseUrl.URL + queryString;
-    var request = http.MultipartRequest("POST", Uri.parse(requestUrl));
+  static Future<ResponseItem> uploadFile(
+      String requestUrl, Map<String, String> requestData,
+      {http.MultipartFile? profileImage}) async {
+    var request = http.MultipartRequest(
+      "POST",
+      Uri.parse(requestUrl),
+    );
 
     if (profileImage != null) request.files.add(profileImage);
-    request.headers.addAll(requestHeader(passAuth: passAuth));
+
+    request.headers.addAll(requestHeader(passAuth: true));
     request.fields.addAll(requestData);
 
-    // log(request.toString(), name: "REQUEST");
-    debugPrint(profileImage?.field);
+    printData(tittle: "REQUEST", val: request.toString());
+    // log(profileImage!.field.toString());
+    printData(tittle: "body", val: json.encode(requestData));
 
-    debugPrint("body:${json.encode(requestData)}");
     return await request.send().then((streamedResponse) {
       return http.Response.fromStream(streamedResponse)
           .then((value) => onValue(value));
-    }).onError((error, stackTrace) => onError(error));
+    }).onError((error, stackTrace) => onError(error, requestUrl));
+  }
+
+  static Future<ResponseItem> uploadFileWithDocument(
+      String requestUrl,
+      http.MultipartFile? profileImage,
+      http.MultipartFile? documentFile,
+      Map<String, String> requestData) async {
+    var request = http.MultipartRequest(
+      "POST",
+      Uri.parse(requestUrl),
+    );
+
+    if (profileImage != null) request.files.add(profileImage);
+    if (documentFile != null) request.files.add(documentFile);
+
+    request.headers.addAll(requestHeader(passAuth: true));
+    request.fields.addAll(requestData);
+    printData(tittle: "REQUEST", val: request.toString());
+    printData(tittle: "body", val: json.encode(requestData));
+
+    return await request.send().then((streamedResponse) {
+      return http.Response.fromStream(streamedResponse)
+          .then((value) => onValue(value));
+    }).onError((error, stackTrace) => onError(error, requestUrl));
   }
 
   static Future onValue(http.Response response) async {
-    ResponseItem? result;
-
+    ResponseItem result;
     final ResponseItem responseData =
         ResponseItem.fromJson(json.decode(response.body));
     bool status = false;
     String message;
+    String? refreshToken;
+
     dynamic data = responseData;
 
-    // log("responseCode: ${response.statusCode}", name: "response");
+    log("responseCode: ${response.statusCode.toString()}", name: "response");
+    log("fullResponse=========: ${response.body}", name: "response");
+
     if (response.statusCode == 200) {
+      refreshToken = responseData.refreshToken;
+
       message = responseData.message;
       if (responseData.status) {
         status = true;
         data = responseData.data;
+        log('responseData.data---${responseData.data}');
       } else {
-        // log("logout: ${responseData.forceLogout}", name: 'logout');
+        printData(tittle: "logout", val: responseData.forceLogout);
         if (responseData.forceLogout!) {
-          preferences.clearUserInfo();
-          // Get.offAllNamed(Routes.signIn);
-          message =
-              "Admin Delete your account please contact admin for more detail.";
-        } else {
-          message = responseData.message;
+          // PreferenceManager.clearData();
+          // Get.offAll(const LogInScreen());
         }
       }
     } else {
-      debugPrint("response: $data");
+      log("response: $data");
       message = "Something went wrong.";
     }
-    result = ResponseItem(data: data, message: message, status: status);
-    // log("response: {data: ${result.data}, message: $message, status: $status}",
-    //     name: APP_NAME);
-    // log("message: ${result.message}", name: 'message');
+    result = ResponseItem(
+      data: data,
+      message: message,
+      status: status,
+      refreshToken: refreshToken,
+    );
+    printData(
+        tittle: "response",
+        val:
+            "data ${result.data}, message: $message, status: $status,refreshToken:$refreshToken");
+    printData(
+      tittle: "message",
+      val: " ${result.message}",
+    );
 
     return result;
   }
 
   static Future baseOnValue(http.Response response) async {
-    ResponseItem? result;
+    ResponseItem result;
+
     final Map<String, dynamic> responseData = json.decode(response.body);
     bool status = false;
     String message;
     dynamic data = responseData;
 
-    debugPrint("responseCode: ${response.statusCode}");
+    printData(tittle: "responseCode:", val: response.statusCode.toString());
     if (response.statusCode == 200) {
       message = "Ok";
       status = true;
       data = responseData;
     } else {
-      // log("response: $data", name: 'eroor');
+      printData(tittle: "Error in", val: data);
       message = "Something went wrong.";
     }
     result = ResponseItem(data: data, message: message, status: status);
-    // log("response: {data: ${result.data}, message: $message, status: $status}",
-    //     name: APP_NAME);
+    log("response: ${response.body}");
+    printData(
+        tittle: "response",
+        val: "{data: ${result.data}, message: $message, status: $status}");
     return result;
   }
 
-  static onError(error) {
-    debugPrint("Error caused: $error");
+  static onError(error, url) {
+    log(url);
+    printData(tittle: "Error caused: ", val: error.toString());
     bool status = false;
     String message = "Unsuccessful request";
     if (error is SocketException) {
@@ -129,4 +171,8 @@ class BaseApiHelper {
     }
     return ResponseItem(data: null, message: message, status: status);
   }
+}
+
+void printData({required dynamic tittle, dynamic val}) {
+  log("$tittle:-$val");
 }

@@ -15,7 +15,7 @@ import '../../../widgets/start_up_text_field.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
-  final SignUpController signUpController = Get.put(SignUpController());
+  final SignUpController signUpController = Get.find<SignUpController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SignUpController>(builder: (ctrl) {
@@ -29,8 +29,9 @@ class SignUpScreen extends StatelessWidget {
                       image: AssetImage(Assets.imagesBackGroundImage),
                       fit: BoxFit.fill)),
               child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     50.w.spaceH(),
@@ -93,7 +94,7 @@ class SignUpScreen extends StatelessWidget {
                             showPrefixIcon: false,
                             showSuffixIcon: false,
                             labelTextSize: 14.sp,
-                            textEditingController: ctrl.genderCon,
+                            textEditingController: ctrl.passwordCon,
                             hintText: enterPasswordText,
                             validator: (value) {},
                           ),
@@ -112,7 +113,8 @@ class SignUpScreen extends StatelessWidget {
               child: RoundAppButton(
                 title: completeRegistrationText,
                 onTap: () {
-                  Get.toNamed(Routes.bottomNavigationScreen);
+                  ctrl.userRegistration();
+
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),

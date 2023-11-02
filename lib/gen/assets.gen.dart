@@ -14,9 +14,6 @@ import 'package:flutter/services.dart';
 class $AssetsFontsGen {
   const $AssetsFontsGen();
 
-  /// File path: assets/fonts/Switzer-Bold.otf
-  String get switzerBold => 'assets/fonts/Switzer-Bold.otf';
-
   /// File path: assets/fonts/Switzer-Light.otf
   String get switzerLight => 'assets/fonts/Switzer-Light.otf';
 
@@ -26,9 +23,12 @@ class $AssetsFontsGen {
   /// File path: assets/fonts/Switzer-Regular.otf
   String get switzerRegular => 'assets/fonts/Switzer-Regular.otf';
 
+  /// File path: assets/fonts/Switzer-Semibold.otf
+  String get switzerSemibold => 'assets/fonts/Switzer-Semibold.otf';
+
   /// List of all assets
   List<String> get values =>
-      [switzerBold, switzerLight, switzerMedium, switzerRegular];
+      [switzerLight, switzerMedium, switzerRegular, switzerSemibold];
 }
 
 class $AssetsIconsGen {

@@ -1,7 +1,10 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
 import 'package:package_info/package_info.dart';
+import 'package:self_growth/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final preferences = SharedPreference();
@@ -26,7 +29,10 @@ class SharedPreference {
   // ignore: constant_identifier_names
   static const AUTH_TOKEN = "Auth-Token";
   // ignore: constant_identifier_names
-  static const IS_LOG_IN = "is-login";
+  static const IS_LOG_IN = "IS_LOG_IN";
+  static const USER_EMAIL = "USER_EMAIL";
+  static const USER_NAME = "USER_NAME";
+  static const PHONE_NUMBER = "PHONE_NUMBER";
 
   void clearUserInfo() async {}
 
@@ -48,6 +54,18 @@ class SharedPreference {
     putString(APP_STORE_VERSION, packageInfo.version);
     putString(APP_STORE_BUILD_NUMBER, packageInfo.buildNumber);
   }
+
+
+
+
+  saveUserItem(UserData userData){
+    putBool(IS_LOG_IN, true);
+    putString(AUTH_TOKEN, userData.authToken);
+    putString(USER_EMAIL, userData.email);
+    putString(USER_NAME, userData.userName);
+    putString(PHONE_NUMBER, userData.phoneNumber);
+  }
+
 
   Future<dynamic> appDeviceInfo() async {
     return Platform.isIOS

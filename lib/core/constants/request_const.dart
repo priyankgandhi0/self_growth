@@ -5,9 +5,9 @@ import 'app_constant.dart';
 
 class BaseUrl {
   static const String _DEV_BASE_URL =
-      "http://codonnier.tech/ghanshyam/mentor_api/dev/Service.php?";
+      "http://codonnier.tech/dipak/nAPI/seral_app/dev/Service.php?";
   static const String _LIVE_BASE_URL =
-      "http://codonnier.tech/ghanshyam/mentor_api/dev/Service.php?";
+      "http://codonnier.tech/dipak/nAPI/seral_app/dev/Service.php?";
 
   static const String URL = isLiveMode ? _LIVE_BASE_URL : _DEV_BASE_URL;
 }
@@ -28,8 +28,7 @@ class ImageBaseUrl {
 Map<String, String> requestHeader({bool passAuth = false}) {
   return {
     RequestHeaderKey.contentType: "application/json",
-    RequestHeaderKey.appSecret: "MENTOR@GK27#",
-    RequestHeaderKey.userAgent: "MENTOR@GK27#",
+    RequestHeaderKey.appSecret: "SERALAPP@GK2709#",
     RequestHeaderKey.appTrackVersion: "v1",
     RequestHeaderKey.appDeviceType:
         preferences.getString(SharedPreference.APP_DEVICE_TYPE) ?? '',
@@ -41,6 +40,8 @@ Map<String, String> requestHeader({bool passAuth = false}) {
         preferences.getString(SharedPreference.APP_OS_VERSION) ?? '',
     RequestHeaderKey.appStoreBuildNumber:
         preferences.getString(SharedPreference.APP_STORE_BUILD_NUMBER) ?? '',
+
+    if(passAuth)RequestHeaderKey.authToken: preferences.getString(SharedPreference.AUTH_TOKEN) ?? '',
   };
 }
 
