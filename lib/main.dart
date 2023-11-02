@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MediaQuery(
-        data: const MediaQueryData(textScaleFactor: .9),
+        data: MediaQueryData(
+            textScaleFactor: .9, viewInsets: MediaQuery.of(context).viewInsets),
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           getPages: Routes.pages,
-          initialRoute: Routes.personalInfoScreen,
+          initialRoute: Routes.onboarding,
         ),
       ),
     );

@@ -3,22 +3,23 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/utils/extentions.dart';
-import 'package:self_growth/ui/screens/auth/sign_up/signUp_controller.dart';
+import 'package:self_growth/ui/screens/auth/auth_controller.dart';
 
 import '../../../../config/routes/router.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
 import '../../../widgets/app_button.dart';
+import '../../../widgets/app_loader.dart';
 import '../../../widgets/app_title_bar.dart';
 import '../../../widgets/common_widget.dart';
 import '../../../widgets/start_up_text_field.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
-  final SignUpController signUpController = Get.find<SignUpController>();
+  final AuthController signUpController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SignUpController>(builder: (ctrl) {
+    return GetBuilder<AuthController>(builder: (ctrl) {
       return Scaffold(
         body: Stack(
           children: [
@@ -77,10 +78,12 @@ class SignUpScreen extends StatelessWidget {
                             showPrefixIcon: false,
                             showSuffixIcon: false,
                             labelTextSize: 14.sp,
+                            // maxLength: 10,
                             keyboardType: const TextInputType.numberWithOptions(
                                 signed: true),
                             inputFormatter: [
                               FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
                             ],
                             textEditingController: ctrl.phoneNoCon,
                             hintText: enterPhoneNumberText,
@@ -118,6 +121,9 @@ class SignUpScreen extends StatelessWidget {
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),
+
+            Obx(() => ctrl.isLoading.value ? const AppProgress() : const SizedBox.shrink())
+
           ],
         ),
       );

@@ -33,6 +33,7 @@ class SharedPreference {
   static const USER_EMAIL = "USER_EMAIL";
   static const USER_NAME = "USER_NAME";
   static const PHONE_NUMBER = "PHONE_NUMBER";
+  static const GENDER = "GENDER";
 
   void clearUserInfo() async {}
 
@@ -64,6 +65,8 @@ class SharedPreference {
     putString(USER_EMAIL, userData.email);
     putString(USER_NAME, userData.userName);
     putString(PHONE_NUMBER, userData.phoneNumber);
+    putString(GENDER, userData.gender);
+
   }
 
 

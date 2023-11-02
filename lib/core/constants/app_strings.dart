@@ -91,3 +91,9 @@ const whatImproveYourMood = 'What Improve your mood';
 const captureYourActivity = 'Capture your activity';
 
 const errorText = "Something went wrong";
+const nameNotEmpty = "Name can't be empty.";
+const ageNotEmpty = "Age can't be empty.";
+const emailNotEmpty = "Email can't be empty.";
+const emailNotValid = "Email isn't valid.";
+const phoneNumberNotEmpty = "Phone number can't be empty.";
+const passwordNotEmpty = "Password can't be empty.";

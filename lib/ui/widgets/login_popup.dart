@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/ui/screens/auth/auth_controller.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
 import 'app_button.dart';
@@ -16,113 +17,87 @@ class LoginPopup extends StatelessWidget {
       : super(key: key);
   final Function(LoginReturnType) onLogin;
   final Function onForgotPassword;
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
+
+  final authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Padding(
-        padding: MediaQuery.of(context).viewInsets,
-        // padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            12.0.spaceH(),
-            "Login"
-                .appSwitzerTextStyle(fontSize: 32, fontWeight: FontWeight.w500),
-            20.0.spaceH(),
-            AppTextField(
-              textEditingController: emailController,
-              labelText: "E-mail",
-              hintText: "Email",
-              validator: (value) {
-                if (!value.isEmail) {
-                  return "please enter valid email";
-                }
-              },
-              suffixIcon: '',
-              prefixIcon: '',
-            ),
-            20.0.spaceH(),
-            AppTextField(
-              textEditingController: phoneNumberController,
-              labelText: "Phone number",
-              hintText: "Phone number",
-              validator: (value) {
-                if (!value.isPhoneNumber) {
-                  return "please enter valid phone number";
-                }
-              },
-              keyboardType: const TextInputType.numberWithOptions(signed: true),
-              inputFormatter: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              suffixIcon: '',
-              prefixIcon: '',
-            ),
-            20.0.spaceH(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Align(
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      // padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          12.0.spaceH(),
+          "Login"
+              .appSwitzerTextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+          20.0.spaceH(),
+          AppTextField(
+            textEditingController: authController.emailController,
+            labelText: "E-mail",
+            hintText: "Email",
+            suffixIcon: '',
+            prefixIcon: '',
+          ),
+          20.0.spaceH(),
+          AppTextField(
+            textEditingController: authController.phoneNumberController,
+            labelText: "Phone number",
+            hintText: "Phone number",
+            keyboardType: const TextInputType.numberWithOptions(signed: true),
+            inputFormatter: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            suffixIcon: '',
+            prefixIcon: '',
+          ),
+          20.0.spaceH(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: "Password".appSwitzerTextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontColor: borderPurpleColor.withOpacity(.6),
+                  fontSize: 14.sp,
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  onForgotPassword();
+                },
+                child: Align(
                   alignment: Alignment.centerLeft,
-                  child: "Password".appSwitzerTextStyle(
+                  child: "Forgot password?".appSwitzerTextStyle(
                     fontWeight: FontWeight.w500,
                     fontColor: borderPurpleColor.withOpacity(.6),
                     fontSize: 14.sp,
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    onForgotPassword();
-                  },
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: "Forgot password?".appSwitzerTextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontColor: borderPurpleColor.withOpacity(.6),
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            (8).spaceH(),
-            AppTextField(
-              textEditingController: passwordController,
-              hintText: "Password",
-              obscureText: true,
-              obscuringCharacter: '*',
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "please enter valid password";
-                } else if (value.length < 6) {
-                  return "The password must be 6 (six) character long";
-                }
-              },
-              suffixIcon: '',
-              prefixIcon: '',
-            ),
-            (20).spaceH(),
-            RoundAppButton(
-                title: "Login",
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    onLogin(LoginReturnType(
-                      email: emailController.text,
-                      phoneNumber: phoneNumberController.text,
-                      password: passwordController.text,
-                    ));
-                  }
-                }),
-            (12).spaceH(),
-          ],
-        ).paddingAll(20),
-      ),
+              ),
+            ],
+          ),
+          (8).spaceH(),
+          AppTextField(
+            textEditingController: authController.passwordController,
+            hintText: "Password",
+            obscureText: true,
+            obscuringCharacter: '*',
+            suffixIcon: '',
+            prefixIcon: '',
+          ),
+          (20).spaceH(),
+          RoundAppButton(
+              title: "Login",
+              onTap: () {
+
+
+              }),
+          (12).spaceH(),
+        ],
+      ).paddingAll(20),
     );
   }
 }

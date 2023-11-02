@@ -13,6 +13,7 @@ Future<Object?> appCustomBottomSheet({
   return showModalBottomSheet(
     backgroundColor: Colors.transparent,
     isDismissible: isDismissible ?? true,
+
     context: context,
     useSafeArea: true,
     elevation: 0,
@@ -31,6 +32,7 @@ Future<Object?> appCustomBottomSheet({
                     image: AssetImage(Assets.images.backGroundImage.path),
                     fit: BoxFit.fill)),
             child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,

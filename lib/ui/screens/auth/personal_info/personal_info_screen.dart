@@ -12,15 +12,16 @@ import '../../../../core/constants/app_constant.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
 import '../../../widgets/app_button.dart';
+import '../../../widgets/app_snack_bar.dart';
 import '../../../widgets/common_widget.dart';
-import '../sign_up/signUp_controller.dart';
+import '../auth_controller.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
   PersonalInfoScreen({Key? key}) : super(key: key);
-  final SignUpController signUpCon = Get.put(SignUpController());
+  final AuthController signUpCon = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SignUpController>(builder: (ctrl) {
+    return GetBuilder<AuthController>(builder: (ctrl) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Stack(
@@ -99,6 +100,7 @@ class PersonalInfoScreen extends StatelessWidget {
                             value: ctrl.gender ?? Gender.Male,
                             onChanged: (value) {
                               ctrl.gender = value;
+                              print("ctrl.gender ----> ${ctrl.gender}");
                               ctrl.update();
                             },
                           ),
@@ -117,7 +119,14 @@ class PersonalInfoScreen extends StatelessWidget {
               child: RoundAppButton(
                 title: nextText,
                 onTap: () {
-                  Get.toNamed(Routes.signUpScreen);
+
+                  if (ctrl.nameCon.text.isEmpty) {
+                    showAppSnackBar(nameNotEmpty);
+                  } if(ctrl.ageCon.text.isEmpty){
+                    showAppSnackBar(ageNotEmpty);
+                  }else {
+                    Get.toNamed(Routes.signUpScreen);
+                  }
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),
