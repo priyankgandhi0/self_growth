@@ -25,26 +25,21 @@ class LoginPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-
         Padding(
-          padding: MediaQuery
-              .of(context)
-              .viewInsets,
+          padding: MediaQuery.of(context).viewInsets,
           // padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               12.0.spaceH(),
-              "Login"
-                  .appSwitzerTextStyle(
+              "Login".appSwitzerTextStyle(
                   fontSize: 32, fontWeight: FontWeight.w500),
               20.0.spaceH(),
               AppTextField(
                 textEditingController: authController.emailController,
                 labelText: "E-mail",
                 hintText: "Email",
-                suffixIcon: '',
                 prefixIcon: '',
               ),
               20.0.spaceH(),
@@ -52,13 +47,12 @@ class LoginPopup extends StatelessWidget {
                 textEditingController: authController.phoneNumberController,
                 labelText: "Phone number",
                 hintText: "Phone number",
-                keyboardType: const TextInputType.numberWithOptions(
-                    signed: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(signed: true),
                 inputFormatter: [
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(10),
                 ],
-                suffixIcon: '',
                 prefixIcon: '',
               ),
               20.0.spaceH(),
@@ -92,20 +86,29 @@ class LoginPopup extends StatelessWidget {
               AppTextField(
                 textEditingController: authController.passwordController,
                 hintText: "Password",
-                obscureText: true,
+                obscureText: authController.isShowPass,
                 obscuringCharacter: '*',
-                suffixIcon: '',
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    authController.isShowPass = !authController.isShowPass;
+                  },
+                  child: Icon(
+                      authController.isShowPass
+                          ? Icons.visibility_off_rounded
+                          : Icons.visibility,
+                      color: Theme.of(context).secondaryHeaderColor,
+                      size: 28.h),
+                ),
                 prefixIcon: '',
               ),
               (20).spaceH(),
-
               Obx(() {
-                return authController.isLoading.value ?  const Center(
-                    child: CircularProgressIndicator(
-                      color: borderPinkColor,
-                    )) : RoundAppButton(
-                    title: "Login",
-                    onTap: onLogin);
+                return authController.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                        color: borderPinkColor,
+                      ))
+                    : RoundAppButton(title: "Login", onTap: onLogin);
               }),
               (12).spaceH(),
             ],
@@ -116,7 +119,6 @@ class LoginPopup extends StatelessWidget {
         // authController.isLoading.value
         //     ? const AppProgress()
         //     : const SizedBox.shrink()),
-
       ],
     );
   }
@@ -146,8 +148,7 @@ class LoginReturnType {
         phoneNumber: json["phone_number"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "email": email,
         "password": password,
         "phone_number": phoneNumber,

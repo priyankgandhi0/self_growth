@@ -43,11 +43,11 @@ class AuthController extends GetxController {
       showAppSnackBar(emailNotEmpty);
     } else if (!forgetEmailController.text.isEmail) {
       showAppSnackBar(emailNotValid);
-    } else if(verifyCodeController.text.isEmpty){
+    } else if (verifyCodeController.text.isEmpty) {
       showAppSnackBar(verificationCodeNotEmpty);
-    }else if(newPasswordController.text.isEmpty){
+    } else if (newPasswordController.text.isEmpty) {
       showAppSnackBar(newPasswordNotEmpty);
-    }else {
+    } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
       ResponseItem result =
