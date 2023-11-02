@@ -113,6 +113,8 @@ class _AppTextFieldState extends State<AppTextField> {
         if (widget.labelText.isNotEmpty) (8).spaceH(),
         SizedBox(
           child: TextFormField(
+            scrollPadding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).viewInsets.bottom),
             obscuringCharacter: widget.obscuringCharacter,
             maxLines: widget.maxLines,
             controller: widget.textEditingController,

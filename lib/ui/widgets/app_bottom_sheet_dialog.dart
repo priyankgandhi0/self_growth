@@ -14,7 +14,6 @@ Future<Object?> appCustomBottomSheet({
     backgroundColor: Colors.transparent,
     isDismissible: isDismissible ?? true,
     context: context,
-    useSafeArea: true,
     elevation: 0,
     isScrollControlled: true,
     builder: (BuildContext context1) {

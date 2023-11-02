@@ -20,12 +20,11 @@ class PersonalInfoScreen extends StatelessWidget {
   final SignUpController signUpCon = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SignUpController>(builder: (ctrl) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            Container(
+    return Stack(
+      children: [
+        GetBuilder<SignUpController>(builder: (ctrl) {
+          return Scaffold(
+            body: Container(
               height: Get.height,
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -34,6 +33,7 @@ class PersonalInfoScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     50.w.spaceH(),
@@ -105,25 +105,24 @@ class PersonalInfoScreen extends StatelessWidget {
                         ],
                       ).paddingSymmetric(vertical: 20.w, horizontal: 20),
                     ).paddingSymmetric(horizontal: 20.w),
-                    70.w.spaceH(),
                   ],
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: RoundAppButton(
-                title: nextText,
-                onTap: () {
-                  Get.toNamed(Routes.signUpScreen);
-                },
-              ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
-            ),
-          ],
+          );
+        }),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: RoundAppButton(
+            title: nextText,
+            onTap: () {
+              Get.toNamed(Routes.signUpScreen);
+            },
+          ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
         ),
-      );
-    });
+      ],
+    );
   }
 }
