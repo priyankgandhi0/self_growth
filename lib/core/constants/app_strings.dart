@@ -38,6 +38,8 @@ const enterGenderText = "Enter gender";
 
 const setupYourAccountText = "Setup Your Account";
 const emailText = "E-mail";
+const verificationCodeText = "Verification code";
+const newPasswordText = "New Password";
 
 const phoneNumberText = "Phone number";
 const enterPhoneNumberText = "Enter phone number";
@@ -97,3 +99,9 @@ const emailNotEmpty = "Email can't be empty.";
 const emailNotValid = "Email isn't valid.";
 const phoneNumberNotEmpty = "Phone number can't be empty.";
 const passwordNotEmpty = "Password can't be empty.";
+const forgetPassword = "Forget\nPassword";
+const changePassVerification = "Change Password\nWith VerifyCode";
+const submit = "Submit";
+const submitEmail = "Submit Email";
+const verificationCodeNotEmpty = "Verification code can't be empty.";
+const newPasswordNotEmpty = "New password can't be empty.";

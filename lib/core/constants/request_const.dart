@@ -18,7 +18,8 @@ class ImageBaseUrl {
   static const String _IMAGE_LIVE_BASE_URL =
       "http://codonnier.tech/ghanshyam/mentor_api/";
 
-  static const String URL = isLiveMode ? _IMAGE_LIVE_BASE_URL : _IMAGE_DEV_BASE_URL;
+  static const String URL =
+      isLiveMode ? _IMAGE_LIVE_BASE_URL : _IMAGE_DEV_BASE_URL;
 
   static const String PROFILEIMAGEURL =
       "${ImageBaseUrl.URL}app_images/profile_images/";
@@ -40,8 +41,9 @@ Map<String, String> requestHeader({bool passAuth = false}) {
         preferences.getString(SharedPreference.APP_OS_VERSION) ?? '',
     RequestHeaderKey.appStoreBuildNumber:
         preferences.getString(SharedPreference.APP_STORE_BUILD_NUMBER) ?? '',
-
-    if(passAuth)RequestHeaderKey.authToken: preferences.getString(SharedPreference.AUTH_TOKEN) ?? '',
+    if (passAuth)
+      RequestHeaderKey.authToken:
+          preferences.getString(SharedPreference.AUTH_TOKEN) ?? '',
   };
 }
 

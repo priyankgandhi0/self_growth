@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:self_growth/config/routes/router.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/ui/widgets/app_loader.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
-import '../../../../core/constants/app_constant.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
 import '../../../widgets/app_button.dart';
-import '../../../widgets/app_snack_bar.dart';
-import '../../../widgets/common_widget.dart';
 import '../auth_controller.dart';
 
-class PersonalInfoScreen extends StatelessWidget {
-  PersonalInfoScreen({Key? key}) : super(key: key);
-  final AuthController signUpCon = Get.put(AuthController());
+class ForgetPasswordScreen extends StatelessWidget {
+  ForgetPasswordScreen({super.key});
+
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +44,11 @@ class PersonalInfoScreen extends StatelessWidget {
                       },
                     ),
                     24.w.spaceH(),
-                    personalInformationText
+                    forgetPassword
                         .appSwitzerTextStyle(
-                            fontSize: 32.w,
-                            fontWeight: FontWeight.w600,
-                            textAlign: TextAlign.start)
+                        fontSize: 32.w,
+                        fontWeight: FontWeight.w600,
+                        textAlign: TextAlign.start)
                         .paddingSymmetric(horizontal: 20.w),
                     34.w.spaceH(),
                     Container(
@@ -63,48 +60,15 @@ class PersonalInfoScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppTextField(
-                            labelText: nameText,
+                            labelText: emailText,
                             showPrefixIcon: false,
                             showSuffixIcon: false,
-                            textEditingController: ctrl.nameCon,
-                            hintText: enterNameText,
+                            textEditingController: ctrl.forgetEmailController,
+                            hintText: enterEmailText,
                             labelTextSize: 14.sp,
                             validator: (value) {},
-                          ),
-                          10.w.spaceH(),
-                          AppTextField(
-                            labelText: ageText,
-                            showPrefixIcon: false,
-                            showSuffixIcon: false,
-                            labelTextSize: 14.sp,
-                            keyboardType: const TextInputType.numberWithOptions(
-                                signed: true),
-                            inputFormatter: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            textEditingController: ctrl.ageCon,
-                            hintText: enterAgeText,
-                            validator: (value) {},
-                          ),
-                          10.w.spaceH(),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: genderText.appSwitzerTextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontColor: borderPurpleColor.withOpacity(.6),
-                              fontSize: 14.sp,
-                              // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
-                            ),
                           ),
                           8.w.spaceH(),
-                          AppDropDown(
-                            value: ctrl.gender ?? Gender.Male,
-                            onChanged: (value) {
-                              ctrl.gender = value;
-                              print("ctrl.gender ----> ${ctrl.gender}");
-                              ctrl.update();
-                            },
-                          ),
                         ],
                       ).paddingSymmetric(vertical: 20.w, horizontal: 20),
                     ).paddingSymmetric(horizontal: 20.w),
@@ -118,18 +82,15 @@ class PersonalInfoScreen extends StatelessWidget {
               left: 0,
               right: 0,
               child: RoundAppButton(
-                title: nextText,
+                title: submitEmail,
                 onTap: () {
-                  if (ctrl.nameCon.text.isEmpty) {
-                    showAppSnackBar(nameNotEmpty);
-                  } else if (ctrl.ageCon.text.isEmpty) {
-                    showAppSnackBar(ageNotEmpty);
-                  } else {
-                    Get.toNamed(Routes.signUpScreen);
-                  }
+                  ctrl.forgetPassword();
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),
+
+            Obx(() => ctrl.isLoading.value ? const AppProgress() : const SizedBox.shrink())
+
           ],
         ),
       );

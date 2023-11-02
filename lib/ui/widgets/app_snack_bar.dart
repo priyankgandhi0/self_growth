@@ -7,7 +7,7 @@ showAppSnackBar(String tittle, {bool status = false}) {
   if (tittle.isEmpty) return;
   return Get.showSnackbar(GetSnackBar(
     messageText: tittle.appTextStyle(
-        fontSize: 18, fontColor: Colors.black, textAlign: TextAlign.start),
+        fontSize: 16, fontColor: Colors.black, textAlign: TextAlign.start),
     borderRadius: 15,
     snackPosition: SnackPosition.BOTTOM,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

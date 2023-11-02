@@ -35,7 +35,9 @@ class Test extends StatelessWidget {
                 appCustomBottomSheet(
                     context: context,
                     child: LoginPopup(
-                      onLogin: (login) {},
+                      onLogin: () {
+
+                      },
                       onForgotPassword: () {},
                     ));
               }),
