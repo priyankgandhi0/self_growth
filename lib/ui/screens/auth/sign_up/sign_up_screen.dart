@@ -84,7 +84,7 @@ class SignUpScreen extends StatelessWidget {
                                 signed: true),
                             inputFormatter: [
                               FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(10),
+                                LengthLimitingTextInputFormatter(10),
                             ],
                             textEditingController: ctrl.phoneNoCon,
                             hintText: enterPhoneNumberText,

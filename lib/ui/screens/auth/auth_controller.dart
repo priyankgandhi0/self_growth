@@ -32,7 +32,118 @@ class AuthController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
-  userLogin() async {}
+  /// FORGET PASSWORD
+  TextEditingController forgetEmailController = TextEditingController();
+
+  TextEditingController verifyCodeController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+
+  changePasswordWithVerifyCode() async {
+    if (forgetEmailController.text.isEmpty) {
+      showAppSnackBar(emailNotEmpty);
+    } else if (!forgetEmailController.text.isEmail) {
+      showAppSnackBar(emailNotValid);
+    } else if(verifyCodeController.text.isEmpty){
+      showAppSnackBar(verificationCodeNotEmpty);
+    }else if(newPasswordController.text.isEmpty){
+      showAppSnackBar(newPasswordNotEmpty);
+    }else {
+      FocusManager.instance.primaryFocus?.unfocus();
+      isLoading.value = true;
+      ResponseItem result =
+          ResponseItem(data: null, message: errorText, status: false);
+      result = await AuthRepo.changePasswordWithVerifyCode(
+          email: forgetEmailController.text.trim(),
+          newPassword: newPasswordController.text.trim(),
+          verifyCode: verifyCodeController.text.trim());
+
+      try {
+        if (result.status) {
+          showAppSnackBar(result.message);
+          Get.offAllNamed(Routes.onboarding);
+          isLoading.value = false;
+        } else {
+          isLoading.value = false;
+          showAppSnackBar(result.message);
+        }
+      } catch (error) {
+        isLoading.value = false;
+        showAppSnackBar(errorText);
+      }
+      isLoading.value = false;
+      update();
+    }
+  }
+
+  forgetPassword() async {
+    if (forgetEmailController.text.isEmpty) {
+      showAppSnackBar(emailNotEmpty);
+    } else if (!forgetEmailController.text.isEmail) {
+      showAppSnackBar(emailNotValid);
+    } else {
+      FocusManager.instance.primaryFocus?.unfocus();
+      isLoading.value = true;
+      ResponseItem result =
+          ResponseItem(data: null, message: errorText, status: false);
+      result = await AuthRepo.forgotPassword(
+          email: forgetEmailController.text.trim());
+
+      try {
+        if (result.status) {
+          showAppSnackBar(result.message);
+          Get.toNamed(Routes.changePassVerificationScreen);
+          isLoading.value = false;
+        } else {
+          isLoading.value = false;
+          showAppSnackBar(result.message);
+        }
+      } catch (error) {
+        isLoading.value = false;
+        showAppSnackBar(errorText);
+      }
+      isLoading.value = false;
+      update();
+    }
+  }
+
+  userLogin() async {
+    if (emailController.text.isEmpty) {
+      showAppSnackBar(emailNotEmpty);
+    } else if (!emailController.text.isEmail) {
+      showAppSnackBar(emailNotValid);
+    } else if (phoneNumberController.text.isEmpty) {
+      showAppSnackBar(phoneNumberNotEmpty);
+    } else if (passwordController.text.isEmpty) {
+      showAppSnackBar(passwordNotEmpty);
+    } else {
+      FocusManager.instance.primaryFocus?.unfocus();
+      isLoading.value = true;
+      ResponseItem result =
+          ResponseItem(data: null, message: errorText, status: false);
+      result = await AuthRepo.userLogin(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+
+      try {
+        if (result.status) {
+          if (result.data != null) {
+            UserModel userModel = UserModel.fromJson(result.toJson());
+            preferences.saveUserItem(userModel.data);
+            isLoading.value = false;
+            Get.toNamed(Routes.bottomNavigationScreen);
+          }
+        } else {
+          isLoading.value = false;
+          showAppSnackBar(result.message);
+        }
+      } catch (error) {
+        isLoading.value = false;
+        showAppSnackBar(errorText);
+      }
+      isLoading.value = false;
+      update();
+    }
+  }
 
   userRegistration() async {
     if (emailCon.text.isEmpty) {
@@ -61,7 +172,6 @@ class AuthController extends GetxController {
           if (result.data != null) {
             UserModel userModel = UserModel.fromJson(result.toJson());
             preferences.saveUserItem(userModel.data);
-            showAppSnackBar(result.message);
             isLoading.value = false;
             Get.toNamed(Routes.bottomNavigationScreen);
           }
