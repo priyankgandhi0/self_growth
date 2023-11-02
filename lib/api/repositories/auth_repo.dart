@@ -20,7 +20,7 @@ class AuthRepo {
       "email": email,
       "phone_number": phoneNumber,
       "age": age,
-      "gender": gender,
+      "gender": gender.replaceAll("Gender.",""),
       "password": password
     };
     var queryParameters = {RequestParam.service: ApiEndPoint.registration};

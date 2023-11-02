@@ -12,12 +12,16 @@ import '../../../gen/assets.gen.dart';
 import '../../widgets/app_bottom_sheet_dialog.dart';
 import '../../widgets/app_title_bar.dart';
 import '../../widgets/common_widget.dart';
+import '../auth/auth_controller.dart';
 import 'onboarding_controller.dart';
 
 class OnboardingScreen extends StatelessWidget {
   OnboardingScreen({Key? key}) : super(key: key);
   final OnBoardingController onBoardingController =
       Get.put(OnBoardingController());
+
+  final authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OnBoardingController>(builder: (ctrl) {

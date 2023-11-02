@@ -12,19 +12,21 @@ import '../../../../core/constants/app_constant.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
 import '../../../widgets/app_button.dart';
+import '../../../widgets/app_snack_bar.dart';
 import '../../../widgets/common_widget.dart';
-import '../sign_up/signUp_controller.dart';
+import '../auth_controller.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
   PersonalInfoScreen({Key? key}) : super(key: key);
-  final SignUpController signUpCon = Get.put(SignUpController());
+  final AuthController signUpCon = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GetBuilder<SignUpController>(builder: (ctrl) {
-          return Scaffold(
-            body: Container(
+    return GetBuilder<AuthController>(builder: (ctrl) {
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            Container(
               height: Get.height,
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -33,7 +35,6 @@ class PersonalInfoScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     50.w.spaceH(),
@@ -99,30 +100,39 @@ class PersonalInfoScreen extends StatelessWidget {
                             value: ctrl.gender ?? Gender.Male,
                             onChanged: (value) {
                               ctrl.gender = value;
+                              print("ctrl.gender ----> ${ctrl.gender}");
                               ctrl.update();
                             },
                           ),
                         ],
                       ).paddingSymmetric(vertical: 20.w, horizontal: 20),
                     ).paddingSymmetric(horizontal: 20.w),
+                    70.w.spaceH(),
                   ],
                 ),
               ),
             ),
-          );
-        }),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: RoundAppButton(
-            title: nextText,
-            onTap: () {
-              Get.toNamed(Routes.signUpScreen);
-            },
-          ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: RoundAppButton(
+                title: nextText,
+                onTap: () {
+
+                  if (ctrl.nameCon.text.isEmpty) {
+                    showAppSnackBar(nameNotEmpty);
+                  } if(ctrl.ageCon.text.isEmpty){
+                    showAppSnackBar(ageNotEmpty);
+                  }else {
+                    Get.toNamed(Routes.signUpScreen);
+                  }
+                },
+              ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
+            ),
+          ],
         ),
-      ],
-    );
+      );
+    });
   }
 }

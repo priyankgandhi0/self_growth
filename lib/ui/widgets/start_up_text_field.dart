@@ -30,6 +30,7 @@ class AppTextField extends StatefulWidget {
   final EdgeInsets? textFieldPadding;
   final double? labelTextSize;
   final bool obscureText;
+  final int? maxLength;
 
   final bool isError;
 
@@ -51,6 +52,7 @@ class AppTextField extends StatefulWidget {
       this.onChanged,
       this.textFieldPadding,
       this.labelTextSize,
+      this.maxLength,
       this.labelFontWeight,
       this.keyboardType,
       this.isError = false,
@@ -113,6 +115,7 @@ class _AppTextFieldState extends State<AppTextField> {
         if (widget.labelText.isNotEmpty) (8).spaceH(),
         SizedBox(
           child: TextFormField(
+            maxLength: widget.maxLength,
             scrollPadding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).viewInsets.bottom),
             obscuringCharacter: widget.obscuringCharacter,
