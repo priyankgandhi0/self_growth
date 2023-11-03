@@ -23,103 +23,110 @@ class LoginPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          // padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              12.0.spaceH(),
-              "Login".appSwitzerTextStyle(
-                  fontSize: 32, fontWeight: FontWeight.w500),
-              20.0.spaceH(),
-              AppTextField(
-                textEditingController: authController.emailController,
-                labelText: "E-mail",
-                hintText: "Email",
-                prefixIcon: '',
-              ),
-              20.0.spaceH(),
-              AppTextField(
-                textEditingController: authController.phoneNumberController,
-                labelText: "Phone number",
-                hintText: "Phone number",
-                keyboardType:
-                    const TextInputType.numberWithOptions(signed: true),
-                inputFormatter: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
-                prefixIcon: '',
-              ),
-              20.0.spaceH(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return GetBuilder<AuthController>(
+      builder: (authController) {
+        return Stack(
+          children: [
+            Padding(
+              padding: MediaQuery
+                  .of(context)
+                  .viewInsets,
+              // padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: "Password".appSwitzerTextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontColor: borderPurpleColor.withOpacity(.6),
-                      fontSize: 14.sp,
-                    ),
+                  12.0.spaceH(),
+                  "Login".appSwitzerTextStyle(
+                      fontSize: 32, fontWeight: FontWeight.w500),
+                  20.0.spaceH(),
+                  AppTextField(
+                    textEditingController: authController.emailController,
+                    labelText: "E-mail",
+                    hintText: "Email",
+                    prefixIcon: '',
                   ),
-                  InkWell(
-                    onTap: () {
-                      onForgotPassword();
-                    },
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: "Forgot password?".appSwitzerTextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontColor: borderPurpleColor.withOpacity(.6),
-                        fontSize: 14.sp,
+                  20.0.spaceH(),
+                  AppTextField(
+                    textEditingController: authController.phoneNumberController,
+                    labelText: "Phone number",
+                    hintText: "Phone number",
+                    keyboardType:
+                    const TextInputType.numberWithOptions(signed: true),
+                    inputFormatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(10),
+                    ],
+                    prefixIcon: '',
+                  ),
+                  20.0.spaceH(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: "Password".appSwitzerTextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontColor: borderPurpleColor.withOpacity(.6),
+                          fontSize: 14.sp,
+                        ),
                       ),
-                    ),
+                      InkWell(
+                        onTap: () {
+                          onForgotPassword();
+                        },
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: "Forgot password?".appSwitzerTextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontColor: borderPurpleColor.withOpacity(.6),
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              (8).spaceH(),
-              AppTextField(
-                textEditingController: authController.passwordController,
-                hintText: "Password",
-                obscureText: authController.isShowPass,
-                obscuringCharacter: '*',
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    authController.isShowPass = !authController.isShowPass;
-                  },
-                  child: Icon(
-                      authController.isShowPass
-                          ? Icons.visibility_off_rounded
-                          : Icons.visibility,
-                      color: Theme.of(context).secondaryHeaderColor,
-                      size: 28.h),
-                ),
-                prefixIcon: '',
-              ),
-              (20).spaceH(),
-              Obx(() {
-                return authController.isLoading.value
-                    ? const Center(
+                  (8).spaceH(),
+                  AppTextField(
+                    textEditingController: authController.passwordController,
+                    hintText: "Password",
+                    obscureText: authController.isShowPass,
+                    showSuffixIcon: true,
+                    obscuringCharacter: '*',
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        authController.isShowPass = !authController.isShowPass;
+                      },
+                      child: Icon(
+                          authController.isShowPass
+                              ? Icons.visibility_off_rounded
+                              : Icons.visibility,
+                          color: borderPurpleColor,
+                          size: 20.w),
+                    ),
+                    prefixIcon: '',
+                  ),
+                  (20).spaceH(),
+                  Obx(() {
+                    return authController.isLoading.value
+                        ? const Center(
                         child: CircularProgressIndicator(
-                        color: borderPinkColor,
-                      ))
-                    : RoundAppButton(title: "Login", onTap: onLogin);
-              }),
-              (12).spaceH(),
-            ],
-          ).paddingAll(20),
-        ),
+                          color: borderPinkColor,
+                        ))
+                        : RoundAppButton(title: "Login", onTap: onLogin);
+                  }),
+                  (12).spaceH(),
+                ],
+              ).paddingAll(20),
+            ),
 
-        // Obx(() =>
-        // authController.isLoading.value
-        //     ? const AppProgress()
-        //     : const SizedBox.shrink()),
-      ],
+            // Obx(() =>
+            // authController.isLoading.value
+            //     ? const AppProgress()
+            //     : const SizedBox.shrink()),
+          ],
+        );
+      },
     );
   }
 }
@@ -148,7 +155,8 @@ class LoginReturnType {
         phoneNumber: json["phone_number"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "email": email,
         "password": password,
         "phone_number": phoneNumber,

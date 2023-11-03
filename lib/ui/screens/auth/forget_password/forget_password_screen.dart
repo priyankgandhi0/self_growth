@@ -51,6 +51,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                         textAlign: TextAlign.start)
                         .paddingSymmetric(horizontal: 20.w),
                     34.w.spaceH(),
+
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.w),
