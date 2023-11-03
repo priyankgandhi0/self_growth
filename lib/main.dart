@@ -16,9 +16,13 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final isLogin = preferences.getBool(SharedPreference.IS_LOG_IN) ?? false;
     return ScreenUtilInit(
       designSize: const Size(375, 843),
       minTextAdapt: true,
@@ -36,7 +40,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           getPages: Routes.pages,
-          initialRoute: preferences.getBool(SharedPreference.IS_LOG_IN) == true
+          initialRoute: isLogin
               ? Routes.bottomNavigationScreen
               : Routes.onboarding,
         ),

@@ -83,11 +83,23 @@ class ChangePassVerificationScreen extends StatelessWidget {
                           AppTextField(
                             labelText: newPasswordText,
                             showPrefixIcon: false,
-                            showSuffixIcon: false,
+                            showSuffixIcon: true,
                             textEditingController: ctrl.newPasswordController,
                             hintText: passwordText,
                             labelTextSize: 14.sp,
+                            obscureText: authController.isShowPass,
                             validator: (value) {},
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                authController.isShowPass = !authController.isShowPass;
+                              },
+                              child: Icon(
+                                  authController.isShowPass
+                                      ? Icons.visibility_off_rounded
+                                      : Icons.visibility,
+                                  color: borderPurpleColor,
+                                  size: 20.w),
+                            ),
                           ),
                         ],
                       ).paddingSymmetric(vertical: 20.w, horizontal: 20),
