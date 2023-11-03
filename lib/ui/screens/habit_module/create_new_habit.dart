@@ -1,9 +1,13 @@
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/habit_module/habbit_controller.dart';
 import 'package:self_growth/ui/widgets/app_chip.dart';
+import 'package:self_growth/ui/widgets/app_snack_bar.dart';
 import 'package:self_growth/ui/widgets/app_switch.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
@@ -11,6 +15,7 @@ import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
+import '../../widgets/app_dialogs.dart';
 
 class CreateNewHabitScreen extends StatelessWidget {
   CreateNewHabitScreen({Key? key}) : super(key: key);
@@ -63,11 +68,24 @@ class CreateNewHabitScreen extends StatelessWidget {
                         ),
                         12.w.spaceH(),
                         Wrap(
-                          spacing: 10,
+                          spacing: 10.w,
+                          runSpacing: 10.w,
                           children: List.generate(
                               ctrl.iconList.length + 1,
                               (index) => ctrl.iconList.length == index
                                   ? IconCard(
+                                      onTap: () {
+                                        openColorPickerDialog(
+                                          isShowButton: false,
+                                          content: SizedBox(
+                                            height: 300.w,
+                                            width: Get.width,
+                                            child: emojiPickerCard(ctrl),
+                                          ),
+                                          title: 'Select Icon',
+                                          context: context,
+                                        );
+                                      },
                                       icon: Icon(Icons.add,
                                           size: 17.sp,
                                           color: borderPurpleColor),
@@ -82,7 +100,6 @@ class CreateNewHabitScreen extends StatelessWidget {
                                         } else {
                                           ctrl.iconSelectedList.add(index);
                                         }
-
                                         ctrl.update();
                                       },
                                       title: ctrl.iconList[index],
@@ -99,11 +116,37 @@ class CreateNewHabitScreen extends StatelessWidget {
                         ),
                         12.w.spaceH(),
                         Wrap(
-                          spacing: 10,
+                          spacing: 10.w,
+                          runSpacing: 10.w,
                           children: List.generate(
                               ctrl.colorList.length + 1,
                               (index) => ctrl.colorList.length == index
                                   ? IconCard(
+                                      onTap: () {
+                                        openColorPickerDialog(
+                                          content: MaterialColorPicker(
+                                              colors: fullMaterialColors,
+                                              circleSize: 40.r,
+                                              selectedColor: ctrl.mainColor,
+                                              onMainColorChange: (color) =>
+                                                  {ctrl.tempMainColor = color}),
+                                          title: 'Select Color',
+                                          context: context,
+                                          onSubmit: () {
+                                            Get.back();
+                                            if (ctrl.colorList
+                                                .contains(ctrl.tempMainColor)) {
+                                              showAppSnackBar(
+                                                  'Already selected.');
+                                            } else {
+                                              ctrl.colorList
+                                                  .add(ctrl.tempMainColor);
+                                            }
+                                            ctrl.mainColor = ctrl.tempMainColor;
+                                            ctrl.update();
+                                          },
+                                        );
+                                      },
                                       icon: Icon(Icons.add,
                                           size: 17.sp,
                                           color: borderPurpleColor),
@@ -111,7 +154,8 @@ class CreateNewHabitScreen extends StatelessWidget {
                                       title: '',
                                     )
                                   : IconColorCard(
-                                      color: ctrl.colorList[index],
+                                      color: ctrl.colorList[index] ??
+                                          borderPurpleColor,
                                     )),
                         ),
                       ],
@@ -479,8 +523,12 @@ class IconCard extends StatelessWidget {
                         : Assets.images.cirBorder.path))),
         child: Center(
             child: icon ??
-                title.appSwitzerTextStyle(
-                    fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                title
+                    .appSwitzerTextStyle(
+                        textAlign: TextAlign.center,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500)
+                    .paddingOnly(left: 2.w)),
       ),
     );
   }
@@ -531,4 +579,45 @@ class SwitchBoxLisTile extends StatelessWidget {
       ],
     );
   }
+}
+
+EmojiPicker emojiPickerCard(HabitController ctrl) {
+  return EmojiPicker(
+    onEmojiSelected: (category, emoji) {
+      if (ctrl.iconList.contains(emoji.emoji)) {
+        showAppSnackBar('Already selected.');
+      } else {
+        Get.back();
+        ctrl.iconList.add(emoji.emoji);
+      }
+
+      ctrl.update();
+    },
+    textEditingController:
+        TextEditingController(), // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
+    config: Config(
+      columns: 7,
+
+      emojiSizeMax:
+          20.w, // Issue: https://github.com/flutter/flutter/issues/28894
+      verticalSpacing: 0,
+      horizontalSpacing: 0,
+      gridPadding: EdgeInsets.zero,
+      initCategory: Category.RECENT,
+      bgColor: Colors.transparent,
+
+      indicatorColor: borderPurpleColor,
+      iconColor: borderPurpleColor,
+      iconColorSelected: borderPinkColor,
+      backspaceColor: borderPurpleColor,
+      skinToneDialogBgColor: Colors.white,
+      skinToneIndicatorColor: Colors.grey,
+      enableSkinTones: true,
+      recentTabBehavior: RecentTabBehavior.NONE,
+      loadingIndicator: const SizedBox.shrink(), // Needs to be const Widget
+      tabIndicatorAnimDuration: kTabScrollDuration,
+      categoryIcons: const CategoryIcons(),
+      buttonMode: ButtonMode.MATERIAL,
+    ),
+  );
 }

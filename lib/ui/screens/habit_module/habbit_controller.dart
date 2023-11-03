@@ -1,3 +1,4 @@
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,20 +19,8 @@ class HabitController extends GetxController
   }
 
   List<int> iconSelectedList = [0];
-  List<Color> colorList = [
-    const Color(0xff296BCF),
-    const Color(0xff3EBCD8),
-    const Color(0xff57A9D7),
-    const Color(0xffF67E7E),
-    const Color(0xffC36F6F),
-    const Color(0xff6AE09A),
-  ];
-  List<String> iconList = [
-    "💼",
-    "🔥",
-    "⚽️",
-    "🪁",
-    "🏂",
-    "🥇",
-  ];
+  List<ColorSwatch?> colorList = [];
+  ColorSwatch? mainColor = Colors.blue;
+  ColorSwatch? tempMainColor;
+  List<String> iconList = [];
 }

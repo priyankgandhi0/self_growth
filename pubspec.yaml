@@ -64,8 +64,11 @@ dependencies:
   permission_handler: ^11.0.0
   step_progress_indicator: ^1.0.2
   flutter_slidable: ^3.0.0
+  flutter_material_color_picker: ^1.2.0
   cached_network_image: ^3.2.3
   shimmer: ^3.0.0
+  emoji_picker_flutter: ^1.6.3
+
 
 dev_dependencies:
   flutter_test:

@@ -290,3 +290,42 @@ class CustomDialog extends StatelessWidget {
     );
   }
 }
+
+void openColorPickerDialog(
+    {String title = '',
+    required Widget content,
+    bool isShowButton = true,
+    required BuildContext context,
+    Function()? onSubmit}) {
+  showDialog(
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        contentPadding: const EdgeInsets.all(18.0),
+        title: title.appSwitzerTextStyle(
+            fontColor: borderPurpleColor,
+            fontWeight: FontWeight.w700,
+            fontSize: 18.sp),
+        content: content,
+        actions: isShowButton
+            ? [
+                TextButton(
+                  onPressed: Navigator.of(context).pop,
+                  child: 'CANCEL'.appSwitzerTextStyle(
+                      fontColor: borderPurpleColor,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+                TextButton(
+                  onPressed: onSubmit,
+                  child: 'SUBMIT'.appSwitzerTextStyle(
+                      fontColor: borderPurpleColor,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+              ]
+            : [],
+      );
+    },
+  );
+}
