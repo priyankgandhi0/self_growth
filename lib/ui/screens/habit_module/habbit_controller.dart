@@ -19,8 +19,7 @@ class HabitController extends GetxController
   }
 
   List<int> iconSelectedList = [0];
-  List<ColorSwatch?> colorList = [];
-  ColorSwatch? mainColor = Colors.blue;
-  ColorSwatch? tempMainColor;
+  List<Color?> colorList = [];
+  Color? tempMainColor;
   List<String> iconList = [];
 }

@@ -125,11 +125,14 @@ class CreateNewHabitScreen extends StatelessWidget {
                                       onTap: () {
                                         openColorPickerDialog(
                                           content: MaterialColorPicker(
-                                              colors: fullMaterialColors,
-                                              circleSize: 40.r,
-                                              selectedColor: ctrl.mainColor,
-                                              onMainColorChange: (color) =>
-                                                  {ctrl.tempMainColor = color}),
+                                            colors: fullMaterialColors,
+                                            circleSize: 40.r,
+                                            selectedColor: ctrl.tempMainColor,
+                                            onColorChange: (value) {
+                                              ctrl.tempMainColor = value;
+                                              ctrl.update();
+                                            },
+                                          ),
                                           title: 'Select Color',
                                           context: context,
                                           onSubmit: () {
@@ -142,7 +145,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                                               ctrl.colorList
                                                   .add(ctrl.tempMainColor);
                                             }
-                                            ctrl.mainColor = ctrl.tempMainColor;
+
                                             ctrl.update();
                                           },
                                         );
