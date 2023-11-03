@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -98,10 +100,10 @@ class PersonalInfoScreen extends StatelessWidget {
                           ),
                           8.w.spaceH(),
                           AppDropDown(
-                            value: ctrl.gender ?? Gender.Male,
+                            value: ctrl.gender,
                             onChanged: (value) {
                               ctrl.gender = value;
-                              print("ctrl.gender ----> ${ctrl.gender}");
+
                               ctrl.update();
                             },
                           ),
@@ -124,9 +126,12 @@ class PersonalInfoScreen extends StatelessWidget {
                     showAppSnackBar(nameNotEmpty);
                   } else if (ctrl.ageCon.text.isEmpty) {
                     showAppSnackBar(ageNotEmpty);
+                  } else if (ctrl.gender == null) {
+                    showAppSnackBar('Please select gender.');
                   } else {
                     Get.toNamed(Routes.signUpScreen);
                   }
+                  log("ctrl.gender ----> ${ctrl.gender}");
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),

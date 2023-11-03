@@ -152,6 +152,8 @@ class AuthController extends GetxController {
       showAppSnackBar(emailNotValid);
     } else if (phoneNoCon.text.isEmpty) {
       showAppSnackBar(phoneNumberNotEmpty);
+    } else if (phoneNoCon.text.length < 10) {
+      showAppSnackBar('Please enter valid phone number.');
     } else if (passwordCon.text.isEmpty) {
       showAppSnackBar(passwordNotEmpty);
     } else {

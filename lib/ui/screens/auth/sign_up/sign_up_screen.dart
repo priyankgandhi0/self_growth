@@ -22,6 +22,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(builder: (ctrl) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Container(
@@ -84,7 +85,7 @@ class SignUpScreen extends StatelessWidget {
                                 signed: true),
                             inputFormatter: [
                               FilteringTextInputFormatter.digitsOnly,
-                                LengthLimitingTextInputFormatter(10),
+                              LengthLimitingTextInputFormatter(10),
                             ],
                             textEditingController: ctrl.phoneNoCon,
                             hintText: enterPhoneNumberText,

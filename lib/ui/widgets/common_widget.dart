@@ -600,10 +600,9 @@ class BottomBarWidget extends StatelessWidget {
 }
 
 class AppDropDown extends StatelessWidget {
-  const AppDropDown({Key? key, this.onChanged, required this.value})
-      : super(key: key);
+  const AppDropDown({Key? key, this.onChanged, this.value}) : super(key: key);
   final void Function(Gender?)? onChanged;
-  final Gender value;
+  final Gender? value;
   @override
   Widget build(BuildContext context) {
     return Container(
