@@ -10,7 +10,6 @@ import 'package:self_growth/ui/screens/auth/auth_controller.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
 import 'app_button.dart';
-import 'app_loader.dart';
 
 // ignore: must_be_immutable
 class LoginPopup extends StatelessWidget {
@@ -28,9 +27,7 @@ class LoginPopup extends StatelessWidget {
         return Stack(
           children: [
             Padding(
-              padding: MediaQuery
-                  .of(context)
-                  .viewInsets,
+              padding: MediaQuery.of(context).viewInsets,
               // padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -45,6 +42,7 @@ class LoginPopup extends StatelessWidget {
                     labelText: "E-mail",
                     hintText: "Email",
                     prefixIcon: '',
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   20.0.spaceH(),
                   AppTextField(
@@ -52,7 +50,7 @@ class LoginPopup extends StatelessWidget {
                     labelText: "Phone number",
                     hintText: "Phone number",
                     keyboardType:
-                    const TextInputType.numberWithOptions(signed: true),
+                        const TextInputType.numberWithOptions(signed: true),
                     inputFormatter: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(10),
@@ -110,9 +108,9 @@ class LoginPopup extends StatelessWidget {
                   Obx(() {
                     return authController.isLoading.value
                         ? const Center(
-                        child: CircularProgressIndicator(
-                          color: borderPinkColor,
-                        ))
+                            child: CircularProgressIndicator(
+                            color: borderPinkColor,
+                          ))
                         : RoundAppButton(title: "Login", onTap: onLogin);
                   }),
                   (12).spaceH(),
@@ -155,8 +153,7 @@ class LoginReturnType {
         phoneNumber: json["phone_number"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "email": email,
         "password": password,
         "phone_number": phoneNumber,

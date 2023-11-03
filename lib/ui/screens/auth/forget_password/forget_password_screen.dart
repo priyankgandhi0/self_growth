@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/widgets/app_loader.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
@@ -46,34 +45,20 @@ class ForgetPasswordScreen extends StatelessWidget {
                     24.w.spaceH(),
                     forgetPassword
                         .appSwitzerTextStyle(
-                        fontSize: 32.w,
-                        fontWeight: FontWeight.w600,
-                        textAlign: TextAlign.start)
+                            fontSize: 32.w,
+                            fontWeight: FontWeight.w600,
+                            textAlign: TextAlign.start)
                         .paddingSymmetric(horizontal: 20.w),
                     34.w.spaceH(),
-
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.w),
-                          color: white_FFFFFF),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppTextField(
-                            labelText: emailText,
-                            showPrefixIcon: false,
-                            showSuffixIcon: false,
-                            textEditingController: ctrl.forgetEmailController,
-                            hintText: enterEmailText,
-                            labelTextSize: 14.sp,
-                            validator: (value) {},
-                          ),
-                          8.w.spaceH(),
-                        ],
-                      ).paddingSymmetric(vertical: 20.w, horizontal: 20),
+                    AppTextField(
+                      labelText: emailText,
+                      showPrefixIcon: false,
+                      showSuffixIcon: false,
+                      textEditingController: ctrl.forgetEmailController,
+                      hintText: enterEmailText,
+                      labelTextSize: 14.sp,
+                      validator: (value) {},
                     ).paddingSymmetric(horizontal: 20.w),
-                    70.w.spaceH(),
                   ],
                 ),
               ),
@@ -89,9 +74,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),
-
-            Obx(() => ctrl.isLoading.value ? const AppProgress() : const SizedBox.shrink())
-
+            Obx(() => ctrl.isLoading.value
+                ? const AppProgress()
+                : const SizedBox.shrink())
           ],
         ),
       );

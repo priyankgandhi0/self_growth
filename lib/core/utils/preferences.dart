@@ -29,7 +29,12 @@ class SharedPreference {
   static const PHONE_NUMBER = "PHONE_NUMBER";
   static const GENDER = "GENDER";
 
-  void clearUserInfo() async {}
+  void clearUserItem() async {
+    _preferences?.clear();
+    _preferences = null;
+    await init();
+    putAppDeviceInfo();
+  }
 
   putAppDeviceInfo() async {
     bool isiOS = Platform.isIOS;

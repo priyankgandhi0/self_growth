@@ -97,14 +97,14 @@ const nameNotEmpty = "Name must be required.";
 const ageNotEmpty = "Age must be required.";
 const emailNotEmpty = "Email must be required.";
 const emailNotValid = "Please enter valid email.";
-const phoneNumberNotEmpty = "Phone number can't be empty.";
-const passwordNotEmpty = "Password can't be empty.";
-const forgetPassword = "Forget\nPassword";
+const phoneNumberNotEmpty = "Phone number must be required.";
+const passwordNotEmpty = "Password must be required.";
+const forgetPassword = "Forgot\nPassword";
 const changePassVerification = "Change Password\nWith VerifyCode";
 const submit = "Submit";
 const submitEmail = "Submit Email";
-const verificationCodeNotEmpty = "Verification code can't be empty.";
-const newPasswordNotEmpty = "New password can't be empty.";
+const verificationCodeNotEmpty = "Verification code must be required.";
+const newPasswordNotEmpty = "New password must be required.";
 
 ///change pass
 const String oldPassword = 'Old Password';

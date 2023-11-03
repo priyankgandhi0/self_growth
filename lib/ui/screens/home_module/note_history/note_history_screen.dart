@@ -28,141 +28,142 @@ class NoteHistoryScreen extends StatelessWidget {
                   fit: BoxFit.fill)),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                20.w.spaceH(),
-                CommonAppBar(
-                  padding: 0,
-                  onTap: () {
-                    Get.back();
-                  },
-                  titleWidget: Row(
-                    children: [
-                      'Feb 2023'.appSwitzerTextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 20.w),
-                      5.w.spaceW(),
-                      SvgPicture.asset(
-                        Assets.iconsDropdownArrow,
-                        width: 7.w,
-                        height: 7.w,
-                        fit: BoxFit.cover,
-                        // ignore: deprecated_member_use
-                        color: borderPurpleColor,
-                      )
-                    ],
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CommonAppBar(
+                    padding: 0,
+                    onTap: () {
+                      Get.back();
+                    },
+                    titleWidget: Row(
+                      children: [
+                        'Feb 2023'.appSwitzerTextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 20.w),
+                        5.w.spaceW(),
+                        SvgPicture.asset(
+                          Assets.iconsDropdownArrow,
+                          width: 7.w,
+                          height: 7.w,
+                          fit: BoxFit.cover,
+                          // ignore: deprecated_member_use
+                          color: borderPurpleColor,
+                        )
+                      ],
+                    ),
+                    title: 'Feb 2023',
                   ),
-                  title: 'Feb 2023',
-                ),
-                24.w.spaceH(),
-                'Mon, 14'.appSwitzerTextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-                16.w.spaceH(),
-                Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: white_FFFFFF),
-                  child: NoteCommonCard(
-                    image: Assets.iconsEdit,
-                    showIcon: false,
-                    title: 'Note title',
-                    time: '7:00 AM ·',
-                    notes: 'This is some text',
+                  24.w.spaceH(),
+                  'Mon, 14'.appSwitzerTextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
                   ),
-                ),
-                16.w.spaceH(),
-                'Sun, 13'.appSwitzerTextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-                16.w.spaceH(),
-                Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: white_FFFFFF),
-                  child: NoteCommonCard(
-                    image: Assets.iconsVoice,
-                    showIcon: false,
-                    title: 'Voice title',
-                    time: '7:00 AM ·',
-                    widget: Container(
-                      height: 69.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: background_F5F5F5),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20.w),
-                        child: AudioPlayer(
-                          source:
-                              'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
-                          onDelete: () {
-                            ctrl.showPlayer = !ctrl.showPlayer;
-                            ctrl.update();
-                          },
-                        ),
-                      ),
-                    ).paddingAll(16.w),
-                  ),
-                ),
-                16.w.spaceH(),
-                Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: white_FFFFFF),
-                  child: NoteCommonCard(
-                    image: Assets.iconsEdit,
-                    showIcon: false,
-                    title: 'Note title',
-                    time: '7:00 AM ·',
-                    notes: 'This is some text',
-                  ),
-                ),
-                16.w.spaceH(),
-                'Sun, 13'.appSwitzerTextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-                16.w.spaceH(),
-                Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: white_FFFFFF),
-                  child: NoteCommonCard(
-                    image: Assets.iconsEdit,
-                    showIcon: false,
-                    title: 'Note title',
-                    time: '7:00 AM ·',
-                    notes: 'This is some text',
-                  ),
-                ),
-                16.w.spaceH(),
-                Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: white_FFFFFF),
-                  child: NoteCommonCard(
-                    showIcon: true,
-                    image: Assets.iconsImageCapture,
-                    title: 'Image Capture',
-                    time: '7:00 AM ·',
-                    isImage: true,
-                    widget: AddImageCard(
-                      onTap: () {
-                        PickFile().openImageChooser(
-                            context: context, onImageChose: () {});
-                      },
+                  16.w.spaceH(),
+                  Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: white_FFFFFF),
+                    child: NoteCommonCard(
+                      image: Assets.iconsEdit,
+                      showIcon: false,
+                      title: 'Note title',
+                      time: '7:00 AM ·',
+                      notes: 'This is some text',
                     ),
                   ),
-                ),
-              ],
-            ).paddingSymmetric(horizontal: 18.w, vertical: 24.w),
+                  16.w.spaceH(),
+                  'Sun, 13'.appSwitzerTextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  16.w.spaceH(),
+                  Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: white_FFFFFF),
+                    child: NoteCommonCard(
+                      image: Assets.iconsVoice,
+                      showIcon: false,
+                      title: 'Voice title',
+                      time: '7:00 AM ·',
+                      widget: Container(
+                        height: 69.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: background_F5F5F5),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 20.w),
+                          child: AudioPlayer(
+                            source:
+                                'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+                            onDelete: () {
+                              ctrl.showPlayer = !ctrl.showPlayer;
+                              ctrl.update();
+                            },
+                          ),
+                        ),
+                      ).paddingAll(16.w),
+                    ),
+                  ),
+                  16.w.spaceH(),
+                  Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: white_FFFFFF),
+                    child: NoteCommonCard(
+                      image: Assets.iconsEdit,
+                      showIcon: false,
+                      title: 'Note title',
+                      time: '7:00 AM ·',
+                      notes: 'This is some text',
+                    ),
+                  ),
+                  16.w.spaceH(),
+                  'Sun, 13'.appSwitzerTextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  16.w.spaceH(),
+                  Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: white_FFFFFF),
+                    child: NoteCommonCard(
+                      image: Assets.iconsEdit,
+                      showIcon: false,
+                      title: 'Note title',
+                      time: '7:00 AM ·',
+                      notes: 'This is some text',
+                    ),
+                  ),
+                  16.w.spaceH(),
+                  Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: white_FFFFFF),
+                    child: NoteCommonCard(
+                      showIcon: true,
+                      image: Assets.iconsImageCapture,
+                      title: 'Image Capture',
+                      time: '7:00 AM ·',
+                      isImage: true,
+                      widget: AddImageCard(
+                        onTap: () {
+                          PickFile().openImageChooser(
+                              context: context, onImageChose: () {});
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ).paddingSymmetric(horizontal: 18.w, vertical: 24.w),
+            ),
           ),
         );
       }),

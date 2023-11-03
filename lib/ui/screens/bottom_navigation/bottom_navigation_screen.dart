@@ -39,13 +39,14 @@ class BottomNavigationScreen extends StatelessWidget {
                       image: DecorationImage(
                           image: AssetImage(Assets.images.backGroundImage.path),
                           fit: BoxFit.fill)),
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    children: [
-                      40.w.spaceH(),
-                      ctrl.tab ?? HomeScreen(),
-                    ],
+                  child: SafeArea(
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [
+                        ctrl.tab ?? HomeScreen(),
+                      ],
+                    ),
                   ),
                 ),
                 Visibility(

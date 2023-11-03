@@ -23,77 +23,79 @@ class NewHabitScreen extends StatelessWidget {
                 image: AssetImage(Assets.images.backGroundImage.path),
                 fit: BoxFit.fill)),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              50.w.spaceH(),
-              CommonAppBar(
-                icon: const Icon(Icons.close, color: borderPurpleColor),
-                title: newHabbit,
-                padding: 0,
-                onTap: () {
-                  Get.back();
-                },
-              ),
-              Container(
-                height: 56.h,
-                width: Get.width,
-                decoration: BoxDecoration(
-                    color: white_FFFFFF,
-                    borderRadius: BorderRadius.circular(8.r)),
-                child: Material(
-                  borderRadius: BorderRadius.circular(8.r),
-                  child: InkWell(
-                    customBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r)),
-                    onTap: () {
-                      Get.toNamed(Routes.createNewHabitScreen);
-                    },
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.add),
-                          createNewHabbit.appSwitzerTextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ],
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                10.w.spaceH(),
+                CommonAppBar(
+                  icon: const Icon(Icons.close, color: borderPurpleColor),
+                  title: newHabbit,
+                  padding: 0,
+                  onTap: () {
+                    Get.back();
+                  },
+                ),
+                Container(
+                  height: 56.h,
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                      color: white_FFFFFF,
+                      borderRadius: BorderRadius.circular(8.r)),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(8.r),
+                    child: InkWell(
+                      customBorder: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.r)),
+                      onTap: () {
+                        Get.toNamed(Routes.createNewHabitScreen);
+                      },
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.add),
+                            createNewHabbit.appSwitzerTextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                          ],
+                        ),
                       ),
                     ),
                   ),
+                ).paddingSymmetric(vertical: 18.h),
+                6.h.spaceH(),
+                recomended
+                    .appSwitzerTextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        textAlign: TextAlign.start)
+                    .paddingSymmetric(),
+                20.h.spaceH(),
+                ListView.separated(
+                  padding: EdgeInsets.zero,
+                  separatorBuilder: (context, index) => 16.h.spaceH(),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return HabitCard(
+                      onTap: () {
+                        Get.toNamed(Routes.habitPredefinedScreen);
+                      },
+                      title: 'Drinking Water',
+                      subTitle: 'This is description',
+                      tags: const [
+                        'Build Habit',
+                        'Daily',
+                        'Popular',
+                      ],
+                    );
+                  },
                 ),
-              ).paddingSymmetric(vertical: 18.h),
-              6.h.spaceH(),
-              recomended
-                  .appSwitzerTextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      textAlign: TextAlign.start)
-                  .paddingSymmetric(),
-              20.h.spaceH(),
-              ListView.separated(
-                padding: EdgeInsets.zero,
-                separatorBuilder: (context, index) => 16.h.spaceH(),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return HabitCard(
-                    onTap: () {
-                      Get.toNamed(Routes.habitPredefinedScreen);
-                    },
-                    title: 'Drinking Water',
-                    subTitle: 'This is description',
-                    tags: const [
-                      'Build Habit',
-                      'Daily',
-                      'Popular',
-                    ],
-                  );
-                },
-              ),
-              20.h.spaceH()
-            ],
-          ).paddingSymmetric(horizontal: 16.w),
+                20.h.spaceH()
+              ],
+            ).paddingSymmetric(horizontal: 16.w),
+          ),
         ),
       ),
     );

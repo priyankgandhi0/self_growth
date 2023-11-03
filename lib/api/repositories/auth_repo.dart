@@ -8,8 +8,10 @@ import '../api_helper.dart';
 import '../response_item.dart';
 
 class AuthRepo {
-
-  static Future<ResponseItem> changePasswordWithVerifyCode({required String email,required String verifyCode,required String newPassword}) async {
+  static Future<ResponseItem> changePasswordWithVerifyCode(
+      {required String email,
+      required String verifyCode,
+      required String newPassword}) async {
     bool status = false;
     ResponseItem result;
     dynamic data;
@@ -18,7 +20,9 @@ class AuthRepo {
       "verify_code": verifyCode,
       "new_password": newPassword
     };
-    var queryParameters = {RequestParam.service: ApiEndPoint.changePasswordWithVerifyCode};
+    var queryParameters = {
+      RequestParam.service: ApiEndPoint.changePasswordWithVerifyCode
+    };
     String queryString = Uri(queryParameters: queryParameters).query;
     String requestUrl = BaseUrl.URL + queryString;
     result = await BaseApiHelper.postRequest(requestUrl, params, false);
@@ -30,7 +34,6 @@ class AuthRepo {
 
     return ResponseItem(data: data, message: message, status: status);
   }
-
 
   static Future<ResponseItem> forgotPassword({required String email}) async {
     bool status = false;
@@ -70,17 +73,20 @@ class AuthRepo {
   }
 
   /// USER REGISTRATION
-  static Future<ResponseItem> userRegistration(
+  static Future<ResponseItem> registrationRepo(
       {required String userName,
       required String email,
       required String phoneNumber,
       required String age,
+      File? profileImage,
       required String gender,
       required String password}) async {
-    bool status = false;
     ResponseItem result;
+    bool status = true;
     dynamic data;
-    Map<String, dynamic> params = {
+    String message = "";
+
+    var params = {
       "user_name": userName,
       "email": email,
       "phone_number": phoneNumber,
@@ -88,15 +94,32 @@ class AuthRepo {
       "gender": gender.replaceAll("Gender.", ""),
       "password": password
     };
+    http.MultipartFile image;
+
     var queryParameters = {RequestParam.service: ApiEndPoint.registration};
-    String queryString = Uri(queryParameters: queryParameters).query;
-    String requestUrl = BaseUrl.URL + queryString;
-    result = await BaseApiHelper.postRequest(requestUrl, params, false);
+
+    if (profileImage != null) {
+      image = http.MultipartFile(
+        "user_profile_photo",
+        profileImage.readAsBytes().asStream(),
+        profileImage.lengthSync(),
+        filename: profileImage.path.split("/").last,
+        // contentType: MediaType(mimeType[0], mimeType[1]),
+      );
+      String queryString = Uri(queryParameters: queryParameters).query;
+      String requestUrl = BaseUrl.URL + queryString;
+      result = await BaseApiHelper.uploadFile(
+          requestUrl, profileImage: image, params, passAuth: false);
+    } else {
+      String queryString = Uri(queryParameters: queryParameters).query;
+      String requestUrl = BaseUrl.URL + queryString;
+      result =
+          await BaseApiHelper.uploadFile(requestUrl, params, passAuth: false);
+    }
 
     status = result.status;
-
     data = result.data;
-    var message = result.message;
+    message = result.message;
 
     return ResponseItem(data: data, message: message, status: status);
   }

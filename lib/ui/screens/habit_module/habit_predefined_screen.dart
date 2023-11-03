@@ -22,100 +22,102 @@ class HabitPredefinedScreen extends StatelessWidget {
                 image: AssetImage(Assets.images.backGroundImage.path),
                 fit: BoxFit.fill)),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              50.w.spaceH(),
-              WithOutTitleAppBar(
-                suffixWidget: 'Customize'.appSwitzerTextStyle(
-                    fontColor: borderPurpleColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500),
-                widget: InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    splashFactory: NoSplash.splashFactory,
-                    child: const Icon(Icons.close, color: borderPurpleColor)),
-                showBackButton: true,
-                padding: 20.w,
-              ),
-              ProfileBoxCard(
-                  margin: 40.w,
-                  widget: Assets.icons.selfDiscoveryImg.svg(),
+          child: SafeArea(
+            child: Column(
+              children: [
+                10.w.spaceH(),
+                WithOutTitleAppBar(
+                  suffixWidget: 'Customize'.appSwitzerTextStyle(
+                      fontColor: borderPurpleColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500),
+                  widget: InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      splashFactory: NoSplash.splashFactory,
+                      child: const Icon(Icons.close, color: borderPurpleColor)),
+                  showBackButton: true,
+                  padding: 20.w,
+                ),
+                ProfileBoxCard(
+                    margin: 40.w,
+                    widget: Assets.icons.selfDiscoveryImg.svg(),
+                    child: Column(
+                      children: [
+                        const AppChip(title: 'Build Habit').paddingOnly(
+                          top: 50.w,
+                        ),
+                        "Drinking Water"
+                            .appSwitzerTextStyle(
+                                fontSize: 20.sp, fontWeight: FontWeight.w600)
+                            .paddingOnly(top: 8.w),
+                        "Daily"
+                            .appSwitzerTextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                fontColor: doteColor)
+                            .paddingSymmetric(vertical: 8.w),
+                        ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                padding: EdgeInsets.zero,
+                                itemBuilder: (context, index) =>
+                                    const SelfDiscoveryCard(
+                                        title:
+                                            'Benefit drinking water for your body'),
+                                separatorBuilder: (context, index) =>
+                                    12.h.spaceH(),
+                                itemCount: 4)
+                            .paddingSymmetric(horizontal: 20.w),
+                        20.w.spaceH(),
+                      ],
+                    )),
+                16.w.spaceH(),
+                Container(
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                      color: white_FFFFFF,
+                      borderRadius: BorderRadius.circular(16.r)),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppChip(title: 'Build Habit').paddingOnly(
-                        top: 50.w,
-                      ),
-                      "Drinking Water"
+                      "What you will do".appSwitzerTextStyle(
+                          fontSize: 17.sp, fontWeight: FontWeight.w600),
+                      20.h.spaceH(),
+                      "Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis."
                           .appSwitzerTextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.w600)
-                          .paddingOnly(top: 8.w),
-                      "Daily"
-                          .appSwitzerTextStyle(
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
+                              textAlign: TextAlign.start,
                               fontWeight: FontWeight.w400,
-                              fontColor: doteColor)
-                          .paddingSymmetric(vertical: 8.w),
-                      ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              padding: EdgeInsets.zero,
-                              itemBuilder: (context, index) =>
-                                  const SelfDiscoveryCard(
-                                      title:
-                                          'Benefit drinking water for your body'),
-                              separatorBuilder: (context, index) =>
-                                  12.h.spaceH(),
-                              itemCount: 4)
-                          .paddingSymmetric(horizontal: 20.w),
-                      20.w.spaceH(),
+                              fontColor: doteColor),
                     ],
-                  )),
-              16.w.spaceH(),
-              Container(
-                width: Get.width,
-                decoration: BoxDecoration(
-                    color: white_FFFFFF,
-                    borderRadius: BorderRadius.circular(16.r)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    "What you will do".appSwitzerTextStyle(
-                        fontSize: 17.sp, fontWeight: FontWeight.w600),
-                    20.h.spaceH(),
-                    "Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis."
-                        .appSwitzerTextStyle(
-                            fontSize: 14.sp,
-                            textAlign: TextAlign.start,
-                            fontWeight: FontWeight.w400,
-                            fontColor: doteColor),
-                  ],
-                ).paddingAll(20.w),
-              ).paddingSymmetric(horizontal: 20.w),
-              20.w.spaceH(),
-              Container(
-                width: Get.width,
-                decoration: BoxDecoration(
-                    color: white_FFFFFF,
-                    borderRadius: BorderRadius.circular(16.r)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    "Why am doing this?".appSwitzerTextStyle(
-                        fontSize: 17.sp, fontWeight: FontWeight.w600),
-                    20.h.spaceH(),
-                    "Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis."
-                        .appSwitzerTextStyle(
-                            fontSize: 14.sp,
-                            textAlign: TextAlign.start,
-                            fontWeight: FontWeight.w400,
-                            fontColor: doteColor),
-                  ],
-                ).paddingAll(20.w),
-              ).paddingSymmetric(horizontal: 20.w),
-              20.w.spaceH(),
-            ],
+                  ).paddingAll(20.w),
+                ).paddingSymmetric(horizontal: 20.w),
+                20.w.spaceH(),
+                Container(
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                      color: white_FFFFFF,
+                      borderRadius: BorderRadius.circular(16.r)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      "Why am doing this?".appSwitzerTextStyle(
+                          fontSize: 17.sp, fontWeight: FontWeight.w600),
+                      20.h.spaceH(),
+                      "Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis."
+                          .appSwitzerTextStyle(
+                              fontSize: 14.sp,
+                              textAlign: TextAlign.start,
+                              fontWeight: FontWeight.w400,
+                              fontColor: doteColor),
+                    ],
+                  ).paddingAll(20.w),
+                ).paddingSymmetric(horizontal: 20.w),
+                20.w.spaceH(),
+              ],
+            ),
           ),
         ),
       ),

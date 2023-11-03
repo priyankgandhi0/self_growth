@@ -49,9 +49,9 @@ class ChangePassController extends GetxController {
           oldPassController.clear();
           newPassController.clear();
           confPassController.clear();
-          isOldPass = false;
-          isNewPass = false;
-          isConPass = false;
+          isOldPass = true;
+          isNewPass = true;
+          isConPass = true;
           isLoading.value = false;
         } else {
           isLoading.value = false;

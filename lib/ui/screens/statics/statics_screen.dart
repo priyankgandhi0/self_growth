@@ -34,6 +34,7 @@ class _StaticsScreenState extends State<StaticsScreen> {
     return GetBuilder<StaticsController>(builder: (ctrl) {
       return Column(
         children: [
+          16.w.spaceH(),
           statistic.appSwitzerTextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 18.sp,

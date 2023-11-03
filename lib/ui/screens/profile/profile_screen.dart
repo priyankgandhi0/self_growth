@@ -9,6 +9,7 @@ import 'package:self_growth/core/utils/preferences.dart';
 import 'package:self_growth/gen/assets.gen.dart';
 import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
+import 'package:self_growth/ui/widgets/app_snack_bar.dart';
 
 import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/request_const.dart';
@@ -30,11 +31,12 @@ class ProfileScreen extends StatelessWidget {
         children: [
           30.spaceH(),
           ProfileBoxCard(
-            widget: preferences.getString(SharedPreference.USER_NAME) != null
+            widget: preferences.getString(SharedPreference.USER_PROFILE) !=
+                        null &&
+                    preferences.getString(SharedPreference.USER_PROFILE) != ''
                 ? commonCachedNetworkImage(
                     imageUrl:
-                        '${ImageBaseUrl.PROFILEIMAGEURL}${preferences.getString(SharedPreference.USER_PROFILE)}' ??
-                            "",
+                        '${ImageBaseUrl.PROFILEIMAGEURL}${preferences.getString(SharedPreference.USER_PROFILE)}',
                     height: 100.w,
                     width: 100.w,
                   )
@@ -103,10 +105,11 @@ class ProfileScreen extends StatelessWidget {
                       description: logOutDialogText,
                       title: logOutText,
                       onConfirm: () {
-                        Get.offAllNamed(Routes.onboarding);
+                        ctrl.logOut();
                       },
                       textCancel: 'No',
                       textConfirm: 'Yes',
+                      isCancel: true,
                       onCancel: () {
                         Get.back();
                       },

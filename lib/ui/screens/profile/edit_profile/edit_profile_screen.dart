@@ -72,8 +72,7 @@ class EditProfileScreen extends StatelessWidget {
                           )
                         : commonCachedNetworkImage(
                             imageUrl:
-                                '${ImageBaseUrl.PROFILEIMAGEURL}${ctrl.profileImage}' ??
-                                    "",
+                                '${ImageBaseUrl.PROFILEIMAGEURL}${ctrl.profileImage}',
                             height: 100.w,
                             width: 100.w,
                           ),
@@ -141,19 +140,11 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                     8.w.spaceH(),
                     AppDropDown(
-                      value: ctrl.gender ??
-                          (preferences.getString(SharedPreference.GENDER) ==
-                                  'Male'
-                              ? Gender.Male
-                              : preferences
-                                          .getString(SharedPreference.GENDER) ==
-                                      'Female'
-                                  ? Gender.Female
-                                  : Gender.Other),
-                      onChanged: (value) {
-                        ctrl.gender = value;
-                        ctrl.update();
-                      },
+                      value: ctrl.gender,
+                      // onChanged: (value) {
+                      //   ctrl.gender = value;
+                      //   ctrl.update();
+                      // },
                     ),
                     20.w.spaceH(),
                     RoundAppButton(

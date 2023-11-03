@@ -9,8 +9,6 @@ import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
-
-import '../../../../core/constants/app_constant.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
 import '../../../widgets/app_button.dart';
@@ -37,81 +35,83 @@ class PersonalInfoScreen extends StatelessWidget {
                       fit: BoxFit.fill)),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    50.w.spaceH(),
-                    WithOutTitleAppBar(
-                      suffixWidget: const SizedBox(),
-                      showBackButton: true,
-                      onTap: () {
-                        Get.back();
-                      },
-                    ),
-                    24.w.spaceH(),
-                    personalInformationText
-                        .appSwitzerTextStyle(
-                            fontSize: 32.w,
-                            fontWeight: FontWeight.w600,
-                            textAlign: TextAlign.start)
-                        .paddingSymmetric(horizontal: 20.w),
-                    34.w.spaceH(),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.w),
-                          color: white_FFFFFF),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppTextField(
-                            labelText: nameText,
-                            showPrefixIcon: false,
-                            showSuffixIcon: false,
-                            textEditingController: ctrl.nameCon,
-                            hintText: enterNameText,
-                            labelTextSize: 14.sp,
-                            validator: (value) {},
-                          ),
-                          10.w.spaceH(),
-                          AppTextField(
-                            labelText: ageText,
-                            showPrefixIcon: false,
-                            showSuffixIcon: false,
-                            labelTextSize: 14.sp,
-                            keyboardType: const TextInputType.numberWithOptions(
-                                signed: true),
-                            inputFormatter: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            textEditingController: ctrl.ageCon,
-                            hintText: enterAgeText,
-                            validator: (value) {},
-                          ),
-                          10.w.spaceH(),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: genderText.appSwitzerTextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontColor: borderPurpleColor.withOpacity(.6),
-                              fontSize: 14.sp,
-                              // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      WithOutTitleAppBar(
+                        suffixWidget: const SizedBox(),
+                        showBackButton: true,
+                        onTap: () {
+                          Get.back();
+                        },
+                      ),
+                      24.w.spaceH(),
+                      personalInformationText
+                          .appSwitzerTextStyle(
+                              fontSize: 32.w,
+                              fontWeight: FontWeight.w600,
+                              textAlign: TextAlign.start)
+                          .paddingSymmetric(horizontal: 20.w),
+                      34.w.spaceH(),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.w),
+                            color: white_FFFFFF),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppTextField(
+                              labelText: nameText,
+                              showPrefixIcon: false,
+                              showSuffixIcon: false,
+                              textEditingController: ctrl.nameCon,
+                              hintText: enterNameText,
+                              labelTextSize: 14.sp,
+                              validator: (value) {},
                             ),
-                          ),
-                          8.w.spaceH(),
-                          AppDropDown(
-                            value: ctrl.gender,
-                            onChanged: (value) {
-                              ctrl.gender = value;
+                            10.w.spaceH(),
+                            AppTextField(
+                              labelText: ageText,
+                              showPrefixIcon: false,
+                              showSuffixIcon: false,
+                              labelTextSize: 14.sp,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: true),
+                              inputFormatter: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              textEditingController: ctrl.ageCon,
+                              hintText: enterAgeText,
+                              validator: (value) {},
+                            ),
+                            10.w.spaceH(),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: genderText.appSwitzerTextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontColor: borderPurpleColor.withOpacity(.6),
+                                fontSize: 14.sp,
+                                // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
+                              ),
+                            ),
+                            8.w.spaceH(),
+                            AppDropDown(
+                              value: ctrl.gender,
+                              onChanged: (value) {
+                                ctrl.gender = value;
 
-                              ctrl.update();
-                            },
-                          ),
-                        ],
-                      ).paddingSymmetric(vertical: 20.w, horizontal: 20),
-                    ).paddingSymmetric(horizontal: 20.w),
-                    70.w.spaceH(),
-                  ],
+                                ctrl.update();
+                              },
+                            ),
+                          ],
+                        ).paddingSymmetric(vertical: 20.w, horizontal: 20),
+                      ).paddingSymmetric(horizontal: 20.w),
+                      70.w.spaceH(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -126,6 +126,8 @@ class PersonalInfoScreen extends StatelessWidget {
                     showAppSnackBar(nameNotEmpty);
                   } else if (ctrl.ageCon.text.isEmpty) {
                     showAppSnackBar(ageNotEmpty);
+                  } else if (ctrl.ageCon.text.length > 3) {
+                    showAppSnackBar('Please enter valid age.');
                   } else if (ctrl.gender == null) {
                     showAppSnackBar('Please select gender.');
                   } else {

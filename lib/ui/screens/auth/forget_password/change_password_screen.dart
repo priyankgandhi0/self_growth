@@ -46,9 +46,9 @@ class ChangePassVerificationScreen extends StatelessWidget {
                     24.w.spaceH(),
                     changePassVerification
                         .appSwitzerTextStyle(
-                        fontSize: 32.w,
-                        fontWeight: FontWeight.w600,
-                        textAlign: TextAlign.start)
+                            fontSize: 32.w,
+                            fontWeight: FontWeight.w600,
+                            textAlign: TextAlign.start)
                         .paddingSymmetric(horizontal: 20.w),
                     34.w.spaceH(),
                     Container(
@@ -78,12 +78,12 @@ class ChangePassVerificationScreen extends StatelessWidget {
                             labelTextSize: 14.sp,
                             validator: (value) {},
                           ),
-
                           8.w.spaceH(),
                           AppTextField(
                             labelText: newPasswordText,
                             showPrefixIcon: false,
                             showSuffixIcon: true,
+                            obscuringCharacter: '*',
                             textEditingController: ctrl.newPasswordController,
                             hintText: passwordText,
                             labelTextSize: 14.sp,
@@ -91,7 +91,8 @@ class ChangePassVerificationScreen extends StatelessWidget {
                             validator: (value) {},
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                authController.isShowPass = !authController.isShowPass;
+                                authController.isShowPass =
+                                    !authController.isShowPass;
                               },
                               child: Icon(
                                   authController.isShowPass
@@ -120,9 +121,9 @@ class ChangePassVerificationScreen extends StatelessWidget {
                 },
               ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
             ),
-
-            Obx(() => ctrl.isLoading.value ? const AppProgress() : const SizedBox.shrink())
-
+            Obx(() => ctrl.isLoading.value
+                ? const AppProgress()
+                : const SizedBox.shrink())
           ],
         ),
       );

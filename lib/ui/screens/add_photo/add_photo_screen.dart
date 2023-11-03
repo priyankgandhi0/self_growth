@@ -27,49 +27,51 @@ class AddPhotoScreen extends StatelessWidget {
                   image: DecorationImage(
                       image: AssetImage(Assets.images.backGroundImage.path),
                       fit: BoxFit.fill)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  50.w.spaceH(),
-                  WithOutTitleAppBar(
-                      suffixWidget: const SizedBox(),
-                      widget: InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: const Icon(
-                          Icons.close,
-                          color: borderPurpleColor,
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    10.w.spaceH(),
+                    WithOutTitleAppBar(
+                        suffixWidget: const SizedBox(),
+                        widget: InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: const Icon(
+                            Icons.close,
+                            color: borderPurpleColor,
+                          ),
                         ),
-                      ),
-                      showBackButton: true),
-                  20.w.spaceH(),
-                  ProfileBoxCard(
-                      widget: Assets.icons.addPhotoImg.svg(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          55.w.spaceH(),
-                          captureYourActivity.appSwitzerTextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.w600),
-                          16.w.spaceH(),
-                          ButtonCard(
-                            onTap: () {},
-                            title: 'Today, 8:00 AM',
-                            icon: Assets.icons.dateRange.svg(),
-                          ),
-                          AddImageCard(
-                            height: 271.w,
-                            padding: 20.w,
-                            onTap: () {
-                              PickFile().openImageChooser(
-                                  context: context, onImageChose: () {});
-                            },
-                          ),
-                          10.w.spaceH(),
-                        ],
-                      )),
-                ],
+                        showBackButton: true),
+                    20.w.spaceH(),
+                    ProfileBoxCard(
+                        widget: Assets.icons.addPhotoImg.svg(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            55.w.spaceH(),
+                            captureYourActivity.appSwitzerTextStyle(
+                                fontSize: 20.sp, fontWeight: FontWeight.w600),
+                            16.w.spaceH(),
+                            ButtonCard(
+                              onTap: () {},
+                              title: 'Today, 8:00 AM',
+                              icon: Assets.icons.dateRange.svg(),
+                            ),
+                            AddImageCard(
+                              height: 271.w,
+                              padding: 20.w,
+                              onTap: () {
+                                PickFile().openImageChooser(
+                                    context: context, onImageChose: () {});
+                              },
+                            ),
+                            10.w.spaceH(),
+                          ],
+                        )),
+                  ],
+                ),
               )),
           Positioned(
             bottom: 0,

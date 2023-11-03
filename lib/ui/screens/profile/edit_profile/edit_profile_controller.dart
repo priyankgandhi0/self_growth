@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -21,7 +22,11 @@ class EditProfileController extends GetxController {
       text: preferences.getString(SharedPreference.USER_EMAIL));
   TextEditingController phoneNoCon = TextEditingController(
       text: preferences.getString(SharedPreference.PHONE_NUMBER));
-  Gender? gender;
+  Gender? gender = (preferences.getString(SharedPreference.GENDER) == 'Male'
+      ? Gender.Male
+      : preferences.getString(SharedPreference.GENDER) == 'Female'
+          ? Gender.Female
+          : Gender.Other);
   File? imageFile;
   void addImage(File newImage) {
     imageFile = newImage;
@@ -59,6 +64,9 @@ class EditProfileController extends GetxController {
                 SharedPreference.USER_NAME, response.data.userName);
             preferences.putString(
                 SharedPreference.USER_PROFILE, response.data.userProfilePhoto);
+            preferences.putString(
+                SharedPreference.GENDER, response.data.gender);
+            log('response.data.gender--${response.data.gender}');
             Get.find<BottomBarController>().changeTab(BottomNavEnum.profile);
             Get.find<BottomBarController>().isSelectedTab = 5;
             Get.find<BottomBarController>().tab = ProfileScreen();

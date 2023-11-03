@@ -670,8 +670,8 @@ SizedBox commonCachedNetworkImage(
                   ),
                 ),
             placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: grey_D9D9D9,
-                  highlightColor: grey_C4C4C4,
+                  baseColor: grey_D9D9D9.withOpacity(.5),
+                  highlightColor: grey_C4C4C4.withOpacity(.5),
                   enabled: true,
                   child: Container(
                     height: 100.w,

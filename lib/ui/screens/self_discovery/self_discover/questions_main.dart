@@ -47,98 +47,101 @@ class FirstQuestionScreen extends StatelessWidget {
                   fit: BoxFit.fill)),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                50.w.spaceH(),
-                Row(
-                  children: [
-                    InkWell(
-                      splashFactory: NoSplash.splashFactory,
-                      onTap: () {
-                        if (ctrl.isQueAns == 0) {
-                          Get.back();
-                        } else if (ctrl.isQueAns == 1) {
-                          ctrl.isQueAns = 0;
-                        } else {
-                          ctrl.isQueAns = 1;
-                        }
-                      },
-                      child: Assets.icons.backArrow
-                          .svg()
-                          .paddingSymmetric(horizontal: 16.w, vertical: 2.w),
-                    ),
-                    SizedBox(
-                      width: Get.width - 110.w,
-                      height: 20,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.r),
-                        child: StepProgressIndicator(
-                          totalSteps: 15,
-                          currentStep: ctrl.isQueAns == 0
-                              ? 1
-                              : ctrl.isQueAns == 1
-                                  ? 6
-                                  : 15,
-                          customStep: (index, color, size) {
-                            return Container(
-                              color: doteColor,
-                              child: Container(
-                                width: size,
-                                decoration: BoxDecoration(
-                                    color: color,
-                                    borderRadius: BorderRadius.horizontal(
-                                        right: Radius.circular((index == 5 &&
-                                                    ctrl.isQueAns == 1) ||
-                                                (index == 0 &&
-                                                    ctrl.isQueAns == 0) ||
-                                                (index == 14 &&
-                                                    ctrl.isQueAns == 2)
-                                            ? 10.r
-                                            : 0))),
-                              ),
-                            );
-                          },
-                          size: 8.h,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          padding: 0,
-                          selectedColor: borderPurpleColor,
-                          unselectedColor: doteColor,
-                          roundedEdges: Radius.circular(10.r),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  16.w.spaceH(),
+                  Row(
+                    children: [
+                      InkWell(
+                        splashFactory: NoSplash.splashFactory,
+                        onTap: () {
+                          if (ctrl.isQueAns == 0) {
+                            Get.back();
+                          } else if (ctrl.isQueAns == 1) {
+                            ctrl.isQueAns = 0;
+                          } else {
+                            ctrl.isQueAns = 1;
+                          }
+                        },
+                        child: Assets.icons.backArrow
+                            .svg()
+                            .paddingSymmetric(horizontal: 16.w, vertical: 2.w),
+                      ),
+                      SizedBox(
+                        width: Get.width - 110.w,
+                        height: 20,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.r),
+                          child: StepProgressIndicator(
+                            totalSteps: 15,
+                            currentStep: ctrl.isQueAns == 0
+                                ? 1
+                                : ctrl.isQueAns == 1
+                                    ? 6
+                                    : 15,
+                            customStep: (index, color, size) {
+                              return Container(
+                                color: doteColor,
+                                child: Container(
+                                  width: size,
+                                  decoration: BoxDecoration(
+                                      color: color,
+                                      borderRadius: BorderRadius.horizontal(
+                                          right: Radius.circular((index == 5 &&
+                                                      ctrl.isQueAns == 1) ||
+                                                  (index == 0 &&
+                                                      ctrl.isQueAns == 0) ||
+                                                  (index == 14 &&
+                                                      ctrl.isQueAns == 2)
+                                              ? 10.r
+                                              : 0))),
+                                ),
+                              );
+                            },
+                            size: 8.h,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            padding: 0,
+                            selectedColor: borderPurpleColor,
+                            unselectedColor: doteColor,
+                            roundedEdges: Radius.circular(10.r),
+                          ),
                         ),
                       ),
-                    ),
-                    10.w.spaceW(),
-                    '${ctrl.isQueAns == 0 ? "1" : '6'}/15'.appSwitzerTextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                        fontColor: borderPurpleColor),
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: (ctrl.isQueAns == 0
-                          ? 'Screening'
-                          : ctrl.isQueAns == 1
-                              ? 'Understanding'
-                              : 'Taking Over')
-                      .appSwitzerTextStyle(
-                          textAlign: TextAlign.end,
-                          fontColor: borderPurpleColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp),
-                ).paddingSymmetric(horizontal: 20.w),
-                ctrl.isQueAns == 0
-                    ? QuestionOneScreen(
-                        ctrl: ctrl,
-                      )
-                    : ctrl.isQueAns == 1
-                        ? QuestionTwoScreen(
-                            ctrl: ctrl,
-                          )
-                        : QuestionThirdScreen(
-                            ctrl: ctrl,
-                          ),
-              ],
+                      10.w.spaceW(),
+                      '${ctrl.isQueAns == 0 ? "1" : '6'}/15'
+                          .appSwitzerTextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                              fontColor: borderPurpleColor),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: (ctrl.isQueAns == 0
+                            ? 'Screening'
+                            : ctrl.isQueAns == 1
+                                ? 'Understanding'
+                                : 'Taking Over')
+                        .appSwitzerTextStyle(
+                            textAlign: TextAlign.end,
+                            fontColor: borderPurpleColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp),
+                  ).paddingSymmetric(horizontal: 20.w),
+                  ctrl.isQueAns == 0
+                      ? QuestionOneScreen(
+                          ctrl: ctrl,
+                        )
+                      : ctrl.isQueAns == 1
+                          ? QuestionTwoScreen(
+                              ctrl: ctrl,
+                            )
+                          : QuestionThirdScreen(
+                              ctrl: ctrl,
+                            ),
+                ],
+              ),
             ),
           ),
         ),

@@ -26,60 +26,61 @@ class SubscriptionScreen extends StatelessWidget {
                   image: DecorationImage(
                       image: AssetImage(Assets.images.backGroundImage.path),
                       fit: BoxFit.fill)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  40.w.spaceH(),
-                  InkWell(
-                    splashFactory: NoSplash.splashFactory,
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Assets.icons.backArrow
-                        .svg()
-                        .paddingSymmetric(horizontal: 16.w, vertical: 10.w),
-                  ),
-                  15.w.spaceH(),
-                  startYourMembershipNowText
-                      .appSwitzerTextStyle(
-                          fontSize: 32.w,
-                          fontWeight: FontWeight.w600,
-                          textAlign: TextAlign.start)
-                      .paddingSymmetric(horizontal: 20.w),
-                  25.w.spaceH(),
-                  SizedBox(
-                    height: 280.w,
-                    child: PageView(
-                      physics: const BouncingScrollPhysics(),
-                      onPageChanged: (value) {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        ctrl.initialPage = value;
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    InkWell(
+                      splashFactory: NoSplash.splashFactory,
+                      onTap: () {
+                        Get.back();
                       },
-                      controller: ctrl.pageController,
-                      children: <Widget>[
-                        premiumWidget(ctrl),
-                        premiumWidget(ctrl),
-                        premiumWidget(ctrl),
-                      ],
+                      child: Assets.icons.backArrow
+                          .svg()
+                          .paddingSymmetric(horizontal: 16.w, vertical: 10.w),
                     ),
-                  ),
-                  15.w.spaceH(),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                          3,
-                          (index) => CircleAvatar(
-                                radius: 3.r,
-                                backgroundColor: ctrl.initialPage == index
-                                    ? borderPurpleColor
-                                    : doteColor,
-                              ).paddingSymmetric(horizontal: 2.w)),
+                    15.w.spaceH(),
+                    startYourMembershipNowText
+                        .appSwitzerTextStyle(
+                            fontSize: 32.w,
+                            fontWeight: FontWeight.w600,
+                            textAlign: TextAlign.start)
+                        .paddingSymmetric(horizontal: 20.w),
+                    25.w.spaceH(),
+                    SizedBox(
+                      height: 280.w,
+                      child: PageView(
+                        physics: const BouncingScrollPhysics(),
+                        onPageChanged: (value) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          ctrl.initialPage = value;
+                        },
+                        controller: ctrl.pageController,
+                        children: <Widget>[
+                          premiumWidget(ctrl),
+                          premiumWidget(ctrl),
+                          premiumWidget(ctrl),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    15.w.spaceH(),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                            3,
+                            (index) => CircleAvatar(
+                                  radius: 3.r,
+                                  backgroundColor: ctrl.initialPage == index
+                                      ? borderPurpleColor
+                                      : doteColor,
+                                ).paddingSymmetric(horizontal: 2.w)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Positioned(

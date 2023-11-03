@@ -16,9 +16,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
-
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -28,7 +25,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MediaQuery(
-        data: MediaQueryData(
+        data: MediaQuery.of(context).copyWith(
           textScaleFactor: .9,
           viewInsets: MediaQuery.of(context).viewInsets,
         ),
@@ -40,9 +37,8 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           getPages: Routes.pages,
-          initialRoute: isLogin
-              ? Routes.bottomNavigationScreen
-              : Routes.onboarding,
+          initialRoute:
+              isLogin ? Routes.bottomNavigationScreen : Routes.onboarding,
         ),
       ),
     );

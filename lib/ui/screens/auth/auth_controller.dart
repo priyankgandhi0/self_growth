@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/api/repositories/auth_repo.dart';
@@ -59,8 +62,8 @@ class AuthController extends GetxController {
 
       try {
         if (result.status) {
-          showAppSnackBar(result.message);
           Get.offAllNamed(Routes.onboarding);
+          showAppSnackBar(result.message, status: true);
           isLoading.value = false;
         } else {
           isLoading.value = false;
@@ -87,10 +90,9 @@ class AuthController extends GetxController {
           ResponseItem(data: null, message: errorText, status: false);
       result = await AuthRepo.forgotPassword(
           email: forgetEmailController.text.trim());
-
       try {
         if (result.status) {
-          showAppSnackBar(result.message);
+          showAppSnackBar(result.message, status: true);
           Get.toNamed(Routes.changePassVerificationScreen);
           isLoading.value = false;
         } else {
@@ -113,6 +115,8 @@ class AuthController extends GetxController {
       showAppSnackBar(emailNotValid);
     } else if (phoneNumberController.text.isEmpty) {
       showAppSnackBar(phoneNumberNotEmpty);
+    } else if (phoneNumberController.text.length < 10) {
+      showAppSnackBar('Please enter valid phone number.');
     } else if (passwordController.text.isEmpty) {
       showAppSnackBar(passwordNotEmpty);
     } else {
@@ -145,6 +149,14 @@ class AuthController extends GetxController {
     }
   }
 
+  File? imageFile;
+  void addImage(File newImage) {
+    imageFile = newImage;
+    update();
+  }
+
+  String profileImage =
+      preferences.getString(SharedPreference.USER_PROFILE) ?? "";
   userRegistration() async {
     if (emailCon.text.isEmpty) {
       showAppSnackBar(emailNotEmpty);
@@ -161,14 +173,25 @@ class AuthController extends GetxController {
       isLoading.value = true;
       ResponseItem result =
           ResponseItem(data: null, message: errorText, status: false);
-      result = await AuthRepo.userRegistration(
-          userName: nameCon.text.trim(),
-          email: emailCon.text.trim(),
-          phoneNumber: phoneNoCon.text.trim(),
-          age: ageCon.text.trim(),
-          gender: gender.toString(),
-          password: passwordCon.text.trim());
-
+      if (imageFile == null) {
+        log('imageFile null');
+        result = await AuthRepo.registrationRepo(
+            userName: nameCon.text.trim(),
+            email: emailCon.text.trim(),
+            phoneNumber: phoneNoCon.text.trim(),
+            age: ageCon.text.trim(),
+            gender: gender.toString(),
+            password: passwordCon.text.trim());
+      } else {
+        result = await AuthRepo.registrationRepo(
+            userName: nameCon.text.trim(),
+            email: emailCon.text.trim(),
+            phoneNumber: phoneNoCon.text.trim(),
+            age: ageCon.text.trim(),
+            gender: gender.toString(),
+            password: passwordCon.text.trim(),
+            profileImage: imageFile);
+      }
       try {
         if (result.status) {
           if (result.data != null) {

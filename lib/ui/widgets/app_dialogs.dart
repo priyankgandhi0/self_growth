@@ -214,23 +214,38 @@ class CustomDialog extends StatelessWidget {
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
               titlePadding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 8),
-              title:
-                  (title ?? 'Alert').appTextStyle(textAlign: TextAlign.start),
+              title: (title ?? 'Alert').appTextStyle(
+                  textAlign: TextAlign.start, fontWeight: FontWeight.w800),
               content: (description ?? 'Description').appTextStyle(
                   textAlign: TextAlign.start,
-                  fontSize: 15,
+                  fontFamily: 'Switzer',
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w400),
               actionsPadding: const EdgeInsetsDirectional.only(end: 8),
               actions: <Widget>[
                 TextButton(
-                    child: Text(textConfirm ?? 'OK'),
+                    child: Text(
+                      textConfirm ?? 'OK',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: borderPurpleColor,
+                          fontSize: 18.sp,
+                          fontFamily: 'Switzer'),
+                    ),
                     onPressed: () {
                       onConfirm.call();
                     }),
                 Visibility(
                   visible: isCancel!,
                   child: TextButton(
-                      child: Text(textCancel ?? 'Exit'),
+                      child: Text(
+                        textCancel ?? 'Exit',
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                            color: borderPurpleColor,
+                            fontFamily: 'Switzer'),
+                      ),
                       onPressed: () {
                         // exit(0);
                         onCancel.call();
@@ -239,9 +254,12 @@ class CustomDialog extends StatelessWidget {
               ],
             )
           : CupertinoAlertDialog(
-              title: (title ?? 'Alert').appTextStyle(),
-              content: (description ?? 'Description')
-                  .appTextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+              title: (title ?? 'Alert')
+                  .appSwitzerTextStyle(fontWeight: FontWeight.w600),
+              content: (description ?? 'Description').appTextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Switzer'),
               actions: <CupertinoDialogAction>[
                 CupertinoDialogAction(
                   onPressed: () {
@@ -249,7 +267,10 @@ class CustomDialog extends StatelessWidget {
                   },
                   child: Text(
                     textCancel ?? 'Exit',
-                    style: const TextStyle(color: Colors.red),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: borderPurpleColor,
+                        fontFamily: 'Switzer'),
                   ),
                 ),
                 CupertinoDialogAction(
@@ -258,7 +279,10 @@ class CustomDialog extends StatelessWidget {
                   },
                   child: Text(
                     textConfirm ?? 'OK',
-                    style: TextStyle(color: Colors.green.shade800),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: borderPurpleColor,
+                        fontFamily: 'Switzer'),
                   ),
                 ),
               ],

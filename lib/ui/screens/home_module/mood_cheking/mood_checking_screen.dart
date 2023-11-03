@@ -25,165 +25,166 @@ class MoodCheckingScreen extends StatelessWidget {
                 fit: BoxFit.fill)),
         child: SingleChildScrollView(
           child: GetBuilder<MoodCheckingCon>(builder: (ctrl) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                35.w.spaceH(),
-                InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        splashFactory: NoSplash.splashFactory,
-                        child: const Icon(Icons.close))
-                    .paddingSymmetric(horizontal: 20.w),
-                ProfileBoxCard(
-                  widget: Assets.icons.emoji.svg(),
-                  child: Column(
-                    children: [
-                      40.w.spaceH(),
-                      'How do you feel?'.appSwitzerTextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 20.sp),
-                      12.w.spaceH(),
-                      ButtonCard(
-                        onTap: () {},
-                        title: 'Today, 8:00 AM',
-                        icon: Assets.icons.dateRange.svg(),
-                      ),
-                      24.w.spaceH(),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: List.generate(
-                              5,
-                              (index) => CircleAvatar(
-                                backgroundColor:
-                                    (ctrl.sliderValue >= 0 && index == 0) ||
-                                            (ctrl.sliderValue >= 25 &&
-                                                (index == 1 || index == 0)) ||
-                                            (ctrl.sliderValue >= 50 &&
-                                                (index == 1 ||
-                                                    index == 0 ||
-                                                    index == 2)) ||
-                                            (ctrl.sliderValue >= 75 &&
-                                                (index == 1 ||
-                                                    index == 0 ||
-                                                    index == 2 ||
-                                                    index == 3))
-                                        ? borderPurpleColor
-                                        : grey_D9D9D9,
-                                radius: 6.r,
-                              ),
-                            ),
-                          ).paddingSymmetric(horizontal: 20.w),
-                          SizedBox(
-                            height: 20,
-                            child: SliderTheme(
-                              data: SliderThemeData(
-                                thumbShape: RoundSliderThumbShape(
-                                    enabledThumbRadius: 9.r, elevation: 0.0),
-                              ),
-                              child: Slider(
-                                min: 0.0,
-                                max: 100.0,
-                                inactiveColor: grey_D9D9D9,
-                                activeColor: borderPurpleColor,
-                                onChanged: (value) {
-                                  ctrl.sliderValue = value;
-                                  ctrl.update();
-                                },
-                                value: ctrl.sliderValue,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          'Unhappy'.appSwitzerTextStyle(
-                            fontColor: doteColor,
-                            fontSize: 13.sp,
-                          ),
-                          'Happy'.appSwitzerTextStyle(
-                            fontColor: doteColor,
-                            fontSize: 13.sp,
-                          ),
-                          'Normal'.appSwitzerTextStyle(
-                            fontColor: doteColor,
-                            fontSize: 13.sp,
-                          ),
-                        ],
-                      ).paddingSymmetric(horizontal: 20.w)
-                    ],
-                  ).paddingSymmetric(horizontal: 24.w, vertical: 24.w),
-                ),
-                FeelingCard(
-                  buttonOnTap: () {},
-                  buttonText: 'Add other activity',
-                  title: 'What’s making your day unhappy?',
-                  widget: List.generate(
-                    12,
-                    (index) => FamilyCard(
-                      title: 'Family',
-                      widget: Assets.icons.familyImg.svg(),
-                      isSelected: ctrl.isSelect == index,
-                      onTap: () {
-                        ctrl.isSelect = index;
-                      },
-                    ),
-                  ),
-                ),
-                FeelingCard(
-                  buttonOnTap: () {},
-                  buttonText: 'Add other feeling',
-                  title: 'How are you feeling about this?',
-                  widget: List.generate(
-                    12,
-                    (index) => FamilyCard(
-                      title: ctrl.moodList[index],
-                      widget: SvgPicture.asset(ctrl.moodImageList[index],
-                          width: 24.w, fit: BoxFit.fill, height: 24.w),
-                      isSelected: ctrl.isSelect1 == index,
-                      onTap: () {
-                        ctrl.isSelect1 = index;
-                      },
-                    ),
-                  ),
-                ),
-                16.w.spaceH(),
-                Container(
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.w),
-                            color: white_FFFFFF),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+            return SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          splashFactory: NoSplash.splashFactory,
+                          child: const Icon(Icons.close))
+                      .paddingSymmetric(horizontal: 20.w),
+                  ProfileBoxCard(
+                    widget: Assets.icons.emoji.svg(),
+                    child: Column(
+                      children: [
+                        40.w.spaceH(),
+                        'How do you feel?'.appSwitzerTextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 20.sp),
+                        12.w.spaceH(),
+                        ButtonCard(
+                          onTap: () {},
+                          title: 'Today, 8:00 AM',
+                          icon: Assets.icons.dateRange.svg(),
+                        ),
+                        24.w.spaceH(),
+                        Stack(
+                          alignment: Alignment.center,
                           children: [
-                            'Add notes'.appSwitzerTextStyle(
-                                fontSize: 20.sp, fontWeight: FontWeight.w600),
-                            16.w.spaceH(),
-                            const AppTextField(
-                              labelText: 'Time',
-                              hintText: '9:00 AM',
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: List.generate(
+                                5,
+                                (index) => CircleAvatar(
+                                  backgroundColor:
+                                      (ctrl.sliderValue >= 0 && index == 0) ||
+                                              (ctrl.sliderValue >= 25 &&
+                                                  (index == 1 || index == 0)) ||
+                                              (ctrl.sliderValue >= 50 &&
+                                                  (index == 1 ||
+                                                      index == 0 ||
+                                                      index == 2)) ||
+                                              (ctrl.sliderValue >= 75 &&
+                                                  (index == 1 ||
+                                                      index == 0 ||
+                                                      index == 2 ||
+                                                      index == 3))
+                                          ? borderPurpleColor
+                                          : grey_D9D9D9,
+                                  radius: 6.r,
+                                ),
+                              ),
+                            ).paddingSymmetric(horizontal: 20.w),
+                            SizedBox(
+                              height: 20,
+                              child: SliderTheme(
+                                data: SliderThemeData(
+                                  thumbShape: RoundSliderThumbShape(
+                                      enabledThumbRadius: 9.r, elevation: 0.0),
+                                ),
+                                child: Slider(
+                                  min: 0.0,
+                                  max: 100.0,
+                                  inactiveColor: grey_D9D9D9,
+                                  activeColor: borderPurpleColor,
+                                  onChanged: (value) {
+                                    ctrl.sliderValue = value;
+                                    ctrl.update();
+                                  },
+                                  value: ctrl.sliderValue,
+                                ),
+                              ),
                             ),
-                            16.w.spaceH(),
-                            const AppTextField(
-                              labelText: 'Notes',
-                              hintText: 'Add note',
-                            )
                           ],
-                        ).paddingSymmetric(horizontal: 16.w, vertical: 30.w))
-                    .paddingSymmetric(horizontal: 20.w),
-                16.w.spaceH(),
-                RoundAppButton(
-                  onTap: () {},
-                  title: 'Continue',
-                ).paddingSymmetric(horizontal: 40.w),
-                24.w.spaceH(),
-              ],
-            ).paddingSymmetric(vertical: 16.w);
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            'Unhappy'.appSwitzerTextStyle(
+                              fontColor: doteColor,
+                              fontSize: 13.sp,
+                            ),
+                            'Happy'.appSwitzerTextStyle(
+                              fontColor: doteColor,
+                              fontSize: 13.sp,
+                            ),
+                            'Normal'.appSwitzerTextStyle(
+                              fontColor: doteColor,
+                              fontSize: 13.sp,
+                            ),
+                          ],
+                        ).paddingSymmetric(horizontal: 20.w)
+                      ],
+                    ).paddingSymmetric(horizontal: 24.w, vertical: 24.w),
+                  ),
+                  FeelingCard(
+                    buttonOnTap: () {},
+                    buttonText: 'Add other activity',
+                    title: 'What’s making your day unhappy?',
+                    widget: List.generate(
+                      12,
+                      (index) => FamilyCard(
+                        title: 'Family',
+                        widget: Assets.icons.familyImg.svg(),
+                        isSelected: ctrl.isSelect == index,
+                        onTap: () {
+                          ctrl.isSelect = index;
+                        },
+                      ),
+                    ),
+                  ),
+                  FeelingCard(
+                    buttonOnTap: () {},
+                    buttonText: 'Add other feeling',
+                    title: 'How are you feeling about this?',
+                    widget: List.generate(
+                      12,
+                      (index) => FamilyCard(
+                        title: ctrl.moodList[index],
+                        widget: SvgPicture.asset(ctrl.moodImageList[index],
+                            width: 24.w, fit: BoxFit.fill, height: 24.w),
+                        isSelected: ctrl.isSelect1 == index,
+                        onTap: () {
+                          ctrl.isSelect1 = index;
+                        },
+                      ),
+                    ),
+                  ),
+                  16.w.spaceH(),
+                  Container(
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.w),
+                              color: white_FFFFFF),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              'Add notes'.appSwitzerTextStyle(
+                                  fontSize: 20.sp, fontWeight: FontWeight.w600),
+                              16.w.spaceH(),
+                              const AppTextField(
+                                labelText: 'Time',
+                                hintText: '9:00 AM',
+                              ),
+                              16.w.spaceH(),
+                              const AppTextField(
+                                labelText: 'Notes',
+                                hintText: 'Add note',
+                              )
+                            ],
+                          ).paddingSymmetric(horizontal: 16.w, vertical: 30.w))
+                      .paddingSymmetric(horizontal: 20.w),
+                  16.w.spaceH(),
+                  RoundAppButton(
+                    onTap: () {},
+                    title: 'Continue',
+                  ).paddingSymmetric(horizontal: 40.w),
+                  24.w.spaceH(),
+                ],
+              ).paddingSymmetric(vertical: 16.w),
+            );
           }),
         ),
       ),
