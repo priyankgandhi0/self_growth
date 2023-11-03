@@ -223,18 +223,6 @@ class CustomDialog extends StatelessWidget {
                   fontWeight: FontWeight.w400),
               actionsPadding: const EdgeInsetsDirectional.only(end: 8),
               actions: <Widget>[
-                TextButton(
-                    child: Text(
-                      textConfirm ?? 'OK',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: borderPurpleColor,
-                          fontSize: 18.sp,
-                          fontFamily: 'Switzer'),
-                    ),
-                    onPressed: () {
-                      onConfirm.call();
-                    }),
                 Visibility(
                   visible: isCancel!,
                   child: TextButton(
@@ -250,7 +238,19 @@ class CustomDialog extends StatelessWidget {
                         // exit(0);
                         onCancel.call();
                       }),
-                )
+                ),
+                TextButton(
+                    child: Text(
+                      textConfirm ?? 'OK',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: borderPurpleColor,
+                          fontSize: 18.sp,
+                          fontFamily: 'Switzer'),
+                    ),
+                    onPressed: () {
+                      onConfirm.call();
+                    }),
               ],
             )
           : CupertinoAlertDialog(

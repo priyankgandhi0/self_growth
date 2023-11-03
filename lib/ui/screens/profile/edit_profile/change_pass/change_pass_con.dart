@@ -23,6 +23,8 @@ class ChangePassController extends GetxController {
       showAppSnackBar('Old password must be required!');
     } else if (newPassController.text == '' || newPassController.text.isEmpty) {
       showAppSnackBar('Please enter new Password!');
+    } else if (newPassController.text.length < 6) {
+      showAppSnackBar('Password must be at least 6 character.');
     } else if (confPassController.text == '' ||
         confPassController.text.isEmpty) {
       showAppSnackBar('Please enter confirm Password!');

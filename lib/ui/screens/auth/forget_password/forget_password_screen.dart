@@ -31,35 +31,38 @@ class ForgetPasswordScreen extends StatelessWidget {
                       fit: BoxFit.fill)),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    50.w.spaceH(),
-                    WithOutTitleAppBar(
-                      suffixWidget: const SizedBox(),
-                      showBackButton: true,
-                      onTap: () {
-                        Get.back();
-                      },
-                    ),
-                    24.w.spaceH(),
-                    forgetPassword
-                        .appSwitzerTextStyle(
-                            fontSize: 32.w,
-                            fontWeight: FontWeight.w600,
-                            textAlign: TextAlign.start)
-                        .paddingSymmetric(horizontal: 20.w),
-                    34.w.spaceH(),
-                    AppTextField(
-                      labelText: emailText,
-                      showPrefixIcon: false,
-                      showSuffixIcon: false,
-                      textEditingController: ctrl.forgetEmailController,
-                      hintText: enterEmailText,
-                      labelTextSize: 14.sp,
-                      validator: (value) {},
-                    ).paddingSymmetric(horizontal: 20.w),
-                  ],
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      16.w.spaceH(),
+                      WithOutTitleAppBar(
+                        suffixWidget: const SizedBox(),
+                        showBackButton: true,
+                        onTap: () {
+                          Get.back();
+                        },
+                      ),
+                      24.w.spaceH(),
+                      forgetPassword
+                          .appSwitzerTextStyle(
+                              fontSize: 32.w,
+                              fontWeight: FontWeight.w600,
+                              textAlign: TextAlign.start)
+                          .paddingSymmetric(horizontal: 20.w),
+                      34.w.spaceH(),
+                      AppTextField(
+                        labelText: emailText,
+                        showPrefixIcon: false,
+                        showSuffixIcon: false,
+                        keyboardType: TextInputType.emailAddress,
+                        textEditingController: ctrl.forgetEmailController,
+                        hintText: enterEmailText,
+                        labelTextSize: 14.sp,
+                        validator: (value) {},
+                      ).paddingSymmetric(horizontal: 20.w),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -23,164 +23,171 @@ class SignUpScreen extends StatelessWidget {
   final AuthController signUpController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(builder: (ctrl) {
-      return Scaffold(
-        body: Stack(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          children: [
-            Container(
-              height: Get.height,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(Assets.imagesBackGroundImage),
-                      fit: BoxFit.fill)),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: SafeArea(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      WithOutTitleAppBar(
-                        suffixWidget: const SizedBox(),
-                        showBackButton: true,
-                        onTap: () {
-                          Get.back();
-                        },
-                      ),
-                      24.w.spaceH(),
-                      setupYourAccountText
-                          .appSwitzerTextStyle(
-                              fontSize: 32.w,
-                              fontWeight: FontWeight.w600,
-                              textAlign: TextAlign.start)
-                          .paddingSymmetric(horizontal: 20.w),
-                      30.w.spaceH(),
-                      ProfileBoxCard(
-                        widget:
-                            ctrl.imageFile == null && ctrl.profileImage.isEmpty
-                                ? SvgPicture.asset(Assets.iconsProfile,
-                                    height: 100.w,
-                                    width: 100.w,
-                                    fit: BoxFit.contain)
-                                : ctrl.imageFile != null
-                                    ? Container(
-                                        height: 100.w,
-                                        width: 100.w,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: FileImage(
-                                                ctrl.imageFile!,
-                                              ),
-                                              fit: BoxFit.cover),
-                                          border: Border.all(
-                                              color: Theme.of(context)
-                                                  .secondaryHeaderColor),
-                                        ),
-                                      )
-                                    : commonCachedNetworkImage(
-                                        imageUrl:
-                                            '${ImageBaseUrl.PROFILEIMAGEURL}${ctrl.profileImage}',
-                                        height: 100.w,
-                                        width: 100.w,
+    return WillPopScope(
+      onWillPop: () {
+        Get.back();
+        return Future.value(false);
+      },
+      child: GetBuilder<AuthController>(builder: (ctrl) {
+        return Scaffold(
+          body: Stack(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            children: [
+              Container(
+                height: Get.height,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(Assets.imagesBackGroundImage),
+                        fit: BoxFit.fill)),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: SafeArea(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        WithOutTitleAppBar(
+                          suffixWidget: const SizedBox(),
+                          showBackButton: true,
+                          onTap: () {
+                            Get.back();
+                          },
+                        ),
+                        24.w.spaceH(),
+                        setupYourAccountText
+                            .appSwitzerTextStyle(
+                                fontSize: 32.w,
+                                fontWeight: FontWeight.w600,
+                                textAlign: TextAlign.start)
+                            .paddingSymmetric(horizontal: 20.w),
+                        30.w.spaceH(),
+                        ProfileBoxCard(
+                          widget: ctrl.imageFile == null &&
+                                  ctrl.profileImage.isEmpty
+                              ? SvgPicture.asset(Assets.iconsProfile,
+                                  height: 100.w,
+                                  width: 100.w,
+                                  fit: BoxFit.contain)
+                              : ctrl.imageFile != null
+                                  ? Container(
+                                      height: 100.w,
+                                      width: 100.w,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: FileImage(
+                                              ctrl.imageFile!,
+                                            ),
+                                            fit: BoxFit.cover),
+                                        border: Border.all(
+                                            color: Theme.of(context)
+                                                .secondaryHeaderColor),
                                       ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            50.w.spaceH(),
-                            BorderButton(
-                              width: 110.w,
-                              title: addStickerText,
-                              onTap: () {
-                                PickFile().openImageChooser(
-                                    context: context,
-                                    onImageChose: (File? newFile) {
-                                      if (newFile != null) {
-                                        ctrl.addImage(newFile);
-                                      }
-                                    });
-                              },
-                            ),
-                            20.w.spaceH(),
-                            AppTextField(
-                              labelText: emailText,
-                              showPrefixIcon: false,
-                              showSuffixIcon: false,
-                              textEditingController: ctrl.emailCon,
-                              hintText: enterEmailText,
-                              labelTextSize: 14.sp,
-                              validator: (value) {},
-                            ),
-                            10.w.spaceH(),
-                            AppTextField(
-                              labelText: phoneNumberText,
-                              showPrefixIcon: false,
-                              showSuffixIcon: false,
-                              labelTextSize: 14.sp,
-                              // maxLength: 10,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: true),
-                              inputFormatter: [
-                                FilteringTextInputFormatter.digitsOnly,
-                                LengthLimitingTextInputFormatter(10),
-                              ],
-                              textEditingController: ctrl.phoneNoCon,
-                              hintText: enterPhoneNumberText,
-                              validator: (value) {},
-                            ),
-                            10.w.spaceH(),
-                            AppTextField(
-                              obscureText: ctrl.isShowPass,
-                              obscuringCharacter: "*",
-                              labelText: passwordText,
-                              suffixIcon: GestureDetector(
+                                    )
+                                  : commonCachedNetworkImage(
+                                      imageUrl:
+                                          '${ImageBaseUrl.PROFILEIMAGEURL}${ctrl.profileImage}',
+                                      height: 100.w,
+                                      width: 100.w,
+                                    ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              50.w.spaceH(),
+                              BorderButton(
+                                width: 110.w,
+                                title: addStickerText,
                                 onTap: () {
-                                  ctrl.isShowPass = !ctrl.isShowPass;
+                                  PickFile().openImageChooser(
+                                      context: context,
+                                      onImageChose: (File? newFile) {
+                                        if (newFile != null) {
+                                          ctrl.addImage(newFile);
+                                        }
+                                      });
                                 },
-                                child: Icon(
-                                    ctrl.isShowPass
-                                        ? Icons.visibility_off_rounded
-                                        : Icons.visibility,
-                                    color: borderPurpleColor,
-                                    size: 20.w),
                               ),
-                              showPrefixIcon: false,
-                              showSuffixIcon: true,
-                              labelTextSize: 14.sp,
-                              textEditingController: ctrl.passwordCon,
-                              hintText: enterPasswordText,
-                              validator: (value) {},
-                            ),
-                          ],
-                        ).paddingSymmetric(vertical: 20.w, horizontal: 20.w),
-                      ),
-                    ],
+                              20.w.spaceH(),
+                              AppTextField(
+                                labelText: emailText,
+                                showPrefixIcon: false,
+                                showSuffixIcon: false,
+                                keyboardType: TextInputType.emailAddress,
+                                textEditingController: ctrl.emailCon,
+                                hintText: enterEmailText,
+                                labelTextSize: 14.sp,
+                                validator: (value) {},
+                              ),
+                              10.w.spaceH(),
+                              AppTextField(
+                                labelText: phoneNumberText,
+                                showPrefixIcon: false,
+                                showSuffixIcon: false,
+                                labelTextSize: 14.sp,
+                                // maxLength: 10,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        signed: true),
+                                inputFormatter: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(10),
+                                ],
+                                textEditingController: ctrl.phoneNoCon,
+                                hintText: enterPhoneNumberText,
+                                validator: (value) {},
+                              ),
+                              10.w.spaceH(),
+                              AppTextField(
+                                obscureText: ctrl.isShowPass,
+                                obscuringCharacter: "*",
+                                labelText: passwordText,
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    ctrl.isShowPass = !ctrl.isShowPass;
+                                  },
+                                  child: Icon(
+                                      ctrl.isShowPass
+                                          ? Icons.visibility_off_rounded
+                                          : Icons.visibility,
+                                      color: borderPurpleColor,
+                                      size: 20.w),
+                                ),
+                                showPrefixIcon: false,
+                                showSuffixIcon: true,
+                                labelTextSize: 14.sp,
+                                textEditingController: ctrl.passwordCon,
+                                hintText: enterPasswordText,
+                                validator: (value) {},
+                              ),
+                            ],
+                          ).paddingSymmetric(vertical: 20.w, horizontal: 20.w),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            MediaQuery.of(context).viewInsets.bottom != 0
-                ? const SizedBox()
-                : Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: RoundAppButton(
-                      title: completeRegistrationText,
-                      onTap: () {
-                        ctrl.userRegistration();
-                      },
-                    ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
-                  ),
-            Obx(() => ctrl.isLoading.value
-                ? const AppProgress()
-                : const SizedBox.shrink())
-          ],
-        ),
-      );
-    });
+              MediaQuery.of(context).viewInsets.bottom != 0
+                  ? const SizedBox()
+                  : Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: RoundAppButton(
+                        title: completeRegistrationText,
+                        onTap: () {
+                          ctrl.userRegistration();
+                        },
+                      ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
+                    ),
+              Obx(() => ctrl.isLoading.value
+                  ? const AppProgress()
+                  : const SizedBox.shrink())
+            ],
+          ),
+        );
+      }),
+    );
   }
 }

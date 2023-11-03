@@ -41,7 +41,9 @@ class EditProfileController extends GetxController {
       if (nameCon.text.isEmpty) {
         showAppSnackBar('Please enter name');
       } else if (phoneNoCon.text.isEmpty) {
-        showAppSnackBar('Please enter phone no.');
+        showAppSnackBar('Please enter phone number.');
+      } else if (phoneNoCon.text.length < 10) {
+        showAppSnackBar('Please enter valid phone number.');
       } else {
         ResponseItem result =
             ResponseItem(data: null, message: errorText.tr, status: false);

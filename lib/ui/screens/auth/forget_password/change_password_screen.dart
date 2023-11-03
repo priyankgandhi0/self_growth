@@ -32,81 +32,85 @@ class ChangePassVerificationScreen extends StatelessWidget {
                       fit: BoxFit.fill)),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    50.w.spaceH(),
-                    WithOutTitleAppBar(
-                      suffixWidget: const SizedBox(),
-                      showBackButton: true,
-                      onTap: () {
-                        Get.back();
-                      },
-                    ),
-                    24.w.spaceH(),
-                    changePassVerification
-                        .appSwitzerTextStyle(
-                            fontSize: 32.w,
-                            fontWeight: FontWeight.w600,
-                            textAlign: TextAlign.start)
-                        .paddingSymmetric(horizontal: 20.w),
-                    34.w.spaceH(),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.w),
-                          color: white_FFFFFF),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppTextField(
-                            labelText: emailText,
-                            showPrefixIcon: false,
-                            showSuffixIcon: false,
-                            textEditingController: ctrl.forgetEmailController,
-                            hintText: enterEmailText,
-                            labelTextSize: 14.sp,
-                            validator: (value) {},
-                          ),
-                          8.w.spaceH(),
-                          AppTextField(
-                            labelText: verificationCodeText,
-                            showPrefixIcon: false,
-                            showSuffixIcon: false,
-                            textEditingController: ctrl.verifyCodeController,
-                            hintText: verificationCodeText,
-                            labelTextSize: 14.sp,
-                            validator: (value) {},
-                          ),
-                          8.w.spaceH(),
-                          AppTextField(
-                            labelText: newPasswordText,
-                            showPrefixIcon: false,
-                            showSuffixIcon: true,
-                            obscuringCharacter: '*',
-                            textEditingController: ctrl.newPasswordController,
-                            hintText: passwordText,
-                            labelTextSize: 14.sp,
-                            obscureText: authController.isShowPass,
-                            validator: (value) {},
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                authController.isShowPass =
-                                    !authController.isShowPass;
-                              },
-                              child: Icon(
-                                  authController.isShowPass
-                                      ? Icons.visibility_off_rounded
-                                      : Icons.visibility,
-                                  color: borderPurpleColor,
-                                  size: 20.w),
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      16.w.spaceH(),
+                      WithOutTitleAppBar(
+                        suffixWidget: const SizedBox(),
+                        showBackButton: true,
+                        onTap: () {
+                          Get.back();
+                        },
+                      ),
+                      24.w.spaceH(),
+                      changePassVerification
+                          .appSwitzerTextStyle(
+                              fontSize: 32.w,
+                              fontWeight: FontWeight.w600,
+                              textAlign: TextAlign.start)
+                          .paddingSymmetric(horizontal: 20.w),
+                      34.w.spaceH(),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.w),
+                            color: white_FFFFFF),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppTextField(
+                              labelText: emailText,
+                              showPrefixIcon: false,
+                              showSuffixIcon: false,
+                              textEditingController: ctrl.forgetEmailController,
+                              hintText: enterEmailText,
+                              labelTextSize: 14.sp,
+                              readOnly: true,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) {},
                             ),
-                          ),
-                        ],
-                      ).paddingSymmetric(vertical: 20.w, horizontal: 20),
-                    ).paddingSymmetric(horizontal: 20.w),
-                    70.w.spaceH(),
-                  ],
+                            8.w.spaceH(),
+                            AppTextField(
+                              labelText: verificationCodeText,
+                              showPrefixIcon: false,
+                              showSuffixIcon: false,
+                              textEditingController: ctrl.verifyCodeController,
+                              hintText: verificationCodeText,
+                              labelTextSize: 14.sp,
+                              validator: (value) {},
+                            ),
+                            8.w.spaceH(),
+                            AppTextField(
+                              labelText: newPasswordText,
+                              showPrefixIcon: false,
+                              showSuffixIcon: true,
+                              obscuringCharacter: '*',
+                              textEditingController: ctrl.newPasswordController,
+                              hintText: passwordText,
+                              labelTextSize: 14.sp,
+                              obscureText: authController.isShowPass,
+                              validator: (value) {},
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  authController.isShowPass =
+                                      !authController.isShowPass;
+                                },
+                                child: Icon(
+                                    authController.isShowPass
+                                        ? Icons.visibility_off_rounded
+                                        : Icons.visibility,
+                                    color: borderPurpleColor,
+                                    size: 20.w),
+                              ),
+                            ),
+                          ],
+                        ).paddingSymmetric(vertical: 20.w, horizontal: 20),
+                      ).paddingSymmetric(horizontal: 20.w),
+                      70.w.spaceH(),
+                    ],
+                  ),
                 ),
               ),
             ),

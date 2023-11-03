@@ -50,6 +50,8 @@ class AuthController extends GetxController {
       showAppSnackBar(verificationCodeNotEmpty);
     } else if (newPasswordController.text.isEmpty) {
       showAppSnackBar(newPasswordNotEmpty);
+    } else if (newPasswordController.text.length < 6) {
+      showAppSnackBar('Password must be at least 6 character.');
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
@@ -168,6 +170,8 @@ class AuthController extends GetxController {
       showAppSnackBar('Please enter valid phone number.');
     } else if (passwordCon.text.isEmpty) {
       showAppSnackBar(passwordNotEmpty);
+    } else if (passwordCon.text.length < 6) {
+      showAppSnackBar('Password must be at least 6 character.');
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;

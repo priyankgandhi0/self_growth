@@ -10,11 +10,11 @@ import 'package:self_growth/ui/screens/profile/profile_screen.dart';
 import 'package:self_growth/ui/widgets/app_loader.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_constant.dart';
+
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/request_const.dart';
 import '../../../../core/utils/app_helper.dart';
-import '../../../../core/utils/preferences.dart';
+
 import '../../../../gen/assets.gen.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/common_widget.dart';
@@ -123,6 +123,7 @@ class EditProfileScreen extends StatelessWidget {
                           const TextInputType.numberWithOptions(signed: true),
                       inputFormatter: [
                         FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(10),
                       ],
                       textEditingController: ctrl.phoneNoCon,
                       hintText: enterPhoneNumberText,

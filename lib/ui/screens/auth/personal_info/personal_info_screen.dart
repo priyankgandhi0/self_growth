@@ -22,124 +22,130 @@ class PersonalInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(builder: (ctrl) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            Container(
-              height: Get.height,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(Assets.imagesBackGroundImage),
-                      fit: BoxFit.fill)),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: SafeArea(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      WithOutTitleAppBar(
-                        suffixWidget: const SizedBox(),
-                        showBackButton: true,
-                        onTap: () {
-                          Get.back();
-                        },
-                      ),
-                      24.w.spaceH(),
-                      personalInformationText
-                          .appSwitzerTextStyle(
-                              fontSize: 32.w,
-                              fontWeight: FontWeight.w600,
-                              textAlign: TextAlign.start)
-                          .paddingSymmetric(horizontal: 20.w),
-                      34.w.spaceH(),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.w),
-                            color: white_FFFFFF),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppTextField(
-                              labelText: nameText,
-                              showPrefixIcon: false,
-                              showSuffixIcon: false,
-                              textEditingController: ctrl.nameCon,
-                              hintText: enterNameText,
-                              labelTextSize: 14.sp,
-                              validator: (value) {},
-                            ),
-                            10.w.spaceH(),
-                            AppTextField(
-                              labelText: ageText,
-                              showPrefixIcon: false,
-                              showSuffixIcon: false,
-                              labelTextSize: 14.sp,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: true),
-                              inputFormatter: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              textEditingController: ctrl.ageCon,
-                              hintText: enterAgeText,
-                              validator: (value) {},
-                            ),
-                            10.w.spaceH(),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: genderText.appSwitzerTextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontColor: borderPurpleColor.withOpacity(.6),
-                                fontSize: 14.sp,
-                                // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
+    return WillPopScope(
+      onWillPop: () {
+        Get.back();
+        return Future.value(false);
+      },
+      child: GetBuilder<AuthController>(builder: (ctrl) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Stack(
+            children: [
+              Container(
+                height: Get.height,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(Assets.imagesBackGroundImage),
+                        fit: BoxFit.fill)),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: SafeArea(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        WithOutTitleAppBar(
+                          suffixWidget: const SizedBox(),
+                          showBackButton: true,
+                          onTap: () {
+                            Get.back();
+                          },
+                        ),
+                        24.w.spaceH(),
+                        personalInformationText
+                            .appSwitzerTextStyle(
+                                fontSize: 32.w,
+                                fontWeight: FontWeight.w600,
+                                textAlign: TextAlign.start)
+                            .paddingSymmetric(horizontal: 20.w),
+                        34.w.spaceH(),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.w),
+                              color: white_FFFFFF),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppTextField(
+                                labelText: nameText,
+                                showPrefixIcon: false,
+                                showSuffixIcon: false,
+                                textEditingController: ctrl.nameCon,
+                                hintText: enterNameText,
+                                labelTextSize: 14.sp,
+                                validator: (value) {},
                               ),
-                            ),
-                            8.w.spaceH(),
-                            AppDropDown(
-                              value: ctrl.gender,
-                              onChanged: (value) {
-                                ctrl.gender = value;
+                              10.w.spaceH(),
+                              AppTextField(
+                                labelText: ageText,
+                                showPrefixIcon: false,
+                                showSuffixIcon: false,
+                                labelTextSize: 14.sp,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        signed: true),
+                                inputFormatter: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                textEditingController: ctrl.ageCon,
+                                hintText: enterAgeText,
+                                validator: (value) {},
+                              ),
+                              10.w.spaceH(),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: genderText.appSwitzerTextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontColor: borderPurpleColor.withOpacity(.6),
+                                  fontSize: 14.sp,
+                                  // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
+                                ),
+                              ),
+                              8.w.spaceH(),
+                              AppDropDown(
+                                value: ctrl.gender,
+                                onChanged: (value) {
+                                  ctrl.gender = value;
 
-                                ctrl.update();
-                              },
-                            ),
-                          ],
-                        ).paddingSymmetric(vertical: 20.w, horizontal: 20),
-                      ).paddingSymmetric(horizontal: 20.w),
-                      70.w.spaceH(),
-                    ],
+                                  ctrl.update();
+                                },
+                              ),
+                            ],
+                          ).paddingSymmetric(vertical: 20.w, horizontal: 20),
+                        ).paddingSymmetric(horizontal: 20.w),
+                        70.w.spaceH(),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: RoundAppButton(
-                title: nextText,
-                onTap: () {
-                  if (ctrl.nameCon.text.isEmpty) {
-                    showAppSnackBar(nameNotEmpty);
-                  } else if (ctrl.ageCon.text.isEmpty) {
-                    showAppSnackBar(ageNotEmpty);
-                  } else if (ctrl.ageCon.text.length > 3) {
-                    showAppSnackBar('Please enter valid age.');
-                  } else if (ctrl.gender == null) {
-                    showAppSnackBar('Please select gender.');
-                  } else {
-                    Get.toNamed(Routes.signUpScreen);
-                  }
-                  log("ctrl.gender ----> ${ctrl.gender}");
-                },
-              ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
-            ),
-          ],
-        ),
-      );
-    });
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: RoundAppButton(
+                  title: nextText,
+                  onTap: () {
+                    if (ctrl.nameCon.text.isEmpty) {
+                      showAppSnackBar(nameNotEmpty);
+                    } else if (ctrl.ageCon.text.isEmpty) {
+                      showAppSnackBar(ageNotEmpty);
+                    } else if (ctrl.ageCon.text.length > 3) {
+                      showAppSnackBar('Please enter valid age.');
+                    } else if (ctrl.gender == null) {
+                      showAppSnackBar('Please select gender.');
+                    } else {
+                      Get.toNamed(Routes.signUpScreen);
+                    }
+                    log("ctrl.gender ----> ${ctrl.gender}");
+                  },
+                ).paddingOnly(left: 46.w, right: 46.w, bottom: 36.w),
+              ),
+            ],
+          ),
+        );
+      }),
+    );
   }
 }

@@ -24,162 +24,173 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<OnBoardingController>(builder: (ctrl) {
-      return Stack(
-        children: [
-          Scaffold(
-            floatingActionButton: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                RoundAppButton(
-                  title: getStartedText,
-                  onTap: () {
-                    if (ctrl.initialPage == 2) {
-                      Get.toNamed(Routes.personalInfoScreen);
-                    } else {
-                      ctrl.pageController.animateToPage(
-                        ctrl.initialPage + 1,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.linear,
-                      );
-                    }
-                  },
-                ).paddingOnly(left: 24.w, right: 24.w, bottom: 16.w),
-                /*ctrl.initialPage == 0
-                    ? */
-                RoundGradientAppButton(
-                  title: loginText,
-                  textColor: borderPurpleColor,
-                  onTap: () {
-                    appCustomBottomSheet(
-                        context: context,
-                        child: LoginPopup(
-                          onLogin: () {
-                            authController.userLogin();
-                          },
-                          onForgotPassword: () {
-                            Get.toNamed(Routes.forgetPasswordScreen);
-                          },
-                        ));
-                  },
-                ).paddingSymmetric(horizontal: 24.w)
-                /*: RoundAppButton(
-                        title: nextText,
-                        textColor: borderPurpleColor,
-                        onTap: () {
-                          if (ctrl.initialPage != 0) {
-                            if (ctrl.initialPage == 2) {
-                              Get.toNamed(Routes.personalInfoScreen);
-                            } else {
-                              ctrl.pageController.animateToPage(
-                                ctrl.initialPage + 1,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.linear,
-                              );
-                            }
-                          }
-                        },
-                      ).paddingSymmetric(horizontal: 46.w),*/
-              ],
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            body: SingleChildScrollView(
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    WithOutTitleAppBar(
-                      onTap: () {
+    return WillPopScope(
+      onWillPop: () {
+        onBoardingController.pageController.animateToPage(
+          onBoardingController.initialPage - 1,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.linear,
+        );
+        // onBoardingController.update();
+        return Future.value(false);
+      },
+      child: GetBuilder<OnBoardingController>(builder: (ctrl) {
+        return Stack(
+          children: [
+            Scaffold(
+              floatingActionButton: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  RoundAppButton(
+                    title: getStartedText,
+                    onTap: () {
+                      if (ctrl.initialPage == 2) {
+                        Get.toNamed(Routes.personalInfoScreen);
+                      } else {
                         ctrl.pageController.animateToPage(
-                          ctrl.initialPage - 1,
+                          ctrl.initialPage + 1,
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.linear,
                         );
-                        ctrl.update();
-                      },
-                      showBackButton: ctrl.initialPage != 0,
-                      suffixWidget: BorderButton(
-                        title: englishText,
-                        buttonColor: Colors.transparent,
-                        width: 80.w,
-                        onTap: () {},
-                      ),
-                    ).paddingOnly(top: 7.w),
-                    60.w.spaceH(),
-                    Stack(
-                      children: [
-                        SizedBox(
-                          height: Get.height,
-                          child: PageView(
-                            onPageChanged: (value) {
-                              FocusManager.instance.primaryFocus?.unfocus();
-                              ctrl.initialPage = value;
+                      }
+                    },
+                  ).paddingOnly(left: 24.w, right: 24.w, bottom: 16.w),
+                  /*ctrl.initialPage == 0
+                      ? */
+                  RoundGradientAppButton(
+                    title: loginText,
+                    textColor: borderPurpleColor,
+                    onTap: () {
+                      appCustomBottomSheet(
+                          context: context,
+                          child: LoginPopup(
+                            onLogin: () {
+                              authController.userLogin();
                             },
-                            controller: ctrl.pageController,
-                            children: <Widget>[
-                              PageViewCard(
-                                  ctrl: ctrl,
-                                  image: Assets.images.onBording1.image(
-                                      fit: BoxFit.contain,
-                                      height: 240.w,
-                                      width: 240.w),
-                                  title: 'Learn',
-                                  subTitle:
-                                      'Working on thinking traps is the first step of the mental well-being journey.',
-                                  subTitle1:
-                                      'Seral offers you a Personalized education for your mind to understand your thinking-frame.'),
-                              PageViewCard(
-                                  ctrl: ctrl,
-                                  image: Assets.images.onBording2.image(
-                                      fit: BoxFit.contain,
-                                      height: 240.w,
-                                      width: 240.w),
-                                  title: 'Control',
-                                  subTitle: secondScreenText,
-                                  subTitle1:
-                                      'Seral Challenge and change your thinking patterns by providing you with advanced tools.'),
-                              PageViewCard(
-                                  ctrl: ctrl,
-                                  image: Assets.images.onBording3.image(
-                                      fit: BoxFit.contain,
-                                      height: 240.w,
-                                      width: 240.w),
-                                  title: 'Track',
-                                  subTitle1: '',
-                                  subTitle: thirdScreenText)
-                            ],
-                          ),
+                            onForgotPassword: () {
+                              Get.toNamed(Routes.forgetPasswordScreen);
+                            },
+                          ));
+                    },
+                  ).paddingSymmetric(horizontal: 24.w)
+                  /*: RoundAppButton(
+                          title: nextText,
+                          textColor: borderPurpleColor,
+                          onTap: () {
+                            if (ctrl.initialPage != 0) {
+                              if (ctrl.initialPage == 2) {
+                                Get.toNamed(Routes.personalInfoScreen);
+                              } else {
+                                ctrl.pageController.animateToPage(
+                                  ctrl.initialPage + 1,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.linear,
+                                );
+                              }
+                            }
+                          },
+                        ).paddingSymmetric(horizontal: 46.w),*/
+                ],
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerFloat,
+              body: SingleChildScrollView(
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      WithOutTitleAppBar(
+                        onTap: () {
+                          ctrl.pageController.animateToPage(
+                            ctrl.initialPage - 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.linear,
+                          );
+                          ctrl.update();
+                        },
+                        showBackButton: ctrl.initialPage != 0,
+                        suffixWidget: BorderButton(
+                          title: englishText,
+                          buttonColor: Colors.transparent,
+                          width: 80.w,
+                          onTap: () {},
                         ),
-                        Positioned(
-                          top: 270.w,
-                          left: 0,
-                          right: 0,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(
-                                  3,
-                                  (index) => CircleAvatar(
-                                        radius: 4.r,
-                                        backgroundColor:
-                                            ctrl.initialPage == index
-                                                ? borderPurpleColor
-                                                : doteColor,
-                                      ).paddingSymmetric(horizontal: 2.w)),
+                      ).paddingOnly(top: 7.w),
+                      60.w.spaceH(),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            height: Get.height,
+                            child: PageView(
+                              onPageChanged: (value) {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                ctrl.initialPage = value;
+                              },
+                              controller: ctrl.pageController,
+                              children: <Widget>[
+                                PageViewCard(
+                                    ctrl: ctrl,
+                                    image: Assets.images.onBording1.image(
+                                        fit: BoxFit.contain,
+                                        height: 240.w,
+                                        width: 240.w),
+                                    title: 'Learn',
+                                    subTitle:
+                                        'Working on thinking traps is the first step of the mental well-being journey.',
+                                    subTitle1:
+                                        'Seral offers you a Personalized education for your mind to understand your thinking-frame.'),
+                                PageViewCard(
+                                    ctrl: ctrl,
+                                    image: Assets.images.onBording2.image(
+                                        fit: BoxFit.contain,
+                                        height: 240.w,
+                                        width: 240.w),
+                                    title: 'Control',
+                                    subTitle: secondScreenText,
+                                    subTitle1:
+                                        'Seral Challenge and change your thinking patterns by providing you with advanced tools.'),
+                                PageViewCard(
+                                    ctrl: ctrl,
+                                    image: Assets.images.onBording3.image(
+                                        fit: BoxFit.contain,
+                                        height: 240.w,
+                                        width: 240.w),
+                                    title: 'Track',
+                                    subTitle1: '',
+                                    subTitle: thirdScreenText)
+                              ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          Positioned(
+                            top: 270.w,
+                            left: 0,
+                            right: 0,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: List.generate(
+                                    3,
+                                    (index) => CircleAvatar(
+                                          radius: 4.r,
+                                          backgroundColor:
+                                              ctrl.initialPage == index
+                                                  ? borderPurpleColor
+                                                  : doteColor,
+                                        ).paddingSymmetric(horizontal: 2.w)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      }),
+    );
   }
 }
 

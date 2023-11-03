@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
-import 'package:self_growth/core/utils/extentions.dart';
+
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
@@ -18,59 +18,66 @@ class BottomNavigationScreen extends StatelessWidget {
       Get.put(BottomBarController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BottomBarController>(builder: (ctrl) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        // backgroundColor: background_EBEBEB,
-        floatingActionButton: Visibility(
-            visible: ctrl.isSelectedTab == 4 && bottomBarController.isOpen,
-            child: Assets.icons.floatButton.svg().paddingOnly(bottom: 80.w)),
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: GetBuilder<BottomBarController>(builder: (ctrl) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          // backgroundColor: background_EBEBEB,
+          floatingActionButton: Visibility(
+              visible: ctrl.isSelectedTab == 4 && bottomBarController.isOpen,
+              child: Assets.icons.floatButton.svg().paddingOnly(bottom: 80.w)),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniEndFloat,
 
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Container(
-                  height: Get.height,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(Assets.images.backGroundImage.path),
-                          fit: BoxFit.fill)),
-                  child: SafeArea(
-                    child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      children: [
-                        ctrl.tab ?? HomeScreen(),
-                      ],
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    height: Get.height,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image:
+                                AssetImage(Assets.images.backGroundImage.path),
+                            fit: BoxFit.fill)),
+                    child: SafeArea(
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        children: [
+                          ctrl.tab ?? HomeScreen(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Visibility(
-                  visible: ctrl.isOpenDialog,
-                  child: OpenBottomDialog(
-                    context: context,
-                    onTap: () {
-                      ctrl.isOpenDialog = false;
-                      ctrl.update();
-                    },
-                    child: ctrl.isOpenHomeDialog == 0
-                        ? const AddButtonCard()
-                        : ctrl.isOpenHomeDialog == 1
-                            ? const QuitHabitDialog()
-                            : const SizedBox(),
+                  Visibility(
+                    visible: ctrl.isOpenDialog,
+                    child: OpenBottomDialog(
+                      context: context,
+                      onTap: () {
+                        ctrl.isOpenDialog = false;
+                        ctrl.update();
+                      },
+                      child: ctrl.isOpenHomeDialog == 0
+                          ? const AddButtonCard()
+                          : ctrl.isOpenHomeDialog == 1
+                              ? const QuitHabitDialog()
+                              : const SizedBox(),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            bottomBarWidget(ctrl, context),
-          ],
-        ),
-      );
-    });
+                ],
+              ),
+              bottomBarWidget(ctrl, context),
+            ],
+          ),
+        );
+      }),
+    );
   }
 
   Container bottomBarWidget(BottomBarController ctrl, BuildContext context) {

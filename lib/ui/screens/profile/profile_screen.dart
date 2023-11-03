@@ -9,7 +9,6 @@ import 'package:self_growth/core/utils/preferences.dart';
 import 'package:self_growth/gen/assets.gen.dart';
 import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
-import 'package:self_growth/ui/widgets/app_snack_bar.dart';
 
 import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/request_const.dart';
