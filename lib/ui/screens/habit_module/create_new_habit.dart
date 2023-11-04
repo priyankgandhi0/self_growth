@@ -56,6 +56,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                         8.w.spaceH(),
                         AppTextField(
                           labelText: 'Habit name',
+                          textEditingController: ctrl.habitNameCon,
                           hintText: "Enter Habit Name",
                           validator: (value) {},
                         ),
@@ -241,9 +242,18 @@ class CreateNewHabitScreen extends StatelessWidget {
                           ],
                         ).paddingOnly(bottom: 12),
                         16.h.spaceH(),
-                        const AppTextField(
+                        AppTextField(
+                          readOnly: true,
                           labelText: 'Time',
                           hintText: 'Select Time',
+                          textEditingController:
+                              TextEditingController(text: ctrl.startTime),
+                          onTap: () {
+                            pickedTime(context).then((value) {
+                              ctrl.startTime = value.format(context).toString();
+                              ctrl.update();
+                            });
+                          },
                         ),
                         16.h.spaceH(),
                         const AppTextField(
@@ -531,7 +541,7 @@ class IconCard extends StatelessWidget {
                         textAlign: TextAlign.center,
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500)
-                    .paddingOnly(left: 2.w)),
+                    .paddingOnly(left: 1.w)),
       ),
     );
   }

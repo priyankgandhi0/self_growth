@@ -58,4 +58,7 @@ class ApiEndPoint {
   static const editProfile = "editProfile";
   static const logout = "logout";
   static const changePassword = "resetPassword";
+
+  ///HABIT MODULE
+  static const addHabit = "addHabit";
 }

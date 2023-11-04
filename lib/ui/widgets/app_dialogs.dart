@@ -291,6 +291,36 @@ class CustomDialog extends StatelessWidget {
   }
 }
 
+Future<TimeOfDay> pickedTime(BuildContext context) async {
+  TimeOfDay? pickedTime = await showTimePicker(
+    initialTime: TimeOfDay.now(),
+    builder: (context, child) {
+      return Theme(
+        data: Theme.of(context).copyWith(
+          shadowColor: Colors.transparent,
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              textStyle: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400,
+                  color: borderPurpleColor,
+                  fontFamily: 'Switzer'),
+              foregroundColor: Colors.black,
+            ),
+          ),
+        ),
+        child: child!,
+      );
+    },
+    context: context,
+  );
+  if (pickedTime != null) {
+  } else {
+    debugPrint("Time is not selected");
+  }
+  return pickedTime!;
+}
+
 void openColorPickerDialog(
     {String title = '',
     required Widget content,

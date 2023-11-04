@@ -39,6 +39,7 @@ class AppTextField extends StatefulWidget {
 
   final Function(String value)? onChanged;
   final Function(String value)? validator;
+  final Function()? onTap;
 
   const AppTextField(
       {Key? key,
@@ -67,7 +68,8 @@ class AppTextField extends StatefulWidget {
       this.suffixIconWidth = 24,
       this.hintText = '',
       this.obscuringCharacter = '.',
-      this.readOnly})
+      this.readOnly,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -118,6 +120,7 @@ class _AppTextFieldState extends State<AppTextField> {
         SizedBox(
           height: 47.w,
           child: TextFormField(
+            onTap: widget.onTap,
             maxLength: widget.maxLength,
             scrollPadding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).viewInsets.bottom),
