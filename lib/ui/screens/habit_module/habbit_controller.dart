@@ -12,6 +12,7 @@ class HabitController extends GetxController
   TextEditingController habitNameCon = TextEditingController();
   bool isRemind = false;
   String startTime = '';
+
   bool isShowBadge = false;
   bool isShowGoal = false;
   int isHabitTypeBuild = 0;
@@ -25,6 +26,21 @@ class HabitController extends GetxController
     super.onInit();
   }
 
+  int valuePerTap = 1;
+  addFunction() {
+    valuePerTap++;
+    update();
+  }
+
+  removeFunction() {
+    if (valuePerTap == 1) {
+    } else {
+      valuePerTap--;
+    }
+
+    update();
+  }
+
   List<int> iconSelectedList = [0];
   List<Color?> colorList = [];
   Color? tempMainColor;
@@ -33,6 +49,8 @@ class HabitController extends GetxController
   addHabit() async {
     if (habitNameCon.text.isEmpty) {
       showAppSnackBar('Habit name must be required.');
+    } else if (iconList.isEmpty) {
+      showAppSnackBar('Icon must be required.');
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
@@ -41,6 +59,7 @@ class HabitController extends GetxController
       result = await HabitRepo.addHabit(
           habitName: habitNameCon.text,
           icon: iconList[0],
+          iconColor: colorList.isNotEmpty ? colorList[0].toString() : "",
           isReminderOn: isRemind ? 1 : 0,
           logActivityUsing: isLogActivity,
           showBudge: isShowBadge ? 1 : 0,
@@ -48,6 +67,7 @@ class HabitController extends GetxController
       try {
         if (result.status) {
           isLoading.value = false;
+          Get.back();
           showAppSnackBar(result.message, status: true);
         } else {
           isLoading.value = false;

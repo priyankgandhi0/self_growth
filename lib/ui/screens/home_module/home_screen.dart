@@ -8,10 +8,12 @@ import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
 import 'package:self_growth/ui/screens/home_module/home_controller.dart';
+import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../core/utils/app_helper.dart';
 import '../../../gen/assets.gen.dart';
 import '../self_discovery/discover_screen.dart';
 
@@ -59,13 +61,37 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                NoteCommonCard(
-                  image: Assets.icons.edit.path,
-                  title: 'Note title',
-                  time: '7:00 AM ·',
-                  chipTitleColor: doteColor,
-                  notes: 'This is some text',
-                ),
+                DateTime.now().day == DateTime.now().day
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          'How did you feel today?'.appSwitzerTextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 17.sp),
+                          5.w.spaceH(),
+                          'Log your mood to get insight'.appSwitzerTextStyle(
+                              fontColor: doteColor, fontSize: 14.sp),
+                          20.w.spaceH(),
+                          RoundAppButton(
+                            width: 128.w,
+                            height: 34.w,
+                            title: 'Log your mood',
+                            onTap: () {
+                              bottomBarController.isOpenDialog = true;
+                              bottomBarController.isOpenHomeDialog = 0;
+                              // bottomBarController.isSelectedTab = 1;
+                              // bottomBarController.changeTab(BottomNavEnum.home);
+                              bottomBarController.update();
+                            },
+                          )
+                        ],
+                      ).paddingAll(20.w)
+                    : NoteCommonCard(
+                        image: Assets.icons.edit.path,
+                        title: 'Note title',
+                        time: '7:00 AM ·',
+                        chipTitleColor: doteColor,
+                        notes: 'This is some text',
+                      ),
                 GestureDetector(
                   onTap: () {
                     Get.toNamed(Routes.noteHistoryScreen);

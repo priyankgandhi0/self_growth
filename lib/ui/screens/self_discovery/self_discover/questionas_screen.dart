@@ -9,7 +9,9 @@ import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discovery_con.dart';
 
+import '../../../../config/routes/router.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/utils/preferences.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/common_widget.dart';
 
@@ -97,7 +99,8 @@ class QuestionTwoScreen extends StatelessWidget {
 class QuestionThirdScreen extends StatelessWidget {
   QuestionThirdScreen({Key? key, required this.ctrl}) : super(key: key);
   final SelfDiscoveryCon ctrl;
-  final BottomBarController bottomBarController = Get.find();
+  final BottomBarController bottomBarController =
+      Get.put(BottomBarController());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -190,13 +193,17 @@ class QuestionThirdScreen extends StatelessWidget {
                     itemCount: ctrl.thirdQueModelList.length)
               ],
             ).paddingAll(20.w),
-          ).paddingOnly(
-            left: 20.w,
-            right: 20.w,
-            top: 32.w,
+          ).paddingOnly(left: 20.w, right: 20.w, top: 32.w, bottom: 20.w),
+          Visibility(
+            visible: (preferences.getBool(SharedPreference.IS_FILL_QUE) ==
+                    null ||
+                !(preferences.getBool(SharedPreference.IS_FILL_QUE) ?? true)),
+            child: RoundAppButton(
+                title: reviewSuggestedPlan,
+                onTap: () {
+                  Get.toNamed(Routes.subscriptionScreen);
+                }).paddingSymmetric(horizontal: 32.w, vertical: 20.w),
           ),
-          RoundAppButton(title: reviewSuggestedPlan, onTap: () {})
-              .paddingSymmetric(horizontal: 32.w, vertical: 20.w),
           BorderButton(
             title: backHomepage,
             onTap: () {
@@ -229,19 +236,37 @@ class QuestionOneScreen extends StatelessWidget {
         80.w.spaceH(),
         Align(
           alignment: Alignment.center,
-          child: 'How have you been lately?'.appSwitzerTextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w700,
-              textAlign: TextAlign.center),
+          child: (ctrl.questionList[ctrl.index])
+              .appSwitzerTextStyle(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  textAlign: TextAlign.center)
+              .paddingSymmetric(horizontal: 20.w),
         ),
-        10.w.spaceH(),
+        15.w.spaceH(),
         ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return FirstQueCard(
-                icon: ctrl.firstQueIconList[index],
-                title: ctrl.firstQueList[index],
+                isSelected: ctrl.selectedAns ==
+                    ThirdQueModel(
+                        value: ctrl.firstQueList[index].value,
+                        title: ctrl.questionList[ctrl.index]),
+                onTap: () {
+                  // ctrl.selectedAnsIndex.add(index);
+                  ctrl.selectedAns = ThirdQueModel(
+                      value: ctrl.firstQueList[index].value,
+                      title: ctrl.questionList[ctrl.index]);
+                  if (ctrl.index < 19 && ctrl.index > 0) {
+                    ctrl.index++;
+                  } else {
+                    ctrl.isQueAns = 1;
+                  }
+                  ctrl.update();
+                },
+                icon: ctrl.firstQueList[index].value,
+                title: ctrl.firstQueList[index].title,
               ).paddingSymmetric(horizontal: 20.w);
             },
             separatorBuilder: (context, index) {

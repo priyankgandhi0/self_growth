@@ -98,7 +98,7 @@ class Routes {
         transition: Transition.downToUp),
     GetPage(
         name: addPhotoScreen,
-        page: () => const AddPhotoScreen(),
+        page: () => AddPhotoScreen(),
         transition: Transition.downToUp),
     GetPage(
       name: firstQuestionScreen,

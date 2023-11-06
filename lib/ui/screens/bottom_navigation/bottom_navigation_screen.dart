@@ -10,6 +10,7 @@ import '../../../config/routes/router.dart';
 import '../../../core/utils/app_helper.dart';
 import '../../../gen/assets.gen.dart';
 import '../../widgets/app_dialogs.dart';
+import '../../widgets/file_picker_utils.dart';
 import '../home_module/home_screen.dart';
 
 class BottomNavigationScreen extends StatelessWidget {
@@ -67,7 +68,9 @@ class BottomNavigationScreen extends StatelessWidget {
                           ? const AddButtonCard()
                           : ctrl.isOpenHomeDialog == 1
                               ? const QuitHabitDialog()
-                              : const SizedBox(),
+                              : ctrl.isOpenHomeDialog == 2
+                                  ? const AddPhotoDialog()
+                                  : const SizedBox(),
                     ),
                   ),
                 ],
@@ -121,10 +124,10 @@ class BottomNavigationScreen extends StatelessWidget {
             widget: Assets.icons.menu.svg(),
             color: ctrl.isSelectedTab == 2 ? borderPurpleColor : doteColor,
             onTap: () {
-              ctrl.isOpenDialog = true;
-              ctrl.isOpenHomeDialog = 0;
-              ctrl.isSelectedTab = 1;
-              ctrl.changeTab(BottomNavEnum.home);
+              // ctrl.isOpenDialog = true;
+              // ctrl.isOpenHomeDialog = 0;
+              // ctrl.isSelectedTab = 1;
+              // ctrl.changeTab(BottomNavEnum.home);
 
               /* openBottomDialogBox(
                   padding: 400.w,
@@ -222,9 +225,9 @@ class AddButtonCard extends StatelessWidget {
               image: Assets.icons.addPhoto.path,
               height: 32.w,
               onTap: () {
-                ctrl.isOpenDialog = false;
+                ctrl.isOpenDialog = true;
+                ctrl.isOpenHomeDialog = 2;
                 ctrl.update();
-                Get.toNamed(Routes.addPhotoScreen);
               },
               title: 'Add Photo'),
         ],
@@ -251,5 +254,55 @@ class QuitHabitDialog extends StatelessWidget {
             title: 'Delete habit')
       ],
     );
+  }
+}
+
+class AddPhotoDialog extends StatelessWidget {
+  const AddPhotoDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<BottomBarController>(builder: (ctrl) {
+      return Column(
+        children: [
+          ProfileDataCard(
+            image: Assets.icons.camera.path,
+            height: 32.w,
+            title: 'Take Photo',
+            onTap: () {
+              PickFile().imageFromCamera(
+                  context: context,
+                  onImageChose: (image) {
+                    ctrl.isOpenDialog = false;
+                    ctrl.update();
+                    Get.toNamed(Routes.addPhotoScreen,
+                        arguments: {"data": image});
+                  });
+              // Navigator.pop(context);
+            },
+          ),
+          const CommonDivider().paddingSymmetric(vertical: 8.w),
+          ProfileDataCard(
+            image: Assets.icons.addPhoto.path,
+            height: 32.w,
+            title: 'Open Gallery',
+            onTap: () {
+              ctrl.isOpenDialog = false;
+              ctrl.update();
+
+              PickFile().imageFormGallery(
+                  context: context,
+                  onImageChose: (image) {
+                    ctrl.isOpenDialog = false;
+                    ctrl.update();
+                    Get.toNamed(Routes.addPhotoScreen,
+                        arguments: {"data": image});
+                  });
+              // Navigator.pop(context);
+            },
+          ),
+        ],
+      );
+    });
   }
 }

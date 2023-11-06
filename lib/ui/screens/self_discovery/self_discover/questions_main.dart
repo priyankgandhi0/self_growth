@@ -8,19 +8,36 @@ import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discove
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '../../../../gen/assets.gen.dart';
 
-class FirstQuestionScreen extends StatelessWidget {
+class FirstQuestionScreen extends StatefulWidget {
   FirstQuestionScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FirstQuestionScreen> createState() => _FirstQuestionScreenState();
+}
+
+class _FirstQuestionScreenState extends State<FirstQuestionScreen> {
   final SelfDiscoveryCon selfDiscoveryCon = Get.put(SelfDiscoveryCon());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      selfDiscoveryCon.index = 1;
+      selfDiscoveryCon.isQueAns = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SelfDiscoveryCon>(builder: (ctrl) {
       return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        /* floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Visibility(
           visible: ctrl.isQueAns == 0,
           child: GestureDetector(
             onTap: () {
-              ctrl.isQueAns = 1;
+
+              ctrl.update();
             },
             // splashFactory: NoSplash.splashFactory,
             child: Row(
@@ -37,7 +54,7 @@ class FirstQuestionScreen extends StatelessWidget {
               ],
             ),
           ).paddingOnly(right: 20.w, bottom: 24.w),
-        ),
+        ),*/
         backgroundColor: background_EBEBEB,
         body: Container(
           height: Get.height,
@@ -56,13 +73,18 @@ class FirstQuestionScreen extends StatelessWidget {
                       InkWell(
                         splashFactory: NoSplash.splashFactory,
                         onTap: () {
-                          if (ctrl.isQueAns == 0) {
-                            Get.back();
-                          } else if (ctrl.isQueAns == 1) {
+                          if (ctrl.isQueAns == 1) {
                             ctrl.isQueAns = 0;
-                          } else {
+                          } else if (ctrl.isQueAns == 2) {
                             ctrl.isQueAns = 1;
+                          } else {
+                            if (ctrl.index != 1) {
+                              ctrl.index--;
+                            } else {
+                              Get.back();
+                            }
                           }
+                          ctrl.update();
                         },
                         child: Assets.icons.backArrow
                             .svg()
@@ -74,12 +96,8 @@ class FirstQuestionScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.r),
                           child: StepProgressIndicator(
-                            totalSteps: 15,
-                            currentStep: ctrl.isQueAns == 0
-                                ? 1
-                                : ctrl.isQueAns == 1
-                                    ? 6
-                                    : 15,
+                            totalSteps: 19,
+                            currentStep: ctrl.index,
                             customStep: (index, color, size) {
                               return Container(
                                 color: doteColor,
@@ -88,14 +106,10 @@ class FirstQuestionScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       color: color,
                                       borderRadius: BorderRadius.horizontal(
-                                          right: Radius.circular((index == 5 &&
-                                                      ctrl.isQueAns == 1) ||
-                                                  (index == 0 &&
-                                                      ctrl.isQueAns == 0) ||
-                                                  (index == 14 &&
-                                                      ctrl.isQueAns == 2)
-                                              ? 10.r
-                                              : 0))),
+                                          right: Radius.circular(
+                                              (index == ctrl.index - 1)
+                                                  ? 10.r
+                                                  : 0))),
                                 ),
                               );
                             },
@@ -109,11 +123,10 @@ class FirstQuestionScreen extends StatelessWidget {
                         ),
                       ),
                       10.w.spaceW(),
-                      '${ctrl.isQueAns == 0 ? "1" : '6'}/15'
-                          .appSwitzerTextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.sp,
-                              fontColor: borderPurpleColor),
+                      '${ctrl.index}/19'.appSwitzerTextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          fontColor: borderPurpleColor),
                     ],
                   ),
                   Align(

@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/core/utils/preferences.dart';
 import 'package:self_growth/ui/screens/profile/subscription/subscription_con.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
 
+import '../../../../config/routes/router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../gen/assets.gen.dart';
@@ -92,8 +96,20 @@ class SubscriptionScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  RoundAppButton(title: 'Start 7 days free trial', onTap: () {})
-                      .paddingSymmetric(horizontal: 46.w),
+                  RoundAppButton(
+                      title: 'Start 7 days free trial',
+                      onTap: () {
+                        log('kewfkw  ${preferences.getBool(SharedPreference.IS_FILL_QUE)}');
+                        if ((preferences
+                                    .getBool(SharedPreference.IS_FILL_QUE) ==
+                                null ||
+                            !(preferences
+                                    .getBool(SharedPreference.IS_FILL_QUE) ??
+                                true))) {
+                          Get.toNamed(Routes.bottomNavigationScreen);
+                        }
+                        preferences.putBool(SharedPreference.IS_FILL_QUE, true);
+                      }).paddingSymmetric(horizontal: 46.w),
                   10.w.spaceH(),
                   noCommitText.appSwitzerTextStyle(
                       fontWeight: FontWeight.w400, fontSize: 14.sp),

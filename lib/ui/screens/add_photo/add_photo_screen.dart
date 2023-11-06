@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,8 +15,8 @@ import '../../widgets/file_picker_utils.dart';
 import '../home_module/mood_cheking/mood_checking_screen.dart';
 
 class AddPhotoScreen extends StatelessWidget {
-  const AddPhotoScreen({Key? key}) : super(key: key);
-
+  AddPhotoScreen({Key? key}) : super(key: key);
+  File image = Get.arguments["data"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,9 +64,10 @@ class AddPhotoScreen extends StatelessWidget {
                             AddImageCard(
                               height: 271.w,
                               padding: 20.w,
+                              widget: Image.file(image, fit: BoxFit.cover),
                               onTap: () {
-                                PickFile().openImageChooser(
-                                    context: context, onImageChose: () {});
+                                // PickFile().openImageChooser(
+                                //     context: context, onImageChose: () {});
                               },
                             ),
                             10.w.spaceH(),

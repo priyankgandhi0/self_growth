@@ -201,8 +201,9 @@ class AuthController extends GetxController {
           if (result.data != null) {
             UserModel userModel = UserModel.fromJson(result.toJson());
             preferences.saveUserItem(userModel.data);
+
             isLoading.value = false;
-            Get.toNamed(Routes.bottomNavigationScreen);
+            Get.toNamed(Routes.selfDiscoverScreen);
           }
         } else {
           isLoading.value = false;

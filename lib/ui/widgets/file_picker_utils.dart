@@ -26,7 +26,7 @@ class PickFile {
             height: 32.w,
             title: 'Take Photo',
             onTap: () {
-              _imageFromCamera(context: context, onImageChose: onImageChose);
+              imageFromCamera(context: context, onImageChose: onImageChose);
               Navigator.pop(context);
             },
           ),
@@ -36,7 +36,7 @@ class PickFile {
             height: 32.w,
             title: 'Open Gallery',
             onTap: () {
-              _imageFormGallery(context: context, onImageChose: onImageChose);
+              imageFormGallery(context: context, onImageChose: onImageChose);
               Navigator.pop(context);
             },
           ),
@@ -112,7 +112,7 @@ class PickFile {
           );*/
   }
 
-  void _imageFormGallery(
+  void imageFormGallery(
       {required BuildContext context, required Function onImageChose}) async {
     var status = await Permission.storage.request();
     if (status.isGranted) {
@@ -160,7 +160,7 @@ class PickFile {
     }
   }
 
-  void _imageFromCamera(
+  void imageFromCamera(
       {required BuildContext context, required Function onImageChose}) async {
     // var status = await Permission.camera.request();
     // if (status.isGranted) {

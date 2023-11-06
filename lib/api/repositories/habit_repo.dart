@@ -40,7 +40,109 @@ class HabitRepo {
     var queryParameters = {RequestParam.service: ApiEndPoint.addHabit};
     String queryString = Uri(queryParameters: queryParameters).query;
     String requestUrl = BaseUrl.URL + queryString;
-    result = await BaseApiHelper.postRequest(requestUrl, params, false);
+    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> moodChecking({
+    required String feeling,
+    required String unhappyReason,
+    required String howAreYouFeeling,
+  }) async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+    Map<String, dynamic> params = {
+      "feeling": feeling, // Unhappy, Normal, Happy
+      "unhappy_reason": unhappyReason,
+      "how_are_you_feeling": howAreYouFeeling
+    };
+    var queryParameters = {RequestParam.service: ApiEndPoint.moodChecking};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> getFeelingList() async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+
+    var queryParameters = {RequestParam.service: ApiEndPoint.getFeelingList};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.getRequest(
+        requestUrl, requestHeader(passAuth: true));
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> getActivityList() async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+
+    var queryParameters = {RequestParam.service: ApiEndPoint.getActivityList};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.getRequest(
+        requestUrl, requestHeader(passAuth: true));
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> addActivity(
+      {required String name, required String icon}) async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+    Map<String, dynamic> params = {"name": name, "icon": icon};
+    var queryParameters = {RequestParam.service: ApiEndPoint.addActivity};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> addFeeling(
+      {required String name, required String icon}) async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+    Map<String, dynamic> params = {"name": name, "icon": icon};
+    var queryParameters = {RequestParam.service: ApiEndPoint.addFeeling};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.postRequest(requestUrl, params, true);
 
     status = result.status;
 

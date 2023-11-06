@@ -61,4 +61,11 @@ class ApiEndPoint {
 
   ///HABIT MODULE
   static const addHabit = "addHabit";
+
+  ///MOOD CHECKING
+  static const moodChecking = "moodCheckin";
+  static const getFeelingList = "getFeelingList";
+  static const getActivityList = "getActivityList";
+  static const addActivity = "addActivity";
+  static const addFeeling = "addFeeling";
 }

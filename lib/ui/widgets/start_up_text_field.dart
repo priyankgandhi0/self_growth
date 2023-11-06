@@ -34,6 +34,7 @@ class AppTextField extends StatefulWidget {
 
   final bool isError;
   final bool? readOnly;
+  final double? height;
 
   final TextInputType? keyboardType;
 
@@ -69,7 +70,8 @@ class AppTextField extends StatefulWidget {
       this.hintText = '',
       this.obscuringCharacter = '.',
       this.readOnly,
-      this.onTap})
+      this.onTap,
+      this.height})
       : super(key: key);
 
   @override
@@ -118,7 +120,7 @@ class _AppTextFieldState extends State<AppTextField> {
           ),
         if (widget.labelText.isNotEmpty) (8).spaceH(),
         SizedBox(
-          height: 47.w,
+          height: widget.height ?? 47.w,
           child: TextFormField(
             onTap: widget.onTap,
             maxLength: widget.maxLength,

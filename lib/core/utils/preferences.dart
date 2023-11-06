@@ -28,6 +28,7 @@ class SharedPreference {
   static const USER_PROFILE = "USER_PROFILE";
   static const PHONE_NUMBER = "PHONE_NUMBER";
   static const GENDER = "GENDER";
+  static const IS_FILL_QUE = "IS_FILL_QUE";
 
   void clearUserItem() async {
     _preferences?.clear();

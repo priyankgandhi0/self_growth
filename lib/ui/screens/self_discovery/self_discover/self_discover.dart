@@ -7,6 +7,7 @@ import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/utils/preferences.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../widgets/app_button.dart';
 
@@ -31,12 +32,19 @@ class SelfDiscoverScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     16.w.spaceH(),
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Icon(Icons.close),
-                    ).paddingSymmetric(horizontal: 20.w),
+                    Visibility(
+                      visible: (preferences
+                                  .getBool(SharedPreference.IS_FILL_QUE) ==
+                              null ||
+                          (preferences.getBool(SharedPreference.IS_FILL_QUE) ??
+                              true)),
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: const Icon(Icons.close),
+                      ).paddingSymmetric(horizontal: 20.w),
+                    ),
                     ProfileBoxCard(
                       margin: 40.w,
                       widget: Assets.icons.selfDisc.svg(),

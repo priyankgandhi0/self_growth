@@ -46,10 +46,14 @@ class RoundAppButton extends StatelessWidget {
       required this.title,
       required this.onTap,
       this.color,
-      this.textColor})
+      this.textColor,
+      this.height,
+      this.width})
       : super(key: key);
   final String title;
   final Color? color;
+  final double? height;
+  final double? width;
 
   final Color? textColor;
   final Function() onTap;
@@ -58,8 +62,8 @@ class RoundAppButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 48.w,
-        width: Get.width,
+        height: height ?? 48.w,
+        width: width ?? Get.width,
         decoration: BoxDecoration(
           color: color ?? borderPurpleColor,
           borderRadius: BorderRadius.circular(30.r),

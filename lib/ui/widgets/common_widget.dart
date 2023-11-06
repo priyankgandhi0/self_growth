@@ -186,11 +186,13 @@ class HorizontalNotesCard extends StatelessWidget {
 }
 
 class AddImageCard extends StatelessWidget {
-  const AddImageCard({Key? key, this.onTap, this.height, this.padding})
+  const AddImageCard(
+      {Key? key, this.onTap, this.height, this.padding, this.widget})
       : super(key: key);
   final void Function()? onTap;
   final double? height;
   final double? padding;
+  final Widget? widget;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -202,13 +204,14 @@ class AddImageCard extends StatelessWidget {
           color: background_F5F5F5,
           borderRadius: BorderRadius.circular(8.r),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(Assets.icons.image.path),
-          ],
-        ),
+        child: widget ??
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(Assets.icons.image.path),
+              ],
+            ),
       ),
     ).paddingAll(padding ?? 16.w);
   }
@@ -445,9 +448,14 @@ class ThirdQueCard extends StatelessWidget {
 
 class FirstQueCard extends StatelessWidget {
   const FirstQueCard(
-      {Key? key, required this.title, this.onTap, required this.icon})
+      {Key? key,
+      required this.title,
+      this.onTap,
+      required this.icon,
+      required this.isSelected})
       : super(key: key);
   final String title;
+  final bool isSelected;
   final String icon;
   final void Function()? onTap;
   @override
@@ -456,7 +464,10 @@ class FirstQueCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r), color: white_FFFFFF),
+            borderRadius: BorderRadius.circular(12.r),
+            color: white_FFFFFF,
+            border: Border.all(
+                color: isSelected ? borderPurpleColor : white_FFFFFF)),
         child: Row(
           children: [
             SvgPicture.asset(
