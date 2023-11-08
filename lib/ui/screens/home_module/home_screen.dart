@@ -1,20 +1,29 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
+import 'package:self_growth/core/constants/request_const.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
 import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
+import 'package:self_growth/ui/widgets/app_loader.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../widgets/audio_player.dart';
+import '../../widgets/current_week_utils.dart';
+import '../../widgets/file_picker_utils.dart';
 import '../self_discovery/discover_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -24,284 +33,399 @@ class HomeScreen extends StatelessWidget {
       Get.put(BottomBarController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(builder: (ctrl) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          'Today, 2 Feb 2023'
-              .appSwitzerTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600)
-              .paddingSymmetric(horizontal: 20.w),
-          24.w.spaceH(),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: List.generate(
-                ctrl.dayList.length,
-                (index) => HorizontalNotesCard(
-                    title: ctrl.dayList[index],
-                    index: index,
-                    onTap: () {
-                      if (ctrl.isSelectedDay.contains(index)) {
-                        ctrl.isSelectedDay.remove(index);
-                      } else {
-                        ctrl.isSelectedDay.add(index);
-                      }
-
-                      ctrl.update();
-                    },
-                    selected: ctrl.isSelectedDay.contains(index)),
-              ),
-            ),
-          ).paddingSymmetric(horizontal: 20.w),
-          20.w.spaceH(),
-          Container(
-            width: Get.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r), color: white_FFFFFF),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DateTime.now().day == DateTime.now().day
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          'How did you feel today?'.appSwitzerTextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 17.sp),
-                          5.w.spaceH(),
-                          'Log your mood to get insight'.appSwitzerTextStyle(
-                              fontColor: doteColor, fontSize: 14.sp),
-                          20.w.spaceH(),
-                          RoundAppButton(
-                            width: 128.w,
-                            height: 34.w,
-                            title: 'Log your mood',
-                            onTap: () {
-                              bottomBarController.isOpenDialog = true;
-                              bottomBarController.isOpenHomeDialog = 0;
-                              // bottomBarController.isSelectedTab = 1;
-                              // bottomBarController.changeTab(BottomNavEnum.home);
-                              bottomBarController.update();
-                            },
-                          )
-                        ],
-                      ).paddingAll(20.w)
-                    : NoteCommonCard(
-                        image: Assets.icons.edit.path,
-                        title: 'Note title',
-                        time: '7:00 AM ·',
-                        chipTitleColor: doteColor,
-                        notes: 'This is some text',
-                      ),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed(Routes.noteHistoryScreen);
-                  },
-                  child: Container(
-                    height: 40.w,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(Assets.images.butCon.path),
-                            fit: BoxFit.fill),
-                        borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(12.r))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        'View history'.appSwitzerTextStyle(
-                            fontColor: doteColor,
-                            fontSize: 14.w,
-                            fontWeight: FontWeight.w600),
-                        5.w.spaceW(),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: doteColor,
-                          size: 12.w,
-                        )
-                      ],
-                    ),
+    return Stack(
+      children: [
+        GetBuilder<HomeController>(initState: (state) {
+          Future.delayed(const Duration(milliseconds: 0), () {
+            homeController
+                .getUserHabit(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+            homeController
+                .getUserMood(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+          });
+        }, builder: (ctrl) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              'Today, ${DateFormat.yMMMd('en_US').format(DateTime.now()).replaceAll(',', "")}'
+                  .appSwitzerTextStyle(
+                      fontSize: 20.sp, fontWeight: FontWeight.w600)
+                  .paddingSymmetric(horizontal: 20.w),
+              24.w.spaceH(),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    ctrl.dayList.length,
+                    (index) => HorizontalNotesCard(
+                        title: ctrl.dayList[index],
+                        date: (findFirstDateOfTheWeek(DateTime.now()).day),
+                        index: index,
+                        onTap: () {
+                          ctrl.isSelectedDay = index;
+                          String selectedDate = DateFormat('yyyy-MM-dd')
+                              .format(DateTime(
+                                  DateTime.now().year,
+                                  DateTime.now().month,
+                                  (findFirstDateOfTheWeek(DateTime.now()).day) +
+                                      index))
+                              .toString();
+                          ctrl.getUserHabit(selectedDate);
+                          ctrl.getUserMood(selectedDate);
+                          ctrl.update();
+                        },
+                        selected: ctrl.isSelectedDay == 0
+                            ? ((findFirstDateOfTheWeek(DateTime.now()).day) +
+                                    index) ==
+                                DateTime.now().day
+                            : ctrl.isSelectedDay == index),
                   ),
                 ),
-              ],
-            ),
-          ).paddingSymmetric(horizontal: 20.w),
-          16.w.spaceH(),
-          Container(
-            width: Get.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r), color: white_FFFFFF),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                'Habbits'.appSwitzerTextStyle(
-                    fontSize: 17.sp, fontWeight: FontWeight.w600),
-                16.w.spaceH(),
-                ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return HabitCard(
-                        value: index == 0 ? '1/2' : '2/3',
-                        dayOnTap: () {
-                          ctrl.isSelectedDayTick = index;
-                          ctrl.update();
-                        },
-                        onTap: () {
-                          ctrl.isSelectedHabit = index;
-                          ctrl.update();
-                        },
-                        title: 'Reading Book',
-                        subTitle: 'EVERY DAY',
-                        day: '8',
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const CommonDivider()
-                          .paddingSymmetric(horizontal: 4.w);
-                    },
-                    itemCount: 2)
-              ],
-            ).paddingAll(16.w),
-          ).paddingSymmetric(horizontal: 20.w),
-          16.w.spaceH(),
-          Container(
-            width: Get.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r), color: white_FFFFFF),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildHabit.appSwitzerTextStyle(
-                    fontSize: 17.sp, fontWeight: FontWeight.w600),
-                16.w.spaceH(),
-                ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return BuildHabitCard(
-                        selected: ctrl.isSelectedHabit == index,
-                        selectedDay: ctrl.isSelectedDayTick == index,
-                        dayOnTap: () {
-                          ctrl.isSelectedDayTick = index;
-                          ctrl.update();
-                        },
-                        onTap: () {
-                          ctrl.isSelectedHabit = index;
-                          ctrl.update();
-                        },
-                        title: 'Reading Book',
-                        subTitle: 'EVERY DAY',
-                        day: '8',
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const CommonDivider()
-                          .paddingSymmetric(horizontal: 4.w);
-                    },
-                    itemCount: 2)
-              ],
-            ).paddingAll(16.w),
-          ).paddingSymmetric(horizontal: 20.w),
-          16.w.spaceH(),
-          Container(
-            width: Get.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r), color: white_FFFFFF),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                quitHabit.appSwitzerTextStyle(
-                    fontSize: 17.sp, fontWeight: FontWeight.w600),
-                16.w.spaceH(),
-                ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return QuitHabitCard(
-                        selectedDay: ctrl.isSelectedDayTick1 == index,
-                        dayOnTap: () {
-                          ctrl.isSelectedDayTick1 = index;
-                          ctrl.update();
-                        },
-                        buttonOnTap: () {
-                          bottomBarController.isOpenDialog = true;
-                          bottomBarController.isOpenHomeDialog = 1;
-                          bottomBarController.update();
-                        },
-                        title: 'I have been cafeein free for',
-                        subTitle: 'Abstinence time',
-                        time: '17h : 2m : 36s',
-                        day: '8',
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return 16.w.spaceH();
-                    },
-                    itemCount: 2)
-              ],
-            ).paddingAll(16.w),
-          ).paddingSymmetric(horizontal: 20.w),
-          16.w.spaceH(),
-          Container(
-            width: Get.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r), color: white_FFFFFF),
-            child: Column(
-              children: [
-                Row(
+              ).paddingSymmetric(horizontal: 20.w),
+              20.w.spaceH(),
+              Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
+                    color: white_FFFFFF),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    'Recomended for you'.appSwitzerTextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 17.sp),
-                    const Spacer(),
-                    Assets.icons.sliders.svg()
-                  ],
-                ),
-                20.w.spaceH(),
-                ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Slidable(
-                        key: const ValueKey(0),
-                        endActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          dismissible: DismissiblePane(onDismissed: () {}),
+                    ctrl.moodData.isEmpty
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              'How did you feel today?'.appSwitzerTextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 17.sp),
+                              5.w.spaceH(),
+                              'Log your mood to get insight'
+                                  .appSwitzerTextStyle(
+                                      fontColor: doteColor, fontSize: 14.sp),
+                              20.w.spaceH(),
+                              RoundAppButton(
+                                width: 128.w,
+                                height: 34.w,
+                                title: 'Log your mood',
+                                onTap: () {
+                                  bottomBarController.isOpenDialog = true;
+                                  bottomBarController.isOpenHomeDialog = 0;
+                                  // bottomBarController.isSelectedTab = 1;
+                                  // bottomBarController.changeTab(BottomNavEnum.home);
+                                  bottomBarController.update();
+                                },
+                              )
+                            ],
+                          ).paddingAll(20.w)
+                        : ctrl.moodData.first.type == "MOOD"
+                            ? NoteCommonCard(
+                                image: Assets.icons.edit.path,
+                                title: (ctrl.moodData.first.title!.isEmpty
+                                        ? "Title"
+                                        : ctrl.moodData.first.title)
+                                    .toString(),
+                                time: DateFormat('hh:mm a').format(DateTime.parse(
+                                    '0000-00-00 ${ctrl.moodData.first.noteTime}'
+                                        .toString())),
+                                chipTitleColor: doteColor,
+                                fellingList:
+                                    ctrl.moodData.first.unhappyReasonFeeling ??
+                                        [],
+                                notes: ctrl.moodData.first.note.toString(),
+                              )
+                            : ctrl.moodData.first.type == "PHOTO"
+                                ? Container(
+                                    width: Get.width,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
+                                        color: white_FFFFFF),
+                                    child: NoteCommonCard(
+                                      showIcon: true,
+                                      image: Assets.icons.imageCapture.path,
+                                      title: (ctrl.moodData.first.title!.isEmpty
+                                              ? "Image Title"
+                                              : ctrl.moodData.first.title)
+                                          .toString(),
+                                      time: DateFormat('hh:mm a').format(
+                                          DateTime.parse(
+                                              '0000-00-00 ${ctrl.moodData.first.noteTime}'
+                                                  .toString())),
+                                      fellingList: ctrl.moodData.first
+                                              .unhappyReasonFeeling ??
+                                          [],
+                                      isImage: false,
+                                      widget: AddImageCard(
+                                        widget: commonCachedNetworkImage(
+                                            imageUrl:
+                                                '${ImageBaseUrl.PROFILEIMAGEURL}${ctrl.moodData.first.moodPhoto}',
+                                            height: 140.w,
+                                            width: 140.w),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    width: Get.width,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
+                                        color: white_FFFFFF),
+                                    child: NoteCommonCard(
+                                      image: Assets.icons.voice.path,
+                                      showIcon: false,
+                                      fellingList: ctrl.moodData.first
+                                              .unhappyReasonFeeling ??
+                                          [],
+                                      title: (ctrl.moodData.first.title!.isEmpty
+                                              ? 'Voice title'
+                                              : ctrl.moodData.first.title)
+                                          .toString(),
+                                      time: DateFormat('hh:mm a').format(
+                                          DateTime.parse(
+                                              '0000-00-00 ${ctrl.moodData.first.noteTime}'
+                                                  .toString())),
+                                      widget: Container(
+                                        height: 69.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8.r),
+                                            color: background_F5F5F5),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 20.w),
+                                          child: AudioPlayer(
+                                            source:
+                                                'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+                                            onDelete: () {
+                                              ctrl.showPlayer =
+                                                  !ctrl.showPlayer;
+                                              ctrl.update();
+                                            },
+                                          ),
+                                        ),
+                                      ).paddingAll(16.w),
+                                    ),
+                                  ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.noteHistoryScreen);
+                      },
+                      child: Container(
+                        height: 40.w,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(Assets.images.butCon.path),
+                                fit: BoxFit.fill),
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(12.r))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SlidableAction(
-                              // An action can be bigger than the others.
-
-                              onPressed: (context) {},
-
-                              backgroundColor: Colors.transparent,
-                              foregroundColor: Colors.red,
-                              autoClose: false,
-
-                              icon: Icons.do_disturb,
-                            ),
+                            'View history'.appSwitzerTextStyle(
+                                fontColor: doteColor,
+                                fontSize: 14.w,
+                                fontWeight: FontWeight.w600),
+                            5.w.spaceW(),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: doteColor,
+                              size: 12.w,
+                            )
                           ],
                         ),
-                        child: DiscoverCommonCard(
-                          color: greyLightColor,
-                          buttonColor: white_FFFFFF,
-                          onTap: () {
-                            // bottomBarController.changeTab(BottomNavEnum.other);
+                      ),
+                    ),
+                  ],
+                ),
+              ).paddingSymmetric(horizontal: 20.w),
+              16.w.spaceH(),
+              Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
+                    color: white_FFFFFF),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    'Habbits'.appSwitzerTextStyle(
+                        fontSize: 17.sp, fontWeight: FontWeight.w600),
+                    16.w.spaceH(),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return HabitCard(
+                            selectedDay: ctrl.isSelectedDayTick == index,
+                            value: index == 0 ? '1/2' : '2/3',
+                            dayOnTap: () {
+                              ctrl.checkInUserHabit(
+                                  ctrl.habitData[index].habitId.toString());
+                              ctrl.isSelectedDayTick = index;
+                              ctrl.update();
+                            },
+                            onTap: () {
+                              ctrl.isSelectedHabit = index;
+                              ctrl.update();
+                            },
+                            title: ctrl.habitData[index].habitName ?? "",
+                            subTitle: 'EVERY DAY',
+                            day: ctrl.habitData[index].streak.toString(),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const CommonDivider()
+                              .paddingSymmetric(horizontal: 4.w);
+                        },
+                        itemCount: ctrl.habitData.length)
+                  ],
+                ).paddingAll(16.w),
+              ).paddingSymmetric(horizontal: 20.w),
+              16.w.spaceH(),
+              Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
+                    color: white_FFFFFF),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildHabit.appSwitzerTextStyle(
+                        fontSize: 17.sp, fontWeight: FontWeight.w600),
+                    16.w.spaceH(),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return BuildHabitCard(
+                            selected: ctrl.isSelectedHabit == index,
+                            selectedDay: ctrl.isSelectedDayTick == index,
+                            dayOnTap: () {
+                              ctrl.isSelectedDayTick = index;
+                              ctrl.update();
+                            },
+                            onTap: () {
+                              ctrl.isSelectedHabit = index;
+                              ctrl.update();
+                            },
+                            title: ctrl.buildData[index].habitName ?? "",
+                            subTitle: 'EVERY DAY',
+                            day: ctrl.buildData[index].streak.toString(),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const CommonDivider()
+                              .paddingSymmetric(horizontal: 4.w);
+                        },
+                        itemCount: ctrl.buildData.length)
+                  ],
+                ).paddingAll(16.w),
+              ).paddingSymmetric(horizontal: 20.w),
+              16.w.spaceH(),
+              Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
+                    color: white_FFFFFF),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    quitHabit.appSwitzerTextStyle(
+                        fontSize: 17.sp, fontWeight: FontWeight.w600),
+                    16.w.spaceH(),
+                    ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return QuitHabitCard(
+                            selectedDay: ctrl.isSelectedDayTick1 == index,
+                            dayOnTap: () {
+                              ctrl.isSelectedDayTick1 = index;
+                              ctrl.update();
+                            },
+                            buttonOnTap: () {
+                              bottomBarController.isOpenDialog = true;
+                              bottomBarController.isOpenHomeDialog = 1;
+                              bottomBarController.update();
+                            },
+                            title: ctrl.quitData[index].habitName ?? "",
+                            subTitle: 'Abstinence time',
+                            time:
+                                '${(ctrl.quitData[index].reminderTime ?? "").split(":").first}h : ${(ctrl.quitData[index].reminderTime ?? "").split(":")[1]}m :  ${(ctrl.quitData[index].reminderTime ?? "").split(":").last}s',
+                            day: ctrl.quitData[index].streak.toString(),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return 16.w.spaceH();
+                        },
+                        itemCount: ctrl.quitData.length)
+                  ],
+                ).paddingAll(16.w),
+              ).paddingSymmetric(horizontal: 20.w),
+              16.w.spaceH(),
+              Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
+                    color: white_FFFFFF),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        'Recomended for you'.appSwitzerTextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 17.sp),
+                        const Spacer(),
+                        Assets.icons.sliders.svg()
+                      ],
+                    ),
+                    20.w.spaceH(),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Slidable(
+                            key: const ValueKey(0),
+                            endActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              dismissible: DismissiblePane(onDismissed: () {}),
+                              children: [
+                                SlidableAction(
+                                  // An action can be bigger than the others.
 
-                            // bottomBarController.tab = AllDisCoverDataScreen();
-                          },
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return 16.w.spaceH();
-                    },
-                    itemCount: 3)
-              ],
-            ).paddingAll(16.w),
-          ),
-          86.w.spaceH(),
-        ],
-      ).paddingSymmetric(vertical: 24.w);
-    });
+                                  onPressed: (context) {},
+
+                                  backgroundColor: Colors.transparent,
+                                  foregroundColor: Colors.red,
+                                  autoClose: false,
+
+                                  icon: Icons.do_disturb,
+                                ),
+                              ],
+                            ),
+                            child: DiscoverCommonCard(
+                              color: greyLightColor,
+                              buttonColor: white_FFFFFF,
+                              onTap: () {
+                                // bottomBarController.changeTab(BottomNavEnum.other);
+
+                                // bottomBarController.tab = AllDisCoverDataScreen();
+                              },
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return 16.w.spaceH();
+                        },
+                        itemCount: 3)
+                  ],
+                ).paddingAll(16.w),
+              ),
+              86.w.spaceH(),
+            ],
+          ).paddingSymmetric(vertical: 24.w);
+        }),
+        Obx(() => homeController.isLoading.value
+            ? const AppProgress()
+            : const SizedBox())
+      ],
+    );
   }
 }
 
@@ -394,6 +518,7 @@ class HabitCard extends StatelessWidget {
     this.onTap,
     this.dayOnTap,
     required this.value,
+    required this.selectedDay,
   }) : super(key: key);
   final String title;
   final void Function()? onTap;
@@ -401,6 +526,7 @@ class HabitCard extends StatelessWidget {
   final String subTitle;
   final String day;
   final String value;
+  final bool selectedDay;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -428,8 +554,11 @@ class HabitCard extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: dayOnTap,
-                          child: (Assets.icons.minimize).svg(
-                              width: 16.w, height: 16.w, fit: BoxFit.cover),
+                          child: (selectedDay
+                                  ? Assets.icons.selected
+                                  : Assets.icons.minimize)
+                              .svg(
+                                  width: 16.w, height: 16.w, fit: BoxFit.cover),
                         ),
                         5.w.spaceW(),
                         '$day day streak'.appSwitzerTextStyle(

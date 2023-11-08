@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
@@ -112,18 +114,13 @@ class CreateNewHabitScreen extends StatelessWidget {
                                         )
                                       : IconCard(
                                           onTap: () {
-                                            if (ctrl.iconSelectedList
-                                                .contains(index)) {
-                                              ctrl.iconSelectedList
-                                                  .remove(index);
-                                            } else {
-                                              ctrl.iconSelectedList.add(index);
-                                            }
+                                            ctrl.iconSelected = index;
+                                            ctrl.iconSelectedString =
+                                                ctrl.iconList[index];
                                             ctrl.update();
                                           },
                                           title: ctrl.iconList[index],
-                                          selected: ctrl.iconSelectedList
-                                              .contains(index),
+                                          selected: ctrl.iconSelected == index,
                                         )),
                             ),
                             12.h.spaceH(),
@@ -177,6 +174,13 @@ class CreateNewHabitScreen extends StatelessWidget {
                                           title: '',
                                         )
                                       : IconColorCard(
+                                          isSelected: ctrl.tempMainColor ==
+                                              ctrl.colorList[index],
+                                          onTap: () {
+                                            ctrl.tempMainColor =
+                                                ctrl.colorList[index];
+                                            ctrl.update();
+                                          },
                                           color: ctrl.colorList[index] ??
                                               borderPurpleColor,
                                         )),
@@ -199,41 +203,78 @@ class CreateNewHabitScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                             16.h.spaceH(),
-                            Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(Assets.images.card.path),
-                                    fit: BoxFit.fill),
+                            InkWell(
+                              onTap: () {
+                                appDialog(
+                                    contentWidget: Column(
+                                  children: [
+                                    30.w.spaceH(),
+                                    AppTextField(
+                                      labelTextColor: borderPurpleColor,
+                                      labelText: 'Goal Time',
+                                      labelFontWeight: FontWeight.bold,
+                                      keyboardType: TextInputType.number,
+                                      textEditingController: ctrl.goalCon,
+                                      hintText: 'Enter goal time',
+                                    ),
+                                    20.w.spaceH(),
+                                    RoundAppButton(
+                                      title: 'Continue',
+                                      onTap: () {
+                                        if (ctrl.goalCon.text.isEmpty) {
+                                          showAppSnackBar(
+                                              'Goal time must be required');
+                                        } else {
+                                          ctrl.goalTime = ctrl.goalCon.text;
+                                          Get.back();
+                                          ctrl.update();
+                                          ctrl.goalCon.clear();
+                                        }
+                                      },
+                                    )
+                                  ],
+                                ).paddingSymmetric(
+                                        vertical: 20.w, horizontal: 10.w));
+                              },
+                              highlightColor: Colors.transparent,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage(Assets.images.card.path),
+                                      fit: BoxFit.fill),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        "${ctrl.goalTime} times"
+                                            .appSwitzerTextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'Switzer'),
+                                        "per day".appSwitzerTextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            fontColor: doteColor),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const AppChip(title: 'Daily'),
+                                        12.w.spaceW(),
+                                        Icon(
+                                          Icons.arrow_forward_ios_outlined,
+                                          color: borderPurpleColor,
+                                          size: 17.sp,
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ).paddingAll(12),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      "1 times".appSwitzerTextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Switzer'),
-                                      "per day".appSwitzerTextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          fontColor: doteColor),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const AppChip(title: 'Daily'),
-                                      12.w.spaceW(),
-                                      Icon(
-                                        Icons.arrow_forward_ios_outlined,
-                                        color: borderPurpleColor,
-                                        size: 17.sp,
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ).paddingAll(12),
                             )
                           ],
                         ).paddingAll(20),
@@ -271,15 +312,20 @@ class CreateNewHabitScreen extends StatelessWidget {
                                   TextEditingController(text: ctrl.startTime),
                               onTap: () {
                                 pickedTime(context).then((value) {
+                                  final now = DateTime.now();
+                                  ctrl.reminderUtcTime =
+                                      '${DateTime(now.year, now.month, now.day, value.hour, value.minute).toUtc().hour}:${DateTime(now.year, now.month, now.day, value.hour, value.minute).toUtc().minute}';
                                   ctrl.startTime =
                                       value.format(context).toString();
+
                                   ctrl.update();
                                 });
                               },
                             ),
                             16.h.spaceH(),
-                            const AppTextField(
+                            AppTextField(
                               labelText: 'Note',
+                              textEditingController: ctrl.noteCon,
                               hintText: 'Add note',
                             ),
                           ],
@@ -356,19 +402,21 @@ class CreateNewHabitScreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     ButtonCommon(
-                                      isSelected: ctrl.isHabitTypeBuild == 0,
+                                      isSelected:
+                                          ctrl.isHabitTypeBuild == "Build",
                                       title: 'Build',
                                       onTap: () {
-                                        ctrl.isHabitTypeBuild = 0;
+                                        ctrl.isHabitTypeBuild = "Build";
                                         ctrl.update();
                                       },
                                     ),
                                     10.w.spaceW(),
                                     ButtonCommon(
-                                      isSelected: ctrl.isHabitTypeBuild == 1,
+                                      isSelected:
+                                          ctrl.isHabitTypeBuild == "Quit",
                                       title: 'Quit',
                                       onTap: () {
-                                        ctrl.isHabitTypeBuild = 1;
+                                        ctrl.isHabitTypeBuild = "Quit";
                                         ctrl.update();
                                       },
                                     ),
@@ -479,9 +527,10 @@ class CreateNewHabitScreen extends StatelessWidget {
                                   ),
                                 ),
                                 16.h.spaceH(),
-                                const AppTextField(
+                                AppTextField(
                                   labelText: "Add Note",
                                   hintText: "Add note",
+                                  textEditingController: ctrl.reminderNoteCon,
                                 )
                               ],
                             )
@@ -593,17 +642,36 @@ class IconColorCard extends StatelessWidget {
   const IconColorCard({
     super.key,
     required this.color,
+    this.onTap,
+    this.isSelected,
   });
   final Color color;
+  final Function()? onTap;
+  final bool? isSelected;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-        image: DecorationImage(image: AssetImage(Assets.images.cirBorder.path)),
+    return InkWell(
+      onTap: onTap,
+      child: Stack(
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  image: AssetImage(Assets.images.cirBorder.path)),
+            ),
+          ),
+          Visibility(
+              visible: isSelected ?? false,
+              child: Assets.icons.right.svg(
+                  width: 32,
+                  height: 32,
+                  fit: BoxFit.contain,
+                  color: borderPinkColor)),
+        ],
       ),
     );
   }

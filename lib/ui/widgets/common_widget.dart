@@ -11,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constant.dart';
 import '../../gen/assets.gen.dart';
+import '../../models/get_user_mood_model.dart';
 import '../screens/habit_module/create_new_habit.dart';
 
 class PageViewCard extends StatelessWidget {
@@ -104,6 +105,7 @@ class ProfileDataCard extends StatelessWidget {
     this.titleColor,
     required this.image,
     this.fontWeight,
+    this.widget,
   }) : super(key: key);
   final String title;
   final void Function()? onTap;
@@ -111,6 +113,7 @@ class ProfileDataCard extends StatelessWidget {
   final FontWeight? fontWeight;
   final Color? titleColor;
   final String image;
+  final Widget? widget;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -118,12 +121,13 @@ class ProfileDataCard extends StatelessWidget {
       onTap: onTap,
       child: Row(
         children: [
-          SvgPicture.asset(
-            image,
-            width: height ?? 24.w,
-            height: height ?? 19.w,
-            fit: BoxFit.contain,
-          ),
+          widget ??
+              SvgPicture.asset(
+                image,
+                width: height ?? 24.w,
+                height: height ?? 19.w,
+                fit: BoxFit.contain,
+              ),
           10.w.spaceW(),
           title.appSwitzerTextStyle(
               fontWeight: fontWeight ?? FontWeight.w600,
@@ -139,12 +143,14 @@ class HorizontalNotesCard extends StatelessWidget {
   const HorizontalNotesCard(
       {Key? key,
       required this.selected,
+      required this.date,
       required this.onTap,
       required this.title,
       required this.index})
       : super(key: key);
   final bool selected;
   final String title;
+  final int date;
   final int index;
   final void Function() onTap;
 
@@ -157,7 +163,7 @@ class HorizontalNotesCard extends StatelessWidget {
             fontWeight: FontWeight.w400,
             fontColor: borderPurpleColor.withOpacity(.8)),
         5.w.spaceH(),
-        index == 0 || index == 1
+        DateTime.now().day > ((date) + index)
             ? Assets.icons.right.svg(
                 width: 32.w,
                 height: 32.w,
@@ -172,12 +178,14 @@ class HorizontalNotesCard extends StatelessWidget {
                         decoration: const BoxDecoration(
                             shape: BoxShape.circle, color: borderPurpleColor),
                         child: Center(
-                            child: '${index + 1}'.appGradientTextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                fontColor: white_FFFFFF)))
+                            child: (date + index)
+                                .toString()
+                                .appGradientTextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                    fontColor: white_FFFFFF)))
                     : IconCard(
-                        title: '${index + 1}',
+                        title: '${(date + index)}',
                         isHome: true,
                       ))
       ],
@@ -229,6 +237,7 @@ class NoteCommonCard extends StatelessWidget {
     this.widget,
     required this.image,
     this.chipTitleColor,
+    this.fellingList = const [],
   }) : super(key: key);
   final String title;
   final String notes;
@@ -239,6 +248,7 @@ class NoteCommonCard extends StatelessWidget {
   final String image;
   final Widget? widget;
   final Color? chipTitleColor;
+  final List<UnhappyReasonFeeling> fellingList;
 
   final List<String> noteList = ['Work', 'Family', 'Blessed'];
   final List<String> noteImageList = [
@@ -283,43 +293,47 @@ class NoteCommonCard extends StatelessWidget {
                     fontColor: doteColor)
                 .paddingSymmetric(vertical: 16.w, horizontal: 16.w)
             : widget ?? const SizedBox(),
-        SizedBox(
-          height: 36.w,
-          child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12.w,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.r),
-                    border: const GradientBoxBorder(
-                        gradient: LinearGradient(colors: [
-                          borderPinkColor,
-                          borderPurpleColor,
-                          borderPurpleColor,
-                          borderPurpleColor,
-                          borderPinkColor
-                        ]),
-                        width: 1),
-                  ),
-                  child: ProfileDataCard(
-                    title: noteList[index],
-                    height: 20.w,
-                    fontWeight: FontWeight.w500,
-                    image: noteImageList[index],
-                    titleColor: chipTitleColor ?? borderPurpleColor,
-                    onTap: () {},
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return 8.w.spaceW();
-              },
-              itemCount: noteList.length),
-        ).paddingSymmetric(horizontal: 16.w),
+        fellingList.isNotEmpty
+            ? SizedBox(
+                height: 36.w,
+                child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.r),
+                          border: const GradientBoxBorder(
+                              gradient: LinearGradient(colors: [
+                                borderPinkColor,
+                                borderPurpleColor,
+                                borderPurpleColor,
+                                borderPurpleColor,
+                                borderPinkColor
+                              ]),
+                              width: 1),
+                        ),
+                        child: ProfileDataCard(
+                          title: (fellingList)[index].name ?? "",
+                          height: 20.w,
+                          fontWeight: FontWeight.w500,
+                          widget: ((fellingList)[index].icon ?? "")
+                              .appSwitzerTextStyle(),
+                          titleColor: chipTitleColor ?? borderPurpleColor,
+                          onTap: () {},
+                          image: '',
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return 8.w.spaceW();
+                    },
+                    itemCount: fellingList.length),
+              ).paddingSymmetric(horizontal: 16.w)
+            : SizedBox(),
         16.w.spaceH(),
         isImage ?? false
             ? Container(

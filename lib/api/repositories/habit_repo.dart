@@ -17,6 +17,7 @@ class HabitRepo {
     String iconColor = '',
     String goals = '',
     String reminderTime = '',
+    String reminderUtcTime = '',
     String reminderNote = '',
     String groupName = '',
     String habitType = '',
@@ -29,9 +30,10 @@ class HabitRepo {
       "habit_name": habitName,
       "icon": icon,
       "icon_color": iconColor,
-      "goals": goals,
+      "goal_times": goals,
       "is_reminder_on": isReminderOn,
       "reminder_time": reminderTime,
+      "reminder_utc_time": reminderUtcTime,
       "reminder_note": reminderNote,
       "group_name": groupName,
       "habit_type": habitType,
@@ -40,6 +42,7 @@ class HabitRepo {
       "show_goal": showGoal,
       "note": note
     };
+
     var queryParameters = {RequestParam.service: ApiEndPoint.addHabit};
     String queryString = Uri(queryParameters: queryParameters).query;
     String requestUrl = BaseUrl.URL + queryString;
@@ -67,6 +70,66 @@ class HabitRepo {
       "how_are_you_feeling": howAreYouFeeling
     };
     var queryParameters = {RequestParam.service: ApiEndPoint.moodChecking};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> getUserHabit({
+    required String date,
+  }) async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+    Map<String, dynamic> params = {"date": date};
+    var queryParameters = {RequestParam.service: ApiEndPoint.getUserHabit};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> getUserMood({
+    required String date,
+  }) async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+    Map<String, dynamic> params = {"date": date};
+    var queryParameters = {RequestParam.service: ApiEndPoint.getUserMood};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> checkInUserHabit({
+    required String habitId,
+  }) async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+    Map<String, dynamic> params = {"habit_id": habitId};
+    var queryParameters = {RequestParam.service: ApiEndPoint.checkInUserHabit};
     String queryString = Uri(queryParameters: queryParameters).query;
     String requestUrl = BaseUrl.URL + queryString;
     result = await BaseApiHelper.postRequest(requestUrl, params, true);

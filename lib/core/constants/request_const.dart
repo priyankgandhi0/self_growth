@@ -61,6 +61,8 @@ class ApiEndPoint {
 
   ///HABIT MODULE
   static const addHabit = "addHabit";
+  static const getUserHabit = "getUserHabit";
+  static const checkInUserHabit = "checkinUserHabit";
 
   ///MOOD CHECKING
   static const moodChecking = "moodCheckin";
@@ -69,4 +71,5 @@ class ApiEndPoint {
   static const addActivity = "addActivity";
   static const addFeeling = "addFeeling";
   static const addMoodPhoto = "addMoodPhoto";
+  static const getUserMood = "getUserMood";
 }

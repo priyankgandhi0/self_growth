@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class VoiceNoteController extends GetxController {
@@ -57,7 +60,7 @@ class VoiceNoteController extends GetxController {
     update();
   }
 
-  Future<void> start() async {
+  /*Future<void> start() async {
     try {
       if (await _audioRecorder.hasPermission()) {
         // We don't do anything with this but printing
@@ -78,6 +81,21 @@ class VoiceNoteController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }*/
+  Future<void> startRecord() async {
+    try {
+      if (await _audioRecorder.hasPermission()) {
+        Directory cacheDirectory = await getApplicationCacheDirectory();
+        _startTimer();
+        await _audioRecorder.start(
+            const RecordConfig(encoder: AudioEncoder.wav),
+            path: "${cacheDirectory.path}/${Random().nextInt(1500)}.wav");
+      }
+    } catch (e) {
+      // if (kDebugMode) {
+      //   print("Recording Error is ------> $e");
+      // }
+    }
   }
 
   String buildText() {
@@ -91,8 +109,9 @@ class VoiceNoteController extends GetxController {
   String _buildTimer() {
     final String minutes = _formatNumber(recordDuration ~/ 60);
     final String seconds = _formatNumber(recordDuration % 60);
+    final String hours = _formatNumber(num.parse(minutes) ~/ 60);
 
-    return '$minutes : $seconds';
+    return '$hours:$minutes:$seconds';
   }
 
   String _formatNumber(int number) {

@@ -102,7 +102,7 @@ class VoiceNoteScreen extends StatelessWidget {
                                                 log('path---$path');
                                               },
                                             )
-                                          : ctrl.start();
+                                          : ctrl.startRecord();
                                       ctrl.isPlay = !ctrl.isPlay;
                                       ctrl.update();
                                     },

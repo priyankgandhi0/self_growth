@@ -9,12 +9,17 @@ import '../../widgets/app_snack_bar.dart';
 class HabitController extends GetxController
     with GetSingleTickerProviderStateMixin {
   TextEditingController habitNameCon = TextEditingController();
+  TextEditingController noteCon = TextEditingController();
+  TextEditingController reminderNoteCon = TextEditingController();
+  TextEditingController goalCon = TextEditingController();
   bool isRemind = false;
   String startTime = '';
+  String reminderUtcTime = '';
+  String goalTime = '0';
 
   bool isShowBadge = false;
   bool isShowGoal = false;
-  int isHabitTypeBuild = 0;
+  String isHabitTypeBuild = "Build";
   int isLogActivity = 0;
   AnimationController? animationController;
   @override
@@ -40,16 +45,26 @@ class HabitController extends GetxController
     update();
   }
 
-  List<int> iconSelectedList = [0];
+  int iconSelected = -1;
+  String iconSelectedString = '';
   List<Color?> colorList = [];
   Color? tempMainColor;
   List<String> iconList = [];
   RxBool isLoading = false.obs;
   addHabit() async {
+    // habit_name
+    // icon
+    // is_reminder_on
+    // log_activity_using
+    // show_badge
+    // show_goal
+    // habit_type
     if (habitNameCon.text.isEmpty) {
       showAppSnackBar('Habit name must be required.');
-    } else if (iconList.isEmpty) {
-      showAppSnackBar('Icon must be required.');
+    } else if (iconSelectedString.isEmpty) {
+      showAppSnackBar('Please select icon.');
+    } else if (isRemind && startTime.isEmpty) {
+      showAppSnackBar('Please select reminder time.');
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
@@ -57,10 +72,17 @@ class HabitController extends GetxController
           ResponseItem(data: null, message: errorText, status: false);
       result = await HabitRepo.addHabit(
           habitName: habitNameCon.text,
-          icon: iconList[0],
-          iconColor: colorList.isNotEmpty ? colorList[0].toString() : "",
+          icon: iconSelectedString,
+          iconColor: tempMainColor.toString(),
           isReminderOn: isRemind ? 1 : 0,
-          logActivityUsing: isLogActivity,
+          reminderTime: startTime,
+          goals: goalTime,
+          groupName: "",
+          habitType: isHabitTypeBuild,
+          note: noteCon.text,
+          reminderNote: reminderNoteCon.text,
+          reminderUtcTime: reminderUtcTime,
+          logActivityUsing: valuePerTap,
           showBudge: isShowBadge ? 1 : 0,
           showGoal: isShowGoal ? 1 : 0);
       try {

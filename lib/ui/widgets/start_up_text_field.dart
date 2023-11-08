@@ -29,6 +29,7 @@ class AppTextField extends StatefulWidget {
 
   final EdgeInsets? textFieldPadding;
   final double? labelTextSize;
+  final Color? labelTextColor;
   final bool obscureText;
   final int? maxLength;
 
@@ -71,7 +72,8 @@ class AppTextField extends StatefulWidget {
       this.obscuringCharacter = '.',
       this.readOnly,
       this.onTap,
-      this.height})
+      this.height,
+      this.labelTextColor})
       : super(key: key);
 
   @override
@@ -113,7 +115,8 @@ class _AppTextFieldState extends State<AppTextField> {
             alignment: Alignment.centerLeft,
             child: widget.labelText.appSwitzerTextStyle(
               fontWeight: widget.labelFontWeight ?? FontWeight.w500,
-              fontColor: borderPurpleColor.withOpacity(0.6),
+              fontColor:
+                  widget.labelTextColor ?? borderPurpleColor.withOpacity(0.6),
               fontSize: widget.labelTextSize ?? 14.sp,
               // fontColor: _focusNode.hasFocus ? grey_969696 : borderPurpleColor,
             ),
