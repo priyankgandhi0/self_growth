@@ -4,13 +4,16 @@ import 'package:get/get.dart';
 import '../../../../api/repositories/habit_repo.dart';
 import '../../../../api/response_item.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../generated/assets.dart';
+
 import '../../../../models/get_activity_model.dart';
 import '../../../widgets/app_snack_bar.dart';
 
 class MoodCheckingCon extends GetxController {
   TextEditingController addActivityCon = TextEditingController();
   TextEditingController addFeelingCon = TextEditingController();
+  TextEditingController titleCon = TextEditingController();
+  TextEditingController noteCon = TextEditingController();
+  TextEditingController searchCon = TextEditingController();
 
   String activityEmoji = '';
   String feelingEmoji = '';
@@ -22,10 +25,10 @@ class MoodCheckingCon extends GetxController {
     String feeling = 'Unhappy';
     if (sliderValue < 50.0) {
       feeling = 'Unhappy';
-    } else if (sliderValue >= 50.0 && sliderValue < 100.0) {
-      feeling = 'Happy';
-    } else if (sliderValue == 100.00) {
+    } else if (sliderValue >= 50.0 && sliderValue < 75.0) {
       feeling = 'Normal';
+    } else if (sliderValue == 100.00) {
+      feeling = 'Happy';
     }
 
     return feeling;

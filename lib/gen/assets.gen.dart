@@ -50,6 +50,13 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add_to.svg
   SvgGenImage get addTo => const SvgGenImage('assets/icons/add_to.svg');
 
+  /// File path: assets/icons/audio_player.svg
+  SvgGenImage get audioPlayer =>
+      const SvgGenImage('assets/icons/audio_player.svg');
+
+  /// File path: assets/icons/audio_stop.svg
+  SvgGenImage get audioStop => const SvgGenImage('assets/icons/audio_stop.svg');
+
   /// File path: assets/icons/awfull.svg
   SvgGenImage get awfull => const SvgGenImage('assets/icons/awfull.svg');
 
@@ -118,6 +125,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/happy.svg
   SvgGenImage get happy => const SvgGenImage('assets/icons/happy.svg');
 
+  /// File path: assets/icons/happy_icon.svg
+  SvgGenImage get happyIcon => const SvgGenImage('assets/icons/happy_icon.svg');
+
   /// File path: assets/icons/home.svg
   SvgGenImage get home => const SvgGenImage('assets/icons/home.svg');
 
@@ -166,6 +176,9 @@ class $AssetsIconsGen {
   SvgGenImage get noThinking =>
       const SvgGenImage('assets/icons/no_thinking.svg');
 
+  /// File path: assets/icons/normal.svg
+  SvgGenImage get normal => const SvgGenImage('assets/icons/normal.svg');
+
   /// File path: assets/icons/not_accept.svg
   SvgGenImage get notAccept => const SvgGenImage('assets/icons/not_accept.svg');
 
@@ -177,6 +190,13 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/profile.svg
   SvgGenImage get profile => const SvgGenImage('assets/icons/profile.svg');
+
+  /// File path: assets/icons/record.svg
+  SvgGenImage get record => const SvgGenImage('assets/icons/record.svg');
+
+  /// File path: assets/icons/recording_panel.svg
+  SvgGenImage get recordingPanel =>
+      const SvgGenImage('assets/icons/recording_panel.svg');
 
   /// File path: assets/icons/reduce.svg
   SvgGenImage get reduce => const SvgGenImage('assets/icons/reduce.svg');
@@ -235,6 +255,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/three_dote.svg
   SvgGenImage get threeDote => const SvgGenImage('assets/icons/three_dote.svg');
 
+  /// File path: assets/icons/unHappy.svg
+  SvgGenImage get unHappy => const SvgGenImage('assets/icons/unHappy.svg');
+
   /// File path: assets/icons/user.svg
   SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
 
@@ -257,6 +280,8 @@ class $AssetsIconsGen {
         addPhoto,
         addPhotoImg,
         addTo,
+        audioPlayer,
+        audioStop,
         awfull,
         backArrow,
         bell,
@@ -279,6 +304,7 @@ class $AssetsIconsGen {
         great,
         habitTool,
         happy,
+        happyIcon,
         home,
         image,
         imageCapture,
@@ -294,10 +320,13 @@ class $AssetsIconsGen {
         natural,
         newHabbit,
         noThinking,
+        normal,
         notAccept,
         player,
         privacy,
         profile,
+        record,
+        recordingPanel,
         reduce,
         resetHabit,
         resetPass,
@@ -315,6 +344,7 @@ class $AssetsIconsGen {
         sliders,
         statment,
         threeDote,
+        unHappy,
         user,
         voice,
         voiceNote,

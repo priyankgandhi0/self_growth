@@ -137,6 +137,7 @@ class AuthController extends GetxController {
             preferences.saveUserItem(userModel.data);
             isLoading.value = false;
             Get.toNamed(Routes.bottomNavigationScreen);
+            preferences.putBool(SharedPreference.IS_FILL_QUE, true);
           }
         } else {
           isLoading.value = false;

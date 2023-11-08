@@ -1,9 +1,10 @@
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:get/get.dart';
 import 'package:self_growth/core/utils/extentions.dart';
-import 'package:self_growth/ui/screens/habit_module/habbit_controller.dart';
+
 import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
@@ -46,7 +47,13 @@ class MoodCheckingScreen extends StatelessWidget {
                               child: const Icon(Icons.close))
                           .paddingSymmetric(horizontal: 20.w),
                       ProfileBoxCard(
-                        widget: Assets.icons.emoji.svg(),
+                        widget: (ctrl.sliderValue < 50.0
+                                ? Assets.icons.unHappy
+                                : (ctrl.sliderValue >= 50.0 &&
+                                        ctrl.sliderValue < 75.0)
+                                    ? Assets.icons.normal
+                                    : Assets.icons.happyIcon)
+                            .svg(),
                         child: Column(
                           children: [
                             40.w.spaceH(),
@@ -117,11 +124,11 @@ class MoodCheckingScreen extends StatelessWidget {
                                   fontColor: doteColor,
                                   fontSize: 13.sp,
                                 ),
-                                'Happy'.appSwitzerTextStyle(
+                                'Normal'.appSwitzerTextStyle(
                                   fontColor: doteColor,
                                   fontSize: 13.sp,
                                 ),
-                                'Normal'.appSwitzerTextStyle(
+                                'Happy'.appSwitzerTextStyle(
                                   fontColor: doteColor,
                                   fontSize: 13.sp,
                                 ),
@@ -130,6 +137,37 @@ class MoodCheckingScreen extends StatelessWidget {
                           ],
                         ).paddingSymmetric(horizontal: 24.w, vertical: 24.w),
                       ),
+                      16.w.spaceH(),
+                      Container(
+                              width: Get.width,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16.w),
+                                  color: white_FFFFFF),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  'How was your day?'.appSwitzerTextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w600),
+                                  16.w.spaceH(),
+                                  AppTextField(
+                                    labelText: 'Title',
+                                    textEditingController: ctrl.titleCon,
+                                    hintText: 'Enter title',
+                                  ),
+                                  16.w.spaceH(),
+                                  AppTextField(
+                                    height: 100.w,
+                                    textEditingController: ctrl.noteCon,
+                                    labelText: 'Notes',
+                                    maxLines: 4,
+                                    hintText: 'Add note',
+                                  )
+                                ],
+                              ).paddingSymmetric(
+                                  horizontal: 16.w, vertical: 30.w))
+                          .paddingSymmetric(horizontal: 20.w),
+                      16.w.spaceH(),
                       FeelingCard(
                         buttonOnTap: () {
                           return appDialog(
@@ -159,13 +197,21 @@ class MoodCheckingScreen extends StatelessWidget {
                             isSelected: ctrl.unhappyReason.contains(
                                 ctrl.activityList[index].id.toString()),
                             onTap: () {
-                              ctrl.unhappyReason
-                                  .add(ctrl.activityList[index].id.toString());
+                              if (ctrl.unhappyReason.contains(
+                                  ctrl.activityList[index].id.toString())) {
+                                ctrl.unhappyReason.remove(
+                                    ctrl.activityList[index].id.toString());
+                              } else {
+                                ctrl.unhappyReason.add(
+                                    ctrl.activityList[index].id.toString());
+                              }
+
                               ctrl.update();
                             },
                           ),
                         ),
                       ),
+                      16.w.spaceH(),
                       FeelingCard(
                         buttonOnTap: () {
                           return appDialog(
@@ -195,42 +241,21 @@ class MoodCheckingScreen extends StatelessWidget {
                             isSelected: ctrl.howAreYouFeeling.contains(
                                 ctrl.feelingList[index].id.toString()),
                             onTap: () {
-                              ctrl.howAreYouFeeling
-                                  .add(ctrl.feelingList[index].id.toString());
+                              if (ctrl.howAreYouFeeling.contains(
+                                  ctrl.feelingList[index].id.toString())) {
+                                ctrl.howAreYouFeeling.remove(
+                                    ctrl.feelingList[index].id.toString());
+                              } else {
+                                ctrl.howAreYouFeeling
+                                    .add(ctrl.feelingList[index].id.toString());
+                              }
+
                               ctrl.update();
                             },
                           ),
                         ),
                       ),
-                      16.w.spaceH(),
-                      Container(
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16.w),
-                                  color: white_FFFFFF),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  'Add notes'.appSwitzerTextStyle(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w600),
-                                  /*  16.w.spaceH(),
-                                  const AppTextField(
-                                    labelText: 'Time',
-                                    hintText: '9:00 AM',
-                                  ),*/
-                                  16.w.spaceH(),
-                                  AppTextField(
-                                    height: 100.w,
-                                    labelText: 'Notes',
-                                    maxLines: 4,
-                                    hintText: 'Add note',
-                                  )
-                                ],
-                              ).paddingSymmetric(
-                                  horizontal: 16.w, vertical: 30.w))
-                          .paddingSymmetric(horizontal: 20.w),
-                      16.w.spaceH(),
+                      40.w.spaceH(),
                       RoundAppButton(
                         onTap: () {
                           ctrl.moodChecking();
@@ -364,8 +389,8 @@ class FamilyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 67.w,
-        width: 67.w,
+        height: 64.w,
+        width: 64.w,
         decoration: !isSelected
             ? const BoxDecoration()
             : BoxDecoration(
@@ -446,7 +471,11 @@ class FeelingCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: 20.sp),
                 16.w.spaceH(),
-                Wrap(children: widget),
+                Wrap(
+                    spacing: 2.w,
+                    runSpacing: 2.w,
+                    alignment: WrapAlignment.start,
+                    children: widget),
                 16.w.spaceH(),
                 Align(
                   alignment: Alignment.center,
@@ -458,6 +487,6 @@ class FeelingCard extends StatelessWidget {
                 ),
               ],
             ).paddingAll(32.w))
-        .paddingSymmetric(horizontal: 20.w, vertical: 16.w);
+        .paddingSymmetric(horizontal: 20.w);
   }
 }

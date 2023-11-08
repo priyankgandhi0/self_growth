@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter/foundation.dart' as foundation;
+
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/habit_module/habbit_controller.dart';
 import 'package:self_growth/ui/widgets/app_chip.dart';
@@ -649,6 +649,7 @@ EmojiPicker emojiPickerCard({void Function(Category?, Emoji)? onTap}) {
       verticalSpacing: 0,
       horizontalSpacing: 0,
       gridPadding: EdgeInsets.zero,
+
       initCategory: Category.RECENT,
       bgColor: Colors.transparent,
 
@@ -659,6 +660,7 @@ EmojiPicker emojiPickerCard({void Function(Category?, Emoji)? onTap}) {
       skinToneDialogBgColor: Colors.white,
       skinToneIndicatorColor: Colors.grey,
       enableSkinTones: true,
+
       recentTabBehavior: RecentTabBehavior.NONE,
       loadingIndicator: const SizedBox.shrink(), // Needs to be const Widget
       tabIndicatorAnimDuration: kTabScrollDuration,

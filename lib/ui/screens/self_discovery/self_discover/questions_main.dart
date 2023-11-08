@@ -9,7 +9,7 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '../../../../gen/assets.gen.dart';
 
 class FirstQuestionScreen extends StatefulWidget {
-  FirstQuestionScreen({Key? key}) : super(key: key);
+  const FirstQuestionScreen({Key? key}) : super(key: key);
 
   @override
   State<FirstQuestionScreen> createState() => _FirstQuestionScreenState();

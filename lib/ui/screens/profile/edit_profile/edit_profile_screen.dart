@@ -64,7 +64,7 @@ class EditProfileScreen extends StatelessWidget {
                                   image: FileImage(
                                     ctrl.imageFile!,
                                   ),
-                                  fit: BoxFit.cover),
+                                  fit: BoxFit.fill),
                               border: Border.all(
                                   color:
                                       Theme.of(context).secondaryHeaderColor),

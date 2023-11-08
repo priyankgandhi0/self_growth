@@ -13,7 +13,7 @@ import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
-import '../../../core/utils/app_helper.dart';
+
 import '../../../gen/assets.gen.dart';
 import '../self_discovery/discover_screen.dart';
 

@@ -122,11 +122,11 @@ class BottomNavigationScreen extends StatelessWidget {
           BottomBarWidget(
             title: '',
             widget: Assets.icons.menu.svg(),
-            color: ctrl.isSelectedTab == 2 ? borderPurpleColor : doteColor,
+            color: ctrl.isSelectedTab == 3 ? borderPurpleColor : doteColor,
             onTap: () {
-              // ctrl.isOpenDialog = true;
-              // ctrl.isOpenHomeDialog = 0;
-              // ctrl.isSelectedTab = 1;
+              ctrl.isOpenDialog = true;
+              ctrl.isOpenHomeDialog = 0;
+              ctrl.isSelectedTab = 3;
               // ctrl.changeTab(BottomNavEnum.home);
 
               /* openBottomDialogBox(
@@ -219,6 +219,11 @@ class AddButtonCard extends StatelessWidget {
           ProfileDataCard(
               image: Assets.icons.voiceNote.path,
               height: 32.w,
+              onTap: () {
+                ctrl.isOpenDialog = false;
+                ctrl.update();
+                Get.toNamed(Routes.voiceNoteScreen);
+              },
               title: 'Voice Note'),
           const CommonDivider().paddingSymmetric(vertical: 8.w),
           ProfileDataCard(

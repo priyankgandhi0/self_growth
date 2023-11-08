@@ -68,6 +68,7 @@ dependencies:
   cached_network_image: ^3.2.3
   shimmer: ^3.0.0
   emoji_picker_flutter: ^1.6.3
+  record: ^5.0.1
 
 
 dev_dependencies:

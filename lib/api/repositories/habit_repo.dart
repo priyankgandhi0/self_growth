@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import '../../core/constants/app_constant.dart';
 import '../../core/constants/request_const.dart';
 import '../api_helper.dart';
 import '../response_item.dart';
+import 'package:http/http.dart' as http;
 
 class HabitRepo {
   static Future<ResponseItem> addHabit({
@@ -148,6 +151,37 @@ class HabitRepo {
 
     data = result.data;
     var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
+  static Future<ResponseItem> addMoodPhoto({
+    required File moodImages,
+  }) async {
+    ResponseItem result;
+    bool status = true;
+    dynamic data;
+    String message = "";
+
+    http.MultipartFile image;
+
+    var queryParameters = {RequestParam.service: ApiEndPoint.addMoodPhoto};
+
+    image = http.MultipartFile(
+      "mood_images",
+      moodImages.readAsBytes().asStream(),
+      moodImages.lengthSync(),
+      filename: moodImages.path.split("/").last,
+      // contentType: MediaType(mimeType[0], mimeType[1]),
+    );
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.uploadFile(
+        requestUrl, profileImage: image, {}, passAuth: true);
+
+    status = result.status;
+    data = result.data;
+    message = result.message;
 
     return ResponseItem(data: data, message: message, status: status);
   }

@@ -68,4 +68,5 @@ class ApiEndPoint {
   static const getActivityList = "getActivityList";
   static const addActivity = "addActivity";
   static const addFeeling = "addFeeling";
+  static const addMoodPhoto = "addMoodPhoto";
 }

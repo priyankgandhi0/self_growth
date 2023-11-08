@@ -11,6 +11,8 @@ class Assets {
   static const String iconsAddPhoto = 'assets/icons/add_photo.svg';
   static const String iconsAddPhotoImg = 'assets/icons/add_photo_img.svg';
   static const String iconsAddTo = 'assets/icons/add_to.svg';
+  static const String iconsAudioPlayer = 'assets/icons/audio_player.svg';
+  static const String iconsAudioStop = 'assets/icons/audio_stop.svg';
   static const String iconsAwfull = 'assets/icons/awfull.svg';
   static const String iconsBackArrow = 'assets/icons/back_arrow.svg';
   static const String iconsBell = 'assets/icons/bell.svg';
@@ -34,6 +36,7 @@ class Assets {
   static const String iconsGreat = 'assets/icons/great.svg';
   static const String iconsHabitTool = 'assets/icons/habit_tool.svg';
   static const String iconsHappy = 'assets/icons/happy.svg';
+  static const String iconsHappyIcon = 'assets/icons/happy_icon.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsImage = 'assets/icons/image.svg';
   static const String iconsImageCapture = 'assets/icons/image_capture.svg';
@@ -49,10 +52,13 @@ class Assets {
   static const String iconsNatural = 'assets/icons/natural.svg';
   static const String iconsNewHabbit = 'assets/icons/new_habbit.svg';
   static const String iconsNoThinking = 'assets/icons/no_thinking.svg';
+  static const String iconsNormal = 'assets/icons/normal.svg';
   static const String iconsNotAccept = 'assets/icons/not_accept.svg';
   static const String iconsPlayer = 'assets/icons/player.svg';
   static const String iconsPrivacy = 'assets/icons/privacy.svg';
   static const String iconsProfile = 'assets/icons/profile.svg';
+  static const String iconsRecord = 'assets/icons/record.svg';
+  static const String iconsRecordingPanel = 'assets/icons/recording_panel.svg';
   static const String iconsReduce = 'assets/icons/reduce.svg';
   static const String iconsResetHabit = 'assets/icons/reset_habit.svg';
   static const String iconsResetPass = 'assets/icons/reset_pass.svg';
@@ -71,6 +77,7 @@ class Assets {
   static const String iconsSliders = 'assets/icons/sliders.svg';
   static const String iconsStatment = 'assets/icons/statment.svg';
   static const String iconsThreeDote = 'assets/icons/three_dote.svg';
+  static const String iconsUnHappy = 'assets/icons/unHappy.svg';
   static const String iconsUser = 'assets/icons/user.svg';
   static const String iconsVoice = 'assets/icons/voice.svg';
   static const String iconsVoiceNote = 'assets/icons/voice_note.svg';

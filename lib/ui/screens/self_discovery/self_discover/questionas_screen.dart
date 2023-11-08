@@ -204,22 +204,25 @@ class QuestionThirdScreen extends StatelessWidget {
                   Get.toNamed(Routes.subscriptionScreen);
                 }).paddingSymmetric(horizontal: 32.w, vertical: 20.w),
           ),
-          BorderButton(
-            title: backHomepage,
-            onTap: () {
-              log('ON TAP');
-              ctrl.isQueAns = 0;
-              Get.back();
-              Get.back();
-              // bottomBarController.changeTab(BottomNavEnum.other);
-              // bottomBarController.isSelectedTab = 4;
-              // bottomBarController.tab = DiscoverScreen();
-              // bottomBarController.update();
-            },
-            width: Get.width,
-            height: 48.w,
-            buttonColor: Colors.transparent,
-          ).paddingOnly(bottom: 30.w, right: 32.w, left: 32.w)
+          Visibility(
+            visible: preferences.getBool(SharedPreference.IS_FILL_QUE) ?? false,
+            child: BorderButton(
+              title: backHomepage,
+              onTap: () {
+                log('ON TAP');
+                ctrl.isQueAns = 0;
+                Get.back();
+                Get.back();
+                // bottomBarController.changeTab(BottomNavEnum.other);
+                // bottomBarController.isSelectedTab = 4;
+                // bottomBarController.tab = DiscoverScreen();
+                // bottomBarController.update();
+              },
+              width: Get.width,
+              height: 48.w,
+              buttonColor: Colors.transparent,
+            ).paddingOnly(bottom: 30.w, right: 32.w, left: 32.w),
+          )
         ],
       ),
     );
@@ -233,15 +236,22 @@ class QuestionOneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        80.w.spaceH(),
-        Align(
-          alignment: Alignment.center,
-          child: (ctrl.questionList[ctrl.index])
-              .appSwitzerTextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
-                  textAlign: TextAlign.center)
-              .paddingSymmetric(horizontal: 20.w),
+        Container(
+          height: 150.w,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: (ctrl.questionList[ctrl.index])
+                    .appSwitzerTextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w700,
+                        textAlign: TextAlign.center)
+                    .paddingSymmetric(horizontal: 20.w),
+              ),
+            ],
+          ),
         ),
         15.w.spaceH(),
         ListView.separated(

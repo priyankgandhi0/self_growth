@@ -19,6 +19,7 @@ import '../../ui/screens/home_module/note_history/note_history_screen.dart';
 import '../../ui/screens/profile/reminder/reminder_screen.dart';
 import '../../ui/screens/profile/subscription/subscription_screen.dart';
 import '../../ui/screens/self_discovery/self_discover/questions_main.dart';
+import '../../ui/screens/voice_note/voice_note_screen.dart';
 
 class Routes {
   Routes._();
@@ -42,6 +43,7 @@ class Routes {
   static const String firstQuestionScreen = "/firstQuestionScreen";
   static const String noteHistoryScreen = "/noteHistoryScreen";
   static const String moodCheckingScreen = "/moodCheckingScreen";
+  static const String voiceNoteScreen = "/voiceNoteScreen";
   static const String addPhotoScreen = "/addPhotoScreen";
   static const String forgetPasswordScreen = "/forgetPasswordScreen";
   static const String changePassVerificationScreen =
@@ -101,8 +103,12 @@ class Routes {
         page: () => AddPhotoScreen(),
         transition: Transition.downToUp),
     GetPage(
+        name: voiceNoteScreen,
+        page: () => VoiceNoteScreen(),
+        transition: Transition.downToUp),
+    GetPage(
       name: firstQuestionScreen,
-      page: () => FirstQuestionScreen(),
+      page: () => const FirstQuestionScreen(),
     ),
     GetPage(
       name: homeScreen,
