@@ -236,7 +236,7 @@ class QuestionOneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
           height: 150.w,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,

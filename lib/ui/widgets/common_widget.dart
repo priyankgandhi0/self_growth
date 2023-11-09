@@ -330,7 +330,7 @@ class NoteCommonCard extends StatelessWidget {
                           image: '',
                         )
                       : ProfileDataCard(
-                          title: noteList[index] ?? "",
+                          title: noteList[index],
                           height: 20.w,
                           fontWeight: FontWeight.w500,
                           titleColor: chipTitleColor ?? borderPurpleColor,

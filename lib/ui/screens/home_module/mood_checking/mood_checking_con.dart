@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 
 import '../../../../api/repositories/habit_repo.dart';
 import '../../../../api/response_item.dart';

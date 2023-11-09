@@ -141,7 +141,7 @@ extension DateTimeOB on DateTime {
   String timeDifferenceForChatListGroup() {
     DateTime currentDate = DateTime.now();
 
-    var different = currentDate.difference(this.getLocalDateTime());
+    var different = currentDate.difference(getLocalDateTime());
 
     if (different.inDays > 365) return DateFormat("dd MMM, yyyy").format(this);
 

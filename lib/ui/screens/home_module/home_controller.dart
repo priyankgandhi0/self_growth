@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
