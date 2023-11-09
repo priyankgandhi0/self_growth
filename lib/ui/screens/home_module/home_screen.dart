@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -23,7 +20,6 @@ import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
 import '../../widgets/audio_player.dart';
 import '../../widgets/current_week_utils.dart';
-import '../../widgets/file_picker_utils.dart';
 import '../self_discovery/discover_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -155,10 +151,11 @@ class HomeScreen extends StatelessWidget {
                                       isImage: false,
                                       widget: AddImageCard(
                                         widget: commonCachedNetworkImage(
+                                            borderRadius: 8.r,
                                             imageUrl:
-                                                '${ImageBaseUrl.PROFILEIMAGEURL}${ctrl.moodData.first.moodPhoto}',
+                                                '${ImageBaseUrl.MOODIMAGEURL}${ctrl.moodData.first.moodPhoto}',
                                             height: 140.w,
-                                            width: 140.w),
+                                            width: Get.width),
                                       ),
                                     ),
                                   )
@@ -237,129 +234,162 @@ class HomeScreen extends StatelessWidget {
                 ),
               ).paddingSymmetric(horizontal: 20.w),
               16.w.spaceH(),
-              Container(
-                width: Get.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    color: white_FFFFFF),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    'Habbits'.appSwitzerTextStyle(
-                        fontSize: 17.sp, fontWeight: FontWeight.w600),
-                    16.w.spaceH(),
-                    ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return HabitCard(
-                            selectedDay: ctrl.isSelectedDayTick == index,
-                            value: index == 0 ? '1/2' : '2/3',
-                            dayOnTap: () {
-                              ctrl.checkInUserHabit(
-                                  ctrl.habitData[index].habitId.toString());
-                              ctrl.isSelectedDayTick = index;
-                              ctrl.update();
+              Visibility(
+                  visible: ctrl.habitData.isNotEmpty,
+                  child: Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: white_FFFFFF),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        'Habits'.appSwitzerTextStyle(
+                            fontSize: 17.sp, fontWeight: FontWeight.w600),
+                        16.w.spaceH(),
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return HabitCard(
+                                selectedDay: ctrl.habitData[index].streak != 0,
+                                value: index == 0 ? '1/2' : '2/3',
+                                dayOnTap: () {
+                                  ctrl.update();
+                                },
+                                onTap: () {
+                                  ctrl.isSelectedHabit = index;
+                                  ctrl.update();
+                                },
+                                title: ctrl.habitData[index].habitName ?? "",
+                                subTitle: 'EVERY DAY',
+                                day: ctrl.habitData[index].streak.toString(),
+                              );
                             },
-                            onTap: () {
-                              ctrl.isSelectedHabit = index;
-                              ctrl.update();
+                            separatorBuilder: (context, index) {
+                              return const CommonDivider()
+                                  .paddingSymmetric(horizontal: 4.w);
                             },
-                            title: ctrl.habitData[index].habitName ?? "",
-                            subTitle: 'EVERY DAY',
-                            day: ctrl.habitData[index].streak.toString(),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const CommonDivider()
-                              .paddingSymmetric(horizontal: 4.w);
-                        },
-                        itemCount: ctrl.habitData.length)
-                  ],
-                ).paddingAll(16.w),
-              ).paddingSymmetric(horizontal: 20.w),
-              16.w.spaceH(),
-              Container(
-                width: Get.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    color: white_FFFFFF),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildHabit.appSwitzerTextStyle(
-                        fontSize: 17.sp, fontWeight: FontWeight.w600),
-                    16.w.spaceH(),
-                    ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return BuildHabitCard(
-                            selected: ctrl.isSelectedHabit == index,
-                            selectedDay: ctrl.isSelectedDayTick == index,
-                            dayOnTap: () {
-                              ctrl.isSelectedDayTick = index;
-                              ctrl.update();
+                            itemCount: ctrl.habitData.length)
+                      ],
+                    ).paddingAll(16.w),
+                  ).paddingOnly(right: 20.w, left: 20.w, bottom: 16.w)),
+              Visibility(
+                  visible: ctrl.buildData.isNotEmpty,
+                  child: Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: white_FFFFFF),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildHabit.appSwitzerTextStyle(
+                            fontSize: 17.sp, fontWeight: FontWeight.w600),
+                        16.w.spaceH(),
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return BuildHabitCard(
+                                selected: ctrl.isSelectedHabit == index,
+                                selectedDay: ctrl.buildData[index].streak !=
+                                        0 ||
+                                    ctrl.isSelectedDayTick1.contains(
+                                        ctrl.buildData[index].habitId ?? 0) ||
+                                    ctrl.isSelectedDayTick.contains(
+                                        ctrl.buildData[index].habitId ?? 0),
+                                dayOnTap: () {
+                                  if (ctrl.isSelectedDayTick.contains(
+                                      ctrl.buildData[index].habitId ?? 0)) {
+                                  } else {
+                                    ctrl.checkInUserHabit(ctrl
+                                        .habitData[index].habitId
+                                        .toString());
+                                    ctrl.isSelectedDayTick.add(
+                                        ctrl.buildData[index].habitId ?? 0);
+                                  }
+                                  ctrl.update();
+                                },
+                                onTap: () {
+                                  ctrl.isSelectedHabit = index;
+                                  ctrl.update();
+                                },
+                                title: ctrl.buildData[index].habitName ?? "",
+                                subTitle: 'EVERY DAY',
+                                day: ctrl.buildData[index].streak.toString(),
+                              );
                             },
-                            onTap: () {
-                              ctrl.isSelectedHabit = index;
-                              ctrl.update();
+                            separatorBuilder: (context, index) {
+                              return const CommonDivider()
+                                  .paddingSymmetric(horizontal: 4.w);
                             },
-                            title: ctrl.buildData[index].habitName ?? "",
-                            subTitle: 'EVERY DAY',
-                            day: ctrl.buildData[index].streak.toString(),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const CommonDivider()
-                              .paddingSymmetric(horizontal: 4.w);
-                        },
-                        itemCount: ctrl.buildData.length)
-                  ],
-                ).paddingAll(16.w),
-              ).paddingSymmetric(horizontal: 20.w),
-              16.w.spaceH(),
-              Container(
-                width: Get.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    color: white_FFFFFF),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    quitHabit.appSwitzerTextStyle(
-                        fontSize: 17.sp, fontWeight: FontWeight.w600),
-                    16.w.spaceH(),
-                    ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return QuitHabitCard(
-                            selectedDay: ctrl.isSelectedDayTick1 == index,
-                            dayOnTap: () {
-                              ctrl.isSelectedDayTick1 = index;
-                              ctrl.update();
-                            },
-                            buttonOnTap: () {
-                              bottomBarController.isOpenDialog = true;
-                              bottomBarController.isOpenHomeDialog = 1;
-                              bottomBarController.update();
-                            },
-                            title: ctrl.quitData[index].habitName ?? "",
-                            subTitle: 'Abstinence time',
-                            time:
-                                '${(ctrl.quitData[index].reminderTime ?? "").split(":").first}h : ${(ctrl.quitData[index].reminderTime ?? "").split(":")[1]}m :  ${(ctrl.quitData[index].reminderTime ?? "").split(":").last}s',
-                            day: ctrl.quitData[index].streak.toString(),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return 16.w.spaceH();
-                        },
-                        itemCount: ctrl.quitData.length)
-                  ],
-                ).paddingAll(16.w),
-              ).paddingSymmetric(horizontal: 20.w),
-              16.w.spaceH(),
+                            itemCount: ctrl.buildData.length)
+                      ],
+                    ).paddingAll(16.w),
+                  ).paddingOnly(right: 20.w, left: 20.w, bottom: 16.w)),
+              Visibility(
+                visible: ctrl.quitData.isNotEmpty,
+                child: Container(
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.r),
+                      color: white_FFFFFF),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      quitHabit.appSwitzerTextStyle(
+                          fontSize: 17.sp, fontWeight: FontWeight.w600),
+                      16.w.spaceH(),
+                      ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return QuitHabitCard(
+                              selectedDay: ctrl.quitData[index].streak != 0 ||
+                                  ctrl.isSelectedDayTick1.contains(
+                                      ctrl.quitData[index].habitId ?? 0),
+                              dayOnTap: () {
+                                if (ctrl.isSelectedDayTick1.contains(
+                                    ctrl.quitData[index].habitId ?? 0)) {
+                                } else {
+                                  ctrl.isSelectedDayTick1
+                                      .add(ctrl.quitData[index].habitId ?? 0);
+                                }
+                                ctrl.update();
+                              },
+                              buttonOnTap: () {
+                                bottomBarController.isOpenDialog = true;
+                                bottomBarController.isOpenHomeDialog = 1;
+                                bottomBarController.deleteHabitId =
+                                    ctrl.quitData[index].habitId ?? 0;
+                                bottomBarController.selectedDate = DateFormat(
+                                        'yyyy-MM-dd')
+                                    .format(DateTime(
+                                        DateTime.now().year,
+                                        DateTime.now().month,
+                                        (findFirstDateOfTheWeek(DateTime.now())
+                                                .day) +
+                                            index))
+                                    .toString();
+                                bottomBarController.update();
+                              },
+                              title: ctrl.quitData[index].habitName ?? "",
+                              subTitle: ctrl.quitData[index].note ??
+                                  'Abstinence time',
+                              time:
+                                  '${(ctrl.quitData[index].reminderTime ?? "").split(":").first}h : ${(ctrl.quitData[index].reminderTime ?? "").split(":")[1]}m :  ${(ctrl.quitData[index].reminderTime ?? "").split(":").last}s',
+                              day: ctrl.quitData[index].streak.toString(),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return 16.w.spaceH();
+                          },
+                          itemCount: ctrl.quitData.length)
+                    ],
+                  ).paddingAll(16.w),
+                ).paddingOnly(right: 20.w, left: 20.w, bottom: 16.w),
+              ),
               Container(
                 width: Get.width,
                 decoration: BoxDecoration(

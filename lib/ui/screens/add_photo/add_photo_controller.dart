@@ -40,4 +40,6 @@ class AddPhotoController extends GetxController {
     isLoading.value = false;
     update();
   }
+
+  DateTime selectedDate = DateTime.now();
 }

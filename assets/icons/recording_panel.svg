@@ -1,31 +1,32 @@
-<svg width="280" height="161" viewBox="0 0 280 161" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_266_709)">
-<rect opacity="0.3" y="0.5" width="280" height="160" fill="#A69FB0"/>
-<path opacity="0.2" d="M0 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M14 -0.5V11.5" stroke="#352E40"/>
-<path opacity="0.2" d="M28 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M42 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M56 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M70 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M84 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M98 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M112 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M126 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M140 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M154 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M168 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M182 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M196 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M210 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M224 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M238 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M252 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M266 -0.5V7.5" stroke="#352E40"/>
-<path opacity="0.2" d="M280 -0.5V7.5" stroke="#352E40"/>
+<svg width="281" height="160" viewBox="0 0 281 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_266_772)">
+<rect opacity="0.3" x="0.629395" width="280" height="160" fill="#A69FB0"/>
+<line x1="141.129" y1="3" x2="141.129" y2="160" stroke="#352E40"/>
+<path opacity="0.2" d="M0.629395 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M14.6294 -1V11" stroke="#352E40"/>
+<path opacity="0.2" d="M28.6294 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M42.6294 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M56.6294 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M70.6294 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M84.6294 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M98.6294 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M112.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M126.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M140.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M154.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M168.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M182.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M196.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M210.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M224.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M238.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M252.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M266.629 -1V7" stroke="#352E40"/>
+<path opacity="0.2" d="M280.629 -1V7" stroke="#352E40"/>
 </g>
 <defs>
-<clipPath id="clip0_266_709">
-<rect width="280" height="160" fill="white" transform="translate(0 0.5)"/>
+<clipPath id="clip0_266_772">
+<rect width="280" height="160" fill="white" transform="translate(0.629395)"/>
 </clipPath>
 </defs>
 </svg>

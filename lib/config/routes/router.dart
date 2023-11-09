@@ -14,7 +14,7 @@ import '../../ui/screens/auth/forget_password/forget_password_screen.dart';
 import '../../ui/screens/auth/personal_info/personal_info_screen.dart';
 import '../../ui/screens/auth/sign_up/sign_up_screen.dart';
 import '../../ui/screens/home_module/home_screen.dart';
-import '../../ui/screens/home_module/mood_cheking/mood_checking_screen.dart';
+import '../../ui/screens/home_module/mood_checking/mood_checking_screen.dart';
 import '../../ui/screens/home_module/note_history/note_history_screen.dart';
 import '../../ui/screens/profile/reminder/reminder_screen.dart';
 import '../../ui/screens/profile/subscription/subscription_screen.dart';

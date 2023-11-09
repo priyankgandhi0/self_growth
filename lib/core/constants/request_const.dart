@@ -23,6 +23,8 @@ class ImageBaseUrl {
 
   static const String PROFILEIMAGEURL =
       "${ImageBaseUrl.URL}app_images/profile_images/";
+  static const String MOODIMAGEURL =
+      "https://codonnier.tech/dipak/nAPI/seral_app/app_images/mood_images/";
   static const String IMAGEURL = "${ImageBaseUrl.URL}app_images/feed_items/";
 }
 
@@ -63,6 +65,7 @@ class ApiEndPoint {
   static const addHabit = "addHabit";
   static const getUserHabit = "getUserHabit";
   static const checkInUserHabit = "checkinUserHabit";
+  static const deleteUserHabit = "deleteUserHabit";
 
   ///MOOD CHECKING
   static const moodChecking = "moodCheckin";

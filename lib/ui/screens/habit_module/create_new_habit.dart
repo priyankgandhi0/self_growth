@@ -82,6 +82,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                                   (index) => ctrl.iconList.length == index
                                       ? IconCard(
                                           onTap: () {
+                                            FocusScope.of(context).unfocus();
                                             openColorPickerDialog(
                                               isShowButton: false,
                                               content: SizedBox(
@@ -139,6 +140,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                                   (index) => ctrl.colorList.length == index
                                       ? IconCard(
                                           onTap: () {
+                                            FocusScope.of(context).unfocus();
                                             openColorPickerDialog(
                                               content: MaterialColorPicker(
                                                 colors: fullMaterialColors,
@@ -221,6 +223,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                                     RoundAppButton(
                                       title: 'Continue',
                                       onTap: () {
+                                        FocusScope.of(context).unfocus();
                                         if (ctrl.goalCon.text.isEmpty) {
                                           showAppSnackBar(
                                               'Goal time must be required');

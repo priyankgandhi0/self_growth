@@ -14,8 +14,8 @@ class HomeController extends GetxController {
 
   int isSelectedDay = 0;
   int isSelectedHabit = 0;
-  int isSelectedDayTick = 0;
-  int isSelectedDayTick1 = 0;
+  List<int> isSelectedDayTick = [];
+  List<int> isSelectedDayTick1 = [];
 
   List<MoodData> moodData = [];
   List<HabitData> habitData = [];
@@ -94,6 +94,31 @@ class HomeController extends GetxController {
     update();
   }
 
+  deleteUserHabit(String habitId, String selectedDate) async {
+    moodData.clear();
+    isLoading.value = true;
+    ResponseItem result =
+        ResponseItem(data: null, message: errorText, status: false);
+    result = await HabitRepo.deleteUserHabit(
+      habitId: habitId,
+    );
+    try {
+      if (result.status) {
+        showAppSnackBar(result.message, status: true);
+        getUserHabit(selectedDate);
+        isLoading.value = false;
+      } else {
+        isLoading.value = false;
+        showAppSnackBar(result.message);
+      }
+    } catch (error) {
+      isLoading.value = false;
+      showAppSnackBar(errorText);
+    }
+    isLoading.value = false;
+    update();
+  }
+
   checkInUserHabit(String habitId) async {
     ResponseItem result =
         ResponseItem(data: null, message: errorText, status: false);
@@ -101,6 +126,7 @@ class HomeController extends GetxController {
     try {
       if (result.status) {
         showAppSnackBar(result.message, status: true);
+
         isLoading.value = false;
       } else {
         isLoading.value = false;

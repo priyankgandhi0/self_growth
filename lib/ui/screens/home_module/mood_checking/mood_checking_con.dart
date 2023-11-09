@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 
 import '../../../../api/repositories/habit_repo.dart';
 import '../../../../api/response_item.dart';
@@ -17,6 +18,7 @@ class MoodCheckingCon extends GetxController {
 
   String activityEmoji = '';
   String feelingEmoji = '';
+  DateTime selectedDate = DateTime.now();
 
   List<String> howAreYouFeeling = [];
   List<String> unhappyReason = [];
@@ -56,6 +58,7 @@ class MoodCheckingCon extends GetxController {
               unhappyReason.toString().replaceAll('[', "").replaceAll(']', ""));
       try {
         if (result.status) {
+          // Get.find<HomeController>().getUserMood(selectedDate)
           Get.back();
           isLoading.value = false;
           showAppSnackBar(result.message, status: true);

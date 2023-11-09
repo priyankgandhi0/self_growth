@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 
@@ -291,6 +292,40 @@ class CustomDialog extends StatelessWidget {
   }
 }
 
+Future<DateTime> pickDateDialog({required BuildContext context}) {
+  return showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1950),
+          builder: (context, child) {
+            return Theme(
+              data: ThemeData.light().copyWith(
+                primaryColor: borderPurpleColor,
+                hintColor: borderPurpleColor,
+                colorScheme:
+                    const ColorScheme.light(primary: borderPurpleColor),
+                buttonTheme:
+                    const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                      foregroundColor: borderPurpleColor // button text color
+                      ),
+                ),
+              ),
+              child: child!,
+            );
+          },
+          lastDate:
+              DateTime(2024)) //what will be the up to supported date in picker
+      .then((pickedDate) {
+    if (pickedDate != null) {
+      return pickedDate;
+    } else {
+      return DateTime.now();
+    }
+  });
+}
+
 Future<TimeOfDay> pickedTime(BuildContext context) async {
   TimeOfDay? pickedTime = await showTimePicker(
     initialTime: TimeOfDay.now(),
@@ -302,7 +337,7 @@ Future<TimeOfDay> pickedTime(BuildContext context) async {
             style: TextButton.styleFrom(
               textStyle: TextStyle(
                   fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                   color: borderPurpleColor,
                   fontFamily: 'Switzer'),
               foregroundColor: Colors.black,

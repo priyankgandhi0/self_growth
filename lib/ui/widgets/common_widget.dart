@@ -292,31 +292,34 @@ class NoteCommonCard extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     fontColor: doteColor)
                 .paddingSymmetric(vertical: 16.w, horizontal: 16.w)
-            : widget ?? const SizedBox(),
-        fellingList.isNotEmpty
-            ? SizedBox(
-                height: 36.w,
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.r),
-                          border: const GradientBoxBorder(
-                              gradient: LinearGradient(colors: [
-                                borderPinkColor,
-                                borderPurpleColor,
-                                borderPurpleColor,
-                                borderPurpleColor,
-                                borderPinkColor
-                              ]),
-                              width: 1),
-                        ),
-                        child: ProfileDataCard(
+            : widget ??
+                SizedBox(
+                  height: 16.w,
+                ),
+        SizedBox(
+          height: 36.w,
+          child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.r),
+                    border: const GradientBoxBorder(
+                        gradient: LinearGradient(colors: [
+                          borderPinkColor,
+                          borderPurpleColor,
+                          borderPurpleColor,
+                          borderPurpleColor,
+                          borderPinkColor
+                        ]),
+                        width: 1),
+                  ),
+                  child: fellingList.isNotEmpty
+                      ? ProfileDataCard(
                           title: (fellingList)[index].name ?? "",
                           height: 20.w,
                           fontWeight: FontWeight.w500,
@@ -325,15 +328,24 @@ class NoteCommonCard extends StatelessWidget {
                           titleColor: chipTitleColor ?? borderPurpleColor,
                           onTap: () {},
                           image: '',
+                        )
+                      : ProfileDataCard(
+                          title: noteList[index] ?? "",
+                          height: 20.w,
+                          fontWeight: FontWeight.w500,
+                          titleColor: chipTitleColor ?? borderPurpleColor,
+                          onTap: () {},
+                          image: noteImageList[index],
                         ),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return 8.w.spaceW();
-                    },
-                    itemCount: fellingList.length),
-              ).paddingSymmetric(horizontal: 16.w)
-            : SizedBox(),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return 8.w.spaceW();
+              },
+              itemCount: fellingList.isNotEmpty
+                  ? fellingList.length
+                  : noteImageList.length),
+        ).paddingSymmetric(horizontal: 16.w),
         16.w.spaceH(),
         isImage ?? false
             ? Container(
@@ -674,12 +686,13 @@ SizedBox commonCachedNetworkImage(
     {required String imageUrl,
     required double height,
     required double width,
+    double? borderRadius,
     ColorFilter? colorFilter}) {
   return SizedBox(
     height: height,
     width: width,
     child: ClipRRect(
-        borderRadius: BorderRadius.circular(1000),
+        borderRadius: BorderRadius.circular(borderRadius ?? 1000),
         child: CachedNetworkImage(
             imageUrl: imageUrl,
             imageBuilder: (context, imageProvider) => Container(
@@ -687,7 +700,9 @@ SizedBox commonCachedNetworkImage(
                   width: width,
                   decoration: BoxDecoration(
                     color: grey_C4C4C4,
-                    shape: BoxShape.circle,
+                    shape: borderRadius != null
+                        ? BoxShape.rectangle
+                        : BoxShape.circle,
                     image: DecorationImage(
                       image: imageProvider,
                       fit: BoxFit.cover,
@@ -702,7 +717,7 @@ SizedBox commonCachedNetworkImage(
                     height: 100.w,
                     width: 100.w,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+                      borderRadius: BorderRadius.circular(borderRadius ?? 1000),
                       color: grey_D9D9D9,
                       border: Border.all(
                           color: Theme.of(context).secondaryHeaderColor),
@@ -710,7 +725,7 @@ SizedBox commonCachedNetworkImage(
                   ),
                 ),
             errorWidget: (context, url, error) => ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
+                  borderRadius: BorderRadius.circular(borderRadius ?? 100),
                   child: Container(
                     height: 100.w,
                     width: 100.w,

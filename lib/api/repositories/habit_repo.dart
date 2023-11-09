@@ -102,6 +102,26 @@ class HabitRepo {
     return ResponseItem(data: data, message: message, status: status);
   }
 
+  static Future<ResponseItem> deleteUserHabit({
+    required String habitId,
+  }) async {
+    bool status = false;
+    ResponseItem result;
+    dynamic data;
+    Map<String, dynamic> params = {"habit_id": habitId};
+    var queryParameters = {RequestParam.service: ApiEndPoint.deleteUserHabit};
+    String queryString = Uri(queryParameters: queryParameters).query;
+    String requestUrl = BaseUrl.URL + queryString;
+    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+
+    status = result.status;
+
+    data = result.data;
+    var message = result.message;
+
+    return ResponseItem(data: data, message: message, status: status);
+  }
+
   static Future<ResponseItem> getUserMood({
     required String date,
   }) async {

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
 import '../../widgets/app_button.dart';
 
-import '../home_module/mood_cheking/mood_checking_screen.dart';
+import '../../widgets/app_dialogs.dart';
+import '../home_module/mood_checking/mood_checking_screen.dart';
 
 class AddPhotoScreen extends StatelessWidget {
   AddPhotoScreen({Key? key}) : super(key: key);
@@ -65,8 +67,16 @@ class AddPhotoScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w600),
                                   16.w.spaceH(),
                                   ButtonCard(
-                                    onTap: () {},
-                                    title: 'Today, 8:00 AM',
+                                    onTap: () {
+                                      pickDateDialog(context: context)
+                                          .then((value) {
+                                        log('value--$value');
+                                        ctrl.selectedDate = value;
+                                        ctrl.update();
+                                      });
+                                    },
+                                    title: ctrl.selectedDate
+                                        .timeDifferenceForChatListGroup(),
                                     icon: Assets.icons.dateRange.svg(),
                                   ),
                                   AddImageCard(

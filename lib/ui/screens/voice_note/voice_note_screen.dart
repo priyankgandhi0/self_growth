@@ -11,9 +11,10 @@ import '../../../core/constants/app_colors.dart';
 
 import '../../../gen/assets.gen.dart';
 
+import '../../widgets/app_dialogs.dart';
 import '../../widgets/app_title_bar.dart';
 import '../../widgets/common_widget.dart';
-import '../home_module/mood_cheking/mood_checking_screen.dart';
+import '../home_module/mood_checking/mood_checking_screen.dart';
 
 class VoiceNoteScreen extends StatelessWidget {
   VoiceNoteScreen({Key? key}) : super(key: key);
@@ -65,18 +66,54 @@ class VoiceNoteScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w600),
                                   16.w.spaceH(),
                                   ButtonCard(
-                                    onTap: () {},
-                                    title: 'Today, 8:00 AM',
+                                    onTap: () {
+                                      pickDateDialog(context: context)
+                                          .then((value) {
+                                        log('value--$value');
+                                        ctrl.selectedDate = value;
+                                        ctrl.update();
+                                      });
+                                    },
+                                    title: ctrl.selectedDate
+                                        .timeDifferenceForChatListGroup(),
                                     icon: Assets.icons.dateRange.svg(),
                                   ),
-                                  48.w.spaceH(),
-                                  "00:02".appSwitzerTextStyle(
-                                      fontWeight: FontWeight.w400),
+                                  16.w.spaceH(),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ((ctrl.buildText1().contains('-') ||
+                                                  ctrl.buildText1() == "00:00")
+                                              ? ""
+                                              : ctrl.buildText1())
+                                          .appSwitzerTextStyle(
+                                              fontWeight: FontWeight.w400),
+                                      ((ctrl.buildText2().contains('-') ||
+                                                  ctrl.buildText2() == "00:00")
+                                              ? ""
+                                              : ctrl.buildText2())
+                                          .appSwitzerTextStyle(
+                                              fontWeight: FontWeight.w400),
+                                      (ctrl.buildText3()).appSwitzerTextStyle(
+                                          fontWeight: FontWeight.w400),
+                                      (ctrl.buildText4() == "00:00"
+                                              ? ""
+                                              : ctrl.buildText4())
+                                          .appSwitzerTextStyle(
+                                              fontWeight: FontWeight.w400),
+                                      (ctrl.buildText5() == "00:00"
+                                              ? ""
+                                              : ctrl.buildText5())
+                                          .appSwitzerTextStyle(
+                                              fontWeight: FontWeight.w400),
+                                    ],
+                                  ).paddingSymmetric(horizontal: 26.w),
                                   2.w.spaceH(),
                                   Assets.icons.recordingPanel.svg(
                                       width: Get.width,
                                       height: 160.w,
-                                      fit: BoxFit.cover),
+                                      fit: BoxFit.contain),
                                   10.w.spaceH(),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,

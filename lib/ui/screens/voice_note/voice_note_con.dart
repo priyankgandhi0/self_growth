@@ -114,6 +114,61 @@ class VoiceNoteController extends GetxController {
     return '$hours:$minutes:$seconds';
   }
 
+  String buildText1() {
+    if (recordStates != RecordState.stop) {
+      final String minutes = _formatNumber(recordDuration ~/ 60);
+      final String seconds = _formatNumber(recordDuration % 60);
+
+      return '$minutes:${int.parse(seconds) - 2}';
+    }
+
+    return "00:00";
+  }
+
+  String buildText2() {
+    if (recordStates != RecordState.stop) {
+      final String minutes = _formatNumber(recordDuration ~/ 60);
+      final String seconds = _formatNumber(recordDuration % 60);
+
+      return '$minutes:${int.parse(seconds) - 1}';
+    }
+
+    return "00:00";
+  }
+
+  String buildText3() {
+    if (recordStates != RecordState.stop) {
+      final String minutes = _formatNumber(recordDuration ~/ 60);
+      final String seconds = _formatNumber(recordDuration % 60);
+
+      return '$minutes:${int.parse(seconds)}';
+    }
+
+    return "00:00";
+  }
+
+  String buildText4() {
+    if (recordStates != RecordState.stop) {
+      final String minutes = _formatNumber(recordDuration ~/ 60);
+      final String seconds = _formatNumber(recordDuration % 60);
+
+      return '$minutes:${int.parse(seconds) + 1}';
+    }
+
+    return "00:00";
+  }
+
+  String buildText5() {
+    if (recordStates != RecordState.stop) {
+      final String minutes = _formatNumber(recordDuration ~/ 60);
+      final String seconds = _formatNumber(recordDuration % 60);
+
+      return '$minutes:${int.parse(seconds) + 2}';
+    }
+
+    return "00:00";
+  }
+
   String _formatNumber(int number) {
     String numberStr = number.toString();
     if (number < 10) {
@@ -131,4 +186,6 @@ class VoiceNoteController extends GetxController {
       update();
     });
   }
+
+  DateTime selectedDate = DateTime.now();
 }

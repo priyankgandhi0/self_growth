@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
+import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../config/routes/router.dart';
@@ -67,7 +68,7 @@ class BottomNavigationScreen extends StatelessWidget {
                       child: ctrl.isOpenHomeDialog == 0
                           ? const AddButtonCard()
                           : ctrl.isOpenHomeDialog == 1
-                              ? const QuitHabitDialog()
+                              ? QuitHabitDialog()
                               : ctrl.isOpenHomeDialog == 2
                                   ? const AddPhotoDialog()
                                   : const SizedBox(),
@@ -242,23 +243,50 @@ class AddButtonCard extends StatelessWidget {
 }
 
 class QuitHabitDialog extends StatelessWidget {
-  const QuitHabitDialog({Key? key}) : super(key: key);
-
+  QuitHabitDialog({Key? key}) : super(key: key);
+  final HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ProfileDataCard(
-            image: Assets.icons.resetHabit.path,
-            height: 24.w,
-            title: 'Reset habit'),
-        const CommonDivider().paddingSymmetric(vertical: 10.w),
-        ProfileDataCard(
-            image: Assets.icons.delete.path,
-            height: 24.w,
-            title: 'Delete habit')
-      ],
-    );
+    return GetBuilder<BottomBarController>(builder: (ctrl) {
+      return Column(
+        children: [
+          ProfileDataCard(
+              image: Assets.icons.resetHabit.path,
+              height: 24.w,
+              title: 'Reset habit'),
+          const CommonDivider().paddingSymmetric(vertical: 10.w),
+          ProfileDataCard(
+              onTap: () {
+                ctrl.isOpenDialog = false;
+                ctrl.update();
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return CustomDialog(
+                      title: 'Delete habit',
+                      description: 'Are you sure to delete habit?',
+                      onCancel: () {
+                        Get.back();
+                      },
+                      isCancel: true,
+                      textConfirm: 'Delete',
+                      textCancel: 'Cancel',
+                      onConfirm: () {
+                        homeController.deleteUserHabit(
+                            ctrl.deleteHabitId.toString(), ctrl.selectedDate);
+
+                        ctrl.update();
+                      },
+                    );
+                  },
+                );
+              },
+              image: Assets.icons.delete.path,
+              height: 24.w,
+              title: 'Delete habit')
+        ],
+      );
+    });
   }
 }
 

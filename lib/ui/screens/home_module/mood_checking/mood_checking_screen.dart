@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,8 +63,15 @@ class MoodCheckingScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w600, fontSize: 20.sp),
                             12.w.spaceH(),
                             ButtonCard(
-                              onTap: () {},
-                              title: 'Today, 8:00 AM',
+                              onTap: () {
+                                pickDateDialog(context: context).then((value) {
+                                  log('value--$value');
+                                  ctrl.selectedDate = value;
+                                  ctrl.update();
+                                });
+                              },
+                              title: ctrl.selectedDate
+                                  .timeDifferenceForChatListGroup(),
                               icon: Assets.icons.dateRange.svg(),
                             ),
                             24.w.spaceH(),

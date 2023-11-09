@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
@@ -120,6 +121,39 @@ extension AddGradientText on String {
             const Color(0xffEDE3FF)
           ],
     );
+  }
+}
+
+extension DateTimeOB on DateTime {
+  DateTime getLocalDateTime() {
+    String dateUtc = DateFormat('yyyy-MM-dd HH:mm:ss').format(this);
+    var dateTime = DateFormat("yyyy-MM-dd HH:mm:ss").parse(dateUtc, true);
+    var dateLocal = dateTime.toLocal();
+    return dateLocal;
+  }
+
+  int getDateForChatListGroup() {
+    return DateTime(year, month, day, 0, 0, 0)
+        .getLocalDateTime()
+        .millisecondsSinceEpoch;
+  }
+
+  String timeDifferenceForChatListGroup() {
+    DateTime currentDate = DateTime.now();
+
+    var different = currentDate.difference(this.getLocalDateTime());
+
+    if (different.inDays > 365) return DateFormat("dd MMM, yyyy").format(this);
+
+    if (different.inDays >= 1) return DateFormat("dd MMM, EEEE").format(this);
+
+    if (different.inDays == 0) return "Today";
+
+    return DateFormat("dd MMM, yyyy").format(this);
+  }
+
+  String timeAgo() {
+    return DateFormat("h:mm a").format(this);
   }
 }
 
