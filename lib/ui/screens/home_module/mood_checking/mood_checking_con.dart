@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../api/repositories/habit_repo.dart';
 import '../../../../api/response_item.dart';
@@ -7,6 +8,7 @@ import '../../../../core/constants/app_strings.dart';
 
 import '../../../../models/get_activity_model.dart';
 import '../../../widgets/app_snack_bar.dart';
+import '../home_controller.dart';
 
 class MoodCheckingCon extends GetxController {
   TextEditingController addActivityCon = TextEditingController();
@@ -57,7 +59,8 @@ class MoodCheckingCon extends GetxController {
               unhappyReason.toString().replaceAll('[', "").replaceAll(']', ""));
       try {
         if (result.status) {
-          // Get.find<HomeController>().getUserMood(selectedDate)
+          Get.find<HomeController>()
+              .getUserMood(DateFormat('yyyy-MM-dd').format(DateTime.now()));
           Get.back();
           isLoading.value = false;
           showAppSnackBar(result.message, status: true);

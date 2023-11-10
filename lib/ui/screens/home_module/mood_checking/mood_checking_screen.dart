@@ -213,7 +213,6 @@ class MoodCheckingScreen extends StatelessWidget {
                                 ctrl.unhappyReason.add(
                                     ctrl.activityList[index].id.toString());
                               }
-
                               ctrl.update();
                             },
                           ),
@@ -404,7 +403,8 @@ class FamilyCard extends StatelessWidget {
             : BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(Assets.images.boxBorder.path))),
-        child: GestureDetector(
+        child: InkWell(
+          highlightColor: Colors.transparent,
           onTap: onTap,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

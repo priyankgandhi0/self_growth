@@ -94,96 +94,94 @@ class OnboardingScreen extends StatelessWidget {
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerFloat,
-              body: SingleChildScrollView(
-                child: SafeArea(
-                  child: Column(
-                    children: [
-                      WithOutTitleAppBar(
-                        onTap: () {
-                          ctrl.pageController.animateToPage(
-                            ctrl.initialPage - 1,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.linear,
-                          );
-                          ctrl.update();
-                        },
-                        showBackButton: ctrl.initialPage != 0,
-                        suffixWidget: BorderButton(
-                          title: englishText,
-                          buttonColor: Colors.transparent,
-                          width: 80.w,
-                          onTap: () {},
-                        ),
-                      ).paddingOnly(top: 7.w),
-                      60.w.spaceH(),
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: Get.height,
-                            child: PageView(
-                              onPageChanged: (value) {
-                                FocusManager.instance.primaryFocus?.unfocus();
-                                ctrl.initialPage = value;
-                              },
-                              controller: ctrl.pageController,
-                              children: <Widget>[
-                                PageViewCard(
-                                    ctrl: ctrl,
-                                    image: Assets.images.onBording1.image(
-                                        fit: BoxFit.contain,
-                                        height: 240.w,
-                                        width: 240.w),
-                                    title: 'Learn',
-                                    subTitle:
-                                        'Working on thinking traps is the first step of the mental well-being journey.',
-                                    subTitle1:
-                                        'Seral offers you a Personalized education for your mind to understand your thinking-frame.'),
-                                PageViewCard(
-                                    ctrl: ctrl,
-                                    image: Assets.images.onBording2.image(
-                                        fit: BoxFit.contain,
-                                        height: 240.w,
-                                        width: 240.w),
-                                    title: 'Control',
-                                    subTitle: secondScreenText,
-                                    subTitle1:
-                                        'Seral Challenge and change your thinking patterns by providing you with advanced tools.'),
-                                PageViewCard(
-                                    ctrl: ctrl,
-                                    image: Assets.images.onBording3.image(
-                                        fit: BoxFit.contain,
-                                        height: 240.w,
-                                        width: 240.w),
-                                    title: 'Track',
-                                    subTitle1: '',
-                                    subTitle: thirdScreenText)
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 270.w,
-                            left: 0,
-                            right: 0,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                    3,
-                                    (index) => CircleAvatar(
-                                          radius: 4.r,
-                                          backgroundColor:
-                                              ctrl.initialPage == index
-                                                  ? borderPurpleColor
-                                                  : doteColor,
-                                        ).paddingSymmetric(horizontal: 2.w)),
-                              ),
-                            ),
-                          ),
-                        ],
+              body: SafeArea(
+                child: Column(
+                  children: [
+                    WithOutTitleAppBar(
+                      onTap: () {
+                        ctrl.pageController.animateToPage(
+                          ctrl.initialPage - 1,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.linear,
+                        );
+                        ctrl.update();
+                      },
+                      showBackButton: ctrl.initialPage != 0,
+                      suffixWidget: BorderButton(
+                        title: englishText,
+                        buttonColor: Colors.transparent,
+                        width: 80.w,
+                        onTap: () {},
                       ),
-                    ],
-                  ),
+                    ).paddingOnly(top: 7.w),
+                    60.w.spaceH(),
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 400.w,
+                          child: PageView(
+                            onPageChanged: (value) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              ctrl.initialPage = value;
+                            },
+                            controller: ctrl.pageController,
+                            children: <Widget>[
+                              PageViewCard(
+                                  ctrl: ctrl,
+                                  image: Assets.images.onBording1.image(
+                                      fit: BoxFit.contain,
+                                      height: 230.w,
+                                      width: 230.w),
+                                  title: 'Learn',
+                                  subTitle:
+                                      'Working on thinking traps is the first step of the mental well-being journey.',
+                                  subTitle1:
+                                      'Seral offers you a Personalized education for your mind to understand your thinking-frame.'),
+                              PageViewCard(
+                                  ctrl: ctrl,
+                                  image: Assets.images.onBording2.image(
+                                      fit: BoxFit.contain,
+                                      height: 230.w,
+                                      width: 230.w),
+                                  title: 'Control',
+                                  subTitle: secondScreenText,
+                                  subTitle1:
+                                      'Seral Challenge and change your thinking patterns by providing you with advanced tools.'),
+                              PageViewCard(
+                                  ctrl: ctrl,
+                                  image: Assets.images.onBording3.image(
+                                      fit: BoxFit.contain,
+                                      height: 230.w,
+                                      width: 230.w),
+                                  title: 'Track',
+                                  subTitle1: '',
+                                  subTitle: thirdScreenText)
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          top: 260.w,
+                          left: 0,
+                          right: 0,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(
+                                  3,
+                                  (index) => CircleAvatar(
+                                        radius: 4.r,
+                                        backgroundColor:
+                                            ctrl.initialPage == index
+                                                ? borderPurpleColor
+                                                : doteColor,
+                                      ).paddingSymmetric(horizontal: 2.w)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

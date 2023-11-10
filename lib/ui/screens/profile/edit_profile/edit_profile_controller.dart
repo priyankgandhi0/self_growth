@@ -9,6 +9,7 @@ import '../../../../api/response_item.dart';
 import '../../../../core/constants/app_constant.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/app_helper.dart';
+import '../../../../core/utils/extentions.dart';
 import '../../../../core/utils/preferences.dart';
 import '../../../../models/user_model.dart';
 import '../../../widgets/app_snack_bar.dart';
@@ -42,8 +43,6 @@ class EditProfileController extends GetxController {
         showAppSnackBar('Please enter name');
       } else if (phoneNoCon.text.isEmpty) {
         showAppSnackBar('Please enter phone number.');
-      } else if (phoneNoCon.text.length < 10) {
-        showAppSnackBar('Please enter valid phone number.');
       } else {
         ResponseItem result =
             ResponseItem(data: null, message: errorText.tr, status: false);

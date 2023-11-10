@@ -47,16 +47,18 @@ class HomeScreen extends StatelessWidget {
                       fontSize: 20.sp, fontWeight: FontWeight.w600)
                   .paddingSymmetric(horizontal: 20.w),
               24.w.spaceH(),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(
-                    ctrl.dayList.length,
-                    (index) => HorizontalNotesCard(
-                        title: ctrl.dayList[index],
-                        date: (findFirstDateOfTheWeek(DateTime.now()).day),
-                        index: index,
-                        onTap: () {
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                  ctrl.dayList.length,
+                  (index) => HorizontalNotesCard(
+                      title: ctrl.dayList[index],
+                      date: (findFirstDateOfTheWeek(DateTime.now()).day),
+                      index: index,
+                      onTap: () {
+                        if (DateTime.now().day ==
+                            (findFirstDateOfTheWeek(DateTime.now()).day +
+                                index)) {
                           ctrl.isSelectedDay = index;
                           String selectedDate = DateFormat('yyyy-MM-dd')
                               .format(DateTime(
@@ -68,13 +70,13 @@ class HomeScreen extends StatelessWidget {
                           ctrl.getUserHabit(selectedDate);
                           ctrl.getUserMood(selectedDate);
                           ctrl.update();
-                        },
-                        selected: ctrl.isSelectedDay == 0
-                            ? ((findFirstDateOfTheWeek(DateTime.now()).day) +
-                                    index) ==
-                                DateTime.now().day
-                            : ctrl.isSelectedDay == index),
-                  ),
+                        }
+                      },
+                      selected: ctrl.isSelectedDay == 0
+                          ? ((findFirstDateOfTheWeek(DateTime.now()).day) +
+                                  index) ==
+                              DateTime.now().day
+                          : ctrl.isSelectedDay == index),
                 ),
               ).paddingSymmetric(horizontal: 20.w),
               20.w.spaceH(),
@@ -114,12 +116,12 @@ class HomeScreen extends StatelessWidget {
                         : ctrl.moodData.first.type == "MOOD"
                             ? NoteCommonCard(
                                 image: Assets.icons.edit.path,
-                                title: (ctrl.moodData.first.title!.isEmpty
+                                title: (ctrl.moodData.first.feeling!.isEmpty
                                         ? "Title"
-                                        : ctrl.moodData.first.title)
+                                        : ctrl.moodData.first.feeling)
                                     .toString(),
                                 time: DateFormat('hh:mm a').format(DateTime.parse(
-                                    '0000-00-00 ${ctrl.moodData.first.noteTime}'
+                                    '${ctrl.moodData.first.moodDate} ${ctrl.moodData.first.noteTime}'
                                         .toString())),
                                 chipTitleColor: doteColor,
                                 fellingList:
@@ -143,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                                           .toString(),
                                       time: DateFormat('hh:mm a').format(
                                           DateTime.parse(
-                                              '0000-00-00 ${ctrl.moodData.first.noteTime}'
+                                              '${ctrl.moodData.first.moodDate} ${ctrl.moodData.first.noteTime}'
                                                   .toString())),
                                       fellingList: ctrl.moodData.first
                                               .unhappyReasonFeeling ??
@@ -177,7 +179,7 @@ class HomeScreen extends StatelessWidget {
                                           .toString(),
                                       time: DateFormat('hh:mm a').format(
                                           DateTime.parse(
-                                              '0000-00-00 ${ctrl.moodData.first.noteTime}'
+                                              '${ctrl.moodData.first.moodDate} ${ctrl.moodData.first.noteTime}'
                                                   .toString())),
                                       widget: Container(
                                         height: 69.w,
@@ -353,6 +355,8 @@ class HomeScreen extends StatelessWidget {
                                 if (ctrl.isSelectedDayTick1.contains(
                                     ctrl.quitData[index].habitId ?? 0)) {
                                 } else {
+                                  ctrl.checkInUserHabit(
+                                      ctrl.quitData[index].habitId.toString());
                                   ctrl.isSelectedDayTick1
                                       .add(ctrl.quitData[index].habitId ?? 0);
                                 }
@@ -375,8 +379,9 @@ class HomeScreen extends StatelessWidget {
                                 bottomBarController.update();
                               },
                               title: ctrl.quitData[index].habitName ?? "",
-                              subTitle: ctrl.quitData[index].note ??
-                                  'Abstinence time',
+                              subTitle: ctrl.quitData[index].note != ""
+                                  ? (ctrl.quitData[index].note ?? "")
+                                  : 'Abstinence time',
                               time:
                                   '${(ctrl.quitData[index].reminderTime ?? "").split(":").first}h : ${(ctrl.quitData[index].reminderTime ?? "").split(":")[1]}m :  ${(ctrl.quitData[index].reminderTime ?? "").split(":").last}s',
                               day: ctrl.quitData[index].streak.toString(),

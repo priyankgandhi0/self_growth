@@ -10,6 +10,7 @@ import '../../../api/response_item.dart';
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_constant.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../core/utils/extentions.dart';
 import '../../../models/user_model.dart';
 import '../../widgets/app_snack_bar.dart';
 
@@ -117,8 +118,6 @@ class AuthController extends GetxController {
       showAppSnackBar(emailNotValid);
     } else if (phoneNumberController.text.isEmpty) {
       showAppSnackBar(phoneNumberNotEmpty);
-    } else if (phoneNumberController.text.length < 10) {
-      showAppSnackBar('Please enter valid phone number.');
     } else if (passwordController.text.isEmpty) {
       showAppSnackBar(passwordNotEmpty);
     } else {
@@ -167,8 +166,6 @@ class AuthController extends GetxController {
       showAppSnackBar(emailNotValid);
     } else if (phoneNoCon.text.isEmpty) {
       showAppSnackBar(phoneNumberNotEmpty);
-    } else if (phoneNoCon.text.length < 10) {
-      showAppSnackBar('Please enter valid phone number.');
     } else if (passwordCon.text.isEmpty) {
       showAppSnackBar(passwordNotEmpty);
     } else if (passwordCon.text.length < 6) {

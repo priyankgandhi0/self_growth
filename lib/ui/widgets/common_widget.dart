@@ -31,11 +31,11 @@ class PageViewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         // 400.w.spaceH(),
         image,
-
-        64.w.spaceH(),
+        62.w.spaceH(),
         title
             .appSwitzerTextStyle(
                 fontColor: borderPurpleColor,
@@ -50,7 +50,7 @@ class PageViewCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 fontSize: 12.sp)
             .paddingSymmetric(horizontal: 24.w),*/
-        22.w.spaceH(),
+        20.w.spaceH(),
         subTitle
             .appSwitzerTextStyle(
                 fontColor: borderPurpleColor,
@@ -189,7 +189,7 @@ class HorizontalNotesCard extends StatelessWidget {
                         isHome: true,
                       ))
       ],
-    ).paddingOnly(right: 30.w);
+    ).paddingOnly(right: 0.w);
   }
 }
 
@@ -296,56 +296,66 @@ class NoteCommonCard extends StatelessWidget {
                 SizedBox(
                   height: 16.w,
                 ),
-        SizedBox(
-          height: 36.w,
-          child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12.w,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.r),
-                    border: const GradientBoxBorder(
-                        gradient: LinearGradient(colors: [
-                          borderPinkColor,
-                          borderPurpleColor,
-                          borderPurpleColor,
-                          borderPurpleColor,
-                          borderPinkColor
-                        ]),
-                        width: 1),
-                  ),
-                  child: fellingList.isNotEmpty
-                      ? ProfileDataCard(
-                          title: (fellingList)[index].name ?? "",
-                          height: 20.w,
-                          fontWeight: FontWeight.w500,
-                          widget: ((fellingList)[index].icon ?? "")
-                              .appSwitzerTextStyle(),
-                          titleColor: chipTitleColor ?? borderPurpleColor,
-                          onTap: () {},
-                          image: '',
-                        )
-                      : ProfileDataCard(
+        fellingList.isNotEmpty
+            ? SizedBox(
+                height: 36.w,
+                child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.r),
+                            border: const GradientBoxBorder(
+                                gradient: LinearGradient(colors: [
+                                  borderPinkColor,
+                                  borderPurpleColor,
+                                  borderPurpleColor,
+                                  borderPurpleColor,
+                                  borderPinkColor
+                                ]),
+                                width: 1),
+                          ),
+                          child: ProfileDataCard(
+                            title: (fellingList)[index].name ?? "",
+                            height: 20.w,
+                            fontWeight: FontWeight.w500,
+                            widget: Container(
+                              height: 24.w,
+                              width: 24.w,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          Assets.images.circle.path))),
+                              child: Center(
+                                child: ((fellingList)[index].icon ?? "")
+                                    .appSwitzerTextStyle(fontSize: 12.sp),
+                              ),
+                            ),
+                            titleColor: chipTitleColor ?? borderPurpleColor,
+                            onTap: () {},
+                            image: '',
+                          )
+
+                          /* : ProfileDataCard(
                           title: noteList[index],
                           height: 20.w,
                           fontWeight: FontWeight.w500,
                           titleColor: chipTitleColor ?? borderPurpleColor,
                           onTap: () {},
                           image: noteImageList[index],
-                        ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return 8.w.spaceW();
-              },
-              itemCount: fellingList.isNotEmpty
-                  ? fellingList.length
-                  : noteImageList.length),
-        ).paddingSymmetric(horizontal: 16.w),
+                        ),*/
+                          );
+                    },
+                    separatorBuilder: (context, index) {
+                      return 8.w.spaceW();
+                    },
+                    itemCount: fellingList.length),
+              ).paddingSymmetric(horizontal: 16.w)
+            : const SizedBox(),
         16.w.spaceH(),
         isImage ?? false
             ? Container(

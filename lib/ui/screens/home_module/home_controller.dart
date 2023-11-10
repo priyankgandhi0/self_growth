@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
@@ -124,8 +125,8 @@ class HomeController extends GetxController {
     result = await HabitRepo.checkInUserHabit(habitId: habitId);
     try {
       if (result.status) {
+        getUserHabit(DateFormat('yyyy-MM-dd').format(DateTime.now()));
         showAppSnackBar(result.message, status: true);
-
         isLoading.value = false;
       } else {
         isLoading.value = false;

@@ -123,7 +123,7 @@ class EditProfileScreen extends StatelessWidget {
                           const TextInputType.numberWithOptions(signed: true),
                       inputFormatter: [
                         FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(10),
+                        LengthLimitingTextInputFormatter(13),
                       ],
                       textEditingController: ctrl.phoneNoCon,
                       hintText: enterPhoneNumberText,

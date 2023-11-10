@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../models/add_photo_model.dart';
 import '../../widgets/app_snack_bar.dart';
+import '../home_module/home_controller.dart';
 
 class AddPhotoController extends GetxController {
   RxBool isLoading = false.obs;
@@ -22,6 +24,8 @@ class AddPhotoController extends GetxController {
         if (result.data != null) {
           AddPhotoModel response = AddPhotoModel.fromJson(result.toJson());
           if (response.data != null) {
+            Get.find<HomeController>()
+                .getUserMood(DateFormat('yyyy-MM-dd').format(DateTime.now()));
             isLoading.value = false;
             Get.back();
             showAppSnackBar(response.msg!, status: true);

@@ -37,6 +37,7 @@ class MoodData {
   String? howAreYouFeeling;
   String? title;
   String? noteTime;
+  String? moodDate;
   String? note;
   List<UnhappyReasonFeeling>? unhappyReasonFeeling;
 
@@ -50,6 +51,7 @@ class MoodData {
       this.howAreYouFeeling,
       this.title,
       this.noteTime,
+      this.moodDate,
       this.note,
       this.unhappyReasonFeeling});
 
@@ -63,6 +65,7 @@ class MoodData {
     howAreYouFeeling = json['how_are_you_feeling'];
     title = json['title'];
     noteTime = json['note_time'];
+    moodDate = json['mood_date'];
     note = json['note'];
     if (json['unhappy_reason_feeling'] != null) {
       unhappyReasonFeeling = <UnhappyReasonFeeling>[];
@@ -83,6 +86,7 @@ class MoodData {
     data['how_are_you_feeling'] = howAreYouFeeling;
     data['title'] = title;
     data['note_time'] = noteTime;
+    data['mood_date'] = moodDate;
     data['note'] = note;
     if (unhappyReasonFeeling != null) {
       data['unhappy_reason_feeling'] =
