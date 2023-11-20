@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -168,7 +169,7 @@ class VoiceNoteScreen extends StatelessWidget {
                                       ctrl.recordStates != RecordState.stop
                                           ? ctrl.stop(
                                               onStop: (path) {
-                                                ctrl.audioPath = path;
+                                                ctrl.audioPath = File(path);
                                                 ctrl.update();
                                                 log('path---$path');
                                               },

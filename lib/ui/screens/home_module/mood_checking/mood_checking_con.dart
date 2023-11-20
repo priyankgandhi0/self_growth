@@ -42,7 +42,7 @@ class MoodCheckingCon extends GetxController {
   double sliderValue = 0.0;
 
   RxBool isLoading = false.obs;
-  moodChecking({File? moodImage, String? audioPath}) async {
+  moodChecking({File? moodImage, File? audioPath}) async {
     if (moodImage == null && audioPath == null && titleCon.text.isEmpty) {
       showAppSnackBar('Title must be required.');
     } else if (unhappyReason.isEmpty) {
@@ -56,7 +56,7 @@ class MoodCheckingCon extends GetxController {
       result = await HabitRepo.moodChecking(
           moodImages: moodImage,
           feeling: getMood(),
-          audioPath: audioPath ?? '',
+          audioPath: audioPath,
           type: moodImage != null
               ? "PHOTO"
               : audioPath != null

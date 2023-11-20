@@ -251,7 +251,8 @@ class MoodCheckingScreen extends StatelessWidget {
                                                 child: AudioPlayer(
                                                   source: Get.find<
                                                           VoiceNoteController>()
-                                                      .audioPath!,
+                                                      .audioPath!
+                                                      .path,
                                                   onDelete: () {
                                                     // ctrl.showPlayer =
                                                     // !ctrl.showPlayer;

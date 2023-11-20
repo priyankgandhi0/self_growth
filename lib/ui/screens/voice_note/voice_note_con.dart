@@ -19,7 +19,7 @@ class VoiceNoteController extends GetxController {
     update();
   }
 
-  String? audioPath;
+  File? audioPath;
 
   RecordState _recordStates = RecordState.stop;
   final scrollController = ScrollController();

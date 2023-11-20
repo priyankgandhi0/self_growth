@@ -62,7 +62,7 @@ class HabitRepo {
     required String unhappyReason,
     required String howAreYouFeeling,
     required String type,
-    required String audioPath,
+    File? audioPath,
   }) async {
     ResponseItem result;
     bool status = true;
@@ -75,7 +75,6 @@ class HabitRepo {
       "unhappy_reason": unhappyReason,
       "how_are_you_feeling": howAreYouFeeling,
       'type': type,
-      'audioPath': audioPath,
     };
     var queryParameters = {RequestParam.service: ApiEndPoint.moodChecking};
     if (moodImages != null) {
@@ -84,6 +83,18 @@ class HabitRepo {
         moodImages.readAsBytes().asStream(),
         moodImages.lengthSync(),
         filename: moodImages.path.split("/").last,
+        // contentType: MediaType(mimeType[0], mimeType[1]),
+      );
+      String queryString = Uri(queryParameters: queryParameters).query;
+      String requestUrl = BaseUrl.URL + queryString;
+      result = await BaseApiHelper.uploadFile(
+          requestUrl, profileImage: image, params, passAuth: true);
+    } else if (audioPath != null) {
+      image = http.MultipartFile(
+        "audio_file",
+        audioPath.readAsBytes().asStream(),
+        audioPath.lengthSync(),
+        filename: audioPath.path.split("/").last,
         // contentType: MediaType(mimeType[0], mimeType[1]),
       );
       String queryString = Uri(queryParameters: queryParameters).query;
