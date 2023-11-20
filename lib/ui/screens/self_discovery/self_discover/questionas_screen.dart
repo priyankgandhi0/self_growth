@@ -243,7 +243,7 @@ class QuestionOneScreen extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.center,
-                child: (ctrl.questionList[ctrl.index])
+                child: (ctrl.questionList[ctrl.index - 1])
                     .appSwitzerTextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w700,
@@ -262,13 +262,13 @@ class QuestionOneScreen extends StatelessWidget {
                 isSelected: ctrl.selectedAns ==
                     ThirdQueModel(
                         value: ctrl.firstQueList[index].value,
-                        title: ctrl.questionList[ctrl.index]),
+                        title: ctrl.questionList[ctrl.index - 1]),
                 onTap: () {
                   // ctrl.selectedAnsIndex.add(index);
                   ctrl.selectedAns = ThirdQueModel(
                       value: ctrl.firstQueList[index].value,
-                      title: ctrl.questionList[ctrl.index]);
-                  if (ctrl.index < 19 && ctrl.index > 0) {
+                      title: ctrl.questionList[ctrl.index - 1]);
+                  if (ctrl.index <= 19 && ctrl.index > 0) {
                     ctrl.index++;
                   } else {
                     ctrl.isQueAns = 1;

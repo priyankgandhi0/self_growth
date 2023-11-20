@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:audioplayers/audioplayers.dart';
@@ -85,31 +86,39 @@ class AudioPlayerState extends State<AudioPlayer> {
   }
 
   Widget _buildControl() {
-    // Icon icon;
+    Widget icon;
     Color color;
 
-    if (_audioPlayer.state == ap.PlayerState.playing) {
-      // icon = Icon(Icons.pause, color: black_000000, size: 20.w);
+    if (_audioPlayer.state == ap.PlayerState.paused) {
+      icon = CircleAvatar(
+        backgroundImage: AssetImage(Assets.images.circle.path),
+        radius: 10.r,
+        child: Icon(Icons.pause, size: 20.w),
+      );
+      color = grey_C4C4C4;
+    } else if (_audioPlayer.state == ap.PlayerState.playing) {
+      icon = Assets.icons.player.svg();
       color = grey_C4C4C4;
     } else {
-      // icon = Icon(Icons.play_arrow, color: black_000000, size: 20.w);
+      icon = Assets.icons.playerStop.svg();
       color = grey_C4C4C4;
     }
-
     return ClipOval(
       child: Material(
         color: color,
         child: InkWell(
-          child: SizedBox(
-              width: _controlSize,
-              height: _controlSize,
-              child: Assets.icons.player.svg()),
+          child:
+              SizedBox(width: _controlSize, height: _controlSize, child: icon),
           onTap: () {
             if (_audioPlayer.state == ap.PlayerState.playing) {
               pause();
-            } else {
+            } else if (_audioPlayer.state == ap.PlayerState.paused) {
+              play();
+            } else if (_audioPlayer.state == ap.PlayerState.stopped) {
               play();
             }
+            setState(() {});
+            setState(() {});
           },
         ),
       ),
@@ -145,8 +154,6 @@ class AudioPlayerState extends State<AudioPlayer> {
               ),
               child: Slider(
                 divisions: 24,
-                min: 0.0,
-                max: 100.0,
                 activeColor: borderPurpleColor,
                 thumbColor: borderPurpleColor,
                 inactiveColor: Colors.transparent,
@@ -162,7 +169,9 @@ class AudioPlayerState extends State<AudioPlayer> {
               ),
             ),
           ),
-          '0.01'
+          (_audioPlayer.state == ap.PlayerState.stopped
+                  ? "00:00"
+                  : '${((_position?.inMinutes.toString().length == 1) ? '0${(_position?.inMinutes ?? 00)}' : (_position?.inMinutes ?? 00))}:${((((_position?.inSeconds ?? 00) % 60).toString().length == 1) ? '0${(_position?.inSeconds ?? 00) % 60}' : (_position?.inSeconds ?? 00) % 60)}')
               .appSwitzerTextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,

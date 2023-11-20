@@ -727,7 +727,9 @@ SizedBox commonCachedNetworkImage(
                     height: 100.w,
                     width: 100.w,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(borderRadius ?? 1000),
+                      shape: borderRadius != null
+                          ? BoxShape.rectangle
+                          : BoxShape.circle,
                       color: grey_D9D9D9,
                       border: Border.all(
                           color: Theme.of(context).secondaryHeaderColor),

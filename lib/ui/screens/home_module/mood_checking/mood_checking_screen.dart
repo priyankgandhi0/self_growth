@@ -4,15 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/models/get_user_mood_model.dart';
+import 'package:self_growth/ui/screens/add_photo/add_photo_controller.dart';
+import 'package:self_growth/ui/screens/voice_note/voice_note_con.dart';
 
 import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
+import '../../../../config/routes/router.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/request_const.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../../models/add_photo_model.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_loader.dart';
+import '../../../widgets/audio_player.dart';
 import '../../../widgets/common_widget.dart';
 import '../../habit_module/create_new_habit.dart';
 import 'mood_checking_con.dart';
@@ -20,6 +28,10 @@ import 'mood_checking_con.dart';
 class MoodCheckingScreen extends StatelessWidget {
   MoodCheckingScreen({Key? key}) : super(key: key);
   final MoodCheckingCon moodCheckingCon = Get.put(MoodCheckingCon());
+  final VoiceNoteController voiceNoteController =
+      Get.put(VoiceNoteController());
+  final AddPhotoController addPhotoController = Get.put(AddPhotoController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,37 +157,115 @@ class MoodCheckingScreen extends StatelessWidget {
                           ],
                         ).paddingSymmetric(horizontal: 24.w, vertical: 24.w),
                       ),
-                      16.w.spaceH(),
-                      Container(
+                      Get.find<VoiceNoteController>().audioPath == null &&
+                              Get.find<AddPhotoController>().imagePath == null
+                          ? Container(
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16.w),
+                                      color: white_FFFFFF),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      'How was your day?'.appSwitzerTextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w600),
+                                      16.w.spaceH(),
+                                      AppTextField(
+                                        labelText: 'Title',
+                                        textEditingController: ctrl.titleCon,
+                                        hintText: 'Enter title',
+                                      ),
+                                      16.w.spaceH(),
+                                      AppTextField(
+                                        height: 100.w,
+                                        textEditingController: ctrl.noteCon,
+                                        labelText: 'Notes',
+                                        maxLines: 4,
+                                        hintText: 'Add note',
+                                      )
+                                    ],
+                                  ).paddingSymmetric(
+                                      horizontal: 16.w, vertical: 30.w))
+                              .paddingSymmetric(
+                                  horizontal: 20.w, vertical: 16.w)
+                          : Container(
                               width: Get.width,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16.w),
+                                  borderRadius: BorderRadius.circular(12.r),
                                   color: white_FFFFFF),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  'How was your day?'.appSwitzerTextStyle(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w600),
-                                  16.w.spaceH(),
-                                  AppTextField(
-                                    labelText: 'Title',
-                                    textEditingController: ctrl.titleCon,
-                                    hintText: 'Enter title',
-                                  ),
-                                  16.w.spaceH(),
-                                  AppTextField(
-                                    height: 100.w,
-                                    textEditingController: ctrl.noteCon,
-                                    labelText: 'Notes',
-                                    maxLines: 4,
-                                    hintText: 'Add note',
-                                  )
+                                  Get.find<AddPhotoController>().imagePath !=
+                                          null
+                                      ? Container(
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.r),
+                                              color: white_FFFFFF),
+                                          child: NoteCommonCard(
+                                            showIcon: true,
+                                            image:
+                                                Assets.icons.imageCapture.path,
+                                            title: ('Image Capture').toString(),
+                                            time: DateFormat('hh:mm a')
+                                                .format(DateTime.now()),
+                                            fellingList: [],
+                                            isImage: false,
+                                            widget: AddImageCard(
+                                              widget: Image.file(
+                                                  Get.find<AddPhotoController>()
+                                                      .imagePath!,
+                                                  width: Get.width,
+                                                  height: 140.w,
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.r),
+                                              color: white_FFFFFF),
+                                          child: NoteCommonCard(
+                                            image: Assets.icons.voice.path,
+                                            showIcon: false,
+                                            fellingList: [],
+                                            title: ('Voice title').toString(),
+                                            time: DateFormat('hh:mm a')
+                                                .format(DateTime.now()),
+                                            widget: Container(
+                                              height: 69.w,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.r),
+                                                  color: background_F5F5F5),
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 20.w),
+                                                child: AudioPlayer(
+                                                  source: Get.find<
+                                                          VoiceNoteController>()
+                                                      .audioPath!,
+                                                  onDelete: () {
+                                                    // ctrl.showPlayer =
+                                                    // !ctrl.showPlayer;
+                                                    ctrl.update();
+                                                  },
+                                                ),
+                                              ),
+                                            ).paddingAll(16.w),
+                                          ),
+                                        ),
                                 ],
-                              ).paddingSymmetric(
-                                  horizontal: 16.w, vertical: 30.w))
-                          .paddingSymmetric(horizontal: 20.w),
-                      16.w.spaceH(),
+                              ),
+                            ).paddingSymmetric(
+                              horizontal: 20.w, vertical: 16.w),
                       FeelingCard(
                         buttonOnTap: () {
                           return appDialog(
@@ -265,7 +355,9 @@ class MoodCheckingScreen extends StatelessWidget {
                       40.w.spaceH(),
                       RoundAppButton(
                         onTap: () {
-                          ctrl.moodChecking();
+                          ctrl.moodChecking(
+                              audioPath: voiceNoteController.audioPath,
+                              moodImage: addPhotoController.imagePath);
                         },
                         title: 'Continue',
                       ).paddingSymmetric(horizontal: 40.w),

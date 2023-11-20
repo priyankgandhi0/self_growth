@@ -1,14 +1,28 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class VoiceNoteController extends GetxController {
   bool isPlay = false;
-  RecordState _recordStates = RecordState.stop;
+  int firstTextIndex = 0;
+  List _textList = [];
 
+  List get textList => _textList;
+
+  set textList(List value) {
+    _textList = value;
+    update();
+  }
+
+  String? audioPath;
+
+  RecordState _recordStates = RecordState.stop;
+  final scrollController = ScrollController();
   RecordState get recordStates => _recordStates;
 
   set recordStates(RecordState value) {
@@ -58,28 +72,6 @@ class VoiceNoteController extends GetxController {
     update();
   }
 
-  /*Future<void> start() async {
-    try {
-      if (await _audioRecorder.hasPermission()) {
-        // We don't do anything with this but printing
-        final isSupported = await _audioRecorder.isEncoderSupported(
-          AudioEncoder.aacLc,
-        );
-
-        print('${AudioEncoder.aacLc.name} supported: $isSupported');
-
-        // final devs = await _audioRecorder.listInputDevices();
-        // final isRecording = await _audioRecorder.isRecording();
-
-        // start();
-        recordDuration = 0;
-        _startTimer();
-        update();
-      }
-    } catch (e) {
-      print(e);
-    }
-  }*/
   Future<void> startRecord() async {
     try {
       if (await _audioRecorder.hasPermission()) {
@@ -108,63 +100,17 @@ class VoiceNoteController extends GetxController {
     final String minutes = _formatNumber(recordDuration ~/ 60);
     final String seconds = _formatNumber(recordDuration % 60);
     final String hours = _formatNumber(num.parse(minutes) ~/ 60);
+    textList.add(
+        '$minutes:${(int.parse(seconds)).toString().length == 1 ? '0${int.parse(seconds)}' : int.parse(seconds)}');
+    print('_textList---${textList}');
 
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 700),
+      curve: Curves.fastOutSlowIn,
+    );
+    update();
     return '$hours:$minutes:$seconds';
-  }
-
-  String buildText1() {
-    if (recordStates != RecordState.stop) {
-      final String minutes = _formatNumber(recordDuration ~/ 60);
-      final String seconds = _formatNumber(recordDuration % 60);
-
-      return '$minutes:${int.parse(seconds) - 2}';
-    }
-
-    return "00:00";
-  }
-
-  String buildText2() {
-    if (recordStates != RecordState.stop) {
-      final String minutes = _formatNumber(recordDuration ~/ 60);
-      final String seconds = _formatNumber(recordDuration % 60);
-
-      return '$minutes:${int.parse(seconds) - 1}';
-    }
-
-    return "00:00";
-  }
-
-  String buildText3() {
-    if (recordStates != RecordState.stop) {
-      final String minutes = _formatNumber(recordDuration ~/ 60);
-      final String seconds = _formatNumber(recordDuration % 60);
-
-      return '$minutes:${int.parse(seconds)}';
-    }
-
-    return "00:00";
-  }
-
-  String buildText4() {
-    if (recordStates != RecordState.stop) {
-      final String minutes = _formatNumber(recordDuration ~/ 60);
-      final String seconds = _formatNumber(recordDuration % 60);
-
-      return '$minutes:${int.parse(seconds) + 1}';
-    }
-
-    return "00:00";
-  }
-
-  String buildText5() {
-    if (recordStates != RecordState.stop) {
-      final String minutes = _formatNumber(recordDuration ~/ 60);
-      final String seconds = _formatNumber(recordDuration % 60);
-
-      return '$minutes:${int.parse(seconds) + 2}';
-    }
-
-    return "00:00";
   }
 
   String _formatNumber(int number) {
@@ -179,7 +125,8 @@ class VoiceNoteController extends GetxController {
   void _startTimer() {
     _timer?.cancel();
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+    _timer = Timer.periodic(const Duration(seconds: 1, milliseconds: 500),
+        (Timer t) {
       recordDuration++;
       update();
     });

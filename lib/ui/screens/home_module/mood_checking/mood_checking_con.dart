@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -40,8 +42,10 @@ class MoodCheckingCon extends GetxController {
   double sliderValue = 0.0;
 
   RxBool isLoading = false.obs;
-  moodChecking() async {
-    if (unhappyReason.isEmpty) {
+  moodChecking({File? moodImage, String? audioPath}) async {
+    if (moodImage == null && audioPath == null && titleCon.text.isEmpty) {
+      showAppSnackBar('Title must be required.');
+    } else if (unhappyReason.isEmpty) {
       showAppSnackBar('Please Select your Unhappy reason.');
     } else if (howAreYouFeeling.isEmpty) {
       showAppSnackBar('Please Select your feeling.');
@@ -50,7 +54,14 @@ class MoodCheckingCon extends GetxController {
       ResponseItem result =
           ResponseItem(data: null, message: errorText, status: false);
       result = await HabitRepo.moodChecking(
+          moodImages: moodImage,
           feeling: getMood(),
+          audioPath: audioPath ?? '',
+          type: moodImage != null
+              ? "PHOTO"
+              : audioPath != null
+                  ? "VOICE_NOTE"
+                  : "MOOD",
           howAreYouFeeling: howAreYouFeeling
               .toString()
               .replaceAll('[', "")
@@ -62,7 +73,9 @@ class MoodCheckingCon extends GetxController {
           Get.find<HomeController>()
               .getUserMood(DateFormat('yyyy-MM-dd').format(DateTime.now()));
           Get.back();
+          Get.back();
           isLoading.value = false;
+
           showAppSnackBar(result.message, status: true);
         } else {
           isLoading.value = false;

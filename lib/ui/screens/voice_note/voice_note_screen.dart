@@ -1,16 +1,23 @@
 import 'dart:developer';
 
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:record/record.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/models/add_photo_model.dart';
 import 'package:self_growth/ui/screens/voice_note/voice_note_con.dart';
+import 'package:self_growth/ui/widgets/app_snack_bar.dart';
 
+import '../../../config/routes/router.dart';
 import '../../../core/constants/app_colors.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
 
+import '../../widgets/app_button.dart';
 import '../../widgets/app_dialogs.dart';
 import '../../widgets/app_title_bar.dart';
 import '../../widgets/common_widget.dart';
@@ -20,6 +27,7 @@ class VoiceNoteScreen extends StatelessWidget {
   VoiceNoteScreen({Key? key}) : super(key: key);
   final VoiceNoteController voiceNoteController =
       Get.put(VoiceNoteController());
+  final CarouselController buttonCarouselController = CarouselController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,10 +87,11 @@ class VoiceNoteScreen extends StatelessWidget {
                                     icon: Assets.icons.dateRange.svg(),
                                   ),
                                   16.w.spaceH(),
-                                  Row(
+                                  /*  Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
+
                                       ((ctrl.buildText1().contains('-') ||
                                                   ctrl.buildText1() == "00:00")
                                               ? ""
@@ -108,7 +117,30 @@ class VoiceNoteScreen extends StatelessWidget {
                                           .appSwitzerTextStyle(
                                               fontWeight: FontWeight.w400),
                                     ],
-                                  ).paddingSymmetric(horizontal: 26.w),
+                                  ).paddingSymmetric(horizontal: 26.w),*/
+                                  SizedBox(
+                                    height: 20.w,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      controller: ctrl.scrollController,
+                                      itemCount:
+                                          ctrl.textList.toSet().toList().length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        return (ctrl.textList
+                                                .toSet()
+                                                .toList()[index]
+                                                .toString())
+                                            .appSwitzerTextStyle(
+                                                fontColor: doteColor,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14.sp)
+                                            .paddingOnly(right: 30.w);
+                                      },
+                                    ),
+                                  ).paddingSymmetric(horizontal: 28.w),
                                   2.w.spaceH(),
                                   Assets.icons.recordingPanel.svg(
                                       width: Get.width,
@@ -136,10 +168,15 @@ class VoiceNoteScreen extends StatelessWidget {
                                       ctrl.recordStates != RecordState.stop
                                           ? ctrl.stop(
                                               onStop: (path) {
+                                                ctrl.audioPath = path;
+                                                ctrl.update();
                                                 log('path---$path');
                                               },
                                             )
                                           : ctrl.startRecord();
+                                      if (!ctrl.isPlay) {
+                                        ctrl.textList.clear();
+                                      }
                                       ctrl.isPlay = !ctrl.isPlay;
                                       ctrl.update();
                                     },
@@ -161,13 +198,20 @@ class VoiceNoteScreen extends StatelessWidget {
                         ],
                       ),
                     )),
-                /* Positioned(
+                Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: RoundAppButton(title: continueText, onTap: () {})
-                      .paddingSymmetric(horizontal: 47.w, vertical: 20.w),
-                )*/
+                  child: RoundAppButton(
+                      title: continueText,
+                      onTap: () {
+                        if (ctrl.audioPath == null) {
+                          showAppSnackBar('Please record voice note!');
+                        } else {
+                          Get.toNamed(Routes.moodCheckingScreen);
+                        }
+                      }).paddingSymmetric(horizontal: 47.w, vertical: 20.w),
+                )
               ],
             );
           }),

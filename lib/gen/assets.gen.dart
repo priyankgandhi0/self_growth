@@ -185,6 +185,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/player.svg
   SvgGenImage get player => const SvgGenImage('assets/icons/player.svg');
 
+  /// File path: assets/icons/player_stop.svg
+  SvgGenImage get playerStop =>
+      const SvgGenImage('assets/icons/player_stop.svg');
+
   /// File path: assets/icons/privacy.svg
   SvgGenImage get privacy => const SvgGenImage('assets/icons/privacy.svg');
 
@@ -323,6 +327,7 @@ class $AssetsIconsGen {
         normal,
         notAccept,
         player,
+        playerStop,
         privacy,
         profile,
         record,

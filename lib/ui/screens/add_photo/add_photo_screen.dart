@@ -11,6 +11,7 @@ import 'package:self_growth/ui/widgets/app_loader.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
+import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
 import '../../widgets/app_button.dart';
@@ -99,7 +100,9 @@ class AddPhotoScreen extends StatelessWidget {
                   child: RoundAppButton(
                       title: continueText,
                       onTap: () {
-                        ctrl.addMoodPhoto(image);
+                        ctrl.imagePath = image;
+                        Get.toNamed(Routes.moodCheckingScreen);
+                        // ctrl.addMoodPhoto(image);
                       }).paddingSymmetric(horizontal: 47.w, vertical: 20.w),
                 )
               ],

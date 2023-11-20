@@ -57,27 +57,48 @@ class HabitRepo {
   }
 
   static Future<ResponseItem> moodChecking({
+    File? moodImages,
     required String feeling,
     required String unhappyReason,
     required String howAreYouFeeling,
+    required String type,
+    required String audioPath,
   }) async {
-    bool status = false;
     ResponseItem result;
+    bool status = true;
     dynamic data;
-    Map<String, dynamic> params = {
+    String message = "";
+
+    http.MultipartFile image;
+    Map<String, String> params = {
       "feeling": feeling, // Unhappy, Normal, Happy
       "unhappy_reason": unhappyReason,
-      "how_are_you_feeling": howAreYouFeeling
+      "how_are_you_feeling": howAreYouFeeling,
+      'type': type,
+      'audioPath': audioPath,
     };
     var queryParameters = {RequestParam.service: ApiEndPoint.moodChecking};
-    String queryString = Uri(queryParameters: queryParameters).query;
-    String requestUrl = BaseUrl.URL + queryString;
-    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+    if (moodImages != null) {
+      image = http.MultipartFile(
+        "mood_images",
+        moodImages.readAsBytes().asStream(),
+        moodImages.lengthSync(),
+        filename: moodImages.path.split("/").last,
+        // contentType: MediaType(mimeType[0], mimeType[1]),
+      );
+      String queryString = Uri(queryParameters: queryParameters).query;
+      String requestUrl = BaseUrl.URL + queryString;
+      result = await BaseApiHelper.uploadFile(
+          requestUrl, profileImage: image, params, passAuth: true);
+    } else {
+      String queryString = Uri(queryParameters: queryParameters).query;
+      String requestUrl = BaseUrl.URL + queryString;
+      result = await BaseApiHelper.uploadFile(requestUrl, params);
+    }
 
     status = result.status;
-
     data = result.data;
-    var message = result.message;
+    message = result.message;
 
     return ResponseItem(data: data, message: message, status: status);
   }

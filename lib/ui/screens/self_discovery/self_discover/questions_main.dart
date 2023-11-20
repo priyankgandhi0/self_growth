@@ -96,7 +96,7 @@ class _FirstQuestionScreenState extends State<FirstQuestionScreen> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.r),
                           child: StepProgressIndicator(
-                            totalSteps: 19,
+                            totalSteps: 20,
                             currentStep: ctrl.index,
                             customStep: (index, color, size) {
                               return Container(
@@ -123,7 +123,7 @@ class _FirstQuestionScreenState extends State<FirstQuestionScreen> {
                         ),
                       ),
                       10.w.spaceW(),
-                      '${ctrl.index}/19'.appSwitzerTextStyle(
+                      '${ctrl.index}/20'.appSwitzerTextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           fontColor: borderPurpleColor),

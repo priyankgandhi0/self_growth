@@ -55,6 +55,7 @@ class Assets {
   static const String iconsNormal = 'assets/icons/normal.svg';
   static const String iconsNotAccept = 'assets/icons/not_accept.svg';
   static const String iconsPlayer = 'assets/icons/player.svg';
+  static const String iconsPlayerStop = 'assets/icons/player_stop.svg';
   static const String iconsPrivacy = 'assets/icons/privacy.svg';
   static const String iconsProfile = 'assets/icons/profile.svg';
   static const String iconsRecord = 'assets/icons/record.svg';

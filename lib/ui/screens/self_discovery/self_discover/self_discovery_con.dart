@@ -38,28 +38,28 @@ class SelfDiscoveryCon extends GetxController {
     update();
   }
 
-  int index = 1;
+  int index = 0;
   List<String> questionList = [
-    "I have to be the best at everything. | All-or-nothing thinking",
-    "If something bad happens, it's all my fault. | Overgeneralization",
-    "I never do anything right. | Mental filtering",
-    "My friends don't really like me. | Disqualifying the positive",
-    "I'm going to fail. | Jumping to conclusions",
-    "My problems are bigger than anyone else's. | Magnification and minimization",
-    "I'm such a loser. | Emotional reasoning",
-    "I have to be perfect all the time. | 'Should' statements",
-    "People are talking behind my back. | Personalization",
-    "I'm going to be alone forever. | All-or-nothing thinking",
-    "I'm a failure. | Over-generalization",
-    "I can't do anything right. | Mental filtering",
-    "No one cares about me. | Disqualifying the positive",
-    "I'm going to make a fool of myself. | Jumping to conclusions",
-    "My life is a mess. | Magnification and minimization",
-    "I'm worthless. | Emotional reasoning",
-    "I'm so stupid. | 'Should' statements",
-    "People think I'm a loser. | Personalization",
-    "I'm going to be a burden to everyone. | All-or-nothing thinking",
-    "My life is over. | Over-generalization",
+    "I have to be the best at everything.",
+    "If something bad happens, it's all my fault.",
+    "I never do anything right.",
+    "My friends don't really like me.",
+    "I'm going to fail.",
+    "My problems are bigger than anyone else's.",
+    "I'm such a loser.",
+    "I have to be perfect all the time.",
+    "People are talking behind my back.",
+    "I'm going to be alone forever.",
+    "I'm a failure.",
+    "I can't do anything right.",
+    "No one cares about me.",
+    "I'm going to make a fool of myself.",
+    "My life is a mess.",
+    "I'm worthless.",
+    "I'm so stupid.",
+    "People think I'm a loser.",
+    "I'm going to be a burden to everyone.",
+    "My life is over.",
   ];
 }
 
