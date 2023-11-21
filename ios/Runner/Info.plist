@@ -27,11 +27,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>To capture profile photo please grant camera access</string>
+	<string>Need camera access for uploading images</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Some message to describe why you need this permission</string>
+	<string>Need microphone access for uploading audio</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App needs access to photo lib for profile images</string>
+	<string>Need photo library access for saving and uploading images</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

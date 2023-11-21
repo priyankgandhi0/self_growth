@@ -25,9 +25,12 @@ class ImageBaseUrl {
       "${ImageBaseUrl.URL}app_images/profile_images/";
   static const String MOODIMAGEURL =
       "https://codonnier.tech/dipak/nAPI/seral_app/app_images/mood_images/";
+  static const String MOODAUDIOURL =
+      "https://codonnier.tech/dipak/nAPI/seral_app/audio_file/";
   static const String IMAGEURL = "${ImageBaseUrl.URL}app_images/feed_items/";
 }
 
+const int LIMIT = 10;
 Map<String, String> requestHeader({bool passAuth = false}) {
   return {
     RequestHeaderKey.contentType: "application/json",
@@ -69,6 +72,8 @@ class ApiEndPoint {
 
   ///MOOD CHECKING
   static const moodChecking = "moodCheckin";
+  static const deleteMoodCheckin = "deleteMoodCheckin";
+  static const editMoodChecking = "editMoodCheckin";
   static const getFeelingList = "getFeelingList";
   static const getActivityList = "getActivityList";
   static const addActivity = "addActivity";

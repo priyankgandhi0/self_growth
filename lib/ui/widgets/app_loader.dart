@@ -18,3 +18,18 @@ class AppProgress extends StatelessWidget {
         )));
   }
 }
+
+Column paginationProgressForChat() {
+  return const Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      SizedBox(
+        height: 20,
+        width: 20,
+        child: CircularProgressIndicator(
+          color: borderPurpleColor,
+        ),
+      ),
+    ],
+  );
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:self_growth/models/get_user_mood_model.dart';
 import 'package:self_growth/ui/screens/home_module/home_screen.dart';
 import 'package:self_growth/ui/screens/profile/profile_screen.dart';
 

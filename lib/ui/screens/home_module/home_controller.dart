@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../core/constants/request_const.dart';
 import '../../../models/get_hebit_model.dart';
 import '../../../models/get_user_mood_model.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -17,6 +18,8 @@ class HomeController extends GetxController {
   List<int> isSelectedDayTick = [];
   List<int> isSelectedDayTick1 = [];
 
+  RxBool stopPagination = false.obs;
+  int page = 1;
   List<MoodData> moodData = [];
   List<HabitData> habitData = [];
   List<HabitData> quitData = [];
@@ -60,26 +63,30 @@ class HomeController extends GetxController {
     }
   }
 
-  bool _showPlayer = false;
+  getUserMood(String selectedDate,
+      {bool isLoad = true, bool isClear = true}) async {
+    if (isClear) {
+      isLoading.value = true;
+      moodData.clear();
+      page = 1;
+    } else {
+      isLoading.value = isClear ? false : true;
+    }
 
-  bool get showPlayer => _showPlayer;
-
-  set showPlayer(bool value) {
-    _showPlayer = value;
-    update();
-  }
-
-  getUserMood(String selectedDate) async {
-    moodData.clear();
-    isLoading.value = true;
+    isLoading.value = isLoad ? true : false;
     ResponseItem result =
         ResponseItem(data: null, message: errorText, status: false);
-    result = await HabitRepo.getUserMood(date: selectedDate);
+    result = await HabitRepo.getUserMood(
+        date: selectedDate, page: page, limit: LIMIT);
     try {
       if (result.status) {
         GetUserMoodModel response = GetUserMoodModel.fromJson(result.toJson());
         if (response.data != null) {
           moodData.addAll(response.data!);
+          if (response.data!.length <= LIMIT) {
+            stopPagination.value = true;
+          }
+          stopPagination.value = false;
         }
         isLoading.value = false;
       } else {
@@ -106,6 +113,32 @@ class HomeController extends GetxController {
       if (result.status) {
         showAppSnackBar(result.message, status: true);
         getUserHabit(selectedDate);
+        isLoading.value = false;
+      } else {
+        isLoading.value = false;
+        showAppSnackBar(result.message);
+      }
+    } catch (error) {
+      isLoading.value = false;
+      showAppSnackBar(errorText);
+    }
+    isLoading.value = false;
+    update();
+  }
+
+  deleteMoodCheckin(String moodCheckInId, String selectedDate) async {
+    moodData.clear();
+    isLoading.value = true;
+    ResponseItem result =
+        ResponseItem(data: null, message: errorText, status: false);
+    result = await HabitRepo.deleteMoodCheckin(
+      moodCheckInId: moodCheckInId,
+    );
+    try {
+      if (result.status) {
+        showAppSnackBar(result.message, status: true);
+        page = 1;
+        getUserMood(selectedDate, isLoad: true);
         isLoading.value = false;
       } else {
         isLoading.value = false;

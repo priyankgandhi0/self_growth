@@ -89,18 +89,11 @@ class AudioPlayerState extends State<AudioPlayer> {
     Widget icon;
     Color color;
 
-    if (_audioPlayer.state == ap.PlayerState.paused) {
-      icon = CircleAvatar(
-        backgroundImage: AssetImage(Assets.images.circle.path),
-        radius: 10.r,
-        child: Icon(Icons.pause, size: 20.w),
-      );
-      color = grey_C4C4C4;
-    } else if (_audioPlayer.state == ap.PlayerState.playing) {
-      icon = Assets.icons.player.svg();
+    if (_audioPlayer.state == ap.PlayerState.playing) {
+      icon = Assets.icons.playerStop.svg();
       color = grey_C4C4C4;
     } else {
-      icon = Assets.icons.playerStop.svg();
+      icon = Assets.icons.player.svg();
       color = grey_C4C4C4;
     }
     return ClipOval(
@@ -112,12 +105,9 @@ class AudioPlayerState extends State<AudioPlayer> {
           onTap: () {
             if (_audioPlayer.state == ap.PlayerState.playing) {
               pause();
-            } else if (_audioPlayer.state == ap.PlayerState.paused) {
-              play();
-            } else if (_audioPlayer.state == ap.PlayerState.stopped) {
+            } else {
               play();
             }
-            setState(() {});
             setState(() {});
           },
         ),

@@ -10,6 +10,7 @@ import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
 import 'package:self_growth/ui/screens/home_module/home_controller.dart';
+import 'package:self_growth/ui/screens/home_module/mood_checking/mood_checking_con.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/app_loader.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
@@ -18,6 +19,7 @@ import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../../models/get_user_mood_model.dart';
 import '../../widgets/audio_player.dart';
 import '../../widgets/current_week_utils.dart';
 import '../self_discovery/discover_screen.dart';
@@ -25,8 +27,10 @@ import '../self_discovery/discover_screen.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   final HomeController homeController = Get.put(HomeController());
+  final MoodCheckingCon moodCheckingCon = Get.put(MoodCheckingCon());
   final BottomBarController bottomBarController =
       Get.put(BottomBarController());
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -115,18 +119,26 @@ class HomeScreen extends StatelessWidget {
                           ).paddingAll(20.w)
                         : ctrl.moodData.first.type == "MOOD"
                             ? NoteCommonCard(
+                                iconOnTap: () {
+                                  bottomBarController.isOpenDialog = true;
+                                  bottomBarController.isOpenHomeDialog = 3;
+                                  moodCheckingCon.editMood =
+                                      ctrl.moodData.first;
+                                  bottomBarController.update();
+                                  moodCheckingCon.update();
+                                },
                                 image: Assets.icons.edit.path,
-                                title: (ctrl.moodData.first.feeling!.isEmpty
-                                        ? "Title"
-                                        : ctrl.moodData.first.feeling)
+                                title: (ctrl.moodData.first.title ?? "")
                                     .toString(),
                                 time: DateFormat('hh:mm a').format(DateTime.parse(
                                     '${ctrl.moodData.first.moodDate} ${ctrl.moodData.first.noteTime}'
                                         .toString())),
                                 chipTitleColor: doteColor,
-                                fellingList:
-                                    ctrl.moodData.first.unhappyReasonFeeling ??
-                                        [],
+                                fellingList: (ctrl.moodData.first
+                                            .unhappyReasonFeeling ??
+                                        []) +
+                                    (ctrl.moodData.first.howAreYouFeelingList ??
+                                        []),
                                 notes: ctrl.moodData.first.note.toString(),
                               )
                             : ctrl.moodData.first.type == "PHOTO"
@@ -137,19 +149,29 @@ class HomeScreen extends StatelessWidget {
                                             BorderRadius.circular(12.r),
                                         color: white_FFFFFF),
                                     child: NoteCommonCard(
+                                      iconOnTap: () {
+                                        bottomBarController.isOpenDialog = true;
+                                        bottomBarController.isOpenHomeDialog =
+                                            3;
+                                        moodCheckingCon.editMood =
+                                            ctrl.moodData.first;
+                                        bottomBarController.update();
+                                        moodCheckingCon.update();
+                                      },
                                       showIcon: true,
                                       image: Assets.icons.imageCapture.path,
-                                      title: (ctrl.moodData.first.title!.isEmpty
-                                              ? "Image Title"
-                                              : ctrl.moodData.first.title)
+                                      title: (ctrl.moodData.first.feeling)
                                           .toString(),
                                       time: DateFormat('hh:mm a').format(
                                           DateTime.parse(
                                               '${ctrl.moodData.first.moodDate} ${ctrl.moodData.first.noteTime}'
                                                   .toString())),
-                                      fellingList: ctrl.moodData.first
-                                              .unhappyReasonFeeling ??
-                                          [],
+                                      fellingList: (ctrl.moodData.first
+                                                  .unhappyReasonFeeling ??
+                                              []) +
+                                          (ctrl.moodData.first
+                                                  .howAreYouFeelingList ??
+                                              []),
                                       isImage: false,
                                       widget: AddImageCard(
                                         widget: commonCachedNetworkImage(
@@ -168,14 +190,24 @@ class HomeScreen extends StatelessWidget {
                                             BorderRadius.circular(12.r),
                                         color: white_FFFFFF),
                                     child: NoteCommonCard(
+                                      iconOnTap: () {
+                                        bottomBarController.isOpenDialog = true;
+                                        bottomBarController.isOpenHomeDialog =
+                                            3;
+                                        moodCheckingCon.editMood =
+                                            ctrl.moodData.first;
+                                        bottomBarController.update();
+                                        moodCheckingCon.update();
+                                      },
                                       image: Assets.icons.voice.path,
-                                      showIcon: false,
-                                      fellingList: ctrl.moodData.first
-                                              .unhappyReasonFeeling ??
-                                          [],
-                                      title: (ctrl.moodData.first.title!.isEmpty
-                                              ? 'Voice title'
-                                              : ctrl.moodData.first.title)
+                                      showIcon: true,
+                                      fellingList: (ctrl.moodData.first
+                                                  .unhappyReasonFeeling ??
+                                              []) +
+                                          (ctrl.moodData.first
+                                                  .howAreYouFeelingList ??
+                                              []),
+                                      title: (ctrl.moodData.first.feeling)
                                           .toString(),
                                       time: DateFormat('hh:mm a').format(
                                           DateTime.parse(
@@ -191,12 +223,8 @@ class HomeScreen extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 20.w),
                                           child: AudioPlayer(
                                             source:
-                                                'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
-                                            onDelete: () {
-                                              ctrl.showPlayer =
-                                                  !ctrl.showPlayer;
-                                              ctrl.update();
-                                            },
+                                                "${ImageBaseUrl.MOODAUDIOURL}${ctrl.moodData.first.audioFile}",
+                                            onDelete: () {},
                                           ),
                                         ),
                                       ).paddingAll(16.w),

@@ -120,9 +120,11 @@ class OpenBottomDialog extends StatelessWidget {
     required this.context,
     required this.child,
     this.onTap,
+    this.height,
   }) : super(key: key);
   final BuildContext context;
   final Widget child;
+  final double? height;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -144,7 +146,7 @@ class OpenBottomDialog extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(12.r))),
               child: child.paddingAll(20.w),
             ),
-            100.w.spaceH(),
+            (height ?? 100).w.spaceH(),
           ],
         ),
       ),

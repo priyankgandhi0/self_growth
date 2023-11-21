@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/models/add_photo_model.dart';
 
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'package:self_growth/ui/screens/home_module/home_controller.dart';
+import 'package:self_growth/ui/screens/home_module/mood_checking/mood_checking_con.dart';
+import 'package:self_growth/ui/screens/home_module/mood_checking/mood_checking_screen.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../config/routes/router.dart';
@@ -72,7 +75,9 @@ class BottomNavigationScreen extends StatelessWidget {
                               ? QuitHabitDialog()
                               : ctrl.isOpenHomeDialog == 2
                                   ? const AddPhotoDialog()
-                                  : const SizedBox(),
+                                  : ctrl.isOpenHomeDialog == 3
+                                      ? MoodDialog()
+                                      : const SizedBox(),
                     ),
                   ),
                 ],
@@ -273,9 +278,9 @@ class QuitHabitDialog extends StatelessWidget {
                       textConfirm: 'Delete',
                       textCancel: 'Cancel',
                       onConfirm: () {
+                        Get.back();
                         homeController.deleteUserHabit(
                             ctrl.deleteHabitId.toString(), ctrl.selectedDate);
-
                         ctrl.update();
                       },
                     );
@@ -285,6 +290,73 @@ class QuitHabitDialog extends StatelessWidget {
               image: Assets.icons.delete.path,
               height: 24.w,
               title: 'Delete habit')
+        ],
+      );
+    });
+  }
+}
+
+class MoodDialog extends StatelessWidget {
+  MoodDialog({Key? key}) : super(key: key);
+  final MoodCheckingCon moodCheckingCon = Get.put(MoodCheckingCon());
+  final HomeController homeController = Get.put(HomeController());
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<BottomBarController>(builder: (ctrl) {
+      return Column(
+        children: [
+          ProfileDataCard(
+              onTap: () {
+                moodCheckingCon.isEdit = true;
+                ctrl.isOpenDialog = false;
+                ctrl.update();
+                if (moodCheckingCon.editMood!.type == "PHOTO") {
+                  ctrl.isOpenDialog = true;
+                  ctrl.isOpenHomeDialog = 2;
+                  ctrl.update();
+                } else if (moodCheckingCon.editMood!.type == "MOOD") {
+                  Get.toNamed(Routes.moodCheckingScreen);
+                } else {
+                  Get.toNamed(Routes.voiceNoteScreen);
+                }
+                moodCheckingCon.update();
+              },
+              image: Assets.icons.edit.path,
+              height: 26.w,
+              title: 'Edit mood'),
+          const CommonDivider().paddingSymmetric(vertical: 10.w),
+          ProfileDataCard(
+              onTap: () {
+                ctrl.isOpenDialog = false;
+                ctrl.update();
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return CustomDialog(
+                      title: 'Delete mood',
+                      description: 'Are you sure to delete mood?',
+                      onCancel: () {
+                        Get.back();
+                      },
+                      isCancel: true,
+                      textConfirm: 'Delete',
+                      textCancel: 'Cancel',
+                      onConfirm: () {
+                        Get.back();
+
+                        homeController.deleteMoodCheckin(
+                            (moodCheckingCon.editMood?.umId ?? "").toString(),
+                            DateFormat('yyyy-MM-dd')
+                                .format(moodCheckingCon.selectedDate));
+                        ctrl.update();
+                      },
+                    );
+                  },
+                );
+              },
+              image: Assets.icons.delete.path,
+              height: 24.w,
+              title: 'Delete mood')
         ],
       );
     });

@@ -238,6 +238,7 @@ class NoteCommonCard extends StatelessWidget {
     required this.image,
     this.chipTitleColor,
     this.fellingList = const [],
+    this.iconOnTap,
   }) : super(key: key);
   final String title;
   final String notes;
@@ -248,6 +249,7 @@ class NoteCommonCard extends StatelessWidget {
   final String image;
   final Widget? widget;
   final Color? chipTitleColor;
+  final Function()? iconOnTap;
   final List<UnhappyReasonFeeling> fellingList;
 
   final List<String> noteList = ['Work', 'Family', 'Blessed'];
@@ -281,7 +283,10 @@ class NoteCommonCard extends StatelessWidget {
             const Spacer(),
             showIcon ?? true
                 // ignore: deprecated_member_use_from_same_package
-                ? Assets.icons.threeDote.svg(color: borderPurpleColor)
+                ? InkWell(
+                    hoverColor: Colors.transparent,
+                    onTap: iconOnTap,
+                    child: Assets.icons.threeDote.svg(color: borderPurpleColor))
                 : const SizedBox()
           ],
         ).paddingSymmetric(horizontal: 16.w),
@@ -289,6 +294,7 @@ class NoteCommonCard extends StatelessWidget {
             ? notes
                 .appSwitzerTextStyle(
                     fontSize: 13.sp,
+                    textAlign: TextAlign.start,
                     fontWeight: FontWeight.w500,
                     fontColor: doteColor)
                 .paddingSymmetric(vertical: 16.w, horizontal: 16.w)

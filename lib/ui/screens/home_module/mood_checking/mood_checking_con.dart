@@ -9,15 +9,25 @@ import '../../../../api/response_item.dart';
 import '../../../../core/constants/app_strings.dart';
 
 import '../../../../models/get_activity_model.dart';
+import '../../../../models/get_user_mood_model.dart';
 import '../../../widgets/app_snack_bar.dart';
 import '../home_controller.dart';
 
 class MoodCheckingCon extends GetxController {
+  MoodData? editMood;
   TextEditingController addActivityCon = TextEditingController();
   TextEditingController addFeelingCon = TextEditingController();
   TextEditingController titleCon = TextEditingController();
   TextEditingController noteCon = TextEditingController();
   TextEditingController searchCon = TextEditingController();
+  bool _isEdit = false;
+
+  bool get isEdit => _isEdit;
+
+  set isEdit(bool value) {
+    _isEdit = value;
+    update();
+  }
 
   String activityEmoji = '';
   String feelingEmoji = '';
@@ -39,6 +49,14 @@ class MoodCheckingCon extends GetxController {
     return feeling;
   }
 
+  clearData() {
+    titleCon.clear();
+    noteCon.clear();
+    unhappyReason.clear();
+    howAreYouFeeling.clear();
+    sliderValue = 0.0;
+  }
+
   double sliderValue = 0.0;
 
   RxBool isLoading = false.obs;
@@ -55,6 +73,8 @@ class MoodCheckingCon extends GetxController {
           ResponseItem(data: null, message: errorText, status: false);
       result = await HabitRepo.moodChecking(
           moodImages: moodImage,
+          title: titleCon.text,
+          note: noteCon.text,
           feeling: getMood(),
           audioPath: audioPath,
           type: moodImage != null
@@ -75,7 +95,7 @@ class MoodCheckingCon extends GetxController {
           Get.back();
           Get.back();
           isLoading.value = false;
-
+          clearData();
           showAppSnackBar(result.message, status: true);
         } else {
           isLoading.value = false;
@@ -88,6 +108,58 @@ class MoodCheckingCon extends GetxController {
       isLoading.value = false;
       update();
     }
+  }
+
+  editMoodChecking({File? moodImage, File? audioPath}) async {
+    if (unhappyReason.isEmpty) {
+      showAppSnackBar('Please Select your Unhappy reason.');
+    } else if (howAreYouFeeling.isEmpty) {
+      showAppSnackBar('Please Select your feeling.');
+    } else {
+      isLoading.value = true;
+      ResponseItem result =
+          ResponseItem(data: null, message: errorText, status: false);
+      result = await HabitRepo.editMoodChecking(
+          moodImages: moodImage,
+          moodId: (editMood?.umId ?? "0").toString(),
+          title: titleCon.text,
+          note: noteCon.text,
+          feeling: getMood(),
+          audioPath: audioPath,
+          type: moodImage != null
+              ? "PHOTO"
+              : audioPath != null
+                  ? "VOICE_NOTE"
+                  : "MOOD",
+          howAreYouFeeling: howAreYouFeeling
+              .toString()
+              .replaceAll('[', "")
+              .replaceAll(']', ""),
+          unhappyReason:
+              unhappyReason.toString().replaceAll('[', "").replaceAll(']', ""));
+      try {
+        if (result.status) {
+          Get.find<HomeController>()
+              .getUserMood(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
+          Get.back();
+          Get.back();
+          isLoading.value = false;
+          clearData();
+          isEdit = false;
+          editMood = null;
+          showAppSnackBar("Mood edit successfully.", status: true);
+        } else {
+          isLoading.value = false;
+          showAppSnackBar(result.message);
+        }
+      } catch (error) {
+        isLoading.value = false;
+        showAppSnackBar(errorText);
+      }
+    }
+    isLoading.value = false;
+    update();
   }
 
   List<ActivityData> _activityList = [];

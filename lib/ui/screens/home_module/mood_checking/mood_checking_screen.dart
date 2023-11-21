@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/models/get_user_mood_model.dart';
 import 'package:self_growth/ui/screens/add_photo/add_photo_controller.dart';
+import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 import 'package:self_growth/ui/screens/voice_note/voice_note_con.dart';
 
 import 'package:self_growth/ui/widgets/app_button.dart';
@@ -47,6 +48,27 @@ class MoodCheckingScreen extends StatelessWidget {
               child: GetBuilder<MoodCheckingCon>(initState: (state) {
                 moodCheckingCon.getFeelingList();
                 moodCheckingCon.getActivityList();
+                if (moodCheckingCon.editMood != null) {
+                  if (moodCheckingCon.editMood!.feeling == "Happy") {
+                    moodCheckingCon.sliderValue = 100.00;
+                  } else if (moodCheckingCon.editMood!.feeling == "Normal") {
+                    moodCheckingCon.sliderValue = 50.00;
+                  } else {
+                    moodCheckingCon.sliderValue = 0.00;
+                  }
+                  moodCheckingCon.titleCon.text =
+                      moodCheckingCon.editMood?.title ?? "";
+                  moodCheckingCon.noteCon.text =
+                      moodCheckingCon.editMood?.note ?? "";
+                  moodCheckingCon.editMood?.unhappyReasonFeeling
+                      ?.forEach((element) {
+                    moodCheckingCon.unhappyReason.add(element.id.toString());
+                  });
+                  moodCheckingCon.editMood?.howAreYouFeelingList
+                      ?.forEach((element) {
+                    moodCheckingCon.howAreYouFeeling.add(element.id.toString());
+                  });
+                }
               }, builder: (ctrl) {
                 return SafeArea(
                   child: Column(
@@ -356,11 +378,17 @@ class MoodCheckingScreen extends StatelessWidget {
                       40.w.spaceH(),
                       RoundAppButton(
                         onTap: () {
-                          ctrl.moodChecking(
-                              audioPath: voiceNoteController.audioPath,
-                              moodImage: addPhotoController.imagePath);
+                          if (ctrl.isEdit) {
+                            ctrl.editMoodChecking(
+                                audioPath: voiceNoteController.audioPath,
+                                moodImage: addPhotoController.imagePath);
+                          } else {
+                            ctrl.moodChecking(
+                                audioPath: voiceNoteController.audioPath,
+                                moodImage: addPhotoController.imagePath);
+                          }
                         },
-                        title: 'Continue',
+                        title: ctrl.isEdit ? "Edit mood" : 'Continue',
                       ).paddingSymmetric(horizontal: 40.w),
                       24.w.spaceH(),
                     ],
