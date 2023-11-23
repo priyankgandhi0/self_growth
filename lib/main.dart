@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 
 import 'config/routes/router.dart';
 import 'core/utils/preferences.dart';
+import 'loader_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
           viewInsets: MediaQuery.of(context).viewInsets,
         ),
         child: GetMaterialApp(
+          initialBinding: BaseBindings(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             scaffoldBackgroundColor: background_EBEBEB,
@@ -68,5 +71,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class BaseBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => LoaderController(), fenix: true);
   }
 }

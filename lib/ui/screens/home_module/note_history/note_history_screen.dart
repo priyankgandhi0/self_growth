@@ -217,9 +217,6 @@ class NoteHistoryScreen extends StatelessWidget {
             ],
           ),
         ),
-        Obx(() => homeController.isLoading.value
-            ? const AppProgress()
-            : const SizedBox())
       ],
     );
   }

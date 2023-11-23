@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,15 +67,10 @@ class HomeScreen extends StatelessWidget {
                             (findFirstDateOfTheWeek(DateTime.now()).day +
                                 index)) {
                           ctrl.isSelectedDay = index;
-                          String selectedDate = DateFormat('yyyy-MM-dd')
-                              .format(DateTime(
-                                  DateTime.now().year,
-                                  DateTime.now().month,
-                                  (findFirstDateOfTheWeek(DateTime.now()).day) +
-                                      index))
-                              .toString();
-                          ctrl.getUserHabit(selectedDate);
-                          ctrl.getUserMood(selectedDate);
+                          ctrl.getUserHabit(
+                              DateFormat('yyyy-MM-dd').format(DateTime.now()));
+                          ctrl.getUserMood(
+                              DateFormat('yyyy-MM-dd').format(DateTime.now()));
                           ctrl.update();
                         }
                       },
@@ -350,8 +346,7 @@ class HomeScreen extends StatelessWidget {
                               subTitle: ctrl.quitData[index].note != ""
                                   ? (ctrl.quitData[index].note ?? "")
                                   : 'Abstinence time',
-                              time: formatTime(
-                                  ctrl.quitData[index].goalResetTime ?? ""),
+                              time: ctrl.quitData[index].goalResetTime ?? "",
                               day: ctrl.quitData[index].streak.toString(),
                             );
                           },
@@ -424,9 +419,6 @@ class HomeScreen extends StatelessWidget {
             ],
           ).paddingSymmetric(vertical: 24.w);
         }),
-        Obx(() => homeController.isLoading.value
-            ? const AppProgress()
-            : const SizedBox())
       ],
     );
   }
@@ -606,7 +598,7 @@ class HabitCard extends StatelessWidget {
   }
 }
 
-class QuitHabitCard extends StatelessWidget {
+class QuitHabitCard extends StatefulWidget {
   const QuitHabitCard(
       {Key? key,
       required this.title,
@@ -625,6 +617,48 @@ class QuitHabitCard extends StatelessWidget {
   final Function()? dayOnTap;
 
   final bool selectedDay;
+
+  @override
+  State<QuitHabitCard> createState() => _QuitHabitCardState();
+}
+
+class _QuitHabitCardState extends State<QuitHabitCard> {
+  String times = '0h : 0m : 0s';
+  Timer? _timer;
+  bool startTimer = true;
+  Widget formatTime(String date) {
+    if (startTimer) {
+      _timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (t) {
+          DateTime time = DateTime.parse(date).getLocalDateTime();
+          final startTime = DateTime(time.year, time.month, time.day, time.hour,
+              time.minute, time.second);
+          final currentTime = DateTime.now();
+          final diffHr = currentTime.difference(startTime).inHours;
+          final diffMn = (currentTime.difference(startTime).inMinutes) % 60;
+          final diffSc = (currentTime.difference(startTime).inSeconds) % 60;
+          times = '${diffHr}h : ${diffMn}m :  ${diffSc}s';
+          if (mounted) {
+            setState(() {});
+          }
+        },
+      );
+    }
+    return times.appSwitzerTextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp,
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _timer?.cancel();
+    startTimer = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -639,18 +673,18 @@ class QuitHabitCard extends StatelessWidget {
             children: [
               const IconCard(title: '☕️'),
               10.w.spaceW(),
-              title.appSwitzerTextStyle(
+              widget.title.appSwitzerTextStyle(
                   fontWeight: FontWeight.w600, fontSize: 14.sp),
               const Spacer(),
               InkWell(
-                  onTap: buttonOnTap,
+                  onTap: widget.buttonOnTap,
                   splashFactory: NoSplash.splashFactory,
                   // ignore: deprecated_member_use_from_same_package
                   child: Assets.icons.threeDote.svg(color: borderPurpleColor))
             ],
           ),
           8.w.spaceH(),
-          subTitle
+          widget.subTitle
               .appSwitzerTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12.sp,
@@ -658,20 +692,17 @@ class QuitHabitCard extends StatelessWidget {
               .paddingOnly(bottom: 4.w),
           Row(
             children: [
-              time.appSwitzerTextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14.sp,
-              ),
+              formatTime(widget.time),
               const Spacer(),
               InkWell(
-                onTap: dayOnTap,
-                child: (selectedDay
+                onTap: widget.dayOnTap,
+                child: (widget.selectedDay
                         ? Assets.icons.selected
                         : Assets.icons.minimize)
                     .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
               ),
               5.w.spaceW(),
-              '$day day streak'.appSwitzerTextStyle(
+              '${widget.day} day streak'.appSwitzerTextStyle(
                   textAlign: TextAlign.start,
                   fontWeight: FontWeight.w400,
                   fontColor: doteColor,

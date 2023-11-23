@@ -76,6 +76,7 @@ class MoodCheckingCon extends GetxController {
 
   RxBool isLoading = false.obs;
   moodChecking(String moodType, {File? moodImage, File? audioPath}) async {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (moodType == moodTextType && titleCon.text.isEmpty) {
       showAppSnackBar('Title must be required.');
     } else if (unhappyReason.isEmpty) {
@@ -126,6 +127,7 @@ class MoodCheckingCon extends GetxController {
   }
 
   editMoodChecking({File? moodImage, File? audioPath}) async {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (unhappyReason.isEmpty) {
       showAppSnackBar('Please Select your Unhappy reason.');
     } else if (howAreYouFeeling.isEmpty) {

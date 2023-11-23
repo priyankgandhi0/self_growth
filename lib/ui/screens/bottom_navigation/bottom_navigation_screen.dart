@@ -15,7 +15,9 @@ import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../../core/utils/app_helper.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../loader_controller.dart';
 import '../../widgets/app_dialogs.dart';
+import '../../widgets/app_loader.dart';
 import '../../widgets/file_picker_utils.dart';
 import '../home_module/home_screen.dart';
 
@@ -23,6 +25,7 @@ class BottomNavigationScreen extends StatelessWidget {
   BottomNavigationScreen({Key? key}) : super(key: key);
   final BottomBarController bottomBarController =
       Get.put(BottomBarController());
+  final LoaderController loaderController = Get.find();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -84,6 +87,9 @@ class BottomNavigationScreen extends StatelessWidget {
                 ],
               ),
               bottomBarWidget(ctrl, context),
+              GetBuilder<LoaderController>(builder: (ctrl) {
+                return ctrl.isLoading ? const AppProgress() : Container();
+              }),
             ],
           ),
         );
@@ -260,6 +266,31 @@ class QuitHabitDialog extends StatelessWidget {
       return Column(
         children: [
           ProfileDataCard(
+              onTap: () {
+                ctrl.isOpenDialog = false;
+                ctrl.update();
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return CustomDialog(
+                      title: 'Reset habit',
+                      description: 'Are you sure to reset habit?',
+                      onCancel: () {
+                        Get.back();
+                      },
+                      isCancel: true,
+                      textConfirm: 'Reset',
+                      textCancel: 'Cancel',
+                      onConfirm: () {
+                        Get.back();
+                        homeController.resetHabit(
+                            ctrl.deleteHabitId.toString(), ctrl.selectedDate);
+                        ctrl.update();
+                      },
+                    );
+                  },
+                );
+              },
               image: Assets.icons.resetHabit.path,
               height: 24.w,
               title: 'Reset habit'),

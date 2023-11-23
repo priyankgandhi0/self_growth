@@ -5,6 +5,7 @@ import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/request_const.dart';
+import '../../../loader_controller.dart';
 import '../../../models/get_hebit_model.dart';
 import '../../../models/get_user_mood_model.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -21,24 +22,56 @@ class HomeController extends GetxController {
   RxBool stopPagination = false.obs;
   int page = 1;
   int pageHabit = 1;
-  List<MoodData> moodData = [];
-  List<HabitData> habitData = [];
-  List<HabitData> quitData = [];
-  List<HabitData> buildData = [];
-  RxBool isLoading = false.obs;
+  List<MoodData> _moodData = [];
+
+  List<MoodData> get moodData => _moodData;
+
+  set moodData(List<MoodData> value) {
+    _moodData = value;
+    update();
+  }
+
+  List<HabitData> _habitData = [];
+
+  List<HabitData> get habitData => _habitData;
+
+  set habitData(List<HabitData> value) {
+    _habitData = value;
+    update();
+  }
+
+  List<HabitData> _quitData = [];
+
+  List<HabitData> get quitData => _quitData;
+
+  set quitData(List<HabitData> value) {
+    _quitData = value;
+    update();
+  }
+
+  List<HabitData> _buildData = [];
+
+  List<HabitData> get buildData => _buildData;
+
+  set buildData(List<HabitData> value) {
+    _buildData = value;
+    update();
+  }
+
+  // RxBool isLoading = false.obs;
   getUserHabit(String selectedDate,
       {bool isLoad = true, bool isClear = true}) async {
     if (selectedDate.isEmpty) {
       showAppSnackBar('Please Select date.');
     } else {
       if (isClear) {
-        isLoading.value = true;
+        Loader().showLoading();
         habitData.clear();
         quitData.clear();
         buildData.clear();
         pageHabit = 1;
       } else {
-        isLoading.value = isClear ? false : true;
+        Loader().hideLoading();
       }
 
       ResponseItem result =
@@ -62,16 +95,16 @@ class HomeController extends GetxController {
               }
             }
           }
-          isLoading.value = false;
+          Loader().hideLoading();
         } else {
-          isLoading.value = false;
+          Loader().hideLoading();
           showAppSnackBar(result.message);
         }
       } catch (error) {
-        isLoading.value = false;
+        Loader().hideLoading();
         showAppSnackBar(errorText);
       }
-      isLoading.value = false;
+      Loader().hideLoading();
       update();
     }
   }
@@ -79,14 +112,14 @@ class HomeController extends GetxController {
   getUserMood(String selectedDate,
       {bool isLoad = true, bool isClear = true}) async {
     if (isClear) {
-      isLoading.value = true;
+      Loader().showLoading();
       moodData.clear();
       page = 1;
     } else {
-      isLoading.value = isClear ? false : true;
+      Loader().hideLoading();
     }
 
-    isLoading.value = isLoad ? true : false;
+    isLoad ? Loader().showLoading() : Loader().hideLoading();
     ResponseItem result =
         ResponseItem(data: null, message: errorText, status: false);
     result = await HabitRepo.getUserMood(
@@ -101,22 +134,22 @@ class HomeController extends GetxController {
           }
           stopPagination.value = false;
         }
-        isLoading.value = false;
+        Loader().hideLoading();
       } else {
-        isLoading.value = false;
+        Loader().hideLoading();
         showAppSnackBar(result.message);
       }
     } catch (error) {
-      isLoading.value = false;
+      Loader().hideLoading();
       showAppSnackBar(errorText);
     }
-    isLoading.value = false;
+    Loader().hideLoading();
     update();
   }
 
   deleteUserHabit(String habitId, String selectedDate) async {
     moodData.clear();
-    isLoading.value = true;
+    Loader().showLoading();
     ResponseItem result =
         ResponseItem(data: null, message: errorText, status: false);
     result = await HabitRepo.deleteUserHabit(
@@ -124,24 +157,49 @@ class HomeController extends GetxController {
     );
     try {
       if (result.status) {
+        getUserHabit(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+        getUserMood(DateFormat('yyyy-MM-dd').format(DateTime.now()));
         showAppSnackBar(result.message, status: true);
-        getUserHabit(selectedDate);
-        isLoading.value = false;
       } else {
-        isLoading.value = false;
+        Loader().hideLoading();
         showAppSnackBar(result.message);
       }
     } catch (error) {
-      isLoading.value = false;
+      Loader().hideLoading();
       showAppSnackBar(errorText);
     }
-    isLoading.value = false;
+
+    update();
+  }
+
+  resetHabit(String habitId, String selectedDate) async {
+    moodData.clear();
+    Loader().showLoading();
+    ResponseItem result =
+        ResponseItem(data: null, message: errorText, status: false);
+    result = await HabitRepo.resetHabit(
+      habitId: habitId,
+    );
+    try {
+      if (result.status) {
+        getUserHabit(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+        getUserMood(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+        showAppSnackBar(result.message, status: true);
+      } else {
+        Loader().hideLoading();
+        showAppSnackBar(result.message);
+      }
+    } catch (error) {
+      Loader().hideLoading();
+      showAppSnackBar(errorText);
+    }
+
     update();
   }
 
   deleteMoodCheckin(String moodCheckInId, String selectedDate) async {
     moodData.clear();
-    isLoading.value = true;
+    Loader().showLoading();
     ResponseItem result =
         ResponseItem(data: null, message: errorText, status: false);
     result = await HabitRepo.deleteMoodCheckin(
@@ -152,16 +210,16 @@ class HomeController extends GetxController {
         showAppSnackBar(result.message, status: true);
         page = 1;
         getUserMood(selectedDate, isLoad: true);
-        isLoading.value = false;
+        getUserHabit(selectedDate, isLoad: true);
       } else {
-        isLoading.value = false;
+        Loader().hideLoading();
         showAppSnackBar(result.message);
       }
     } catch (error) {
-      isLoading.value = false;
+      Loader().hideLoading();
       showAppSnackBar(errorText);
     }
-    isLoading.value = false;
+
     update();
   }
 
@@ -173,16 +231,16 @@ class HomeController extends GetxController {
       if (result.status) {
         getUserHabit(DateFormat('yyyy-MM-dd').format(DateTime.now()));
         showAppSnackBar(result.message, status: true);
-        isLoading.value = false;
+        Loader().hideLoading();
       } else {
-        isLoading.value = false;
+        Loader().hideLoading();
         showAppSnackBar(result.message);
       }
     } catch (error) {
-      isLoading.value = false;
+      Loader().hideLoading();
       showAppSnackBar(errorText);
     }
-    isLoading.value = false;
+    Loader().hideLoading();
     update();
   }
 }

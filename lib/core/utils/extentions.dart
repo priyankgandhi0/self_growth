@@ -230,21 +230,6 @@ bool isEmailValid(String email) {
   return regex.hasMatch(email);
 }
 
-String formatTime(String date) {
-  DateTime time = DateFormat("yyyy-MM-dd HH:mm:ss").parse(date, true).toLocal();
-  print('time--${time.toLocal()}');
-  final startTime = DateTime(
-      time.year, time.month, time.day, time.hour, time.minute, time.second);
-  final currentTime = DateTime.now();
-  final diff_hr = currentTime.difference(startTime).inHours;
-  final diff_mn = (currentTime.difference(startTime).inMinutes);
-  final diff_sc = (currentTime.difference(startTime).inSeconds) % 60;
-  print(diff_hr);
-  print(diff_mn);
-  print(diff_sc);
-  return '${diff_hr}h : ${diff_mn}m :  ${diff_sc}s';
-}
-
 Future<File> urlToFile(String imageUrl, String moodType) async {
   final http.Response responseData = await http.get(Uri.parse(imageUrl));
   Uint8List uint8list = responseData.bodyBytes;
@@ -259,80 +244,4 @@ Future<File> urlToFile(String imageUrl, String moodType) async {
   print('file--${file.path}');
 
   return file;
-}
-
-class CardNumberFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    var inputText = newValue.text;
-
-    if (newValue.selection.baseOffset == 0) {
-      return newValue;
-    }
-
-    var bufferString = StringBuffer();
-    for (int i = 0; i < inputText.length; i++) {
-      bufferString.write(inputText[i]);
-      var nonZeroIndexValue = i + 1;
-      if (nonZeroIndexValue % 4 == 0 && nonZeroIndexValue != inputText.length) {
-        bufferString.write('-');
-      }
-    }
-
-    var string = bufferString.toString();
-    return newValue.copyWith(
-      text: string,
-      selection: TextSelection.collapsed(
-        offset: string.length,
-      ),
-    );
-  }
-}
-
-class PhoneInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final text = newValue.text.replaceAll(RegExp(r'\D'), '');
-    final offset = text.length + 1;
-
-    return newValue.copyWith(
-      text: text.isNotEmpty ? '+$text' : '',
-      selection: TextSelection.collapsed(offset: offset),
-    );
-  }
-}
-
-class ExpirationDateFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    var inputText = newValue.text;
-
-    if (newValue.selection.baseOffset == 0) {
-      return newValue;
-    }
-
-    var bufferString = StringBuffer();
-    for (int i = 0; i < inputText.length; i++) {
-      bufferString.write(inputText[i]);
-      var nonZeroIndexValue = i + 1;
-      if (nonZeroIndexValue % 2 == 0 && nonZeroIndexValue != inputText.length) {
-        bufferString.write('/');
-      }
-    }
-
-    var string = bufferString.toString();
-    return newValue.copyWith(
-      text: string,
-      selection: TextSelection.collapsed(
-        offset: string.length,
-      ),
-    );
-  }
 }

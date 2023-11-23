@@ -73,6 +73,7 @@ class ApiEndPoint {
   static const getUserHabit = "getUserHabit";
   static const checkInUserHabit = "checkinUserHabit";
   static const deleteUserHabit = "deleteUserHabit";
+  static const resetHabit = "resetHabit";
 
   ///MOOD CHECKING
   static const moodChecking = "moodCheckin";
