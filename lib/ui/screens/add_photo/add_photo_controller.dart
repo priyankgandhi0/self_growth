@@ -8,13 +8,15 @@ import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../core/constants/request_const.dart';
 import '../../../models/add_photo_model.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../home_module/home_controller.dart';
+import '../home_module/mood_checking/mood_checking_screen.dart';
 
 class AddPhotoController extends GetxController {
   RxBool isLoading = false.obs;
-  File? imagePath;
+  // File? imagePath;
   addMoodPhoto(File imageFile) async {
     isLoading.value = true;
     ResponseItem result =
@@ -32,7 +34,9 @@ class AddPhotoController extends GetxController {
             isLoading.value = false;
             showAppSnackBar(response.msg!, status: true);
             // log('response.data--${response.data}');
-            Get.toNamed(Routes.moodCheckingScreen);
+            Get.to(MoodCheckingScreen(
+              moodType: moodImageType,
+            ));
           }
 
           // Get.toNamed(Routes.selfDiscoverScreen);

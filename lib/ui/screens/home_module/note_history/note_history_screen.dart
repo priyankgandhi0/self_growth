@@ -54,11 +54,6 @@ class NoteHistoryScreen extends StatelessWidget {
                     }
                   }
                 });
-                // Future.delayed(const Duration(milliseconds: 200), () {
-                //   return homeController.getUserMood(
-                //       DateFormat('yyyy-MM-dd').format(DateTime.now()),
-                //       isLoad: true);
-                // });
               }, builder: (ctrl) {
                 return Container(
                   height: Get.height,
@@ -113,147 +108,80 @@ class NoteHistoryScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return ctrl.moodData.isEmpty
                                     ? const SizedBox()
-                                    : ctrl.moodData[index].type == "MOOD"
-                                        ? Container(
-                                            width: Get.width,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.r),
-                                                color: white_FFFFFF),
-                                            child: NoteCommonCard(
-                                              iconOnTap: () {
-                                                bottomBarController
-                                                    .isOpenDialog = true;
-                                                bottomBarController
-                                                    .isOpenHomeDialog = 3;
-                                                moodCheckingCon.editMood =
-                                                    ctrl.moodData[index];
-                                                bottomBarController.update();
-                                                moodCheckingCon.update();
-                                              },
-                                              image: Assets.icons.edit.path,
-                                              title:
-                                                  (ctrl.moodData[index].title)
-                                                      .toString(),
-                                              time: DateFormat('hh:mm a')
-                                                  .format(DateTime.parse(
-                                                      '${ctrl.moodData[index].moodDate} ${ctrl.moodData[index].noteTime}'
-                                                          .toString())),
-                                              chipTitleColor: doteColor,
-                                              fellingList: (ctrl.moodData[index]
-                                                          .unhappyReasonFeeling ??
-                                                      []) +
-                                                  (ctrl.moodData[index]
-                                                          .howAreYouFeelingList ??
-                                                      []),
-                                              notes: ctrl.moodData[index].note
-                                                  .toString(),
-                                            ),
-                                          )
-                                        : ctrl.moodData[index].type == "PHOTO"
-                                            ? Container(
-                                                width: Get.width,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.r),
-                                                    color: white_FFFFFF),
-                                                child: NoteCommonCard(
-                                                  iconOnTap: () {
-                                                    bottomBarController
-                                                        .isOpenDialog = true;
-                                                    bottomBarController
-                                                        .isOpenHomeDialog = 3;
-                                                    moodCheckingCon.editMood =
-                                                        ctrl.moodData[index];
-                                                    bottomBarController
-                                                        .update();
-                                                    moodCheckingCon.update();
-                                                  },
-                                                  showIcon: true,
-                                                  image: Assets
-                                                      .icons.imageCapture.path,
-                                                  title: (ctrl.moodData[index]
-                                                          .feeling)
-                                                      .toString(),
-                                                  time: DateFormat('hh:mm a')
-                                                      .format(DateTime.parse(
-                                                          '${ctrl.moodData[index].moodDate} ${ctrl.moodData[index].noteTime}'
-                                                              .toString())),
-                                                  fellingList: (ctrl
-                                                              .moodData[index]
-                                                              .unhappyReasonFeeling ??
-                                                          []) +
-                                                      (ctrl.moodData[index]
-                                                              .howAreYouFeelingList ??
-                                                          []),
-                                                  isImage: false,
-                                                  widget: AddImageCard(
-                                                    widget: commonCachedNetworkImage(
-                                                        borderRadius: 8.r,
-                                                        imageUrl:
-                                                            '${ImageBaseUrl.MOODIMAGEURL}${ctrl.moodData[index].moodPhoto}',
-                                                        height: 140.w,
-                                                        width: Get.width),
-                                                  ),
-                                                ),
-                                              )
-                                            : Container(
-                                                width: Get.width,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.r),
-                                                    color: white_FFFFFF),
-                                                child: NoteCommonCard(
-                                                  iconOnTap: () {
-                                                    bottomBarController
-                                                        .isOpenDialog = true;
-                                                    bottomBarController
-                                                        .isOpenHomeDialog = 3;
-                                                    moodCheckingCon.editMood =
-                                                        ctrl.moodData[index];
-                                                    bottomBarController
-                                                        .update();
-                                                    moodCheckingCon.update();
-                                                  },
-                                                  image:
-                                                      Assets.icons.voice.path,
-                                                  showIcon: true,
-                                                  fellingList: (ctrl
-                                                              .moodData[index]
-                                                              .unhappyReasonFeeling ??
-                                                          []) +
-                                                      (ctrl.moodData[index]
-                                                              .howAreYouFeelingList ??
-                                                          []),
-                                                  title: (ctrl.moodData[index]
-                                                          .feeling)
-                                                      .toString(),
-                                                  time: DateFormat('hh:mm a')
-                                                      .format(DateTime.parse(
-                                                          '${ctrl.moodData[index].moodDate} ${ctrl.moodData[index].noteTime}'
-                                                              .toString())),
-                                                  widget: Container(
-                                                    height: 69.w,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.r),
-                                                        color:
-                                                            background_F5F5F5),
-                                                    child: Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 20.w),
-                                                      child: AudioPlayer(
-                                                        source:
-                                                            "${ImageBaseUrl.MOODAUDIOURL}${ctrl.moodData[index].audioFile}",
-                                                        onDelete: () {},
+                                    : Container(
+                                        width: Get.width,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12.r),
+                                            color: white_FFFFFF),
+                                        child: NoteCommonCard(
+                                          iconOnTap: () {
+                                            bottomBarController.isOpenDialog =
+                                                true;
+                                            bottomBarController
+                                                .isOpenHomeDialog = 3;
+                                            moodCheckingCon.editMood =
+                                                ctrl.moodData[index];
+                                            bottomBarController.update();
+                                            moodCheckingCon.update();
+                                          },
+                                          image: Assets.icons.edit.path,
+                                          title: ctrl.moodData[index].type ==
+                                                  moodTextType
+                                              ? (ctrl.moodData[index].title)
+                                                  .toString()
+                                              : ctrl.moodData[index].type ==
+                                                      moodVoiceType
+                                                  ? 'Voice Note'
+                                                  : "Image Capture",
+                                          time: DateFormat('hh:mm a').format(
+                                              DateTime.parse(
+                                                  '${ctrl.moodData[index].moodDate} ${ctrl.moodData[index].noteTime}'
+                                                      .toString())),
+                                          chipTitleColor: doteColor,
+                                          fellingList: (ctrl.moodData[index]
+                                                      .unhappyReasonFeeling ??
+                                                  []) +
+                                              (ctrl.moodData[index]
+                                                      .howAreYouFeelingList ??
+                                                  []),
+                                          notes: ctrl.moodData[index].note
+                                              .toString(),
+                                          widget: ctrl.moodData[index].type ==
+                                                  moodImageType
+                                              ? AddImageCard(
+                                                  widget: commonCachedNetworkImage(
+                                                      borderRadius: 8.r,
+                                                      imageUrl:
+                                                          '${ImageBaseUrl.MOODIMAGEURL}${ctrl.moodData[index].moodPhoto}',
+                                                      height: 140.w,
+                                                      width: Get.width),
+                                                )
+                                              : ctrl.moodData[index].type ==
+                                                      moodVoiceType
+                                                  ? Container(
+                                                      height: 69.w,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.r),
+                                                          color:
+                                                              background_F5F5F5),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 20.w),
+                                                        child: AudioPlayer(
+                                                          source:
+                                                              "${ImageBaseUrl.MOODAUDIOURL}${ctrl.moodData[index].audioFile}",
+                                                          onDelete: () {},
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ).paddingAll(16.w),
-                                                ),
-                                              );
+                                                    ).paddingAll(16.w)
+                                                  : const SizedBox(),
+                                        ),
+                                      );
                               },
                               separatorBuilder: (context, index) {
                                 return 16.w.spaceH();

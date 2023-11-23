@@ -31,6 +31,10 @@ class ImageBaseUrl {
 }
 
 const int LIMIT = 10;
+const String moodImageType = "PHOTO";
+const String moodVoiceType = "VOICE_NOTE";
+const String moodTextType = "MOOD";
+
 Map<String, String> requestHeader({bool passAuth = false}) {
   return {
     RequestHeaderKey.contentType: "application/json",

@@ -8,6 +8,7 @@ import '../../../../api/repositories/habit_repo.dart';
 import '../../../../api/response_item.dart';
 import '../../../../core/constants/app_strings.dart';
 
+import '../../../../core/constants/request_const.dart';
 import '../../../../models/get_activity_model.dart';
 import '../../../../models/get_user_mood_model.dart';
 import '../../../widgets/app_snack_bar.dart';
@@ -20,14 +21,6 @@ class MoodCheckingCon extends GetxController {
   TextEditingController titleCon = TextEditingController();
   TextEditingController noteCon = TextEditingController();
   TextEditingController searchCon = TextEditingController();
-  bool _isEdit = false;
-
-  bool get isEdit => _isEdit;
-
-  set isEdit(bool value) {
-    _isEdit = value;
-    update();
-  }
 
   String activityEmoji = '';
   String feelingEmoji = '';
@@ -45,8 +38,30 @@ class MoodCheckingCon extends GetxController {
     } else if (sliderValue == 100.00) {
       feeling = 'Happy';
     }
-
+    update();
     return feeling;
+  }
+
+  setEditData() {
+    unhappyReason.clear();
+    howAreYouFeeling.clear();
+    if (editMood != null) {
+      if (editMood!.feeling == "Happy") {
+        sliderValue = 100.00;
+      } else if (editMood!.feeling == "Normal") {
+        sliderValue = 50.00;
+      } else {
+        sliderValue = 0.00;
+      }
+      titleCon.text = editMood?.title ?? "";
+      noteCon.text = editMood?.note ?? "";
+      editMood?.unhappyReasonFeeling?.forEach((element) {
+        unhappyReason.add(element.id.toString());
+      });
+      editMood?.howAreYouFeelingList?.forEach((element) {
+        howAreYouFeeling.add(element.id.toString());
+      });
+    }
   }
 
   clearData() {
@@ -60,8 +75,8 @@ class MoodCheckingCon extends GetxController {
   double sliderValue = 0.0;
 
   RxBool isLoading = false.obs;
-  moodChecking({File? moodImage, File? audioPath}) async {
-    if (moodImage == null && audioPath == null && titleCon.text.isEmpty) {
+  moodChecking(String moodType, {File? moodImage, File? audioPath}) async {
+    if (moodType == moodTextType && titleCon.text.isEmpty) {
       showAppSnackBar('Title must be required.');
     } else if (unhappyReason.isEmpty) {
       showAppSnackBar('Please Select your Unhappy reason.');
@@ -78,10 +93,10 @@ class MoodCheckingCon extends GetxController {
           feeling: getMood(),
           audioPath: audioPath,
           type: moodImage != null
-              ? "PHOTO"
+              ? moodImageType
               : audioPath != null
-                  ? "VOICE_NOTE"
-                  : "MOOD",
+                  ? moodVoiceType
+                  : moodTextType,
           howAreYouFeeling: howAreYouFeeling
               .toString()
               .replaceAll('[', "")
@@ -127,10 +142,10 @@ class MoodCheckingCon extends GetxController {
           feeling: getMood(),
           audioPath: audioPath,
           type: moodImage != null
-              ? "PHOTO"
+              ? moodImageType
               : audioPath != null
-                  ? "VOICE_NOTE"
-                  : "MOOD",
+                  ? moodVoiceType
+                  : moodTextType,
           howAreYouFeeling: howAreYouFeeling
               .toString()
               .replaceAll('[', "")
@@ -141,12 +156,10 @@ class MoodCheckingCon extends GetxController {
         if (result.status) {
           Get.find<HomeController>()
               .getUserMood(DateFormat('yyyy-MM-dd').format(DateTime.now()));
-
           Get.back();
           Get.back();
           isLoading.value = false;
           clearData();
-          isEdit = false;
           editMood = null;
           showAppSnackBar("Mood edit successfully.", status: true);
         } else {

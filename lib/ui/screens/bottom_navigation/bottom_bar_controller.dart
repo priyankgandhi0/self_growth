@@ -21,6 +21,7 @@ class BottomBarController extends GetxController {
 
   bool isOpen = false;
   bool isOpenDialog = false;
+  bool isPhotoEdit = false;
   int isOpenHomeDialog = -1;
   int deleteHabitId = 0;
   String selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());

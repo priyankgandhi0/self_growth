@@ -132,4 +132,5 @@ class VoiceNoteController extends GetxController {
   }
 
   DateTime selectedDate = DateTime.now();
+  RxBool isLoading = false.obs;
 }

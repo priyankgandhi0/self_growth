@@ -88,7 +88,6 @@ class AudioPlayerState extends State<AudioPlayer> {
   Widget _buildControl() {
     Widget icon;
     Color color;
-
     if (_audioPlayer.state == ap.PlayerState.playing) {
       icon = Assets.icons.playerStop.svg();
       color = grey_C4C4C4;
@@ -100,13 +99,20 @@ class AudioPlayerState extends State<AudioPlayer> {
       child: Material(
         color: color,
         child: InkWell(
-          child:
-              SizedBox(width: _controlSize, height: _controlSize, child: icon),
+          child: SizedBox(
+              width: _controlSize,
+              height: _controlSize,
+              child: _audioPlayer.state == ap.PlayerState.playing &&
+                      _audioPlayer.state != ap.PlayerState.paused
+                  ? Assets.icons.playerStop.svg()
+                  : Assets.icons.player.svg()),
           onTap: () {
             if (_audioPlayer.state == ap.PlayerState.playing) {
               pause();
+              _audioPlayer.state = ap.PlayerState.paused;
             } else {
               play();
+              _audioPlayer.state = ap.PlayerState.playing;
             }
             setState(() {});
           },

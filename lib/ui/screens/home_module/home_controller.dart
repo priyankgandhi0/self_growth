@@ -20,27 +20,40 @@ class HomeController extends GetxController {
 
   RxBool stopPagination = false.obs;
   int page = 1;
+  int pageHabit = 1;
   List<MoodData> moodData = [];
   List<HabitData> habitData = [];
   List<HabitData> quitData = [];
   List<HabitData> buildData = [];
   RxBool isLoading = false.obs;
-  getUserHabit(String selectedDate) async {
+  getUserHabit(String selectedDate,
+      {bool isLoad = true, bool isClear = true}) async {
     if (selectedDate.isEmpty) {
       showAppSnackBar('Please Select date.');
     } else {
-      habitData.clear();
-      quitData.clear();
-      buildData.clear();
-      isLoading.value = true;
+      if (isClear) {
+        isLoading.value = true;
+        habitData.clear();
+        quitData.clear();
+        buildData.clear();
+        pageHabit = 1;
+      } else {
+        isLoading.value = isClear ? false : true;
+      }
+
       ResponseItem result =
           ResponseItem(data: null, message: errorText, status: false);
-      result = await HabitRepo.getUserHabit(date: selectedDate);
+      result =
+          await HabitRepo.getUserHabit(date: selectedDate, page: pageHabit);
       try {
         if (result.status) {
           GetHabitModel response = GetHabitModel.fromJson(result.toJson());
           if (response.data != null) {
             habitData.addAll(response.data!);
+            if (response.data!.length <= LIMIT) {
+              stopPagination.value = true;
+            }
+            stopPagination.value = false;
             for (var element in habitData) {
               if (element.habitType == 'Quit') {
                 quitData.add(element);

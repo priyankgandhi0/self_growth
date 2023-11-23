@@ -34,6 +34,7 @@ class HabitData {
   String? icon;
   String? iconColor;
   int? goalTimes;
+  String? goalResetTime;
   int? isReminderOn;
   String? reminderTime;
   String? reminderUtcTime;
@@ -54,6 +55,7 @@ class HabitData {
       this.icon,
       this.iconColor,
       this.goalTimes,
+      this.goalResetTime,
       this.isReminderOn,
       this.reminderTime,
       this.reminderUtcTime,
@@ -74,6 +76,7 @@ class HabitData {
     icon = json['icon'];
     iconColor = json['icon_color'];
     goalTimes = json['goal_times'];
+    goalResetTime = json['goal_reset_time'];
     isReminderOn = json['is_reminder_on'];
     reminderTime = json['reminder_time'];
     reminderUtcTime = json['reminder_utc_time'];
@@ -96,6 +99,7 @@ class HabitData {
     data['icon'] = icon;
     data['icon_color'] = iconColor;
     data['goal_times'] = goalTimes;
+    data['goal_reset_time'] = goalResetTime;
     data['is_reminder_on'] = isReminderOn;
     data['reminder_time'] = reminderTime;
     data['reminder_utc_time'] = reminderUtcTime;

@@ -1,9 +1,15 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:math';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
+import 'package:self_growth/core/constants/request_const.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 extension AddSpace on num {
@@ -222,6 +228,37 @@ bool isEmailValid(String email) {
       r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = RegExp(pattern.toString());
   return regex.hasMatch(email);
+}
+
+String formatTime(String date) {
+  DateTime time = DateFormat("yyyy-MM-dd HH:mm:ss").parse(date, true).toLocal();
+  print('time--${time.toLocal()}');
+  final startTime = DateTime(
+      time.year, time.month, time.day, time.hour, time.minute, time.second);
+  final currentTime = DateTime.now();
+  final diff_hr = currentTime.difference(startTime).inHours;
+  final diff_mn = (currentTime.difference(startTime).inMinutes);
+  final diff_sc = (currentTime.difference(startTime).inSeconds) % 60;
+  print(diff_hr);
+  print(diff_mn);
+  print(diff_sc);
+  return '${diff_hr}h : ${diff_mn}m :  ${diff_sc}s';
+}
+
+Future<File> urlToFile(String imageUrl, String moodType) async {
+  final http.Response responseData = await http.get(Uri.parse(imageUrl));
+  Uint8List uint8list = responseData.bodyBytes;
+  var buffer = uint8list.buffer;
+  ByteData byteData = ByteData.view(buffer);
+  Directory cacheDirectory = await getApplicationCacheDirectory();
+  File file = await (moodType == moodVoiceType
+          ? File("${cacheDirectory.path}/${Random().nextInt(1500)}.wav")
+          : File("${cacheDirectory.path}/${Random().nextInt(1500)}.png"))
+      .writeAsBytes(
+          buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+  print('file--${file.path}');
+
+  return file;
 }
 
 class CardNumberFormatter extends TextInputFormatter {

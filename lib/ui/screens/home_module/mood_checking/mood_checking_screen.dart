@@ -1,24 +1,17 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:self_growth/core/constants/request_const.dart';
 import 'package:self_growth/core/utils/extentions.dart';
-import 'package:self_growth/models/get_user_mood_model.dart';
-import 'package:self_growth/ui/screens/add_photo/add_photo_controller.dart';
-import 'package:self_growth/ui/screens/home_module/home_controller.dart';
-import 'package:self_growth/ui/screens/voice_note/voice_note_con.dart';
-
 import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
-
-import '../../../../config/routes/router.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/request_const.dart';
 import '../../../../gen/assets.gen.dart';
-import '../../../../models/add_photo_model.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_loader.dart';
 import '../../../widgets/audio_player.dart';
@@ -27,12 +20,18 @@ import '../../habit_module/create_new_habit.dart';
 import 'mood_checking_con.dart';
 
 class MoodCheckingScreen extends StatelessWidget {
-  MoodCheckingScreen({Key? key}) : super(key: key);
+  MoodCheckingScreen(
+      {Key? key,
+      this.imagePath,
+      this.audioPath,
+      this.isEdit = false,
+      required this.moodType})
+      : super(key: key);
   final MoodCheckingCon moodCheckingCon = Get.put(MoodCheckingCon());
-  final VoiceNoteController voiceNoteController =
-      Get.put(VoiceNoteController());
-  final AddPhotoController addPhotoController = Get.put(AddPhotoController());
-
+  final File? imagePath;
+  final File? audioPath;
+  final String moodType;
+  final bool isEdit;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,26 +47,12 @@ class MoodCheckingScreen extends StatelessWidget {
               child: GetBuilder<MoodCheckingCon>(initState: (state) {
                 moodCheckingCon.getFeelingList();
                 moodCheckingCon.getActivityList();
-                if (moodCheckingCon.editMood != null) {
-                  if (moodCheckingCon.editMood!.feeling == "Happy") {
-                    moodCheckingCon.sliderValue = 100.00;
-                  } else if (moodCheckingCon.editMood!.feeling == "Normal") {
-                    moodCheckingCon.sliderValue = 50.00;
-                  } else {
-                    moodCheckingCon.sliderValue = 0.00;
-                  }
-                  moodCheckingCon.titleCon.text =
-                      moodCheckingCon.editMood?.title ?? "";
-                  moodCheckingCon.noteCon.text =
-                      moodCheckingCon.editMood?.note ?? "";
-                  moodCheckingCon.editMood?.unhappyReasonFeeling
-                      ?.forEach((element) {
-                    moodCheckingCon.unhappyReason.add(element.id.toString());
-                  });
-                  moodCheckingCon.editMood?.howAreYouFeelingList
-                      ?.forEach((element) {
-                    moodCheckingCon.howAreYouFeeling.add(element.id.toString());
-                  });
+
+                if (isEdit) {
+                  moodCheckingCon.setEditData();
+                } else {
+                  moodCheckingCon.unhappyReason.clear();
+                  moodCheckingCon.howAreYouFeeling.clear();
                 }
               }, builder: (ctrl) {
                 return SafeArea(
@@ -179,8 +164,7 @@ class MoodCheckingScreen extends StatelessWidget {
                           ],
                         ).paddingSymmetric(horizontal: 24.w, vertical: 24.w),
                       ),
-                      Get.find<VoiceNoteController>().audioPath == null &&
-                              Get.find<AddPhotoController>().imagePath == null
+                      moodType == moodTextType
                           ? Container(
                                   width: Get.width,
                                   decoration: BoxDecoration(
@@ -220,8 +204,7 @@ class MoodCheckingScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Get.find<AddPhotoController>().imagePath !=
-                                          null
+                                  moodType == moodImageType
                                       ? Container(
                                           width: Get.width,
                                           decoration: BoxDecoration(
@@ -229,18 +212,15 @@ class MoodCheckingScreen extends StatelessWidget {
                                                   BorderRadius.circular(12.r),
                                               color: white_FFFFFF),
                                           child: NoteCommonCard(
-                                            showIcon: true,
+                                            showIcon: false,
                                             image:
                                                 Assets.icons.imageCapture.path,
                                             title: ('Image Capture').toString(),
                                             time: DateFormat('hh:mm a')
                                                 .format(DateTime.now()),
-                                            fellingList: [],
                                             isImage: false,
                                             widget: AddImageCard(
-                                              widget: Image.file(
-                                                  Get.find<AddPhotoController>()
-                                                      .imagePath!,
+                                              widget: Image.file(imagePath!,
                                                   width: Get.width,
                                                   height: 140.w,
                                                   fit: BoxFit.cover),
@@ -256,7 +236,6 @@ class MoodCheckingScreen extends StatelessWidget {
                                           child: NoteCommonCard(
                                             image: Assets.icons.voice.path,
                                             showIcon: false,
-                                            fellingList: [],
                                             title: ('Voice title').toString(),
                                             time: DateFormat('hh:mm a')
                                                 .format(DateTime.now()),
@@ -271,10 +250,8 @@ class MoodCheckingScreen extends StatelessWidget {
                                                 padding:
                                                     EdgeInsets.only(left: 20.w),
                                                 child: AudioPlayer(
-                                                  source: Get.find<
-                                                          VoiceNoteController>()
-                                                      .audioPath!
-                                                      .path,
+                                                  source:
+                                                      (audioPath?.path ?? ""),
                                                   onDelete: () {
                                                     // ctrl.showPlayer =
                                                     // !ctrl.showPlayer;
@@ -378,17 +355,15 @@ class MoodCheckingScreen extends StatelessWidget {
                       40.w.spaceH(),
                       RoundAppButton(
                         onTap: () {
-                          if (ctrl.isEdit) {
+                          if (isEdit) {
                             ctrl.editMoodChecking(
-                                audioPath: voiceNoteController.audioPath,
-                                moodImage: addPhotoController.imagePath);
+                                audioPath: audioPath, moodImage: imagePath);
                           } else {
-                            ctrl.moodChecking(
-                                audioPath: voiceNoteController.audioPath,
-                                moodImage: addPhotoController.imagePath);
+                            ctrl.moodChecking(moodType,
+                                audioPath: audioPath, moodImage: imagePath);
                           }
                         },
-                        title: ctrl.isEdit ? "Edit mood" : 'Continue',
+                        title: isEdit ? "Edit mood" : 'Continue',
                       ).paddingSymmetric(horizontal: 40.w),
                       24.w.spaceH(),
                     ],

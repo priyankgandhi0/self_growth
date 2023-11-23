@@ -42,9 +42,9 @@ class Routes {
   static const String selfDiscoverScreen = "/selfDiscoverScreen";
   static const String firstQuestionScreen = "/firstQuestionScreen";
   static const String noteHistoryScreen = "/noteHistoryScreen";
-  static const String moodCheckingScreen = "/moodCheckingScreen";
-  static const String voiceNoteScreen = "/voiceNoteScreen";
-  static const String addPhotoScreen = "/addPhotoScreen";
+  // static const String moodCheckingScreen = "/moodCheckingScreen";
+  // static const String voiceNoteScreen = "/voiceNoteScreen";
+  // static const String addPhotoScreen = "/addPhotoScreen";
   static const String forgetPasswordScreen = "/forgetPasswordScreen";
   static const String changePassVerificationScreen =
       "/changePassVerificationScreen";
@@ -98,14 +98,14 @@ class Routes {
         name: selfDiscoverScreen,
         page: () => const SelfDiscoverScreen(),
         transition: Transition.downToUp),
-    GetPage(
+    /*GetPage(
         name: addPhotoScreen,
         page: () => AddPhotoScreen(),
         transition: Transition.downToUp),
     GetPage(
         name: voiceNoteScreen,
         page: () => VoiceNoteScreen(),
-        transition: Transition.downToUp),
+        transition: Transition.downToUp),*/
     GetPage(
       name: firstQuestionScreen,
       page: () => const FirstQuestionScreen(),
@@ -118,10 +118,10 @@ class Routes {
       name: noteHistoryScreen,
       page: () => NoteHistoryScreen(),
     ),
-    GetPage(
+    /*GetPage(
       name: moodCheckingScreen,
       page: () => MoodCheckingScreen(),
-    ),
+    ),*/
     GetPage(
       name: forgetPasswordScreen,
       page: () => ForgetPasswordScreen(),

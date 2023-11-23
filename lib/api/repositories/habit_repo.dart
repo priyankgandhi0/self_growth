@@ -184,11 +184,12 @@ class HabitRepo {
 
   static Future<ResponseItem> getUserHabit({
     required String date,
+    int page = 1,
   }) async {
     bool status = false;
     ResponseItem result;
     dynamic data;
-    Map<String, dynamic> params = {"date": date, "page": 1, "limit": 10};
+    Map<String, dynamic> params = {"date": date, "page": page, "limit": LIMIT};
     var queryParameters = {RequestParam.service: ApiEndPoint.getUserHabit};
     String queryString = Uri(queryParameters: queryParameters).query;
     String requestUrl = BaseUrl.URL + queryString;

@@ -3,15 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
-import 'package:self_growth/models/add_photo_model.dart';
+import 'package:self_growth/core/constants/request_const.dart';
+import 'package:self_growth/ui/screens/add_photo/add_photo_screen.dart';
 
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 import 'package:self_growth/ui/screens/home_module/mood_checking/mood_checking_con.dart';
 import 'package:self_growth/ui/screens/home_module/mood_checking/mood_checking_screen.dart';
+import 'package:self_growth/ui/screens/voice_note/voice_note_screen.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
-import '../../../config/routes/router.dart';
 import '../../../core/utils/app_helper.dart';
 import '../../../gen/assets.gen.dart';
 import '../../widgets/app_dialogs.dart';
@@ -219,7 +220,9 @@ class AddButtonCard extends StatelessWidget {
             onTap: () {
               ctrl.isOpenDialog = false;
               ctrl.update();
-              Get.toNamed(Routes.moodCheckingScreen);
+              Get.to(MoodCheckingScreen(
+                moodType: moodTextType,
+              ));
             },
           ),
           const CommonDivider().paddingSymmetric(vertical: 8.w),
@@ -229,7 +232,7 @@ class AddButtonCard extends StatelessWidget {
               onTap: () {
                 ctrl.isOpenDialog = false;
                 ctrl.update();
-                Get.toNamed(Routes.voiceNoteScreen);
+                Get.to(VoiceNoteScreen());
               },
               title: 'Voice Note'),
           const CommonDivider().paddingSymmetric(vertical: 8.w),
@@ -307,17 +310,20 @@ class MoodDialog extends StatelessWidget {
         children: [
           ProfileDataCard(
               onTap: () {
-                moodCheckingCon.isEdit = true;
                 ctrl.isOpenDialog = false;
                 ctrl.update();
-                if (moodCheckingCon.editMood!.type == "PHOTO") {
+                if (moodCheckingCon.editMood!.type == moodImageType) {
                   ctrl.isOpenDialog = true;
+                  ctrl.isPhotoEdit = true;
                   ctrl.isOpenHomeDialog = 2;
                   ctrl.update();
-                } else if (moodCheckingCon.editMood!.type == "MOOD") {
-                  Get.toNamed(Routes.moodCheckingScreen);
+                } else if (moodCheckingCon.editMood!.type == moodTextType) {
+                  Get.to(
+                      MoodCheckingScreen(isEdit: true, moodType: moodTextType),
+                      transition: Transition.downToUp);
                 } else {
-                  Get.toNamed(Routes.voiceNoteScreen);
+                  Get.to(VoiceNoteScreen(isEdit: true),
+                      transition: Transition.downToUp);
                 }
                 moodCheckingCon.update();
               },
@@ -343,7 +349,6 @@ class MoodDialog extends StatelessWidget {
                       textCancel: 'Cancel',
                       onConfirm: () {
                         Get.back();
-
                         homeController.deleteMoodCheckin(
                             (moodCheckingCon.editMood?.umId ?? "").toString(),
                             DateFormat('yyyy-MM-dd')
@@ -381,8 +386,13 @@ class AddPhotoDialog extends StatelessWidget {
                   onImageChose: (image) {
                     ctrl.isOpenDialog = false;
                     ctrl.update();
-                    Get.toNamed(Routes.addPhotoScreen,
-                        arguments: {"data": image});
+                    Get.to(
+                            AddPhotoScreen(
+                              image: image,
+                              isEdit: ctrl.isPhotoEdit,
+                            ),
+                            transition: Transition.downToUp)!
+                        .then((value) => ctrl.isPhotoEdit = false);
                   });
               // Navigator.pop(context);
             },
@@ -395,14 +405,16 @@ class AddPhotoDialog extends StatelessWidget {
             onTap: () {
               ctrl.isOpenDialog = false;
               ctrl.update();
-
               PickFile().imageFormGallery(
                   context: context,
                   onImageChose: (image) {
                     ctrl.isOpenDialog = false;
                     ctrl.update();
-                    Get.toNamed(Routes.addPhotoScreen,
-                        arguments: {"data": image});
+                    Get.to(
+                            AddPhotoScreen(
+                                image: image, isEdit: ctrl.isPhotoEdit),
+                            transition: Transition.downToUp)!
+                        .then((value) => ctrl.isPhotoEdit = false);
                   });
               // Navigator.pop(context);
             },

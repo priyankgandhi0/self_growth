@@ -5,23 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
+import 'package:self_growth/core/constants/request_const.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/ui/screens/add_photo/add_photo_controller.dart';
 import 'package:self_growth/ui/widgets/app_loader.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
-
-import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
 import '../../widgets/app_button.dart';
 
 import '../../widgets/app_dialogs.dart';
+import '../home_module/mood_checking/mood_checking_con.dart';
 import '../home_module/mood_checking/mood_checking_screen.dart';
 
 class AddPhotoScreen extends StatelessWidget {
-  AddPhotoScreen({Key? key}) : super(key: key);
-  final File image = Get.arguments["data"];
+  AddPhotoScreen({Key? key, required this.image, this.isEdit = false})
+      : super(key: key);
+  final File image;
+  final bool isEdit;
   final AddPhotoController addPhotoController = Get.put(AddPhotoController());
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,29 @@ class AddPhotoScreen extends StatelessWidget {
                         children: [
                           10.w.spaceH(),
                           WithOutTitleAppBar(
-                              suffixWidget: const SizedBox(),
+                              suffixWidget: Visibility(
+                                visible: isEdit,
+                                child: InkWell(
+                                  onTap: () {
+                                    ctrl.isLoading.value = true;
+                                    urlToFile(
+                                            '${ImageBaseUrl.MOODIMAGEURL}${Get.find<MoodCheckingCon>().editMood?.moodPhoto ?? ""}',
+                                            moodImageType)
+                                        .then((value) {
+                                      ctrl.isLoading.value = false;
+                                      Get.to(MoodCheckingScreen(
+                                        imagePath: value,
+                                        moodType: moodImageType,
+                                        isEdit: true,
+                                      ));
+                                    });
+                                  },
+                                  highlightColor: Colors.transparent,
+                                  child: 'Skip'.appSwitzerTextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.sp),
+                                ),
+                              ),
                               widget: InkWell(
                                 onTap: () {
                                   Get.back();
@@ -100,9 +124,10 @@ class AddPhotoScreen extends StatelessWidget {
                   child: RoundAppButton(
                       title: continueText,
                       onTap: () {
-                        ctrl.imagePath = image;
-                        Get.toNamed(Routes.moodCheckingScreen);
-                        // ctrl.addMoodPhoto(image);
+                        Get.to(MoodCheckingScreen(
+                            moodType: moodImageType,
+                            imagePath: image,
+                            isEdit: isEdit));
                       }).paddingSymmetric(horizontal: 47.w, vertical: 20.w),
                 )
               ],
