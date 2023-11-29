@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/ui/screens/bottom_navigation/bottom_bar_controller.dart';
 import 'discover_screen.dart';
 
+// ignore: must_be_immutable
 class AllDisCoverDataScreen extends StatelessWidget {
   const AllDisCoverDataScreen({Key? key}) : super(key: key);
 
@@ -30,7 +34,7 @@ class AllDisCoverDataScreen extends StatelessWidget {
                 separatorBuilder: (context, index) {
                   return 16.w.spaceH();
                 },
-                itemCount: 7)
+                itemCount: 20)
             .paddingSymmetric(horizontal: 20.w),
         89.w.spaceH(),
       ],

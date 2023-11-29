@@ -13,6 +13,7 @@ class HabitController extends GetxController
   TextEditingController reminderNoteCon = TextEditingController();
   TextEditingController goalCon = TextEditingController();
   bool isRemind = false;
+  bool isExpand = true;
   String startTime = '';
   String reminderUtcTime = '';
   String goalTime = '0';

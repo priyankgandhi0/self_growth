@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:self_growth/ui/screens/add_photo/add_photo_screen.dart';
 import 'package:self_growth/ui/screens/bottom_navigation/bottom_navigation_screen.dart';
 import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
 import 'package:self_growth/ui/screens/habit_module/habit_predefined_screen.dart';
@@ -8,18 +7,15 @@ import 'package:self_growth/ui/screens/onboarding_screen/onboarding_screen.dart'
 import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:self_growth/ui/screens/profile/profile_screen.dart';
 import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discover.dart';
-
 import '../../ui/screens/auth/forget_password/change_password_screen.dart';
 import '../../ui/screens/auth/forget_password/forget_password_screen.dart';
 import '../../ui/screens/auth/personal_info/personal_info_screen.dart';
 import '../../ui/screens/auth/sign_up/sign_up_screen.dart';
 import '../../ui/screens/home_module/home_screen.dart';
-import '../../ui/screens/home_module/mood_checking/mood_checking_screen.dart';
 import '../../ui/screens/home_module/note_history/note_history_screen.dart';
 import '../../ui/screens/profile/reminder/reminder_screen.dart';
 import '../../ui/screens/profile/subscription/subscription_screen.dart';
 import '../../ui/screens/self_discovery/self_discover/questions_main.dart';
-import '../../ui/screens/voice_note/voice_note_screen.dart';
 
 class Routes {
   Routes._();
@@ -33,7 +29,7 @@ class Routes {
   static const String personalInfoScreen = "/personalInfoScreen";
   static const String newHabitScreen = "/newHabitScreen";
   static const String habitPredefinedScreen = "/habitPredefinedScreen";
-  static const String createNewHabitScreen = "/createNewHabitScreen";
+  // static const String createNewHabitScreen = "/createNewHabitScreen";
   static const String profileScreen = "/profileScreen";
   static const String editProfileScreen = "/editProfileScreen";
   static const String bottomNavigationScreen = "/bottomNavigationScreen";
@@ -50,10 +46,10 @@ class Routes {
       "/changePassVerificationScreen";
 
   static List<GetPage> pages = [
-    GetPage(
-      name: createNewHabitScreen,
-      page: () => CreateNewHabitScreen(),
-    ),
+    // GetPage(
+    //   name: createNewHabitScreen,
+    //   page: () => CreateNewHabitScreen(),
+    // ),
     GetPage(
       name: habitPredefinedScreen,
       page: () => const HabitPredefinedScreen(),

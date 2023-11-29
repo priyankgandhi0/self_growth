@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -32,13 +35,28 @@ class BottomNavigationScreen extends StatelessWidget {
       onWillPop: () {
         return Future.value(false);
       },
-      child: GetBuilder<BottomBarController>(builder: (ctrl) {
+      child: GetBuilder<BottomBarController>(initState: (state) {
+        bottomBarController.scrollController = ScrollController();
+      }, builder: (ctrl) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           // backgroundColor: background_EBEBEB,
           floatingActionButton: Visibility(
               visible: ctrl.isSelectedTab == 4 && bottomBarController.isOpen,
-              child: Assets.icons.floatButton.svg().paddingOnly(bottom: 80.w)),
+              child: InkWell(
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    // log('ctrl.scrollController--${ctrl.scrollController}');
+                    ctrl.scrollController.animateTo(
+                      ctrl.scrollController.position.minScrollExtent,
+                      curve: Curves.easeOut,
+                      duration: const Duration(milliseconds: 500),
+                    );
+                    ctrl.update();
+                  },
+                  child: Assets.icons.floatButton
+                      .svg()
+                      .paddingOnly(bottom: 80.w))),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniEndFloat,
 
@@ -58,6 +76,7 @@ class BottomNavigationScreen extends StatelessWidget {
                     child: SafeArea(
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
+                        controller: ctrl.scrollController,
                         shrinkWrap: true,
                         children: [
                           ctrl.tab ?? HomeScreen(),

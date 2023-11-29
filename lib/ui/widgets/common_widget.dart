@@ -286,6 +286,7 @@ class NoteCommonCard extends StatelessWidget {
                 ? InkWell(
                     hoverColor: Colors.transparent,
                     onTap: iconOnTap,
+                    // ignore: deprecated_member_use_from_same_package
                     child: Assets.icons.threeDote.svg(color: borderPurpleColor))
                 : const SizedBox()
           ],
@@ -512,11 +513,18 @@ class FirstQueCard extends StatelessWidget {
                 color: isSelected ? borderPurpleColor : white_FFFFFF)),
         child: Row(
           children: [
-            SvgPicture.asset(
-              icon,
-              width: 32.w,
-              height: 32.w,
-              fit: BoxFit.fill,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  Assets.images.circle.path,
+                  width: 32.w,
+                  height: 32.w,
+                  fit: BoxFit.fill,
+                ),
+                icon.appSwitzerTextStyle(
+                    fontWeight: FontWeight.w400, fontSize: 14.sp)
+              ],
             ),
             10.w.spaceW(),
             title.appSwitzerTextStyle(

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -15,14 +13,10 @@ import 'package:self_growth/ui/screens/habit_module/create_new_habit.dart';
 import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 import 'package:self_growth/ui/screens/home_module/mood_checking/mood_checking_con.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
-import 'package:self_growth/ui/widgets/app_loader.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
-
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
-
 import '../../../gen/assets.gen.dart';
-import '../../../models/get_user_mood_model.dart';
 import '../../widgets/audio_player.dart';
 import '../../widgets/current_week_utils.dart';
 import '../self_discovery/discover_screen.dart';
@@ -123,7 +117,11 @@ class HomeScreen extends StatelessWidget {
                               bottomBarController.update();
                               moodCheckingCon.update();
                             },
-                            image: Assets.icons.edit.path,
+                            image: ctrl.moodData.first.type == moodVoiceType
+                                ? Assets.icons.voice.path
+                                : ctrl.moodData.first.type == moodImageType
+                                    ? Assets.icons.imageCapture.path
+                                    : Assets.icons.edit.path,
                             title: ctrl.moodData.first.type == moodTextType
                                 ? (ctrl.moodData.first.title ?? "").toString()
                                 : ctrl.moodData.first.type == moodVoiceType
@@ -168,7 +166,9 @@ class HomeScreen extends StatelessWidget {
                           ),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(Routes.noteHistoryScreen);
+                        if (ctrl.moodData.isNotEmpty) {
+                          Get.toNamed(Routes.noteHistoryScreen);
+                        } else {}
                       },
                       child: Container(
                         height: 40.w,
@@ -220,12 +220,9 @@ class HomeScreen extends StatelessWidget {
                               return HabitCard(
                                 selectedDay: ctrl.habitData[index].streak != 0,
                                 value: index == 0 ? '1/2' : '2/3',
-                                dayOnTap: () {
-                                  ctrl.update();
-                                },
                                 onTap: () {
-                                  ctrl.isSelectedHabit = index;
-                                  ctrl.update();
+                                  // ctrl.isSelectedHabit = index;
+                                  // ctrl.update();
                                 },
                                 title: ctrl.habitData[index].habitName ?? "",
                                 subTitle: 'EVERY DAY',
@@ -483,10 +480,10 @@ class BuildHabitCard extends StatelessWidget {
             child: Row(
               children: [
                 InkWell(
-                  onTap: dayOnTap,
-                  child: (selectedDay
-                          ? Assets.icons.selected
-                          : Assets.icons.minimize)
+                  // onTap: dayOnTap,
+                  child: (/*selectedDay
+                          ?*/
+                          Assets.icons.selected /*: Assets.icons.minimize*/)
                       .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
                 ),
                 5.w.spaceW(),
@@ -640,7 +637,7 @@ class _QuitHabitCardState extends State<QuitHabitCard> {
           final diffSc = (currentTime.difference(startTime).inSeconds) % 60;
           times = '${diffHr}h : ${diffMn}m :  ${diffSc}s';
           if (mounted) {
-            setState(() {});
+            // setState(() {});
           }
         },
       );
@@ -695,10 +692,10 @@ class _QuitHabitCardState extends State<QuitHabitCard> {
               formatTime(widget.time),
               const Spacer(),
               InkWell(
-                onTap: widget.dayOnTap,
-                child: (widget.selectedDay
-                        ? Assets.icons.selected
-                        : Assets.icons.minimize)
+                // onTap: widget.dayOnTap,
+                child: (/*widget.selectedDay
+                        ?*/
+                        Assets.icons.selected /*: Assets.icons.minimize*/)
                     .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
               ),
               5.w.spaceW(),

@@ -29,7 +29,9 @@ class _FirstQuestionScreenState extends State<FirstQuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SelfDiscoveryCon>(builder: (ctrl) {
+    return GetBuilder<SelfDiscoveryCon>(initState: (state) {
+      selfDiscoveryCon.selectedAns = 0;
+    }, builder: (ctrl) {
       return Scaffold(
         /* floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Visibility(

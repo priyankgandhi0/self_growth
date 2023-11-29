@@ -101,8 +101,6 @@ class VoiceNoteController extends GetxController {
     final String hours = _formatNumber(num.parse(minutes) ~/ 60);
     textList.add(
         '$minutes:${(int.parse(seconds)).toString().length == 1 ? '0${int.parse(seconds)}' : int.parse(seconds)}');
-    print('_textList---${textList}');
-
     scrollController.animateTo(
       scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 700),

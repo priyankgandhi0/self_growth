@@ -241,7 +241,7 @@ Future<File> urlToFile(String imageUrl, String moodType) async {
           : File("${cacheDirectory.path}/${Random().nextInt(1500)}.png"))
       .writeAsBytes(
           buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-  print('file--${file.path}');
+  // print('file--${file.path}');
 
   return file;
 }

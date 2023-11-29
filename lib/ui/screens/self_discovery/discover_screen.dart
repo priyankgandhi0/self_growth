@@ -67,7 +67,8 @@ class DiscoverScreen extends StatelessWidget {
                   bottomBarController.isOpen = true;
                   bottomBarController.changeTab(BottomNavEnum.other);
                   bottomBarController.isSelectedTab = 4;
-                  bottomBarController.tab = const AllDisCoverDataScreen();
+
+                  bottomBarController.tab = AllDisCoverDataScreen();
                   bottomBarController.update();
                 },
                 child: seeMore.appSwitzerTextStyle(

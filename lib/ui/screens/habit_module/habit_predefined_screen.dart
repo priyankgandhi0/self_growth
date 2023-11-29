@@ -3,11 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/app_chip.dart';
 import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 
+import '../../../config/routes/router.dart';
 import '../../../gen/assets.gen.dart';
+import 'create_new_habit.dart';
 
 class HabitPredefinedScreen extends StatelessWidget {
   const HabitPredefinedScreen({Key? key}) : super(key: key);
@@ -115,6 +118,15 @@ class HabitPredefinedScreen extends StatelessWidget {
                     ],
                   ).paddingAll(20.w),
                 ).paddingSymmetric(horizontal: 20.w),
+                20.w.spaceH(),
+                RoundAppButton(
+                  title: 'Start Habit',
+                  onTap: () {
+                    Get.to(CreateNewHabitScreen(
+                      isBuilt: true,
+                    ));
+                  },
+                ).paddingSymmetric(horizontal: 32.w),
                 20.w.spaceH(),
               ],
             ),

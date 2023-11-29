@@ -3,13 +3,13 @@ import 'package:self_growth/generated/assets.dart';
 
 class SelfDiscoveryCon extends GetxController {
   List<ThirdQueModel> firstQueList = [
-    ThirdQueModel(value: Assets.iconsGreat, title: 'Great'),
-    ThirdQueModel(value: Assets.iconsHappy, title: 'Happy'),
-    ThirdQueModel(value: Assets.iconsNatural, title: 'Neutral'),
-    ThirdQueModel(value: Assets.iconsSad, title: 'Sad'),
-    ThirdQueModel(value: Assets.iconsAwfull, title: 'Awfully'),
+    ThirdQueModel(value: "0", title: "I don't hve this thought at all."),
+    ThirdQueModel(value: '1', title: 'I have this thought sometimes.'),
+    ThirdQueModel(value: '2', title: 'I have this thought often.'),
+    ThirdQueModel(value: '3', title: 'I have this thought all the time.'),
+    // ThirdQueModel(value: Assets.iconsAwfull, title: 'Awfully'),
   ];
-  ThirdQueModel selectedAns = ThirdQueModel(title: '', value: '');
+  int selectedAns = 0;
   List<int> selectedAnsIndex = [];
   List<String> thirdQueList = [
     'You do have tendencies to repeat some destructive behaviors',
@@ -38,7 +38,7 @@ class SelfDiscoveryCon extends GetxController {
     update();
   }
 
-  int index = 0;
+  int index = 1;
   List<String> questionList = [
     "I have to be the best at everything.",
     "If something bad happens, it's all my fault.",

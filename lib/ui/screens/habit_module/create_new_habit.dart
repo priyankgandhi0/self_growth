@@ -19,9 +19,11 @@ import '../../../gen/assets.gen.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_dialogs.dart';
 
+// ignore: must_be_immutable
 class CreateNewHabitScreen extends StatelessWidget {
-  CreateNewHabitScreen({Key? key}) : super(key: key);
+  CreateNewHabitScreen({Key? key, required this.isBuilt}) : super(key: key);
   final HabitController habitController = Get.put(HabitController());
+  final bool isBuilt;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,11 @@ class CreateNewHabitScreen extends StatelessWidget {
                 image: DecorationImage(
                     image: AssetImage(Assets.images.backGroundImage.path),
                     fit: BoxFit.fill)),
-            child: GetBuilder<HabitController>(builder: (ctrl) {
+            child: GetBuilder<HabitController>(initState: (state) {
+              if (isBuilt) {
+                habitController.habitNameCon.text = "Drinking Water";
+              }
+            }, builder: (ctrl) {
               return SingleChildScrollView(
                 child: SafeArea(
                   child: Column(
@@ -334,206 +340,222 @@ class CreateNewHabitScreen extends StatelessWidget {
                       ),
                       20.h.spaceH(),
                       AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
+                        // height: ctrl.isExpand ? 550 : 100,
+                        duration: const Duration(milliseconds: 1000),
                         width: Get.width,
                         decoration: BoxDecoration(
                           color: white_FFFFFF,
                           borderRadius: BorderRadius.circular(16.r),
                         ),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                "Advance Settings".appSwitzerTextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.w600),
-                                // Transform.rotate(
-                                // angle: math.pi / 0,
-                                /*child:*/ const Icon(
-                                  Icons.keyboard_arrow_up,
-                                  size: 30,
-                                  // ),
-                                )
-                              ],
-                            ).paddingOnly(bottom: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                /*  16.h.spaceH(),
-                                "Add to Group".appSwitzerTextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
-                                8.h.spaceH(),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image:
-                                            AssetImage(Assets.images.card.path),
-                                        fit: BoxFit.fill),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                ctrl.isExpand = !ctrl.isExpand;
+                                ctrl.update();
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  "Advance Settings".appSwitzerTextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600),
+                                  Icon(
+                                    ctrl.isExpand
+                                        ? Icons.keyboard_arrow_up
+                                        : Icons.keyboard_arrow_down,
+                                    size: 30,
+                                  )
+                                ],
+                              ).paddingOnly(bottom: ctrl.isExpand ? 12 : 0),
+                            ),
+                            Visibility(
+                              visible: ctrl.isExpand,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  /*  16.h.spaceH(),
+                                  "Add to Group".appSwitzerTextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.w500),
+                                  8.h.spaceH(),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image:
+                                              AssetImage(Assets.images.card.path),
+                                          fit: BoxFit.fill),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            "No Group".appSwitzerTextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500),
+                                            "Habit group".appSwitzerTextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                fontColor: doteColor),
+                                          ],
+                                        ),
+                                        const AppChip(title: 'Add Group'),
+                                      ],
+                                    ).paddingAll(12),
+                                  ),*/
+                                  // 16.h.spaceH(),
+                                  "Habit Type".appSwitzerTextStyle(
+                                    fontWeight: FontWeight.w500,
+
+                                    fontSize: 14.sp,
+                                    // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
                                   ),
-                                  child: Row(
+                                  12.h.spaceH(),
+                                  Row(
+                                    children: [
+                                      ButtonCommon(
+                                        isSelected:
+                                            ctrl.isHabitTypeBuild == "Build",
+                                        title: 'Build',
+                                        onTap: () {
+                                          ctrl.isHabitTypeBuild = "Build";
+                                          ctrl.update();
+                                        },
+                                      ),
+                                      10.w.spaceW(),
+                                      ButtonCommon(
+                                        isSelected:
+                                            ctrl.isHabitTypeBuild == "Quit",
+                                        title: 'Quit',
+                                        onTap: () {
+                                          ctrl.isHabitTypeBuild = "Quit";
+                                          ctrl.update();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  16.h.spaceH(),
+                                  "Log Activity Using".appSwitzerTextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                  12.h.spaceH(),
+                                  Row(
+                                    children: [
+                                      ButtonCommon(
+                                        isSelected: ctrl.isLogActivity == 0,
+                                        title: 'Fixed Count',
+                                        onTap: () {
+                                          ctrl.isLogActivity = 0;
+                                          ctrl.update();
+                                        },
+                                      ),
+                                      10.w.spaceW(),
+                                      ButtonCommon(
+                                        isSelected: ctrl.isLogActivity == 1,
+                                        title: 'Custom',
+                                        onTap: () {
+                                          ctrl.isLogActivity = 1;
+                                          ctrl.update();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  12.h.spaceH(),
+                                  Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      IconCard(
+                                          icon: const Icon(
+                                            Icons.remove,
+                                            size: 18,
+                                          ),
+                                          onTap: () {
+                                            ctrl.removeFunction();
+                                          },
+                                          title: '-'),
+                                      Row(
                                         children: [
-                                          "No Group".appSwitzerTextStyle(
+                                          "+${ctrl.valuePerTap}"
+                                              .appSwitzerTextStyle(
+                                                  fontColor: borderPurpleColor,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500),
+                                          " per tap".appSwitzerTextStyle(
+                                              fontColor: doteColor,
                                               fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                          "Habit group".appSwitzerTextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                              fontColor: doteColor),
+                                              fontWeight: FontWeight.w400),
                                         ],
                                       ),
-                                      const AppChip(title: 'Add Group'),
+                                      IconCard(
+                                          icon: const Icon(
+                                            Icons.add,
+                                            size: 18,
+                                          ),
+                                          onTap: () {
+                                            ctrl.addFunction();
+                                          },
+                                          title: '+')
                                     ],
-                                  ).paddingAll(12),
-                                ),*/
-                                // 16.h.spaceH(),
-                                "Habit Type".appSwitzerTextStyle(
-                                  fontWeight: FontWeight.w500,
-
-                                  fontSize: 14.sp,
-                                  // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
-                                ),
-                                12.h.spaceH(),
-                                Row(
-                                  children: [
-                                    ButtonCommon(
-                                      isSelected:
-                                          ctrl.isHabitTypeBuild == "Build",
-                                      title: 'Build',
-                                      onTap: () {
-                                        ctrl.isHabitTypeBuild = "Build";
-                                        ctrl.update();
-                                      },
+                                  ).paddingSymmetric(vertical: 8),
+                                  16.h.spaceH(),
+                                  SwitchBoxLisTile(
+                                    title: 'Show badge if no activity today',
+                                    value: ctrl.isShowBadge,
+                                    onChange: (value) {
+                                      ctrl.isShowBadge = value;
+                                      ctrl.update();
+                                    },
+                                  ),
+                                  16.h.spaceH(),
+                                  SwitchBoxLisTile(
+                                    title: 'Show goal in line chart',
+                                    value: ctrl.isShowGoal,
+                                    onChange: (value) {
+                                      ctrl.isShowGoal = value;
+                                      ctrl.update();
+                                    },
+                                  ),
+                                  16.h.spaceH(),
+                                  "Apple health integration"
+                                      .appSwitzerTextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                  8.h.spaceH(),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              Assets.images.card.path),
+                                          fit: BoxFit.fill),
                                     ),
-                                    10.w.spaceW(),
-                                    ButtonCommon(
-                                      isSelected:
-                                          ctrl.isHabitTypeBuild == "Quit",
-                                      title: 'Quit',
-                                      onTap: () {
-                                        ctrl.isHabitTypeBuild = "Quit";
-                                        ctrl.update();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                16.h.spaceH(),
-                                "Log Activity Using".appSwitzerTextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
-                                12.h.spaceH(),
-                                Row(
-                                  children: [
-                                    ButtonCommon(
-                                      isSelected: ctrl.isLogActivity == 0,
-                                      title: 'Fixed Count',
-                                      onTap: () {
-                                        ctrl.isLogActivity = 0;
-                                        ctrl.update();
-                                      },
-                                    ),
-                                    10.w.spaceW(),
-                                    ButtonCommon(
-                                      isSelected: ctrl.isLogActivity == 1,
-                                      title: 'Custom',
-                                      onTap: () {
-                                        ctrl.isLogActivity = 1;
-                                        ctrl.update();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                12.h.spaceH(),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconCard(
-                                        icon: const Icon(
-                                          Icons.remove,
-                                          size: 18,
-                                        ),
-                                        onTap: () {
-                                          ctrl.removeFunction();
-                                        },
-                                        title: '-'),
-                                    Row(
+                                    child: Row(
                                       children: [
-                                        "+${ctrl.valuePerTap}"
-                                            .appSwitzerTextStyle(
-                                                fontColor: borderPurpleColor,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500),
-                                        " per tap".appSwitzerTextStyle(
-                                            fontColor: doteColor,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
+                                        Expanded(
+                                          child: "Sleep hours"
+                                              .appSwitzerTextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w700)
+                                              .paddingSymmetric(vertical: 12.w),
+                                        ),
                                       ],
                                     ),
-                                    IconCard(
-                                        icon: const Icon(
-                                          Icons.add,
-                                          size: 18,
-                                        ),
-                                        onTap: () {
-                                          ctrl.addFunction();
-                                        },
-                                        title: '+')
-                                  ],
-                                ).paddingSymmetric(vertical: 8),
-                                16.h.spaceH(),
-                                SwitchBoxLisTile(
-                                  title: 'Show badge if no activity today',
-                                  value: ctrl.isShowBadge,
-                                  onChange: (value) {
-                                    ctrl.isShowBadge = value;
-                                    ctrl.update();
-                                  },
-                                ),
-                                16.h.spaceH(),
-                                SwitchBoxLisTile(
-                                  title: 'Show goal in line chart',
-                                  value: ctrl.isShowGoal,
-                                  onChange: (value) {
-                                    ctrl.isShowGoal = value;
-                                    ctrl.update();
-                                  },
-                                ),
-                                16.h.spaceH(),
-                                "Apple health integration".appSwitzerTextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
-                                8.h.spaceH(),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image:
-                                            AssetImage(Assets.images.card.path),
-                                        fit: BoxFit.fill),
                                   ),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: "Sleep hours"
-                                            .appSwitzerTextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w700)
-                                            .paddingSymmetric(vertical: 12.w),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                16.h.spaceH(),
-                                AppTextField(
-                                  labelText: "Add Note",
-                                  hintText: "Add note",
-                                  textEditingController: ctrl.reminderNoteCon,
-                                )
-                              ],
+                                  16.h.spaceH(),
+                                  AppTextField(
+                                    labelText: "Add Note",
+                                    hintText: "Add note",
+                                    textEditingController: ctrl.reminderNoteCon,
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         ).paddingAll(20),
@@ -671,6 +693,7 @@ class IconColorCard extends StatelessWidget {
                   width: 32,
                   height: 32,
                   fit: BoxFit.contain,
+                  // ignore: deprecated_member_use_from_same_package
                   color: borderPinkColor)),
         ],
       ),

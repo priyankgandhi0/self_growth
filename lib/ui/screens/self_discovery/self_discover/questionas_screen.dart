@@ -31,8 +31,15 @@ class QuestionTwoScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              'Heading'.appSwitzerTextStyle(
-                  fontWeight: FontWeight.w600, fontSize: 17.sp),
+              (ctrl.selectedAns <= 10
+                      ? 'No significant cognitive distortions.'
+                      : (ctrl.selectedAns > 10 && ctrl.selectedAns <= 20)
+                          ? "Mild cognitive distortions."
+                          : (ctrl.selectedAns > 20 && ctrl.selectedAns <= 30)
+                              ? "Moderate cognitive distortions."
+                              : "Server cognitive distortions.")
+                  .appSwitzerTextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 17.sp),
               'Lorem ipsum dolor sit amet consectetur. Quam arcu a pellentesque adipiscing scelerisque. Molestie sed egestas nulla pulvinar aliquam duis.'
                   .appSwitzerTextStyle(
                       fontWeight: FontWeight.w400,
@@ -259,15 +266,11 @@ class QuestionOneScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return FirstQueCard(
-                isSelected: ctrl.selectedAns ==
-                    ThirdQueModel(
-                        value: ctrl.firstQueList[index].value,
-                        title: ctrl.questionList[ctrl.index - 1]),
+                isSelected: false,
                 onTap: () {
                   // ctrl.selectedAnsIndex.add(index);
-                  ctrl.selectedAns = ThirdQueModel(
-                      value: ctrl.firstQueList[index].value,
-                      title: ctrl.questionList[ctrl.index - 1]);
+                  ctrl.selectedAns = ctrl.selectedAns + index;
+                  // log('ctrl.selectedAns--${ctrl.selectedAns}');
                   if (ctrl.index <= 19 && ctrl.index > 0) {
                     ctrl.index++;
                   } else {

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:audioplayers/audioplayers.dart';
@@ -86,13 +85,10 @@ class AudioPlayerState extends State<AudioPlayer> {
   }
 
   Widget _buildControl() {
-    Widget icon;
     Color color;
     if (_audioPlayer.state == ap.PlayerState.playing) {
-      icon = Assets.icons.playerStop.svg();
       color = grey_C4C4C4;
     } else {
-      icon = Assets.icons.player.svg();
       color = grey_C4C4C4;
     }
     return ClipOval(

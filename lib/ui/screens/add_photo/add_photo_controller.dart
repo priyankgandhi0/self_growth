@@ -1,12 +1,8 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
-import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/request_const.dart';
 import '../../../models/add_photo_model.dart';

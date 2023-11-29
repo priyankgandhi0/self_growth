@@ -9,6 +9,7 @@ import 'package:self_growth/ui/widgets/habit_card.dart';
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
+import 'create_new_habit.dart';
 
 class NewHabitScreen extends StatelessWidget {
   const NewHabitScreen({Key? key}) : super(key: key);
@@ -48,7 +49,9 @@ class NewHabitScreen extends StatelessWidget {
                       customBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.r)),
                       onTap: () {
-                        Get.toNamed(Routes.createNewHabitScreen);
+                        Get.to(CreateNewHabitScreen(
+                          isBuilt: false,
+                        ));
                       },
                       child: Center(
                         child: Row(
