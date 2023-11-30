@@ -92,7 +92,7 @@ class QuestionTwoScreen extends StatelessWidget {
         RoundAppButton(
             title: continueText,
             onTap: () {
-              ctrl.isQueAns = 2;
+              ctrl.submitAnswer();
             }).paddingSymmetric(
           horizontal: 32.w,
           vertical: 20.w,
@@ -138,9 +138,9 @@ class QuestionThirdScreen extends StatelessWidget {
                       radius: 40.r,
                       lineWidth: 7.w,
                       animation: true,
-                      percent: 0.7,
+                      percent: (ctrl.selectedAns / 100),
                       backgroundColor: doteColor.withOpacity(.5),
-                      center: "78".appSwitzerTextStyle(
+                      center: "${ctrl.selectedAns}".appSwitzerTextStyle(
                           fontSize: 24.sp, fontWeight: FontWeight.w500),
                       circularStrokeCap: CircularStrokeCap.round,
                       progressColor: borderPurpleColor,
@@ -248,15 +248,19 @@ class QuestionOneScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Align(
-                alignment: Alignment.center,
-                child: (ctrl.questionList[ctrl.index - 1])
-                    .appSwitzerTextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        textAlign: TextAlign.center)
-                    .paddingSymmetric(horizontal: 20.w),
-              ),
+              ctrl.questionList.isNotEmpty
+                  ? Align(
+                      alignment: Alignment.center,
+                      child:
+                          (ctrl.questionList[ctrl.index - 1].questionsTitle ??
+                                  "")
+                              .appSwitzerTextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w700,
+                                  textAlign: TextAlign.center)
+                              .paddingSymmetric(horizontal: 20.w),
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
@@ -268,14 +272,8 @@ class QuestionOneScreen extends StatelessWidget {
               return FirstQueCard(
                 isSelected: false,
                 onTap: () {
-                  // ctrl.selectedAnsIndex.add(index);
-                  ctrl.selectedAns = ctrl.selectedAns + index;
-                  // log('ctrl.selectedAns--${ctrl.selectedAns}');
-                  if (ctrl.index <= 19 && ctrl.index > 0) {
-                    ctrl.index++;
-                  } else {
-                    ctrl.isQueAns = 1;
-                  }
+                  ctrl.questionOptionTap(index);
+                  log('selectedAns--${ctrl.selectedAns}');
                   ctrl.update();
                 },
                 icon: ctrl.firstQueList[index].value,

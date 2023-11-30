@@ -85,4 +85,8 @@ class ApiEndPoint {
   static const addFeeling = "addFeeling";
   static const addMoodPhoto = "addMoodPhoto";
   static const getUserMood = "getUserMood";
+
+  ///SELF DISCOVERY
+  static const getQuestionsList = "getQuestionsList";
+  static const submitAnswer = "submitAnswer";
 }

@@ -637,7 +637,7 @@ class _QuitHabitCardState extends State<QuitHabitCard> {
           final diffSc = (currentTime.difference(startTime).inSeconds) % 60;
           times = '${diffHr}h : ${diffMn}m :  ${diffSc}s';
           if (mounted) {
-            // setState(() {});
+            setState(() {});
           }
         },
       );
