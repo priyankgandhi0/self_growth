@@ -41,12 +41,14 @@ class HabitData {
   String? reminderNote;
   String? groupName;
   String? habitType;
+  String? logActivityType;
   int? logActivityUsing;
   int? showBadge;
   int? showGoal;
   String? note;
   String? habitCreatedDate;
   int? streak;
+  int? logActivityTap;
 
   HabitData(
       {this.habitId,
@@ -62,12 +64,14 @@ class HabitData {
       this.reminderNote,
       this.groupName,
       this.habitType,
+      this.logActivityType,
       this.logActivityUsing,
       this.showBadge,
       this.showGoal,
       this.note,
       this.habitCreatedDate,
-      this.streak});
+      this.streak,
+      this.logActivityTap});
 
   HabitData.fromJson(Map<String, dynamic> json) {
     habitId = json['habit_id'];
@@ -83,12 +87,14 @@ class HabitData {
     reminderNote = json['reminder_note'];
     groupName = json['group_name'];
     habitType = json['habit_type'];
+    logActivityType = json['log_activity_type'];
     logActivityUsing = json['log_activity_using'];
     showBadge = json['show_badge'];
     showGoal = json['show_goal'];
     note = json['note'];
     habitCreatedDate = json['habit_created_date'];
     streak = json['streak'];
+    logActivityTap = json['log_activity_tap'];
   }
 
   Map<String, dynamic> toJson() {
@@ -106,12 +112,14 @@ class HabitData {
     data['reminder_note'] = reminderNote;
     data['group_name'] = groupName;
     data['habit_type'] = habitType;
+    data['log_activity_type'] = logActivityType;
     data['log_activity_using'] = logActivityUsing;
     data['show_badge'] = showBadge;
     data['show_goal'] = showGoal;
     data['note'] = note;
     data['habit_created_date'] = habitCreatedDate;
     data['streak'] = streak;
+    data['log_activity_tap'] = logActivityTap;
     return data;
   }
 }

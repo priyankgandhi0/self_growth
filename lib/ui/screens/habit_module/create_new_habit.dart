@@ -506,7 +506,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                                     ],
                                   ).paddingSymmetric(vertical: 8),
                                   16.h.spaceH(),
-                                  SwitchBoxLisTile(
+                                  /*  SwitchBoxLisTile(
                                     title: 'Show badge if no activity today',
                                     value: ctrl.isShowBadge,
                                     onChange: (value) {
@@ -548,7 +548,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  16.h.spaceH(),
+                                  16.h.spaceH(),*/
                                   AppTextField(
                                     labelText: "Add Note",
                                     hintText: "Add note",

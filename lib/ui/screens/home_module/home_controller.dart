@@ -31,6 +31,7 @@ class HomeController extends GetxController {
     update();
   }
 
+  List<int> logActivityUsing = [];
   List<HabitData> _habitData = [];
 
   List<HabitData> get habitData => _habitData;
@@ -64,7 +65,7 @@ class HomeController extends GetxController {
     if (selectedDate.isEmpty) {
       showAppSnackBar('Please Select date.');
     } else {
-      if (isClear) {
+      /*if (isClear) {
         Loader().showLoading();
         habitData.clear();
         quitData.clear();
@@ -72,21 +73,28 @@ class HomeController extends GetxController {
         pageHabit = 1;
       } else {
         Loader().hideLoading();
-      }
+      }*/
+      habitData.clear();
+      quitData.clear();
+      buildData.clear();
+      Loader().showLoading();
 
       ResponseItem result =
           ResponseItem(data: null, message: errorText, status: false);
-      result =
-          await HabitRepo.getUserHabit(date: selectedDate, page: pageHabit);
+      result = await HabitRepo.getUserHabit();
       try {
         if (result.status) {
           GetHabitModel response = GetHabitModel.fromJson(result.toJson());
           if (response.data != null) {
             habitData.addAll(response.data!);
-            if (response.data!.length <= LIMIT) {
-              stopPagination.value = true;
-            }
-            stopPagination.value = false;
+            logActivityUsing.clear();
+            habitData.forEach((element) {
+              logActivityUsing.add(element.logActivityTap ?? 0);
+            });
+            // if (response.data!.length <= LIMIT) {
+            //   stopPagination.value = true;
+            // }
+            // stopPagination.value = false;
             for (var element in habitData) {
               if (element.habitType == 'Quit') {
                 quitData.add(element);
@@ -229,7 +237,7 @@ class HomeController extends GetxController {
     result = await HabitRepo.checkInUserHabit(habitId: habitId);
     try {
       if (result.status) {
-        getUserHabit(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+        // getUserHabit(DateFormat('yyyy-MM-dd').format(DateTime.now()));
         showAppSnackBar(result.message, status: true);
         Loader().hideLoading();
       } else {

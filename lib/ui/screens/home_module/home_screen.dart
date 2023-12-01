@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -218,11 +219,23 @@ class HomeScreen extends StatelessWidget {
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return HabitCard(
+                                percent: (ctrl.logActivityUsing[index] >=
+                                        (ctrl.habitData[index].goalTimes ?? 0))
+                                    ? 1
+                                    : (ctrl.logActivityUsing[index] /
+                                        (ctrl.habitData[index].goalTimes ?? 0)),
                                 selectedDay: ctrl.habitData[index].streak != 0,
-                                value: index == 0 ? '1/2' : '2/3',
+                                value:
+                                    '${(ctrl.logActivityUsing[index])}/${(ctrl.habitData[index].goalTimes ?? 0)}',
                                 onTap: () {
-                                  // ctrl.isSelectedHabit = index;
-                                  // ctrl.update();
+                                  ctrl.checkInUserHabit(
+                                      ctrl.habitData[index].habitId.toString());
+                                  int addValue =
+                                      (ctrl.habitData[index].logActivityUsing ??
+                                          1);
+                                  ctrl.logActivityUsing[index] =
+                                      ctrl.logActivityUsing[index] + addValue;
+                                  ctrl.update();
                                 },
                                 title: ctrl.habitData[index].habitName ?? "",
                                 subTitle: 'EVERY DAY',
@@ -256,24 +269,8 @@ class HomeScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return BuildHabitCard(
                                 selected: ctrl.isSelectedHabit == index,
-                                selectedDay: ctrl.buildData[index].streak !=
-                                        0 ||
-                                    ctrl.isSelectedDayTick1.contains(
-                                        ctrl.buildData[index].habitId ?? 0) ||
-                                    ctrl.isSelectedDayTick.contains(
-                                        ctrl.buildData[index].habitId ?? 0),
-                                dayOnTap: () {
-                                  if (ctrl.isSelectedDayTick.contains(
-                                      ctrl.buildData[index].habitId ?? 0)) {
-                                  } else {
-                                    ctrl.checkInUserHabit(ctrl
-                                        .habitData[index].habitId
-                                        .toString());
-                                    ctrl.isSelectedDayTick.add(
-                                        ctrl.buildData[index].habitId ?? 0);
-                                  }
-                                  ctrl.update();
-                                },
+                                selectedDay: true,
+                                dayOnTap: () {},
                                 onTap: () {
                                   ctrl.isSelectedHabit = index;
                                   ctrl.update();
@@ -309,20 +306,8 @@ class HomeScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return QuitHabitCard(
-                              selectedDay: ctrl.quitData[index].streak != 0 ||
-                                  ctrl.isSelectedDayTick1.contains(
-                                      ctrl.quitData[index].habitId ?? 0),
-                              dayOnTap: () {
-                                if (ctrl.isSelectedDayTick1.contains(
-                                    ctrl.quitData[index].habitId ?? 0)) {
-                                } else {
-                                  ctrl.checkInUserHabit(
-                                      ctrl.quitData[index].habitId.toString());
-                                  ctrl.isSelectedDayTick1
-                                      .add(ctrl.quitData[index].habitId ?? 0);
-                                }
-                                ctrl.update();
-                              },
+                              selectedDay: true,
+                              dayOnTap: () {},
                               buttonOnTap: () {
                                 bottomBarController.isOpenDialog = true;
                                 bottomBarController.isOpenHomeDialog = 1;
@@ -511,6 +496,7 @@ class HabitCard extends StatelessWidget {
     this.dayOnTap,
     required this.value,
     required this.selectedDay,
+    required this.percent,
   }) : super(key: key);
   final String title;
   final void Function()? onTap;
@@ -519,10 +505,11 @@ class HabitCard extends StatelessWidget {
   final String day;
   final String value;
   final bool selectedDay;
+  final double percent;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      // onTap: onTap,
       child: Stack(
         children: [
           Container(
@@ -533,8 +520,11 @@ class HabitCard extends StatelessWidget {
                 color: white_FFFFFF),
             child: Row(
               children: [
-                Assets.icons.right
-                    .svg(width: 24.w, fit: BoxFit.fill, height: 24.w),
+                InkWell(
+                  onTap: onTap,
+                  child: Assets.icons.right
+                      .svg(width: 24.w, fit: BoxFit.fill, height: 24.w),
+                ),
                 10.w.spaceW(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -577,7 +567,7 @@ class HabitCard extends StatelessWidget {
                       radius: 25.r,
                       lineWidth: 3.w,
                       animation: true,
-                      percent: .2,
+                      percent: percent,
                       backgroundColor: doteColor.withOpacity(.4),
                       center: value.appSwitzerTextStyle(
                           fontSize: 14.sp, fontWeight: FontWeight.w500),
@@ -637,7 +627,7 @@ class _QuitHabitCardState extends State<QuitHabitCard> {
           final diffSc = (currentTime.difference(startTime).inSeconds) % 60;
           times = '${diffHr}h : ${diffMn}m :  ${diffSc}s';
           if (mounted) {
-            setState(() {});
+            // setState(() {});
           }
         },
       );

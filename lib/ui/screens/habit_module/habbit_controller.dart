@@ -33,7 +33,11 @@ class HabitController extends GetxController
 
   int valuePerTap = 1;
   addFunction() {
-    valuePerTap++;
+    if (isLogActivity == 0) {
+    } else {
+      valuePerTap++;
+    }
+
     update();
   }
 
@@ -73,6 +77,7 @@ class HabitController extends GetxController
           ResponseItem(data: null, message: errorText, status: false);
       result = await HabitRepo.addHabit(
           habitName: habitNameCon.text,
+          logActivityType: isLogActivity == 0 ? "Fixed Count" : "Custom",
           icon: iconSelectedString,
           iconColor: tempMainColor.toString(),
           isReminderOn: isRemind ? 1 : 0,
@@ -83,7 +88,7 @@ class HabitController extends GetxController
           note: noteCon.text,
           reminderNote: reminderNoteCon.text,
           reminderUtcTime: reminderUtcTime,
-          logActivityUsing: valuePerTap,
+          logActivityUsing: isLogActivity == 0 ? 1 : valuePerTap,
           showBudge: isShowBadge ? 1 : 0,
           showGoal: isShowGoal ? 1 : 0);
       try {

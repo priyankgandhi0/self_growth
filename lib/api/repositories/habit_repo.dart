@@ -21,6 +21,7 @@ class HabitRepo {
     String reminderNote = '',
     String groupName = '',
     String habitType = '',
+    String logActivityType = '',
     String note = '',
   }) async {
     bool status = false;
@@ -40,7 +41,8 @@ class HabitRepo {
       "log_activity_using": logActivityUsing,
       "show_badge": showBudge,
       "show_goal": showGoal,
-      "note": note
+      "note": note,
+      "log_activity_type": logActivityType
     };
 
     var queryParameters = {RequestParam.service: ApiEndPoint.addHabit};
@@ -182,18 +184,15 @@ class HabitRepo {
     return ResponseItem(data: data, message: message, status: status);
   }
 
-  static Future<ResponseItem> getUserHabit({
-    required String date,
-    int page = 1,
-  }) async {
+  static Future<ResponseItem> getUserHabit() async {
     bool status = false;
     ResponseItem result;
     dynamic data;
-    Map<String, dynamic> params = {"date": date, "page": page, "limit": LIMIT};
+    // Map<String, dynamic> params = {"date": date, "page": page, "limit": LIMIT};
     var queryParameters = {RequestParam.service: ApiEndPoint.getUserHabit};
     String queryString = Uri(queryParameters: queryParameters).query;
     String requestUrl = BaseUrl.URL + queryString;
-    result = await BaseApiHelper.postRequest(requestUrl, params, true);
+    result = await BaseApiHelper.postRequest(requestUrl, {}, true);
 
     status = result.status;
 
