@@ -9,9 +9,19 @@ import '../../../loader_controller.dart';
 import '../../../models/get_hebit_model.dart';
 import '../../../models/get_user_mood_model.dart';
 import '../../widgets/app_snack_bar.dart';
+import '../../widgets/current_week_utils.dart';
 
 class HomeController extends GetxController {
-  List<String> dayList = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  List<String> dayList = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  // List<int> dateList = [
+  //   DateTime.,
+  //   DateTime.thursday,
+  //   DateTime.wednesday,
+  //   DateTime.thursday,
+  //   DateTime.friday,
+  //   DateTime.saturday,
+  //   DateTime.sunday,
+  // ];
   List<String> noteList = ['Work', 'Family', 'Blessed'];
 
   int isSelectedDay = 0;

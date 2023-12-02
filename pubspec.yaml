@@ -69,6 +69,7 @@ dependencies:
   shimmer: ^3.0.0
   emoji_picker_flutter: ^1.6.3
   record: ^5.0.1
+  table_calendar: ^3.0.9
   path_provider: ^2.1.1
 
 

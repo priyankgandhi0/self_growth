@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,7 @@ import 'package:self_growth/ui/screens/home_module/home_controller.dart';
 import 'package:self_growth/ui/screens/home_module/mood_checking/mood_checking_con.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
@@ -48,14 +50,24 @@ class HomeScreen extends StatelessWidget {
                   .appSwitzerTextStyle(
                       fontSize: 20.sp, fontWeight: FontWeight.w600)
                   .paddingSymmetric(horizontal: 20.w),
-              24.w.spaceH(),
-              Row(
+              14.w.spaceH(),
+              WeeklyCalender(
+                currentDay: DateTime.now(),
+                focusDay: DateTime.now(),
+                onDaySelected: (selectedDay, focusDay) {},
+                onMonthChange: (date) {},
+                selectedDays: LinkedHashSet<DateTime>(
+                  equals: isSameDay,
+                ),
+                calenderFormat: CalendarFormat.week,
+              ).paddingAll(10),
+              /*    Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
                   ctrl.dayList.length,
                   (index) => HorizontalNotesCard(
                       title: ctrl.dayList[index],
-                      date: (findFirstDateOfTheWeek(DateTime.now()).day),
+                      date: ctrl.dateList[index],
                       index: index,
                       onTap: () {
                         if (DateTime.now().day ==
@@ -75,8 +87,8 @@ class HomeScreen extends StatelessWidget {
                               DateTime.now().day
                           : ctrl.isSelectedDay == index),
                 ),
-              ).paddingSymmetric(horizontal: 20.w),
-              20.w.spaceH(),
+              ).paddingSymmetric(horizontal: 20.w),*/
+              // 20.w.spaceH(),
               Container(
                 width: Get.width,
                 decoration: BoxDecoration(
@@ -313,15 +325,15 @@ class HomeScreen extends StatelessWidget {
                                 bottomBarController.isOpenHomeDialog = 1;
                                 bottomBarController.deleteHabitId =
                                     ctrl.quitData[index].habitId ?? 0;
-                                bottomBarController.selectedDate = DateFormat(
-                                        'yyyy-MM-dd')
-                                    .format(DateTime(
-                                        DateTime.now().year,
-                                        DateTime.now().month,
-                                        (findFirstDateOfTheWeek(DateTime.now())
-                                                .day) +
-                                            index))
-                                    .toString();
+                                // bottomBarController.selectedDate = DateFormat(
+                                //         'yyyy-MM-dd')
+                                //     .format(DateTime(
+                                //         DateTime.now().year,
+                                //         DateTime.now().month,
+                                //         (findFirstDateOfTheWeek(DateTime.now())
+                                //                 .day) +
+                                //             index))
+                                //     .toString();
                                 bottomBarController.update();
                               },
                               title: ctrl.quitData[index].habitName ?? "",
@@ -438,11 +450,12 @@ class BuildHabitCard extends StatelessWidget {
                 color: white_FFFFFF),
             child: Row(
               children: [
-                !selected
+                /*!selected
                     ? Assets.icons.right
                         .svg(width: 24.w, fit: BoxFit.fill, height: 24.w)
-                    : Assets.icons.selectedRight
-                        .svg(width: 24.w, fit: BoxFit.fill, height: 24.w),
+                    : */
+                Assets.icons.selectedRight
+                    .svg(width: 24.w, fit: BoxFit.fill, height: 24.w),
                 10.w.spaceW(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
