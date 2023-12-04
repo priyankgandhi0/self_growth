@@ -281,7 +281,7 @@ class HomeScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return BuildHabitCard(
                                 selected: ctrl.isSelectedHabit == index,
-                                selectedDay: true,
+                                selectedDay: ctrl.buildData[index].streak != 0,
                                 dayOnTap: () {},
                                 onTap: () {
                                   ctrl.isSelectedHabit = index;
@@ -479,9 +479,9 @@ class BuildHabitCard extends StatelessWidget {
               children: [
                 InkWell(
                   // onTap: dayOnTap,
-                  child: (/*selectedDay
-                          ?*/
-                          Assets.icons.selected /*: Assets.icons.minimize*/)
+                  child: (selectedDay
+                          ? Assets.icons.selected
+                          : Assets.icons.minimize)
                       .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
                 ),
                 5.w.spaceW(),

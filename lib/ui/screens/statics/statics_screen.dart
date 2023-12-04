@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +10,7 @@ import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/gen/assets.gen.dart';
 import 'package:self_growth/ui/screens/statics/statics_controller.dart';
+import 'package:self_growth/ui/widgets/current_week_utils.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../core/constants/app_strings.dart';
@@ -31,7 +34,10 @@ class _StaticsScreenState extends State<StaticsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<StaticsController>(builder: (ctrl) {
+    return GetBuilder<StaticsController>(initState: (state) {
+      Future.delayed(Duration.zero)
+          .then((value) => staticsController.getFeelingsList());
+    }, builder: (ctrl) {
       return Column(
         children: [
           16.w.spaceH(),
@@ -180,8 +186,7 @@ class _StaticsScreenState extends State<StaticsScreen> {
                             majorTickLines: const MajorTickLines(
                               size: 0,
                             )),
-                        tooltipBehavior: buildTooltipBehavior(
-                            title: 'Today, Feb 7', subTitle: 'Happy'),
+                        tooltipBehavior: buildTooltipBehavior(ctrl),
                         plotAreaBorderColor: Colors.transparent,
                         primaryXAxis: CategoryAxis(
                             labelStyle: getTextStyle(
@@ -197,7 +202,7 @@ class _StaticsScreenState extends State<StaticsScreen> {
                         series: <ChartSeries<MoodTrends, String>>[
                           LineSeries<MoodTrends, String>(
                               dataSource: [
-                                MoodTrends(0, 'M'),
+                                MoodTrends(10, 'M'),
                                 MoodTrends(25, 'T'),
                                 MoodTrends(50, 'W'),
                                 MoodTrends(60, 'T '),
@@ -272,32 +277,38 @@ class _StaticsScreenState extends State<StaticsScreen> {
     });
   }
 
-  TooltipBehavior buildTooltipBehavior(
-      {String title = '', String subTitle = ''}) {
+  TooltipBehavior buildTooltipBehavior(StaticsController ctrl) {
     return TooltipBehavior(
       color: Colors.white.withOpacity(.5),
       builder: (data, point, series, pointIndex, seriesIndex) {
-        return Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: borderPinkColor.withOpacity(.3)),
-              borderRadius: BorderRadius.circular(5.r),
-              color: background_EBEBEB.withOpacity(.1)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              title.appSwitzerTextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Switzer',
-                  fontColor: doteColor,
-                  fontSize: 16.sp),
-              subTitle.appSwitzerTextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Switzer',
-                  fontSize: 16.sp)
-            ],
-          ).paddingSymmetric(vertical: 6.w, horizontal: 8.w),
-        );
+        // log('${ctrl.chartData[pointIndex].chart?.first.name}');
+        return (ctrl.chartData[pointIndex].chart ?? []).isEmpty
+            ? const SizedBox.shrink()
+            : Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: borderPinkColor.withOpacity(.3)),
+                    borderRadius: BorderRadius.circular(5.r),
+                    color: background_EBEBEB.withOpacity(.1)),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    '${(DateTime.parse(ctrl.chartData[pointIndex].chart?.first.createdDate ?? "").day == DateTime.now().day) ? "Today, " : ""}${(DateFormat.MMMd().format(DateTime.parse(ctrl.chartData[pointIndex].chart?.first.createdDate ?? "")))}'
+                        .toString()
+                        .appSwitzerTextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Switzer',
+                            fontColor: doteColor,
+                            fontSize: 16.sp),
+                    (ctrl.chartData[pointIndex].chart?.first.name)
+                        .toString()
+                        .appSwitzerTextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Switzer',
+                            fontSize: 16.sp)
+                  ],
+                ).paddingSymmetric(vertical: 6.w, horizontal: 8.w),
+              );
       },
       activationMode: ActivationMode.singleTap,
       enable: true,
@@ -404,10 +415,11 @@ class HeaderCard extends StatelessWidget {
             .paddingSymmetric(horizontal: 20.w),
         Row(
           children: [
-            'Feb 17 - Feb 24'.appSwitzerTextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-                fontColor: doteColor),
+            '${DateFormat.MMMd('en_US').format(findFirstDateOfTheWeek(DateTime.now()))} - ${DateFormat.MMMd('en_US').format(findLastDateOfTheWeek(DateTime.now()))}'
+                .appSwitzerTextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    fontColor: doteColor),
             const Spacer(),
             Assets.icons.leftArrow.svg(),
             10.w.spaceW(),

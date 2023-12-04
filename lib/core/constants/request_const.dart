@@ -89,4 +89,7 @@ class ApiEndPoint {
   ///SELF DISCOVERY
   static const getQuestionsList = "getQuestionsList";
   static const submitAnswer = "submitAnswer";
+
+  ///STATICS [INSIGHT]
+  static const getFeelingsList = "getFeelingsList";
 }

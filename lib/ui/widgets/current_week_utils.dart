@@ -73,6 +73,8 @@ class _WeeklyCalenderState extends State<WeeklyCalender> {
       daysOfWeekVisible: true,
       sixWeekMonthsEnforced: false,
       rowHeight: 60.w,
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      weekendDays: const [DateTime.monday, DateTime.saturday],
       daysOfWeekHeight: 0.w,
       onCalendarCreated: (controller) {
         pageController = controller;
@@ -285,4 +287,14 @@ class WeekData {
   DateTime startDate;
   DateTime endDate;
   WeekData({required this.startDate, required this.endDate});
+}
+
+DateTime findFirstDateOfTheWeek(DateTime dateTime) {
+  return dateTime.subtract(Duration(days: dateTime.weekday - 1));
+}
+
+DateTime findLastDateOfTheWeek(DateTime dateTime) {
+  return dateTime
+      .add(Duration(days: DateTime.daysPerWeek - dateTime.weekday))
+      .add(const Duration(days: 1));
 }
