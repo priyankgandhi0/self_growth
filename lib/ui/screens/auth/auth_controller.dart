@@ -134,7 +134,7 @@ class AuthController extends GetxController {
             UserModel userModel = UserModel.fromJson(result.toJson());
             preferences.saveUserItem(userModel.data);
             isLoading.value = false;
-            Get.toNamed(Routes.bottomNavigationScreen);
+            Get.offAllNamed(Routes.bottomNavigationScreen);
             preferences.putBool(SharedPreference.IS_FILL_QUE, true);
           }
         } else {

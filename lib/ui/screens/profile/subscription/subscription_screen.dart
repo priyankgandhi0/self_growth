@@ -106,7 +106,7 @@ class SubscriptionScreen extends StatelessWidget {
                             !(preferences
                                     .getBool(SharedPreference.IS_FILL_QUE) ??
                                 true))) {
-                          Get.toNamed(Routes.bottomNavigationScreen);
+                          Get.offAllNamed(Routes.bottomNavigationScreen);
                         }
                         preferences.putBool(SharedPreference.IS_FILL_QUE, true);
                       }).paddingSymmetric(horizontal: 46.w),
