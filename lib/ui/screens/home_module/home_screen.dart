@@ -149,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                                         []) +
                                     (ctrl.moodData.first.howAreYouFeelingList ??
                                         []),
-                            notes: ctrl.moodData.first.note.toString(),
+                            notes: ctrl.moodData.first.note??"",
                             widget: ctrl.moodData.first.type == moodImageType
                                 ? AddImageCard(
                                     widget: commonCachedNetworkImage(

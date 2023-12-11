@@ -299,10 +299,10 @@ class NoteCommonCard extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     fontColor: doteColor)
                 .paddingSymmetric(vertical: 16.w, horizontal: 16.w)
-            : widget ??
+            :( widget ??
                 SizedBox(
                   height: 16.w,
-                ),
+                )).paddingOnly(top: 16.w),
         fellingList.isNotEmpty
             ? SizedBox(
                 height: 36.w,

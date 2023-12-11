@@ -145,7 +145,6 @@ class BottomNavigationScreen extends StatelessWidget {
             iconColor: ctrl.isSelectedTab == 2 ? borderPurpleColor : doteColor,
             onTap: () {
               ctrl.isSelectedTab = 2;
-
               ctrl.changeTab(BottomNavEnum.insight);
               ctrl.isOpenHomeDialog = -1;
               ctrl.isOpenDialog = false;
@@ -217,7 +216,6 @@ class BottomNavigationScreen extends StatelessWidget {
             iconColor: ctrl.isSelectedTab == 5 ? borderPurpleColor : doteColor,
             onTap: () {
               ctrl.isSelectedTab = 5;
-
               ctrl.changeTab(BottomNavEnum.profile);
               ctrl.isOpenDialog = false;
               ctrl.isOpenHomeDialog = -1;
