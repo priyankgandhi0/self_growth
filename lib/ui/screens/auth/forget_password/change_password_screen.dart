@@ -9,6 +9,7 @@ import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/app_button.dart';
 import '../auth_controller.dart';
 
@@ -45,7 +46,7 @@ class ChangePassVerificationScreen extends StatelessWidget {
                         },
                       ),
                       24.w.spaceH(),
-                      changePassVerification
+                      LanguageGlobalVar.changePassVerification.tr
                           .appSwitzerTextStyle(
                               fontSize: 32.w,
                               fontWeight: FontWeight.w600,
@@ -61,11 +62,11 @@ class ChangePassVerificationScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             AppTextField(
-                              labelText: emailText,
+                              labelText: LanguageGlobalVar.emailText.tr,
                               showPrefixIcon: false,
                               showSuffixIcon: false,
                               textEditingController: ctrl.forgetEmailController,
-                              hintText: enterEmailText,
+                              hintText: LanguageGlobalVar.enterEmailText.tr,
                               labelTextSize: 14.sp,
                               readOnly: true,
                               keyboardType: TextInputType.emailAddress,
@@ -73,22 +74,22 @@ class ChangePassVerificationScreen extends StatelessWidget {
                             ),
                             8.w.spaceH(),
                             AppTextField(
-                              labelText: verificationCodeText,
+                              labelText: LanguageGlobalVar.verificationCodeText.tr,
                               showPrefixIcon: false,
                               showSuffixIcon: false,
                               textEditingController: ctrl.verifyCodeController,
-                              hintText: verificationCodeText,
+                              hintText: LanguageGlobalVar.verificationCodeText.tr,
                               labelTextSize: 14.sp,
                               validator: (value) {},
                             ),
                             8.w.spaceH(),
                             AppTextField(
-                              labelText: newPasswordText,
+                              labelText: LanguageGlobalVar.newPasswordText.tr,
                               showPrefixIcon: false,
                               showSuffixIcon: true,
                               obscuringCharacter: '*',
                               textEditingController: ctrl.newPasswordController,
-                              hintText: passwordText,
+                              hintText: LanguageGlobalVar.passwordText.tr,
                               labelTextSize: 14.sp,
                               obscureText: authController.isShowPass,
                               validator: (value) {},
@@ -119,7 +120,7 @@ class ChangePassVerificationScreen extends StatelessWidget {
               left: 0,
               right: 0,
               child: RoundAppButton(
-                title: submit,
+                title: LanguageGlobalVar.submit.tr,
                 onTap: () {
                   ctrl.changePasswordWithVerifyCode();
                 },

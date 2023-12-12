@@ -9,6 +9,7 @@ import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/utils/app_helper.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../languages/all_strings.dart';
 import '../../widgets/common_widget.dart';
 import '../bottom_navigation/bottom_bar_controller.dart';
 import 'discover_con.dart';
@@ -58,7 +59,7 @@ class DiscoverScreen extends StatelessWidget {
               .paddingSymmetric(horizontal: 20.w, vertical: 16.w),
           Row(
             children: [
-              todayArticle.appSwitzerTextStyle(
+              LanguageGlobalVar.todayArticle.tr.appSwitzerTextStyle(
                   fontWeight: FontWeight.w600, fontSize: 18.sp),
               const Spacer(),
               InkWell(
@@ -71,7 +72,7 @@ class DiscoverScreen extends StatelessWidget {
                   bottomBarController.tab = AllDisCoverDataScreen();
                   bottomBarController.update();
                 },
-                child: seeMore.appSwitzerTextStyle(
+                child: LanguageGlobalVar.seeMore.tr.appSwitzerTextStyle(
                     fontWeight: FontWeight.w500, fontSize: 14.sp),
               ),
             ],

@@ -13,6 +13,7 @@ import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/common_widget.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../languages/all_strings.dart';
 import '../../widgets/app_button.dart';
 
 import '../../widgets/app_dialogs.dart';
@@ -87,7 +88,7 @@ class AddPhotoScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   55.w.spaceH(),
-                                  captureYourActivity.appSwitzerTextStyle(
+                                  LanguageGlobalVar.captureYourActivity.tr.appSwitzerTextStyle(
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w600),
                                   16.w.spaceH(),
@@ -122,7 +123,7 @@ class AddPhotoScreen extends StatelessWidget {
                   left: 0,
                   right: 0,
                   child: RoundAppButton(
-                      title: continueText,
+                      title: LanguageGlobalVar.continueText.tr,
                       onTap: () {
                         Get.to(MoodCheckingScreen(
                             moodType: moodImageType,

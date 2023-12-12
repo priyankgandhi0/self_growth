@@ -9,6 +9,7 @@ import 'package:self_growth/ui/widgets/common_widget.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/preferences.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/app_button.dart';
 
 class SelfDiscoverScreen extends StatelessWidget {
@@ -134,7 +135,7 @@ class SelfDiscoverScreen extends StatelessWidget {
             right: 0,
             bottom: 0,
             child: RoundAppButton(
-                title: getStartedText,
+                title: LanguageGlobalVar.getStartedText.tr,
                 onTap: () {
                   Get.toNamed(Routes.firstQuestionScreen);
                 }).paddingOnly(left: 32.w, right: 32.w, bottom: 16.w),

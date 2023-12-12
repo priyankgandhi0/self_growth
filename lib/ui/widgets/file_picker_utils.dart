@@ -11,6 +11,7 @@ import 'package:self_growth/ui/widgets/common_widget.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../gen/assets.gen.dart';
+import '../../languages/all_strings.dart';
 import 'app_dialogs.dart';
 
 class PickFile {
@@ -24,7 +25,7 @@ class PickFile {
           ProfileDataCard(
             image: Assets.icons.camera.path,
             height: 32.w,
-            title: 'Take Photo',
+            title: LanguageGlobalVar.takePhoto.tr,
             onTap: () {
               imageFromCamera(context: context, onImageChose: onImageChose);
               Navigator.pop(context);
@@ -34,7 +35,7 @@ class PickFile {
           ProfileDataCard(
             image: Assets.icons.addPhoto.path,
             height: 32.w,
-            title: 'Open Gallery',
+            title: LanguageGlobalVar.openGallery.tr,
             onTap: () {
               imageFormGallery(context: context, onImageChose: onImageChose);
               Navigator.pop(context);
@@ -62,10 +63,10 @@ class PickFile {
     } else if (status.isDenied) {
       Get.showSnackbar(
         GetSnackBar(
-            message: withoutPermissonAppCanErroText.tr,
+            message: LanguageGlobalVar.withoutPermissonAppCanErroText.tr,
             mainButton: Platform.isIOS
                 ? SnackBarAction(
-                    label: settingsText.tr,
+                    label: LanguageGlobalVar.settingsText.tr,
                     // textColor: Theme.of(context).accentColor,
                     onPressed: () {
                       openAppSettings();
@@ -78,9 +79,9 @@ class PickFile {
     } else if (status.isPermanentlyDenied) {
       Get.showSnackbar(
         GetSnackBar(
-          message: toAccessThisFeturePleaseErrorText.tr,
+          message: LanguageGlobalVar.toAccessThisFeturePleaseErrorText.tr,
           mainButton: SnackBarAction(
-            label: settingsText.tr,
+            label: LanguageGlobalVar.settingsText.tr,
             textColor: Colors.amber,
             onPressed: () {
               openAppSettings();
@@ -173,10 +174,10 @@ class PickFile {
     } else if (status.isDenied) {
       Get.showSnackbar(
         GetSnackBar(
-            message: withoutPermissonAppCanErroText.tr,
+            message: LanguageGlobalVar.withoutPermissonAppCanErroText.tr,
             mainButton: Platform.isIOS
                 ? SnackBarAction(
-                    label: settingsText.tr,
+                    label: LanguageGlobalVar.settingsText.tr,
                     // textColor: Theme.of(context).accentColor,
                     onPressed: () {
                       openAppSettings();
@@ -189,9 +190,9 @@ class PickFile {
     } else if (status.isPermanentlyDenied) {
       Get.showSnackbar(
         GetSnackBar(
-          message: toAccessThisFeturePleaseErrorText.tr,
+          message: LanguageGlobalVar.toAccessThisFeturePleaseErrorText.tr,
           mainButton: SnackBarAction(
-            label: settingsText.tr,
+            label: LanguageGlobalVar.settingsText.tr,
             textColor: Colors.amber,
             onPressed: () {
               openAppSettings();

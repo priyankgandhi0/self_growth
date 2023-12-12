@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:self_growth/config/routes/router.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/app_helper.dart';
@@ -8,10 +11,13 @@ import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/core/utils/preferences.dart';
 import 'package:self_growth/gen/assets.gen.dart';
 import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.dart';
+import 'package:self_growth/ui/widgets/app_bottom_sheet_dialog.dart';
 import 'package:self_growth/ui/widgets/app_button.dart';
 
 import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/request_const.dart';
+import '../../../languages/all_strings.dart';
+import '../../../main.dart';
 import '../../widgets/app_dialogs.dart';
 import '../../widgets/common_widget.dart';
 import '../bottom_navigation/bottom_bar_controller.dart';
@@ -53,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                 16.w.spaceH(),
                 BorderButton(
                   width: 100.w,
-                  title: editProfileText,
+                  title: LanguageGlobalVar.editProfileText.tr,
                   onTap: () {
                     bottomBarController.changeTab(BottomNavEnum.other);
                     bottomBarController.isSelectedTab = 5;
@@ -75,14 +81,9 @@ class ProfileScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return ProfileDataCard(
                           onTap: () {
-                            if (index == 0) {
-                              Get.toNamed(Routes.subscriptionScreen);
-                            }
-                            if (index == 1) {
-                              Get.toNamed(Routes.reminderScreen);
-                            }
+                       ctrl.onTap(index);
                           },
-                          title: ctrl.profileList[index],
+                          title: ctrl.profileList[index].tr,
                           image: ctrl.imagePath[index],
                         ).paddingSymmetric(vertical: 11.w);
                       },
@@ -101,8 +102,8 @@ class ProfileScreen extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return CustomDialog(
-                      description: logOutDialogText,
-                      title: logOutText,
+                      description: LanguageGlobalVar.logOutDialogText.tr,
+                      title: LanguageGlobalVar.logOutText.tr,
                       onConfirm: () {
                         ctrl.logOut();
                       },
@@ -117,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
                 );
               },
               image: Assets.icons.logOut.path,
-              title: 'Logout',
+              title: LanguageGlobalVar.logOutText.tr,
             ).paddingSymmetric(vertical: 8.w, horizontal: 20.w),
           ).paddingSymmetric(
             horizontal: 20.w,

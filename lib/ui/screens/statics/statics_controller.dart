@@ -5,6 +5,7 @@ import 'package:self_growth/api/repositories/statics_repo.dart';
 import '../../../api/response_item.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../languages/all_strings.dart';
 import '../../../loader_controller.dart';
 import '../../../models/get_feeling_chart_model.dart';
 import '../../widgets/app_snack_bar.dart';
@@ -34,7 +35,7 @@ class StaticsController extends GetxController {
     chartData.clear();
     Loader().showLoading();
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     String fromDateValue =
         DateFormat('yyyy-MM-dd').format(findFirstDateOfTheWeek(DateTime.now()));
     String toDateValue =
@@ -55,7 +56,7 @@ class StaticsController extends GetxController {
       }
     } catch (error) {
       Loader().hideLoading();
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
 
     update();

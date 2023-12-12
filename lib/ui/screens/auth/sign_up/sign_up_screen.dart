@@ -11,6 +11,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/request_const.dart';
 import '../../../../generated/assets.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/app_loader.dart';
 import '../../../widgets/app_title_bar.dart';
@@ -54,7 +55,7 @@ class SignUpScreen extends StatelessWidget {
                           },
                         ),
                         24.w.spaceH(),
-                        setupYourAccountText
+                        LanguageGlobalVar.setupYourAccountText.tr
                             .appSwitzerTextStyle(
                                 fontSize: 32.w,
                                 fontWeight: FontWeight.w600,
@@ -97,7 +98,7 @@ class SignUpScreen extends StatelessWidget {
                               50.w.spaceH(),
                               BorderButton(
                                 width: 110.w,
-                                title: addStickerText,
+                                title: LanguageGlobalVar.addStickerText.tr,
                                 onTap: () {
                                   PickFile().openImageChooser(
                                       context: context,
@@ -110,18 +111,18 @@ class SignUpScreen extends StatelessWidget {
                               ),
                               20.w.spaceH(),
                               AppTextField(
-                                labelText: emailText,
+                                labelText: LanguageGlobalVar.emailText.tr,
                                 showPrefixIcon: false,
                                 showSuffixIcon: false,
                                 keyboardType: TextInputType.emailAddress,
                                 textEditingController: ctrl.emailCon,
-                                hintText: enterEmailText,
+                                hintText: LanguageGlobalVar.enterEmailText.tr,
                                 labelTextSize: 14.sp,
                                 validator: (value) {},
                               ),
                               10.w.spaceH(),
                               AppTextField(
-                                labelText: phoneNumberText,
+                                labelText: LanguageGlobalVar.phoneNumberText.tr,
                                 showPrefixIcon: false,
                                 showSuffixIcon: false,
                                 labelTextSize: 14.sp,
@@ -134,14 +135,14 @@ class SignUpScreen extends StatelessWidget {
                                   LengthLimitingTextInputFormatter(13),
                                 ],
                                 textEditingController: ctrl.phoneNoCon,
-                                hintText: enterPhoneNumberText,
+                                hintText: LanguageGlobalVar.enterPhoneNumberText.tr,
                                 validator: (value) {},
                               ),
                               10.w.spaceH(),
                               AppTextField(
                                 obscureText: ctrl.isShowPass,
                                 obscuringCharacter: "*",
-                                labelText: passwordText,
+                                labelText: LanguageGlobalVar.passwordText.tr,
                                 suffixIcon: GestureDetector(
                                   onTap: () {
                                     ctrl.isShowPass = !ctrl.isShowPass;
@@ -157,7 +158,7 @@ class SignUpScreen extends StatelessWidget {
                                 showSuffixIcon: true,
                                 labelTextSize: 14.sp,
                                 textEditingController: ctrl.passwordCon,
-                                hintText: enterPasswordText,
+                                hintText: LanguageGlobalVar.enterPasswordText.tr,
                                 validator: (value) {},
                               ),
                             ],
@@ -175,7 +176,7 @@ class SignUpScreen extends StatelessWidget {
                       left: 0,
                       right: 0,
                       child: RoundAppButton(
-                        title: completeRegistrationText,
+                        title: LanguageGlobalVar.completeRegistrationText.tr,
                         onTap: () {
                           ctrl.userRegistration();
                         },

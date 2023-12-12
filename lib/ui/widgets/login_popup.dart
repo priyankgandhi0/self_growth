@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
+import 'package:self_growth/languages/all_strings.dart';
 import 'package:self_growth/ui/screens/auth/auth_controller.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
@@ -34,7 +35,7 @@ class LoginPopup extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   12.0.spaceH(),
-                  "Login".appSwitzerTextStyle(
+                  LanguageGlobalVar.loginText.tr.appSwitzerTextStyle(
                       fontSize: 32, fontWeight: FontWeight.w500),
                   20.0.spaceH(),
                   AppTextField(
@@ -63,7 +64,7 @@ class LoginPopup extends StatelessWidget {
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: "Password".appSwitzerTextStyle(
+                        child: LanguageGlobalVar.passwordText.tr.appSwitzerTextStyle(
                           fontWeight: FontWeight.w500,
                           fontColor: borderPurpleColor.withOpacity(.6),
                           fontSize: 14.sp,
@@ -75,7 +76,7 @@ class LoginPopup extends StatelessWidget {
                         },
                         child: Align(
                           alignment: Alignment.centerLeft,
-                          child: "Forgot password?".appSwitzerTextStyle(
+                          child: LanguageGlobalVar.forgotPasswordText.tr.appSwitzerTextStyle(
                             fontWeight: FontWeight.w500,
                             fontColor: borderPurpleColor.withOpacity(.6),
                             fontSize: 14.sp,
@@ -111,7 +112,7 @@ class LoginPopup extends StatelessWidget {
                             child: CircularProgressIndicator(
                             color: borderPinkColor,
                           ))
-                        : RoundAppButton(title: "Login", onTap: onLogin);
+                        : RoundAppButton(title: LanguageGlobalVar.loginText.tr, onTap: onLogin);
                   }),
                   (12).spaceH(),
                 ],

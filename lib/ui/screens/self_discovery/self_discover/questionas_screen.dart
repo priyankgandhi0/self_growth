@@ -12,6 +12,7 @@ import 'package:self_growth/ui/screens/self_discovery/self_discover/self_discove
 import '../../../../config/routes/router.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/preferences.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/common_widget.dart';
 
@@ -90,7 +91,7 @@ class QuestionTwoScreen extends StatelessWidget {
           top: 32.w,
         ),
         RoundAppButton(
-            title: continueText,
+            title: LanguageGlobalVar.continueText.tr,
             onTap: () {
               ctrl.submitAnswer();
             }).paddingSymmetric(
@@ -206,7 +207,7 @@ class QuestionThirdScreen extends StatelessWidget {
                     null ||
                 !(preferences.getBool(SharedPreference.IS_FILL_QUE) ?? true)),
             child: RoundAppButton(
-                title: reviewSuggestedPlan,
+                title: LanguageGlobalVar.reviewSuggestedPlan.tr,
                 onTap: () {
                   Get.toNamed(Routes.subscriptionScreen);
                 }).paddingSymmetric(horizontal: 32.w, vertical: 20.w),
@@ -214,7 +215,7 @@ class QuestionThirdScreen extends StatelessWidget {
           Visibility(
             visible: preferences.getBool(SharedPreference.IS_FILL_QUE) ?? false,
             child: BorderButton(
-              title: backHomepage,
+              title: LanguageGlobalVar.backHomepage.tr,
               onTap: () {
                 log('ON TAP');
                 ctrl.isQueAns = 0;

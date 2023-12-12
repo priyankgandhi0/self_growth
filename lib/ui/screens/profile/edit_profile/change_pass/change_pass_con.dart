@@ -9,6 +9,7 @@ import 'package:self_growth/ui/screens/profile/edit_profile/edit_profile_screen.
 import '../../../../../api/response_item.dart';
 import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/utils/app_helper.dart';
+import '../../../../../languages/all_strings.dart';
 import '../../../../../models/change_pass_model.dart';
 import '../../../../widgets/app_snack_bar.dart';
 import '../../../bottom_navigation/bottom_bar_controller.dart';
@@ -33,7 +34,7 @@ class ChangePassController extends GetxController {
     } else {
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText.tr, status: false);
+          ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr.tr, status: false);
       result = await AuthRepo.changePassword(
         oldPassController.text.trim().toString(),
         newPassController.text.trim().toString(),
@@ -61,7 +62,7 @@ class ChangePassController extends GetxController {
         }
       } catch (e) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       update();
     }

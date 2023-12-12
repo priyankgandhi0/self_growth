@@ -20,6 +20,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../languages/all_strings.dart';
 import '../../widgets/audio_player.dart';
 import '../../widgets/current_week_utils.dart';
 import '../self_discovery/discover_screen.dart';
@@ -272,7 +273,7 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildHabit.appSwitzerTextStyle(
+                        LanguageGlobalVar.buildHabit.tr.appSwitzerTextStyle(
                             fontSize: 17.sp, fontWeight: FontWeight.w600),
                         16.w.spaceH(),
                         ListView.separated(
@@ -310,7 +311,7 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      quitHabit.appSwitzerTextStyle(
+                      LanguageGlobalVar.quitHabit.tr.appSwitzerTextStyle(
                           fontSize: 17.sp, fontWeight: FontWeight.w600),
                       16.w.spaceH(),
                       ListView.separated(
@@ -318,7 +319,7 @@ class HomeScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return QuitHabitCard(
-                              selectedDay: true,
+                              selectedDay: ctrl.quitData[index].streak!=0,
                               dayOnTap: () {},
                               buttonOnTap: () {
                                 bottomBarController.isOpenDialog = true;
@@ -342,6 +343,7 @@ class HomeScreen extends StatelessWidget {
                                   : 'Abstinence time',
                               time: ctrl.quitData[index].goalResetTime ?? "",
                               day: ctrl.quitData[index].streak.toString(),
+
                             );
                           },
                           separatorBuilder: (context, index) {
@@ -696,9 +698,9 @@ class _QuitHabitCardState extends State<QuitHabitCard> {
               const Spacer(),
               InkWell(
                 // onTap: widget.dayOnTap,
-                child: (/*widget.selectedDay
-                        ?*/
-                        Assets.icons.selected /*: Assets.icons.minimize*/)
+                child: (widget.selectedDay
+                        ?
+                        Assets.icons.selected : Assets.icons.minimize)
                     .svg(width: 16.w, height: 16.w, fit: BoxFit.cover),
               ),
               5.w.spaceW(),

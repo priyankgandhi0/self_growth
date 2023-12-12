@@ -9,6 +9,7 @@ import 'package:self_growth/ui/widgets/app_button.dart';
 import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/utils/app_helper.dart';
 import '../../../../../gen/assets.gen.dart';
+import '../../../../../languages/all_strings.dart';
 import '../../../../widgets/app_loader.dart';
 import '../../../../widgets/start_up_text_field.dart';
 import '../../../bottom_navigation/bottom_bar_controller.dart';
@@ -51,7 +52,7 @@ class ChangePassScreen extends StatelessWidget {
                       AppTextField(
                         obscureText: controller.isOldPass,
                         obscuringCharacter: "*",
-                        labelText: oldPassword,
+                        labelText: LanguageGlobalVar.oldPassword.tr,
                         showPrefixIcon: false,
                         showSuffixIcon: true,
                         labelTextSize: 14.sp,
@@ -67,14 +68,14 @@ class ChangePassScreen extends StatelessWidget {
                               size: 20.w),
                         ),
                         textEditingController: controller.oldPassController,
-                        hintText: 'Enter old password',
+                        hintText: LanguageGlobalVar.enterOldPassword.tr,
                         validator: (value) {},
                       ),
                       20.w.spaceH(),
                       AppTextField(
                         obscureText: controller.isNewPass,
                         obscuringCharacter: "*",
-                        labelText: newPassword,
+                        labelText: LanguageGlobalVar.newPassword.tr,
                         showSuffixIcon: true,
                         suffixIcon: GestureDetector(
                             onTap: () {
@@ -88,14 +89,14 @@ class ChangePassScreen extends StatelessWidget {
                                 size: 20.w)),
                         labelTextSize: 14.sp,
                         textEditingController: controller.newPassController,
-                        hintText: 'Enter new password',
+                        hintText: LanguageGlobalVar.enterNewPassword.tr,
                         validator: (value) {},
                       ),
                       20.w.spaceH(),
                       AppTextField(
                         obscureText: controller.isConPass,
                         obscuringCharacter: "*",
-                        labelText: confirmPassword,
+                        labelText: LanguageGlobalVar.confirmPassword.tr,
                         showPrefixIcon: false,
                         suffixIcon: GestureDetector(
                           onTap: () {
@@ -111,7 +112,7 @@ class ChangePassScreen extends StatelessWidget {
                         showSuffixIcon: true,
                         labelTextSize: 14.sp,
                         textEditingController: controller.confPassController,
-                        hintText: 'Enter confirm password',
+                        hintText:LanguageGlobalVar.enterConfPassword.tr,
                         validator: (value) {},
                       ),
                       40.w.spaceH(),
@@ -120,7 +121,7 @@ class ChangePassScreen extends StatelessWidget {
                             FocusManager.instance.primaryFocus?.unfocus();
                             controller.changePassResponse(context);
                           },
-                          title: change)
+                          title: LanguageGlobalVar.change.tr)
                     ],
                   ),
                 ),

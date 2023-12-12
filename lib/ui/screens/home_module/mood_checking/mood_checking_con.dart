@@ -9,6 +9,7 @@ import '../../../../api/response_item.dart';
 import '../../../../core/constants/app_strings.dart';
 
 import '../../../../core/constants/request_const.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../../models/get_activity_model.dart';
 import '../../../../models/get_user_mood_model.dart';
 import '../../../widgets/app_snack_bar.dart';
@@ -86,7 +87,7 @@ class MoodCheckingCon extends GetxController {
     } else {
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
       result = await HabitRepo.moodChecking(
           moodImages: moodImage,
           title: titleCon.text,
@@ -119,7 +120,7 @@ class MoodCheckingCon extends GetxController {
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       isLoading.value = false;
       update();
@@ -135,7 +136,7 @@ class MoodCheckingCon extends GetxController {
     } else {
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
       result = await HabitRepo.editMoodChecking(
           moodImages: moodImage,
           moodId: (editMood?.umId ?? "0").toString(),
@@ -170,7 +171,7 @@ class MoodCheckingCon extends GetxController {
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
     }
     isLoading.value = false;
@@ -198,7 +199,7 @@ class MoodCheckingCon extends GetxController {
   getActivityList() async {
     isLoading.value = true;
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result = await HabitRepo.getActivityList();
     activityList.clear();
     try {
@@ -215,7 +216,7 @@ class MoodCheckingCon extends GetxController {
       }
     } catch (error) {
       isLoading.value = false;
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
     isLoading.value = false;
     update();
@@ -224,7 +225,7 @@ class MoodCheckingCon extends GetxController {
   getFeelingList() async {
     isLoading.value = true;
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result = await HabitRepo.getFeelingList();
     feelingList.clear();
     try {
@@ -241,7 +242,7 @@ class MoodCheckingCon extends GetxController {
       }
     } catch (error) {
       isLoading.value = false;
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
     isLoading.value = false;
     update();
@@ -256,7 +257,7 @@ class MoodCheckingCon extends GetxController {
     } else {
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
       result = await HabitRepo.addFeeling(
           icon: feelingEmoji, name: addFeelingCon.text);
       try {
@@ -272,7 +273,7 @@ class MoodCheckingCon extends GetxController {
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       isLoading.value = false;
       update();
@@ -288,7 +289,7 @@ class MoodCheckingCon extends GetxController {
     } else {
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
       result = await HabitRepo.addActivity(
           icon: activityEmoji, name: addActivityCon.text);
       try {
@@ -304,7 +305,7 @@ class MoodCheckingCon extends GetxController {
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       isLoading.value = false;
       update();

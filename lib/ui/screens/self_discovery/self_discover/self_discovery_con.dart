@@ -7,6 +7,7 @@ import 'package:self_growth/models/quetion_model.dart';
 
 import '../../../../api/response_item.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/app_snack_bar.dart';
 
 class SelfDiscoveryCon extends GetxController {
@@ -54,7 +55,7 @@ class SelfDiscoveryCon extends GetxController {
     questionList.clear();
     isLoading.value = true;
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result = await SelfDiscoveryRepo.getQueList();
     try {
       if (result.status) {
@@ -69,7 +70,7 @@ class SelfDiscoveryCon extends GetxController {
       }
     } catch (error) {
       isLoading.value = false;
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
     update();
   }
@@ -77,7 +78,7 @@ class SelfDiscoveryCon extends GetxController {
   submitAnswer() async {
     isLoading.value = true;
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result =
         await SelfDiscoveryRepo.submitAnswer(json.encode(selectedQueAnsList));
     try {
@@ -91,7 +92,7 @@ class SelfDiscoveryCon extends GetxController {
       }
     } catch (error) {
       isLoading.value = false;
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
 
     update();

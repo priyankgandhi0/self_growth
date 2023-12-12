@@ -14,6 +14,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
 
+import '../../../languages/all_strings.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_dialogs.dart';
 import '../../widgets/app_loader.dart';
@@ -192,7 +193,7 @@ class VoiceNoteScreen extends StatelessWidget {
           left: 0,
           right: 0,
           child: RoundAppButton(
-              title: continueText,
+              title: LanguageGlobalVar.continueText.tr,
               onTap: () {
                 if (voiceNoteController.audioPath == null) {
                   showAppSnackBar('Please record voice note!');

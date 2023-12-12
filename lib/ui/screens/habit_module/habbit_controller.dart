@@ -4,6 +4,7 @@ import 'package:self_growth/api/repositories/habit_repo.dart';
 
 import '../../../api/response_item.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../languages/all_strings.dart';
 import '../../widgets/app_snack_bar.dart';
 
 class HabitController extends GetxController
@@ -74,7 +75,7 @@ class HabitController extends GetxController
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message: LanguageGlobalVar.errorText.tr, status: false);
       result = await HabitRepo.addHabit(
           habitName: habitNameCon.text,
           logActivityType: isLogActivity == 0 ? "Fixed Count" : "Custom",
@@ -102,7 +103,7 @@ class HabitController extends GetxController
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar(LanguageGlobalVar.errorText.tr);
       }
       isLoading.value = false;
       update();

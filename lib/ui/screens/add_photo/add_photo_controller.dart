@@ -5,6 +5,7 @@ import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/request_const.dart';
+import '../../../languages/all_strings.dart';
 import '../../../models/add_photo_model.dart';
 import '../../widgets/app_snack_bar.dart';
 import '../home_module/home_controller.dart';
@@ -16,7 +17,7 @@ class AddPhotoController extends GetxController {
   addMoodPhoto(File imageFile) async {
     isLoading.value = true;
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message: LanguageGlobalVar.errorText.tr, status: false);
 
     result = await HabitRepo.addMoodPhoto(moodImages: imageFile);
 
@@ -43,7 +44,7 @@ class AddPhotoController extends GetxController {
       }
     } catch (error) {
       isLoading.value = false;
-      showAppSnackBar(errorText);
+      showAppSnackBar(LanguageGlobalVar.errorText.tr);
     }
     isLoading.value = false;
     update();

@@ -10,6 +10,7 @@ import '../../../../core/constants/app_constant.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/app_helper.dart';
 import '../../../../core/utils/preferences.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../../models/user_model.dart';
 import '../../../widgets/app_snack_bar.dart';
 import '../../bottom_navigation/bottom_bar_controller.dart';
@@ -44,7 +45,7 @@ class EditProfileController extends GetxController {
         showAppSnackBar('Please enter phone number.');
       } else {
         ResponseItem result =
-            ResponseItem(data: null, message: errorText.tr, status: false);
+            ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr.tr, status: false);
         isLoading.value = true;
         if (imageFile == null) {
           result = await AuthRepo.updateUserProfile(
@@ -80,7 +81,7 @@ class EditProfileController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
     update();
   }

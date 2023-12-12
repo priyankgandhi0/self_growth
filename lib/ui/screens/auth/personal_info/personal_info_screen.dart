@@ -11,6 +11,7 @@ import 'package:self_growth/ui/widgets/app_title_bar.dart';
 import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/app_snack_bar.dart';
 import '../../../widgets/common_widget.dart';
@@ -52,7 +53,7 @@ class PersonalInfoScreen extends StatelessWidget {
                           },
                         ),
                         24.w.spaceH(),
-                        personalInformationText
+                        LanguageGlobalVar.personalInformationText.tr
                             .appSwitzerTextStyle(
                                 fontSize: 32.w,
                                 fontWeight: FontWeight.w600,
@@ -68,17 +69,17 @@ class PersonalInfoScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AppTextField(
-                                labelText: nameText,
+                                labelText: LanguageGlobalVar.nameText.tr,
                                 showPrefixIcon: false,
                                 showSuffixIcon: false,
                                 textEditingController: ctrl.nameCon,
-                                hintText: enterNameText,
+                                hintText: LanguageGlobalVar.enterNameText.tr,
                                 labelTextSize: 14.sp,
                                 validator: (value) {},
                               ),
                               10.w.spaceH(),
                               AppTextField(
-                                labelText: ageText,
+                                labelText: LanguageGlobalVar.ageText.tr,
                                 showPrefixIcon: false,
                                 showSuffixIcon: false,
                                 labelTextSize: 14.sp,
@@ -89,18 +90,15 @@ class PersonalInfoScreen extends StatelessWidget {
                                   FilteringTextInputFormatter.digitsOnly,
                                 ],
                                 textEditingController: ctrl.ageCon,
-                                hintText: enterAgeText,
+                                hintText: LanguageGlobalVar.enterAgeText.tr,
                                 validator: (value) {},
                               ),
                               10.w.spaceH(),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: genderText.appSwitzerTextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontColor: borderPurpleColor.withOpacity(.6),
-                                  fontSize: 14.sp,
-                                  // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
-                                ),
+                             LanguageGlobalVar.genderText.tr.appSwitzerTextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontColor: borderPurpleColor.withOpacity(.6),
+                                fontSize: 14.sp,
+                                // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
                               ),
                               8.w.spaceH(),
                               AppDropDown(
@@ -125,16 +123,16 @@ class PersonalInfoScreen extends StatelessWidget {
                 left: 0,
                 right: 0,
                 child: RoundAppButton(
-                  title: nextText,
+                  title: LanguageGlobalVar.nextText.tr,
                   onTap: () {
                     if (ctrl.nameCon.text.isEmpty) {
-                      showAppSnackBar(nameNotEmpty);
+                      showAppSnackBar(LanguageGlobalVar.nameNotEmpty.tr);
                     } else if (ctrl.ageCon.text.isEmpty) {
-                      showAppSnackBar(ageNotEmpty);
+                      showAppSnackBar(LanguageGlobalVar.ageNotEmpty.tr);
                     } else if (ctrl.ageCon.text.length > 3) {
-                      showAppSnackBar('Please enter valid age.');
+                      showAppSnackBar(LanguageGlobalVar.pleaseEnterValidAge.tr);
                     } else if (ctrl.gender == null) {
-                      showAppSnackBar('Please select gender.');
+                      showAppSnackBar(LanguageGlobalVar.pleaseSelectGender.tr);
                     } else {
                       Get.toNamed(Routes.signUpScreen);
                     }

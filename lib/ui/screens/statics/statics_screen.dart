@@ -15,6 +15,7 @@ import 'package:self_growth/ui/widgets/current_week_utils.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../core/constants/app_strings.dart';
+import '../../../languages/all_strings.dart';
 import '../../widgets/common_widget.dart';
 
 class StaticsScreen extends StatefulWidget {
@@ -43,7 +44,7 @@ class _StaticsScreenState extends State<StaticsScreen> {
       return Column(
         children: [
           16.w.spaceH(),
-          statistic.appSwitzerTextStyle(
+          LanguageGlobalVar.statistic.tr.appSwitzerTextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 18.sp,
               textAlign: TextAlign.center),
@@ -91,8 +92,8 @@ class _StaticsScreenState extends State<StaticsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const HeaderCard(
-                  title: moodSummary,
+                 HeaderCard(
+                  title: LanguageGlobalVar.moodSummary.tr,
                 ),
                 Stack(
                   children: [
@@ -236,7 +237,7 @@ class _StaticsScreenState extends State<StaticsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MoodCheckCard(
-                  title: whatImproveYourMood,
+                  title: LanguageGlobalVar.whatImproveYourMood.tr,
                   imgList: ctrl.noteImageList,
                   titleList: ctrl.noteList,
                 ),

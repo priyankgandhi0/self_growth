@@ -9,6 +9,7 @@ import 'package:self_growth/ui/widgets/habit_card.dart';
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../languages/all_strings.dart';
 import 'create_new_habit.dart';
 
 class NewHabitScreen extends StatelessWidget {
@@ -31,7 +32,7 @@ class NewHabitScreen extends StatelessWidget {
                 10.w.spaceH(),
                 CommonAppBar(
                   icon: const Icon(Icons.close, color: borderPurpleColor),
-                  title: newHabbit,
+                  title: LanguageGlobalVar.newHabbit.tr,
                   padding: 0,
                   onTap: () {
                     Get.back();
@@ -58,7 +59,7 @@ class NewHabitScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(Icons.add),
-                            createNewHabbit.appSwitzerTextStyle(
+                            LanguageGlobalVar.createNewHabbit.tr.appSwitzerTextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ],
                         ),
@@ -67,7 +68,7 @@ class NewHabitScreen extends StatelessWidget {
                   ),
                 ).paddingSymmetric(vertical: 18.h),
                 6.h.spaceH(),
-                recomended
+                LanguageGlobalVar.recomended.tr
                     .appSwitzerTextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,

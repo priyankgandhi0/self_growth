@@ -16,6 +16,7 @@ import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../languages/all_strings.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_dialogs.dart';
 
@@ -47,7 +48,7 @@ class CreateNewHabitScreen extends StatelessWidget {
                       10.w.spaceH(),
                       CommonAppBar(
                         icon: const Icon(Icons.close, color: borderPurpleColor),
-                        title: newHabbit,
+                        title: LanguageGlobalVar.newHabbit.tr,
                         padding: 0,
                         onTap: () {
                           Get.back();

@@ -109,17 +109,16 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.labelText.isNotEmpty)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: widget.labelText.appSwitzerTextStyle(
-              fontWeight: widget.labelFontWeight ?? FontWeight.w500,
-              fontColor:
-                  widget.labelTextColor ?? borderPurpleColor.withOpacity(0.6),
-              fontSize: widget.labelTextSize ?? 14.sp,
-              // fontColor: _focusNode.hasFocus ? grey_969696 : borderPurpleColor,
-            ),
+          widget.labelText.tr.appSwitzerTextStyle(
+            fontWeight: widget.labelFontWeight ?? FontWeight.w500,
+            textAlign: TextAlign.start,
+            fontColor:
+                widget.labelTextColor ?? borderPurpleColor.withOpacity(0.6),
+            fontSize: widget.labelTextSize ?? 14.sp,
+            // fontColor: _focusNode.hasFocus ? grey_969696 : borderPurpleColor,
           ),
         if (widget.labelText.isNotEmpty) (8).spaceH(),
         SizedBox(
@@ -157,7 +156,7 @@ class _AppTextFieldState extends State<AppTextField> {
                     color: borderPurpleColor),
             obscureText: widget.obscureText,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 10.w, top: 20.w),
+              contentPadding: EdgeInsets.only(left: 10.w, top: 20.w,right: 10.w),
               prefixIcon: widget.showPrefixIcon
                   ? SvgGenImage(widget.prefixIcon!)
                       .svg(
@@ -170,7 +169,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   : null,
               suffixIcon:
                   widget.showSuffixIcon ?? true ? widget.suffixIcon : null,
-              hintText: widget.hintText,
+              hintText: widget.hintText.tr,
               hintStyle: widget.hintTextStyle ??
                   TextStyle(
                       fontFamily: 'Switzer',

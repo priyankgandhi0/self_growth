@@ -9,6 +9,7 @@ import '../../../config/routes/router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../languages/all_strings.dart';
 import '../../widgets/app_bottom_sheet_dialog.dart';
 import '../../widgets/app_title_bar.dart';
 import '../../widgets/common_widget.dart';
@@ -42,7 +43,7 @@ class OnboardingScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   RoundAppButton(
-                    title: getStartedText,
+                    title: LanguageGlobalVar.getStartedText.tr,
                     onTap: () {
                       if (ctrl.initialPage == 2) {
                         Get.toNamed(Routes.personalInfoScreen);
@@ -58,7 +59,7 @@ class OnboardingScreen extends StatelessWidget {
                   /*ctrl.initialPage == 0
                       ? */
                   RoundGradientAppButton(
-                    title: loginText,
+                    title: LanguageGlobalVar.loginText.tr,
                     textColor: borderPurpleColor,
                     onTap: () {
                       appCustomBottomSheet(
@@ -108,7 +109,7 @@ class OnboardingScreen extends StatelessWidget {
                       },
                       showBackButton: ctrl.initialPage != 0,
                       suffixWidget: BorderButton(
-                        title: englishText,
+                        title: LanguageGlobalVar.englishText.tr,
                         buttonColor: Colors.transparent,
                         width: 80.w,
                         onTap: () {},
@@ -132,30 +133,30 @@ class OnboardingScreen extends StatelessWidget {
                                       fit: BoxFit.contain,
                                       height: 230.w,
                                       width: 230.w),
-                                  title: 'Learn',
+                                  title: LanguageGlobalVar.learn.tr,
                                   subTitle:
-                                      'Working on thinking traps is the first step of the mental well-being journey.',
+                                  LanguageGlobalVar.learnDec1.tr,
                                   subTitle1:
-                                      'Seral offers you a Personalized education for your mind to understand your thinking-frame.'),
+                                  LanguageGlobalVar.learnDec2.tr),
                               PageViewCard(
                                   ctrl: ctrl,
                                   image: Assets.images.onBording2.image(
                                       fit: BoxFit.contain,
                                       height: 230.w,
                                       width: 230.w),
-                                  title: 'Control',
-                                  subTitle: secondScreenText,
+                                  title: LanguageGlobalVar.control.tr,
+                                  subTitle: LanguageGlobalVar.secondScreenText.tr,
                                   subTitle1:
-                                      'Seral Challenge and change your thinking patterns by providing you with advanced tools.'),
+                                  LanguageGlobalVar.controlDec.tr),
                               PageViewCard(
                                   ctrl: ctrl,
                                   image: Assets.images.onBording3.image(
                                       fit: BoxFit.contain,
                                       height: 230.w,
                                       width: 230.w),
-                                  title: 'Track',
+                                  title: LanguageGlobalVar.track.tr,
                                   subTitle1: '',
-                                  subTitle: thirdScreenText)
+                                  subTitle: LanguageGlobalVar.thirdScreenText.tr)
                             ],
                           ),
                         ),

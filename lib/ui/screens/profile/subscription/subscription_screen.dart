@@ -13,6 +13,7 @@ import '../../../../config/routes/router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/common_widget.dart';
 
 class SubscriptionScreen extends StatelessWidget {
@@ -45,7 +46,7 @@ class SubscriptionScreen extends StatelessWidget {
                           .paddingSymmetric(horizontal: 16.w, vertical: 10.w),
                     ),
                     15.w.spaceH(),
-                    startYourMembershipNowText
+                    LanguageGlobalVar.startYourMembershipNowText.tr
                         .appSwitzerTextStyle(
                             fontSize: 32.w,
                             fontWeight: FontWeight.w600,
@@ -111,7 +112,7 @@ class SubscriptionScreen extends StatelessWidget {
                         preferences.putBool(SharedPreference.IS_FILL_QUE, true);
                       }).paddingSymmetric(horizontal: 46.w),
                   10.w.spaceH(),
-                  noCommitText.appSwitzerTextStyle(
+                  LanguageGlobalVar.noCommitText.tr.appSwitzerTextStyle(
                       fontWeight: FontWeight.w400, fontSize: 14.sp),
                   20.w.spaceH(),
                 ],

@@ -10,6 +10,7 @@ import '../../../api/response_item.dart';
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_constant.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../languages/all_strings.dart';
 import '../../../models/user_model.dart';
 import '../../widgets/app_snack_bar.dart';
 
@@ -43,20 +44,20 @@ class AuthController extends GetxController {
 
   changePasswordWithVerifyCode() async {
     if (forgetEmailController.text.isEmpty) {
-      showAppSnackBar(emailNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.emailNotEmpty.tr);
     } else if (!forgetEmailController.text.isEmail) {
-      showAppSnackBar(emailNotValid);
+      showAppSnackBar(LanguageGlobalVar.emailNotValid.tr);
     } else if (verifyCodeController.text.isEmpty) {
-      showAppSnackBar(verificationCodeNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.verificationCodeNotEmpty.tr);
     } else if (newPasswordController.text.isEmpty) {
-      showAppSnackBar(newPasswordNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.newPasswordNotEmpty.tr);
     } else if (newPasswordController.text.length < 6) {
       showAppSnackBar('Password must be at least 6 character.');
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
       result = await AuthRepo.changePasswordWithVerifyCode(
           email: forgetEmailController.text.trim(),
           newPassword: newPasswordController.text.trim(),
@@ -73,7 +74,7 @@ class AuthController extends GetxController {
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       isLoading.value = false;
       update();
@@ -82,14 +83,14 @@ class AuthController extends GetxController {
 
   forgetPassword() async {
     if (forgetEmailController.text.isEmpty) {
-      showAppSnackBar(emailNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.emailNotEmpty.tr);
     } else if (!forgetEmailController.text.isEmail) {
-      showAppSnackBar(emailNotValid);
+      showAppSnackBar(LanguageGlobalVar.emailNotValid.tr);
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
       result = await AuthRepo.forgotPassword(
           email: forgetEmailController.text.trim());
       try {
@@ -103,7 +104,7 @@ class AuthController extends GetxController {
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       isLoading.value = false;
       update();
@@ -112,18 +113,18 @@ class AuthController extends GetxController {
 
   userLogin() async {
     if (emailController.text.isEmpty) {
-      showAppSnackBar(emailNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.emailNotEmpty.tr);
     } else if (!emailController.text.isEmail) {
-      showAppSnackBar(emailNotValid);
+      showAppSnackBar(LanguageGlobalVar.emailNotValid.tr);
     } else if (phoneNumberController.text.isEmpty) {
-      showAppSnackBar(phoneNumberNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.phoneNumberNotEmpty.tr);
     } else if (passwordController.text.isEmpty) {
-      showAppSnackBar(passwordNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.passwordNotEmpty.tr);
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message: LanguageGlobalVar.errorText.tr, status: false);
       result = await AuthRepo.userLogin(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
@@ -143,7 +144,7 @@ class AuthController extends GetxController {
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       isLoading.value = false;
       update();
@@ -160,20 +161,20 @@ class AuthController extends GetxController {
       preferences.getString(SharedPreference.USER_PROFILE) ?? "";
   userRegistration() async {
     if (emailCon.text.isEmpty) {
-      showAppSnackBar(emailNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.emailNotEmpty.tr);
     } else if (!emailCon.text.isEmail) {
-      showAppSnackBar(emailNotValid);
+      showAppSnackBar(LanguageGlobalVar.emailNotValid.tr);
     } else if (phoneNoCon.text.isEmpty) {
-      showAppSnackBar(phoneNumberNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.phoneNumberNotEmpty.tr);
     } else if (passwordCon.text.isEmpty) {
-      showAppSnackBar(passwordNotEmpty);
+      showAppSnackBar(LanguageGlobalVar.passwordNotEmpty.tr);
     } else if (passwordCon.text.length < 6) {
       showAppSnackBar('Password must be at least 6 character.');
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       isLoading.value = true;
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message:  errorText, status: false);
       if (imageFile == null) {
         log('imageFile null');
         result = await AuthRepo.registrationRepo(
@@ -208,7 +209,7 @@ class AuthController extends GetxController {
         }
       } catch (error) {
         isLoading.value = false;
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       isLoading.value = false;
       update();

@@ -5,6 +5,7 @@ import '../../../api/repositories/habit_repo.dart';
 import '../../../api/response_item.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/request_const.dart';
+import '../../../languages/all_strings.dart';
 import '../../../loader_controller.dart';
 import '../../../models/get_hebit_model.dart';
 import '../../../models/get_user_mood_model.dart';
@@ -90,7 +91,7 @@ class HomeController extends GetxController {
       Loader().showLoading();
 
       ResponseItem result =
-          ResponseItem(data: null, message: errorText, status: false);
+          ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
       result = await HabitRepo.getUserHabit();
       try {
         if (result.status) {
@@ -120,7 +121,7 @@ class HomeController extends GetxController {
         }
       } catch (error) {
         Loader().hideLoading();
-        showAppSnackBar(errorText);
+        showAppSnackBar( LanguageGlobalVar.errorText.tr);
       }
       Loader().hideLoading();
       update();
@@ -139,7 +140,7 @@ class HomeController extends GetxController {
 
     isLoad ? Loader().showLoading() : Loader().hideLoading();
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result = await HabitRepo.getUserMood(
         date: selectedDate, page: page, limit: LIMIT);
     try {
@@ -159,7 +160,7 @@ class HomeController extends GetxController {
       }
     } catch (error) {
       Loader().hideLoading();
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
     Loader().hideLoading();
     update();
@@ -169,7 +170,7 @@ class HomeController extends GetxController {
     moodData.clear();
     Loader().showLoading();
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result = await HabitRepo.deleteUserHabit(
       habitId: habitId,
     );
@@ -184,7 +185,7 @@ class HomeController extends GetxController {
       }
     } catch (error) {
       Loader().hideLoading();
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
 
     update();
@@ -194,7 +195,7 @@ class HomeController extends GetxController {
     moodData.clear();
     Loader().showLoading();
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result = await HabitRepo.resetHabit(
       habitId: habitId,
     );
@@ -209,7 +210,7 @@ class HomeController extends GetxController {
       }
     } catch (error) {
       Loader().hideLoading();
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
 
     update();
@@ -219,7 +220,7 @@ class HomeController extends GetxController {
     moodData.clear();
     Loader().showLoading();
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result = await HabitRepo.deleteMoodCheckin(
       moodCheckInId: moodCheckInId,
     );
@@ -235,7 +236,7 @@ class HomeController extends GetxController {
       }
     } catch (error) {
       Loader().hideLoading();
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
 
     update();
@@ -243,7 +244,7 @@ class HomeController extends GetxController {
 
   checkInUserHabit(String habitId) async {
     ResponseItem result =
-        ResponseItem(data: null, message: errorText, status: false);
+        ResponseItem(data: null, message:  LanguageGlobalVar.errorText.tr, status: false);
     result = await HabitRepo.checkInUserHabit(habitId: habitId);
     try {
       if (result.status) {
@@ -256,7 +257,7 @@ class HomeController extends GetxController {
       }
     } catch (error) {
       Loader().hideLoading();
-      showAppSnackBar(errorText);
+      showAppSnackBar( LanguageGlobalVar.errorText.tr);
     }
     Loader().hideLoading();
     update();

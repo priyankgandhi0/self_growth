@@ -6,8 +6,8 @@ import 'package:self_growth/core/constants/app_colors.dart';
 
 import 'config/routes/router.dart';
 import 'core/utils/preferences.dart';
+import 'languages/language.dart';
 import 'loader_controller.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
@@ -20,7 +20,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final isLogin = preferences.getBool(SharedPreference.IS_LOG_IN) ?? false;
@@ -34,6 +33,9 @@ class MyApp extends StatelessWidget {
           viewInsets: MediaQuery.of(context).viewInsets,
         ),
         child: GetMaterialApp(
+          locale: const Locale("en", "US"),
+          translations: Languages(),
+          fallbackLocale: const Locale("ar", "AE"),
           initialBinding: BaseBindings(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

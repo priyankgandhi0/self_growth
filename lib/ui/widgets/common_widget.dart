@@ -11,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constant.dart';
 import '../../gen/assets.gen.dart';
+import '../../languages/all_strings.dart';
 import '../../models/get_user_mood_model.dart';
 import '../screens/habit_module/create_new_habit.dart';
 
@@ -117,6 +118,7 @@ class ProfileDataCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.transparent,
       splashFactory: NoSplash.splashFactory,
       onTap: onTap,
       child: Row(
@@ -676,7 +678,7 @@ class AppDropDown extends StatelessWidget {
                 style: getTextStyle(),
                 value: value,
                 underline: Container(),
-                hint: 'Gender'
+                hint:  ' ${LanguageGlobalVar.genderText.tr}'
                     .appSwitzerTextStyle(
                       fontColor: doteColor.withOpacity(.6),
                       fontSize: 16,
@@ -690,7 +692,7 @@ class AppDropDown extends StatelessWidget {
                     .map((e) => DropdownMenuItem(
                           value: e,
                           child: Text(
-                            e.name,
+                            Gender.Female==e?LanguageGlobalVar.feMale.tr: Gender.Male==e?LanguageGlobalVar.male.tr:LanguageGlobalVar.other.tr,
                             style: const TextStyle(
                                 fontFamily: 'Switzer',
                                 fontWeight: FontWeight.w500,

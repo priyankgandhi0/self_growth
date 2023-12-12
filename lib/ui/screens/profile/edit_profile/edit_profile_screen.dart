@@ -16,6 +16,7 @@ import '../../../../core/constants/request_const.dart';
 import '../../../../core/utils/app_helper.dart';
 
 import '../../../../gen/assets.gen.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/common_widget.dart';
 import '../../../widgets/file_picker_utils.dart';
@@ -77,11 +78,12 @@ class EditProfileScreen extends StatelessWidget {
                             width: 100.w,
                           ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     50.w.spaceH(),
                     BorderButton(
                       width: 128.w,
-                      title: changeAvatarText,
+                      title: LanguageGlobalVar.changeAvatarText.tr,
                       onTap: () {
                         PickFile().openImageChooser(
                             context: context,
@@ -93,29 +95,29 @@ class EditProfileScreen extends StatelessWidget {
                       },
                     ),
                     AppTextField(
-                      labelText: nameText,
+                      labelText: LanguageGlobalVar.nameText.tr,
                       showPrefixIcon: false,
                       showSuffixIcon: false,
                       textEditingController: ctrl.nameCon,
-                      hintText: enterNameText,
+                      hintText: LanguageGlobalVar.enterNameText.tr,
                       labelTextSize: 14.sp,
                       validator: (value) {},
                     ),
                     10.w.spaceH(),
                     AppTextField(
                       readOnly: true,
-                      labelText: 'Email',
+                      labelText: LanguageGlobalVar.emailText.tr,
                       showPrefixIcon: false,
                       showSuffixIcon: false,
                       labelTextSize: 14.sp,
                       keyboardType: TextInputType.emailAddress,
                       textEditingController: ctrl.emailCon,
-                      hintText: enterEmailText,
+                      hintText: LanguageGlobalVar.enterEmailText.tr,
                       validator: (value) {},
                     ),
                     10.w.spaceH(),
                     AppTextField(
-                      labelText: phoneNumberText,
+                      labelText: LanguageGlobalVar.phoneNumberText.tr,
                       showPrefixIcon: false,
                       showSuffixIcon: false,
                       labelTextSize: 14.sp,
@@ -126,18 +128,15 @@ class EditProfileScreen extends StatelessWidget {
                         LengthLimitingTextInputFormatter(13),
                       ],
                       textEditingController: ctrl.phoneNoCon,
-                      hintText: enterPhoneNumberText,
+                      hintText: LanguageGlobalVar.enterPhoneNumberText.tr,
                       validator: (value) {},
                     ),
                     10.w.spaceH(),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: genderText.appSwitzerTextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontColor: borderPurpleColor.withOpacity(.6),
-                        fontSize: 14.sp,
-                        // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
-                      ),
+                    LanguageGlobalVar.genderText.tr.appSwitzerTextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontColor: borderPurpleColor.withOpacity(.6),
+                      fontSize: 14.sp,
+                      // fontColor: _focusNode.hasFocus ? grey_969696 : black_000000,
                     ),
                     8.w.spaceH(),
                     AppDropDown(
@@ -149,7 +148,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                     20.w.spaceH(),
                     RoundAppButton(
-                        title: 'Change Profile',
+                        title:LanguageGlobalVar.changeProfile.tr ,
                         onTap: () {
                           ctrl.updateUserProfile();
                         })
@@ -171,7 +170,7 @@ class EditProfileScreen extends StatelessWidget {
                   child: ProfileDataCard(
                     image: Assets.icons.resetPass.path,
                     height: 32.w,
-                    title: 'Reset password',
+                    title: LanguageGlobalVar.resetPassword.tr,
                   ).paddingSymmetric(vertical: 8.w, horizontal: 20.w),
                 ).paddingSymmetric(
                   horizontal: 20.w,

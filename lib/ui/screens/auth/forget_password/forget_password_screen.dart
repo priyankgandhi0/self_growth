@@ -8,6 +8,7 @@ import 'package:self_growth/ui/widgets/start_up_text_field.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../generated/assets.dart';
+import '../../../../languages/all_strings.dart';
 import '../../../widgets/app_button.dart';
 import '../auth_controller.dart';
 
@@ -44,7 +45,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                         },
                       ),
                       24.w.spaceH(),
-                      forgetPassword
+                      LanguageGlobalVar.forgetPassword.tr
                           .appSwitzerTextStyle(
                               fontSize: 32.w,
                               fontWeight: FontWeight.w600,
@@ -52,12 +53,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                           .paddingSymmetric(horizontal: 20.w),
                       34.w.spaceH(),
                       AppTextField(
-                        labelText: emailText,
+                        labelText: LanguageGlobalVar.emailText.tr,
                         showPrefixIcon: false,
                         showSuffixIcon: false,
                         keyboardType: TextInputType.emailAddress,
                         textEditingController: ctrl.forgetEmailController,
-                        hintText: enterEmailText,
+                        hintText: LanguageGlobalVar.enterEmailText.tr,
                         labelTextSize: 14.sp,
                         validator: (value) {},
                       ).paddingSymmetric(horizontal: 20.w),
@@ -71,7 +72,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               left: 0,
               right: 0,
               child: RoundAppButton(
-                title: submitEmail,
+                title: LanguageGlobalVar.submitEmail.tr,
                 onTap: () {
                   ctrl.forgetPassword();
                 },
