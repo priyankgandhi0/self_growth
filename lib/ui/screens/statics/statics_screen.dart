@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:self_growth/core/constants/app_colors.dart';
 import 'package:self_growth/core/utils/extentions.dart';
 import 'package:self_growth/gen/assets.gen.dart';
+import 'package:self_growth/models/get_user_mood_model.dart';
 import 'package:self_growth/ui/screens/statics/statics_controller.dart';
 import 'package:self_growth/ui/widgets/current_week_utils.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -37,6 +38,7 @@ class _StaticsScreenState extends State<StaticsScreen> {
     return GetBuilder<StaticsController>(initState: (state) {
       Future.delayed(Duration.zero)
           .then((value) => staticsController.getFeelingsList());
+
     }, builder: (ctrl) {
       return Column(
         children: [
@@ -187,6 +189,7 @@ class _StaticsScreenState extends State<StaticsScreen> {
                               size: 0,
                             )),
                         tooltipBehavior: buildTooltipBehavior(ctrl),
+                        // selectionGesture:ctrl.chartData.isEmpty?ActivationMode.none:ActivationMode.singleTap,
                         plotAreaBorderColor: Colors.transparent,
                         primaryXAxis: CategoryAxis(
                             labelStyle: getTextStyle(
@@ -281,9 +284,21 @@ class _StaticsScreenState extends State<StaticsScreen> {
     return TooltipBehavior(
       color: Colors.white.withOpacity(.5),
       builder: (data, point, series, pointIndex, seriesIndex) {
-        // log('${ctrl.chartData[pointIndex].chart?.first.name}');
         return (ctrl.chartData[pointIndex].chart ?? []).isEmpty
-            ? const SizedBox.shrink()
+            ?  Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: borderPinkColor.withOpacity(.3)),
+                borderRadius: BorderRadius.circular(5.r),
+                color: background_EBEBEB.withOpacity(.1)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            '${point.y}\n${point.x}'.appSwitzerTextStyle( fontWeight: FontWeight.w500,
+                fontFamily: 'Switzer',
+                fontColor: doteColor,
+                fontSize: 16.sp).paddingSymmetric(horizontal: 5.w)
+          ],
+        ),)
             : Container(
                 decoration: BoxDecoration(
                     border: Border.all(color: borderPinkColor.withOpacity(.3)),
@@ -310,7 +325,6 @@ class _StaticsScreenState extends State<StaticsScreen> {
                 ).paddingSymmetric(vertical: 6.w, horizontal: 8.w),
               );
       },
-      activationMode: ActivationMode.singleTap,
       enable: true,
     );
   }

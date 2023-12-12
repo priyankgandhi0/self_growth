@@ -28,6 +28,7 @@ class StaticsController extends GetxController {
     Assets.icons.work.path,
     Assets.icons.family.path,
   ];
+
   List<ChartData> chartData = [];
   getFeelingsList() async {
     chartData.clear();
